@@ -10,7 +10,8 @@ class Dashboard extends React.Component {
         super(props);
 
         this.state = {
-            sessionCode: null
+            sessionCode: null,
+            cards: null
         }
 
         this.socket = SocketIOClient('http://localhost:8080');
@@ -30,12 +31,28 @@ class Dashboard extends React.Component {
                 }
             })
         }.bind(this))
+        this.socket.on('updateCards', function(cards) {
+            console.log(cards);
+            this.setState(function() {
+                return {
+                    cards: cards
+                }
+            })
+        }.bind(this))
+        
     }
 
     render() {
         return (
-            <div>
-                <TwentyOne sessionCode={this.state.sessionCode} Component={TwentyOne}/>
+            <div className='container'>
+                {!this.state.sessionCode
+                    ? <p>Loading</p>
+                    : <TwentyOne 
+                        sessionCode={this.state.sessionCode} 
+                        cards = {this.state.cards}
+                        Component={TwentyOne}
+                    />
+                }
             </div>
         )
     }

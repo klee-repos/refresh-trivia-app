@@ -11,7 +11,7 @@ function FlipComponent(props) {
 class Home extends React.Component {
 
     constructor(props){
-        super();
+        super(props);
     
         this.state = {
           user: null
