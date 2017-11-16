@@ -14,7 +14,12 @@ class Dashboard extends React.Component {
             cards: null
         }
 
-        this.socket = SocketIOClient(window.location.hostname);
+        if (window.location.hostname === 'localhost') {
+            this.socket = SocketIOClient('http://localhost:8080');
+        } else {
+            this.socket = SocketIOClient(window.location.hostname);
+        }
+        
         console.log(window.location);
 
     }

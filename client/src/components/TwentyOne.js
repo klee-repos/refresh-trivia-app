@@ -37,8 +37,11 @@ class TwentyOne extends React.Component {
           sessionCode: null
         }
 
-        this.socket = SocketIOClient('http://localhost:8080');
-
+        if (window.location.hostname === 'localhost') {
+            this.socket = SocketIOClient('http://localhost:8080');
+        } else {
+            this.socket = SocketIOClient(window.location.hostname);
+        }
         
     }
 
