@@ -1,5 +1,4 @@
 var React = require('react');
-var SocketIOClient = require('socket.io-client');
 
 function Hand(props) {
     return (
@@ -20,9 +19,10 @@ function Hand(props) {
                     </span>
                 )
             })}
-            <h4>Results</h4>
-            <span className='result'>{props.cards.result !== null && 
-                <p>{props.cards.result}</p>
+            <span className='result'>
+                {!props.cards.result 
+                    ? <div></div>
+                    : <div><h4>Results</h4><p>{props.cards.result}</p></div>
             }</span>
         </div>
     )
@@ -35,12 +35,6 @@ class TwentyOne extends React.Component {
     
         this.state = {
           sessionCode: null
-        }
-
-        if (window.location.hostname === 'localhost') {
-            this.socket = SocketIOClient('http://localhost:8080');
-        } else {
-            this.socket = SocketIOClient(window.location.hostname);
         }
         
     }
