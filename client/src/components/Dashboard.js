@@ -14,7 +14,8 @@ class Dashboard extends React.Component {
             cards: null
         }
 
-        this.socket = SocketIOClient('https://refresh-dashboard-prod.herokuapp.com/');
+        this.socket = SocketIOClient(window.location.hostname);
+        console.log(window.location);
 
     }
 
