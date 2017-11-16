@@ -40,7 +40,7 @@ class Home extends React.Component {
             <div>
                 <div className='row>'>
                 {!this.state.user
-                    ? <p>Loading</p>
+                    ? <p>Loading...</p>
                     : <FlipComponent user={this.state.user}/>
                 }
                 </div>
