@@ -52,7 +52,7 @@ class Dashboard extends React.Component {
         return (
             <div className='container'>
                 {!this.state.sessionCode
-                    ? <p>Loading</p>
+                    ? <p>Loading...</p>
                     : <TwentyOne 
                         sessionCode={this.state.sessionCode} 
                         cards = {this.state.cards}
