@@ -1,7 +1,12 @@
 {
-  "name": "refresh-dashboard-app-client",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": {
+    "/test/gavin": {
+      "target":"http://localhost:8080"
+    }
+  },
   "dependencies": {
     "axios": "^0.17.1",
     "react": "^16.1.1",
