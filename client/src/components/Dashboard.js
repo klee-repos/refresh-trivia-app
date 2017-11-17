@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <Container style={{marginTop:'7em'}}>
-                    <span>Session code<Header as='h3' color='red'>{this.state.sessionCode}</Header></span>
+                    {this.state.sessionCode && <span>Session code<Header as='h3' color='red'>{this.state.sessionCode}</Header></span>}
                 </Container>
                 <Container style={{marginTop:'2em'}}>
                     <Grid columns={2}>
@@ -73,7 +73,7 @@ class Dashboard extends React.Component {
                         }
                         </Grid.Column>
                         <Grid.Column>
-                            <Header as='h3'>App placeholder</Header>
+                            <Header as='h3' color='grey'>App placeholder</Header>
                         </Grid.Column>   
                     </Grid>
                 </Container>

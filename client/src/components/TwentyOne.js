@@ -4,41 +4,34 @@ var React = require('react');
 var Container = require('semantic-ui-react').Container;
 var Grid = require('semantic-ui-react').Grid;
 var Header = require('semantic-ui-react').Header;
+var Image = require('semantic-ui-react').Image;
 
 function Hand(props) {
     return (
         <div>
             <Container style={{marginTop:'2em'}}>
-                <Grid>
+                <Grid columns={1} padded>
                     <Grid.Row>
-                        <Grid.Column>
-                            <Header as='h4'>Player</Header>
-                        </Grid.Column>
+                        <Header as='h4'>Player</Header>  
                     </Grid.Row>
                     <Grid.Row>
                         {props.cards.playerHand.cards.map(function(card) {
                             return (
-                                <Grid.Column>
-                                <span className='hand' key={card}>
-                                    {card}
-                                </span>
-                                </Grid.Column>
+                                <div key={card}>
+                                    <Image src={require(`../img/${card}.png`)}/> 
+                                </div>
                             )
                         })}
                     </Grid.Row>
                     <Grid.Row>
-                        <Grid.Column>
-                            <Header as='h4'>Dealer</Header>
-                        </Grid.Column>
+                        <Header as='h4'>Dealer</Header>
                     </Grid.Row>
                     <Grid.Row>
                         {props.cards.dealerHand.cards.map(function(card) {
                             return (
-                                <Grid.Column>
-                                <span className='hand' key={card}>
-                                    {card}
-                                </span>
-                                </Grid.Column>
+                                <div key={card}>
+                                    <Image src={require(`../img/${card}.png`)}/> 
+                                </div>
                             )   
                         })}
                     </Grid.Row>
@@ -74,6 +67,7 @@ class TwentyOne extends React.Component {
             <div>
                 <Container>
                     <Header as='h3' color='grey'>Twenty One </Header>
+                    
                         {!this.props.cards
                             ? <p>No hand</p>
                             : <Hand cards={this.props.cards}/>
