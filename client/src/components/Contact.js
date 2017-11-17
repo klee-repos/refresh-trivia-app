@@ -1,10 +1,15 @@
 
 var React = require('react');
 
+// Semantic UI
+var Container = require('semantic-ui-react').Container;
+
 function Contact() {
     return (
-        <div className='container'>
-            Contact Us
+        <div>
+            <Container>
+                Contact Us
+            </Container>
         </div>
     )
 }

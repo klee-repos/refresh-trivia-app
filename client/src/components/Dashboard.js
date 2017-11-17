@@ -17,7 +17,8 @@ class Dashboard extends React.Component {
 
         this.state = {
             sessionCode: null,
-            cards: null
+            cards: null,
+            visible: false
         }
 
         if (window.location.hostname === 'localhost') {
@@ -53,29 +54,34 @@ class Dashboard extends React.Component {
         }.bind(this))
         
     }
-
+    
     render() {
         return (
             <div>
-                <Container style={{marginTop:'7em'}}>
-                    {this.state.sessionCode && <span>Session code<Header as='h3' color='red'>{this.state.sessionCode}</Header></span>}
-                </Container>
-                <Container style={{marginTop:'2em'}}>
-                    <Grid columns={2}>
-                        <Grid.Column>
-                        {!this.state.sessionCode
-                            ? <p>Loading...</p>
-                            : <TwentyOne 
-                                sessionCode={this.state.sessionCode} 
-                                cards = {this.state.cards}
-                                Component={TwentyOne}
-                            />
-                        }
-                        </Grid.Column>
-                        <Grid.Column>
-                            <Header as='h3' color='grey'>App placeholder</Header>
-                        </Grid.Column>   
-                    </Grid>
+                <Container>
+                    <Grid.Row>
+                            {this.state.sessionCode && <span>Session code<Header as='h3' color='red'>{this.state.sessionCode}</Header></span>}
+                    </Grid.Row>
+                    <Grid.Row style={{marginTop:'1.5em'}}>
+                        <Grid columns={2}>
+                            <Grid.Column>
+                            {!this.state.sessionCode
+                                ? <p>Loading...</p>
+                                : <TwentyOne 
+                                    sessionCode={this.state.sessionCode} 
+                                    cards = {this.state.cards}
+                                    Component={TwentyOne}
+                                />
+                            }
+                            </Grid.Column>
+                            <Grid.Column>
+                                {!this.state.sessionCode
+                                    ? <p></p>
+                                    : <Header as='h3' color='grey'>App placeholder</Header>
+                                }
+                            </Grid.Column> 
+                        </Grid>
+                    </Grid.Row>
                 </Container>
             </div>
         )

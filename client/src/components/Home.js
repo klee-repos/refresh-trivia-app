@@ -40,7 +40,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <Container style={{marginTop:'7em'}}>
+                <Container>
                 {!this.state.user
                     ? <p>Loading...</p>
                     : <FlipComponent user={this.state.user}/>

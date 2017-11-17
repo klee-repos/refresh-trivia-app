@@ -67,7 +67,6 @@ class TwentyOne extends React.Component {
             <div>
                 <Container>
                     <Header as='h3' color='grey'>Twenty One </Header>
-                    
                         {!this.props.cards
                             ? <p>No hand</p>
                             : <Hand cards={this.props.cards}/>
