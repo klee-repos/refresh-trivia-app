@@ -1,23 +1,35 @@
 var routes = require('express').Router();
+var Blackjack = require('./Blackjack');
+var blackjackGamesBySession = {};
 
-routes.get('/deal/:name', function(req, res) {
-    var blackjack = blackjackGamesBySession[req.params.name];
+routes.use(function(req, res, next){
+    //lookup blackjack for this request
+    //create blackjack if not yet created
+    if(!blackjackGamesBySession[req.sessionCode]){
+        console.log(req.sessionCode);
+        blackjackGamesBySession[req.sessionCode] = new Blackjack();
+    }
+    next();
+})
+
+routes.post('/deal/', function(req, res) {
+    var blackjack = blackjackGamesBySession[req.sessionCode];
     blackjack.startNewGame();
-    io.to(req.params.name).emit('updateCards', blackjack);
+    req.io.to(req.sessionCode).emit('updateCards', blackjack);
     res.send(blackjack);
 })
 
-routes.get('/hit/:name', function(req, res) {
-    var blackjack = blackjackGamesBySession[req.params.name];
+routes.post('/hit/', function(req, res) {
+    var blackjack = blackjackGamesBySession[req.sessionCode];
     blackjack.hit();
-    io.to(req.params.name).emit('updateCards', blackjack);
+    req.io.to(req.sessionCode).emit('updateCards', blackjack);
     res.send(blackjack);
 })
 
-routes.get('/stand/:name', function(req, res) {
-    var blackjack = blackjackGamesBySession[req.params.name];
+routes.post('/stand/', function(req, res) {
+    var blackjack = blackjackGamesBySession[req.sessionCode];
     blackjack.stand();
-    io.to(req.params.name).emit('updateCards', blackjack);
+    req.io.to(req.sessionCode).emit('updateCards', blackjack);
     res.send(blackjack);
 })
 

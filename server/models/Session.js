@@ -7,7 +7,7 @@ var sessionSchema = new mongoose.Schema(
 		began: {type:Date, default:Date.now},
 		name: Number,
 		amzUserId: String,
-		blackJack: Object
+		apps: [Object]
 	});
 
 var Session = mongoose.model('Session', sessionSchema);
@@ -18,8 +18,5 @@ Session.generateName = function() {
 	  resolve(Math.floor(Math.random() * (10000 - 1000)) + 1000); //The maximum is exclusive and the minimum is inclusive
 	})
 }
-
-
-
 
 module.exports = Session;

@@ -48,12 +48,12 @@ app.use(function (req, res, next) {
 
 
 
-var blackjackGamesBySession = {};
+var appsBySession = {};
 
 var findUniqueSessionCode = function(){
 	return new Promise(function(resolve,reject){
 		var sessionCode = Session.generateName().then(function(sessionCode){
-			if(!blackjackGamesBySession[sessionCode])
+			if(!appsBySession[sessionCode])
 				resolve(sessionCode);				
 			else
 				findUniqueSessionCode();
@@ -64,32 +64,26 @@ var findUniqueSessionCode = function(){
 io.on('connection',function(socket){
 	socket.on('startSession',function(){
 		findUniqueSessionCode().then(function(sessionCode){
-			blackjackGamesBySession[sessionCode] = new Blackjack();
 			socket.join(sessionCode);
 			socket.emit('sessionCode', sessionCode);
-			socket.on('disconnect',function(){
-				delete blackjackGamesBySession[sessionCode];
-			});
 		});
 	})
 });
 
 var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
-app.use('/blackjack/', blackjackRoutes);
 
-app.post('/connect', function(req, res) {
-	var sessionCode = req.body.sessionCode;
-	if(blackjackGamesBySession[sessionCode])
-		res.send({"found":true})
-	else
-		res.send({"found":false});
-});
+//TODO: Really only app routes
+app.use('/apps', function(req,res,next){  
+	req.sessionCode = req.body.sessionCode;
+	req.io = io;
+	next();
+}) 
 
+app.use('/apps/blackjack/', blackjackRoutes);
 
 app.get('/test/:name', function(req,res){
     res.send({user:req.params.name})
 });
-
 
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
