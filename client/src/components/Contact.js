@@ -1,17 +1,17 @@
 
-var React = require('react');
+import React from 'react';
 
 // Semantic UI
-var Container = require('semantic-ui-react').Container;
+import {Container} from 'semantic-ui-react';
 
 function Contact() {
     return (
         <div>
-            <Container>
+            <Container style={{marginTop:'5em'}}>
                 Contact Us
             </Container>
         </div>
     )
 }
 
-module.exports = Contact;
+export default Contact;

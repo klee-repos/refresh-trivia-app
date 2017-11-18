@@ -1,12 +1,9 @@
-var React = require('react');
 
-// Semantic UI
-var Menu = require('semantic-ui-react').Menu;
-var Input = require('semantic-ui-react').Input;
-var Container = require('semantic-ui-react').Container;
-var Icon = require('semantic-ui-react').Icon;
+import React, {Component} from 'react';
 
-class Nav extends React.Component {
+import {Menu, Container, Icon, Header} from 'semantic-ui-react';
+
+class Nav extends Component {
 
     constructor(props) {
         super(props);
@@ -22,47 +19,27 @@ class Nav extends React.Component {
     render() {
         const { activeItem } = this.state;
         return (
-            <Menu fixed='top' borderless>
+            <Menu fixed='top' borderless size='large'>
             <Container>
-                <Menu.Item
-                    name='microphone'
-                    active={activeItem === 'microphone'}
-                    onClick={this.handleItemClick}
-                >
-                    <Icon name='microphone' />
+                <Menu.Item>
+                    {this.props.sessionCode && <span>Session code<Header as='h4' color='red'>{this.props.sessionCode}</Header></span>}
                 </Menu.Item>
-        
-                <Menu.Item
-                    name='beer'
-                    active={activeItem === 'beer'}
-                    onClick={this.handleItemClick}
-                >
-                    <Icon name='beer' />
-                </Menu.Item>
-        
-                <Menu.Item
-                    name='envelope'
-                    active={activeItem === 'envelope'}
-                    onClick={this.handleItemClick}
-                >
-                    <Icon name='envelope' />
-                </Menu.Item>
-                <Menu.Menu position='right'>
+                <Menu.Menu position='right' style={{marginRight:'7em'}}>
                     <Menu.Item>
-                        <Icon name='setting' />
+                        <Icon name='home' />
                     </Menu.Item>
                     <Menu.Item>
-                        <Input icon='search' placeholder='Search...' />
+                        <Icon name='setting' />
                     </Menu.Item>
                     <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick}>
                         Logout
                     </Menu.Item>
                 </Menu.Menu>
-            </Container>
+            </Container>    
           </Menu>
         )
     }
 
 }
 
-module.exports = Nav;
+export default Nav;

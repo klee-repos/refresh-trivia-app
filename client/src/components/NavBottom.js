@@ -1,20 +1,13 @@
-var React = require('react');
+import React, {Component} from 'react';
 
-// Semantic UI
-var Menu = require('semantic-ui-react').Menu;
-var Container = require('semantic-ui-react').Container;
-var Icon = require('semantic-ui-react').Icon;
+import {Menu, Container, Icon} from 'semantic-ui-react';
 
-class NavBottom extends React.Component {
-
+class NavBottom extends Component {
     render() {
         return (
             <Menu fixed='bottom' borderless>
             <Container>
-                <Menu.Menu position='right'>
-                    <Menu.Item>
-                        <Icon name='home' />
-                    </Menu.Item>
+                <Menu.Menu position='right' style={{marginRight:'7em'}}>
                     <Menu.Item>
                         <Icon name='copyright' />Refresh Labs
                     </Menu.Item>
@@ -23,7 +16,6 @@ class NavBottom extends React.Component {
           </Menu>
         )
     }
-
 }
 
-module.exports = NavBottom;
+export default NavBottom;
