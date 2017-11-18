@@ -15,21 +15,21 @@ routes.use(function(req, res, next){
 routes.post('/deal/', function(req, res) {
     var blackjack = blackjackGamesBySession[req.sessionCode];
     blackjack.startNewGame();
-    req.io.to(req.sessionCode).emit('updateCards', blackjack);
+    req.io.emit('updateCards', blackjack);
     res.send(blackjack);
 })
 
 routes.post('/hit/', function(req, res) {
     var blackjack = blackjackGamesBySession[req.sessionCode];
     blackjack.hit();
-    req.io.to(req.sessionCode).emit('updateCards', blackjack);
+    req.io.emit('updateCards', blackjack);
     res.send(blackjack);
 })
 
 routes.post('/stand/', function(req, res) {
     var blackjack = blackjackGamesBySession[req.sessionCode];
     blackjack.stand();
-    req.io.to(req.sessionCode).emit('updateCards', blackjack);
+    req.io.emit('updateCards', blackjack);
     res.send(blackjack);
 })
 
