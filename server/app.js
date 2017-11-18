@@ -1,6 +1,3 @@
-
-'use strict';
-
 var path = require('path');
 var express = require('express');
 var app = express();
@@ -15,7 +12,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-var Blackjack = require('./models/Blackjack');
 var Session = require('./models/Session');
 
 
@@ -78,6 +74,9 @@ io.on('connection',function(socket){
 	})
 });
 
+var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
+app.use('/blackjack/', blackjackRoutes);
+
 app.post('/connect', function(req, res) {
 	var sessionCode = req.body.sessionCode;
 	if(blackjackGamesBySession[sessionCode])
@@ -85,27 +84,6 @@ app.post('/connect', function(req, res) {
 	else
 		res.send({"found":false});
 });
-
-app.get('/deal/:name', function(req, res) {
-		var blackjack = blackjackGamesBySession[req.params.name];
-		blackjack.startNewGame();
-		io.to(req.params.name).emit('updateCards', blackjack);
-		res.send(blackjack);
-})
-
-app.get('/hit/:name', function(req, res) {
-		var blackjack = blackjackGamesBySession[req.params.name];
-		blackjack.hit();
-		io.to(req.params.name).emit('updateCards', blackjack);
-		res.send(blackjack);
-})
-
-app.get('/stand/:name', function(req, res) {
-		var blackjack = blackjackGamesBySession[req.params.name];
-		blackjack.stand();
-		io.to(req.params.name).emit('updateCards', blackjack);
-		res.send(blackjack);
-})
 
 
 app.get('/test/:name', function(req,res){
