@@ -77,19 +77,25 @@ function Blackjack(){
 	    	if(handValue(game.dealerHand.cards) == 21)
 	    	{
 	    		game.dealerHand.blackjack = true;
-	    		if(game.playerHand.blackjack)
+	    		if(game.playerHand.blackjack){
 	    			resolve(game.result = "Push");
-	    		else
-	    			resolve(game.result = "Dealer wins - Blackjack");
+					return;					
+				}
+	    		else{
+					resolve(game.result = "Dealer wins - Blackjack");
+					return;
+				}
 	    	}
 
 	    	//Player wins blackjack
-	    	if(game.playerHand.blackjack)
-    			resolve(game.result = "Player wins - Blackjack")
+	    	if(game.playerHand.blackjack){
+				resolve(game.result = "Player wins - Blackjack");
+				return;
+			}
 	    	
 
 	    	if(game.playerHand.bust){
-	    		resolve(game.result = "Player lose - Bust");
+				resolve(game.result = "Player lose - Bust");
 	    	}else{
 	    		//Play out dealer hand
 				while(handValue(game.dealerHand.cards) <=16){
