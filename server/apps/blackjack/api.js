@@ -6,7 +6,6 @@ routes.use(function(req, res, next){
     //lookup blackjack for this request
     //create blackjack if not yet created
     if(!blackjackGamesBySession[req.sessionCode]){
-        console.log(req.sessionCode);
         blackjackGamesBySession[req.sessionCode] = new Blackjack();
     }
     next();

@@ -75,7 +75,7 @@ var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate a
 //TODO: Really only app routes
 app.use('/apps', function(req,res,next){  
 	req.sessionCode = req.body.sessionCode;
-	req.io = io.to(sessionCode);
+	req.io = io.to(req.sessionCode);
 	next();
 }) 
 
