@@ -2,6 +2,7 @@
 var React = require('react');
 var testApi = require('../utils/testApi');
 
+// Semantic UI
 var Container = require('semantic-ui-react').Container;
 
 function FlipComponent(props) {
@@ -40,7 +41,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <Container>
+                <Container style={{marginTop:'4em'}}>
                 {!this.state.user
                     ? <p>Loading...</p>
                     : <FlipComponent user={this.state.user}/>

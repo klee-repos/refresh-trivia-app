@@ -25,18 +25,13 @@ class Dashboard extends React.Component {
         } else {
             this.socket = SocketIOClient(window.location.hostname);
         }
-        
-        console.log(window.location);
-
     }
 
     componentDidMount() {
         this.socket.on('connect', function(){
-            console.log('Web browser connected');
             this.socket.emit('startSession', 'startSession');
         }.bind(this));
         this.socket.on('sessionCode', function(code){
-            console.log("Session code is " + code);
             this.setState(function() {
                 return {
                     sessionCode: code
@@ -57,30 +52,30 @@ class Dashboard extends React.Component {
     render() {
         return (
             <div>
-                <Container>
-                    <Grid.Row>
-                            {this.state.sessionCode && <span>Session code<Header as='h3' color='red'>{this.state.sessionCode}</Header></span>}
-                    </Grid.Row>
-                    <Grid.Row style={{marginTop:'1.5em'}}>
-                        <Grid columns={2}>
-                            <Grid.Column>
+                <Container style={{marginTop:'4em'}}>
+                <Grid.Row>
+                        {this.state.sessionCode && <span>Session code<Header as='h3' color='red'>{this.state.sessionCode}</Header></span>}
+                </Grid.Row>
+                <Grid.Row style={{marginTop:'1.5em'}}>
+                    <Grid columns={2}>
+                        <Grid.Column>
+                        {!this.state.sessionCode
+                            ? <p>Loading...</p>
+                            : <TwentyOne 
+                                sessionCode={this.state.sessionCode} 
+                                cards = {this.state.cards}
+                                Component={TwentyOne}
+                            />
+                        }
+                        </Grid.Column>
+                        <Grid.Column>
                             {!this.state.sessionCode
-                                ? <p>Loading...</p>
-                                : <TwentyOne 
-                                    sessionCode={this.state.sessionCode} 
-                                    cards = {this.state.cards}
-                                    Component={TwentyOne}
-                                />
+                                ? <p></p>
+                                : <Header as='h3' color='grey'>App placeholder</Header>
                             }
-                            </Grid.Column>
-                            <Grid.Column>
-                                {!this.state.sessionCode
-                                    ? <p></p>
-                                    : <Header as='h3' color='grey'>App placeholder</Header>
-                                }
-                            </Grid.Column> 
-                        </Grid>
-                    </Grid.Row>
+                        </Grid.Column> 
+                    </Grid>
+                </Grid.Row>
                 </Container>
             </div>
         )

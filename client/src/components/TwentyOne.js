@@ -9,7 +9,7 @@ var Image = require('semantic-ui-react').Image;
 function Hand(props) {
     return (
         <div>
-            <Container style={{marginTop:'2em'}}>
+            <Container style={{marginTop:'2em'}} fluid>
                 <Grid columns={1} padded>
                     <Grid.Row>
                         <Header as='h4'>Player</Header>  
