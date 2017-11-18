@@ -62,12 +62,17 @@ var findUniqueSessionCode = function(){
 }
 
 io.on('connection',function(socket){
-	socket.on('startSession',function(){
-		findUniqueSessionCode().then(function(sessionCode){
-			socket.join(sessionCode);
-			socket.emit('sessionCode', sessionCode);
-		});
-	})
+	socket.on('startSession',function(requestedCode){
+		if(requestedCode){
+			socket.join(requestedCode)
+			socket.emit('sessionCode', requestedCode);		
+		}else{
+			findUniqueSessionCode().then(function(sessionCode){
+				socket.join(sessionCode);
+				socket.emit('sessionCode', sessionCode);
+			});
+		}
+	});
 });
 
 var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 

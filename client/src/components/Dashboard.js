@@ -1,5 +1,3 @@
-
-
 var React = require('react');
 var SocketIOClient = require('socket.io-client');
 
@@ -29,10 +27,11 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
         this.socket.on('connect', function(){
-            this.socket.emit('startSession', 'startSession');
+            this.socket.emit('startSession', localStorage.getItem('sessionCode'));
         }.bind(this));
         this.socket.on('sessionCode', function(code){
             this.setState(function() {
+                localStorage.setItem('sessionCode',code);
                 return {
                     sessionCode: code
                 }
