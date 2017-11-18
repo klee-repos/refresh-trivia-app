@@ -18,7 +18,6 @@ class Dashboard extends React.Component {
         this.state = {
             sessionCode: null,
             cards: null,
-            visible: false
         }
 
         if (window.location.hostname === 'localhost') {
