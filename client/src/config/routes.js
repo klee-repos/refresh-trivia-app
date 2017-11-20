@@ -1,19 +1,20 @@
 
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import {MainContainer, DashboardContainer} from '../containers';
+import {MainContainer, DashboardContainer, HomeContainer} from '../containers';
 
 
 const routes = (
     <Router>
-        <MainContainer>
-            <Switch>
-                <Route exact path='/' component={DashboardContainer} />
-                <Route render={function() {
-                return <p>Not Found</p>
-                }} />
-            </Switch>
-        </MainContainer>
+        <Switch>
+            <Route exact path='/' component={HomeContainer} />
+            <MainContainer>
+                <Route path='/dashboard' component={DashboardContainer} />
+            </MainContainer>
+            <Route render={function() {
+            return <p>Not Found</p>
+            }} />
+        </Switch>
     </Router>
 )
 
