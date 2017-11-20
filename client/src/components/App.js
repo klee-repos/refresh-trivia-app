@@ -3,11 +3,7 @@
 import React, { Component } from 'react';
 
 // React Router Dom
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 //Socket.io
 import SocketIOClient from 'socket.io-client';

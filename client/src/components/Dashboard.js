@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Grid} from 'semantic-ui-react';
-import TwentyOne from './TwentyOne';
-import AppList from './AppList';
+import TwentyOne from './apps/blackjack/TwentyOne';
+import AppList from './apps/AppList';
 
 import {connect} from 'react-redux';
 

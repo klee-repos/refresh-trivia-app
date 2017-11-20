@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, Button} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux'
-import * as appActionCreators from '../redux/modules/apps';
+import * as appActionCreators from '../../redux/modules/apps';
 
 class AppList extends React.Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class AppList extends React.Component {
     }
 
     handleClick() {
-        {this.props.openBlackjack()};
+        this.props.openBlackjack();
     }
 
     render() {
