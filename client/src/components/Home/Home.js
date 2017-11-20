@@ -1,9 +1,9 @@
 
-var React = require('react');
-var testApi = require('../utils/testApi');
+import React, {Component} from 'react';
+import testApi from '../utils/testApi';
 
 // Semantic UI
-var Container = require('semantic-ui-react').Container;
+import {Container} from 'semantic-ui-react';
 
 function FlipComponent(props) {
     return (
@@ -11,7 +11,7 @@ function FlipComponent(props) {
     )
 }
 
-class Home extends React.Component {
+class Home extends Component {
 
     constructor(props){
         super(props);
@@ -53,4 +53,4 @@ class Home extends React.Component {
 
 }
 
-module.exports = Home;
+export default Home;
