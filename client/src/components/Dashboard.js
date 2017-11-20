@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Container, Grid, Header} from 'semantic-ui-react';
+import {Container, Grid} from 'semantic-ui-react';
 import TwentyOne from './TwentyOne';
 import AppList from './AppList';
+
+import {connect} from 'react-redux';
 
 
 class Dashboard extends Component {
@@ -11,11 +13,7 @@ class Dashboard extends Component {
 
         this.state = {
             sessionCode: null,
-            socket: null,
-            apps: {
-                blackjack: false,
-                appList: true
-            }
+            socket: null
         }
         this.grabProps = this.grabProps.bind(this);
     }
@@ -42,11 +40,11 @@ class Dashboard extends Component {
                     : <Grid.Row style={{marginTop:'1.5em'}}>
                         <Grid columns={2}>
                             <Grid.Column>
-                                {this.state.apps.appList
+                                {this.props.appList
                                     ? <AppList />
                                     : <p></p>
                                 }
-                                {this.state.apps.blackjack
+                                {this.props.blackjack
                                     ? <TwentyOne 
                                         sessionCode={this.state.sessionCode}
                                         socket={this.state.socket} 
@@ -64,4 +62,11 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard;
+function mapStateToProps(state) {
+    return {
+        appList: state.appList,
+        blackjack: state.blackjack,
+    }
+}
+
+export default connect(mapStateToProps)(Dashboard);

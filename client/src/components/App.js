@@ -6,22 +6,15 @@ import React, { Component } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    NavLink
+    Route
 } from 'react-router-dom';
 
 //Socket.io
 import SocketIOClient from 'socket.io-client';
 
-// Semantic UI
-import {Sidebar, Segment, Menu, Header, Icon} from 'semantic-ui-react';
-
 // Routes
 import Dashboard from './Dashboard';
 import NavBottom from './NavBottom';
-import Nav from './Nav';
-import Contact from './Contact';
-import Home from './Home';
 
 class App extends Component {
 

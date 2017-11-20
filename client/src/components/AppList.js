@@ -1,33 +1,42 @@
-var React = require('react');
-var NavLink = require('react-router-dom').NavLink;
-
-var Card = require('semantic-ui-react').Card
-
-var apps = ['Blackjack'];
+import React from 'react';
+import {Card, Button} from 'semantic-ui-react';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux'
+import * as appActionCreators from '../redux/modules/apps';
 
 class AppList extends React.Component {
-        render() {
-            return (
-                <div>
-                    {apps.map(function(app){
-                        return (
-                        <Card key={app}>
-                        <Card.Content>
-                            <Card.Header>{app}</Card.Header>
-                            <Card.Description>{app}</Card.Description>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <NavLink to="/dashboard/blackjack">
-                                Open this app
-                            </NavLink>
-                        </Card.Content>
-                        </Card>
-                        )
-                    })}
-                </div>
-            )
-        }
+    constructor(props) {
+        super(props)
+
+        this.handleClick = this.handleClick.bind(this);
     
     }
 
-module.exports = AppList;
+    handleClick() {
+        {this.props.openBlackjack()};
+    }
+
+    render() {
+        return (
+            <Card>
+                <Card.Content header ='Twenty-One' textAlign='center' />
+                <Card.Content textAlign='center'>
+                    <Button content='Open' onClick={this.handleClick} />
+                </Card.Content>
+            </Card>
+        )
+    }    
+}
+
+function mapStateToProps(state) {
+    return {
+        appList: state.appList,
+        blackjack: state.blackjack,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(appActionCreators, dispatch);
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AppList);
