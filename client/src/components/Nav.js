@@ -22,7 +22,7 @@ class Nav extends Component {
             <Menu fixed='top' borderless size='large'>
             <Container>
                 <Menu.Item>
-                    {this.props.sessionCode && <span>Session code<Header as='h4' color='red'>{this.props.sessionCode}</Header></span>}
+                    
                 </Menu.Item>
                 <Menu.Menu position='right' style={{marginRight:'7em'}}>
                     <Menu.Item>

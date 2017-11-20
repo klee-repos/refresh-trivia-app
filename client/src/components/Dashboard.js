@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Container, Grid, Header} from 'semantic-ui-react';
 import TwentyOne from './TwentyOne';
+import AppList from './AppList';
+
 
 class Dashboard extends Component {
 
@@ -9,15 +11,17 @@ class Dashboard extends Component {
 
         this.state = {
             sessionCode: null,
-            socket: null
+            socket: null,
+            apps: {
+                blackjack: false,
+                appList: true
+            }
         }
-
         this.grabProps = this.grabProps.bind(this);
     }
 
     grabProps() {
         this.setState(function() {
-            console.log(this.props.sessionCode);
             return {
                 sessionCode: this.props.sessionCode,
                 socket: this.props.socket
@@ -38,15 +42,19 @@ class Dashboard extends Component {
                     : <Grid.Row style={{marginTop:'1.5em'}}>
                         <Grid columns={2}>
                             <Grid.Column>
-                                <TwentyOne 
-                                    sessionCode={this.state.sessionCode}
-                                    socket={this.state.socket} 
-                                    Component={TwentyOne}
-                                />
+                                {this.state.apps.appList
+                                    ? <AppList />
+                                    : <p></p>
+                                }
+                                {this.state.apps.blackjack
+                                    ? <TwentyOne 
+                                        sessionCode={this.state.sessionCode}
+                                        socket={this.state.socket} 
+                                        Component={TwentyOne}
+                                    />
+                                    : <p></p>
+                                }
                             </Grid.Column>
-                            <Grid.Column>
-                                <Header as='h3' color='grey'>App placeholder</Header>
-                            </Grid.Column> 
                         </Grid>
                     </Grid.Row>
                 }

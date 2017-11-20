@@ -41,6 +41,7 @@ class App extends Component {
     }
 
     componentDidMount() {
+
         this.socket.on('connect', function(){
             this.socket.emit('startSession', localStorage.getItem('sessionCode'));
             this.setState(function() {
@@ -63,47 +64,16 @@ class App extends Component {
         return (
             <Router>
                 <div>
-                    <Sidebar.Pushable as={Segment}>
-                        <Sidebar as={Menu} visible width='thin' vertical inverted>
-                            <Menu.Item> 
-                            <NavLink to='/'>
-                            <Header as='h3' color='olive'>
-                                <Icon name='refresh' />
-                                <Header.Content>
-                                    Refresh Labs
-                                </Header.Content>
-                            </Header>
-                            </NavLink>
-                            </Menu.Item> 
-                            <Menu.Item>
-                                <NavLink to='/dashboard'>
-                                    <Header as='h4' inverted>Dashboard</Header>
-                                </NavLink>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <NavLink to='/contact'>
-                                    <Header as='h4' inverted>Contact Us</Header>
-                                </NavLink>
-                            </Menu.Item>
-                        </Sidebar>
-                        {!this.state.sessionCode
-                            ? <p>Loading</p>
-                            : <Sidebar.Pusher>
-                            <Nav sessionCode={this.state.sessionCode}/>
-                            <Segment style={{height:'100vh'}} attached>
-                                <Switch>
-                                    <Route exact path='/' component={Home} />
-                                    <Route path='/dashboard' render={() => (<Dashboard sessionCode={this.state.sessionCode} socket={this.state.socket}/>)} />
-                                    <Route path='/contact' component={Contact} />
-                                    <Route render={function() {
-                                    return <p>Not Found</p>
-                                    }} />
-                                </Switch>
-                            </Segment>
-                            <NavBottom />
-                            </Sidebar.Pusher> 
-                        }  
-                    </Sidebar.Pushable>     
+                    {!this.state.sessionCode
+                        ? <p>Loading</p>
+                        : <Switch>
+                            <Route exact path='/' render={() => (<Dashboard sessionCode={this.state.sessionCode} socket={this.state.socket}/>)} />
+                            <Route render={function() {
+                            return <p>Not Found</p>
+                            }} />
+                        </Switch>
+                    }  
+                    <NavBottom sessionCode={this.state.sessionCode}/>     
                 </div>
             </Router>
         )
