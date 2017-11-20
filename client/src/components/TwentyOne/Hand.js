@@ -12,9 +12,9 @@ export default function Hand(props) {
                         <Header as='h4'>Player</Header>  
                     </Grid.Row>
                     <Grid.Row>
-                        {props.cards.playerHand.cards.map(function(card) {
+                        {props.cards.playerHand.cards.map(function(card, idx) {
                             return (
-                                <div key={card}>
+                                <div key={idx}>
                                     <Image src={require(`./img/${card}.png`)}/> 
                                 </div>
                             )
@@ -24,9 +24,9 @@ export default function Hand(props) {
                         <Header as='h4'>Dealer</Header>
                     </Grid.Row>
                     <Grid.Row>
-                        {props.cards.dealerHand.cards.map(function(card) {
+                        {props.cards.dealerHand.cards.map(function(card, idx) {
                             return (
-                                <div key={card}>
+                                <div key={idx}>
                                     <Image src={require(`./img/${card}.png`)}/> 
                                 </div>
                             )   
