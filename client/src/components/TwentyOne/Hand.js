@@ -15,7 +15,7 @@ export default function Hand(props) {
                         {props.cards.playerHand.cards.map(function(card, idx) {
                             return (
                                 <div key={idx}>
-                                    <Image src={require(`../img/${card}.png`)}/> 
+                                    <Image src={require(`./img/${card}.png`)}/> 
                                 </div>
                             )
                         })}
@@ -27,7 +27,7 @@ export default function Hand(props) {
                         {props.cards.dealerHand.cards.map(function(card, idx) {
                             return (
                                 <div key={idx}>
-                                    <Image src={require(`../img/${card}.png`)}/> 
+                                    <Image src={require(`./img/${card}.png`)}/> 
                                 </div>
                             )   
                         })}
