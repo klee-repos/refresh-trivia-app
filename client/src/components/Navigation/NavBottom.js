@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 
+import {connect} from 'react-redux';
+
 import {Menu, Container, Icon, Header} from 'semantic-ui-react';
 
 class NavBottom extends Component {
-
     render() {
         return (
             <div>
@@ -27,5 +28,11 @@ class NavBottom extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        sessionCode: state.sessionCode,
+        socket: state.socket,
+    }
+}
 
-export default NavBottom;
+export default connect(mapStateToProps)(NavBottom);

@@ -1,8 +1,9 @@
 
-import React, {Component} from 'react';
+import React from 'react';
+
 import {Container, Grid, Header, Image} from 'semantic-ui-react';
 
-function Hand(props) {
+export default function Hand(props) {
     return (
         <div>
             <Container style={{marginTop:'2em'}} fluid>
@@ -14,7 +15,7 @@ function Hand(props) {
                         {props.cards.playerHand.cards.map(function(card) {
                             return (
                                 <div key={card}>
-                                    <Image src={require(`../img/${card}.png`)}/> 
+                                    <Image src={require(`./img/${card}.png`)}/> 
                                 </div>
                             )
                         })}
@@ -26,7 +27,7 @@ function Hand(props) {
                         {props.cards.dealerHand.cards.map(function(card) {
                             return (
                                 <div key={card}>
-                                    <Image src={require(`../img/${card}.png`)}/> 
+                                    <Image src={require(`./img/${card}.png`)}/> 
                                 </div>
                             )   
                         })}
@@ -41,47 +42,7 @@ function Hand(props) {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-            
             </Container>
         </div>
     )
 }
-
-class TwentyOne extends Component {
-
-    constructor(props){
-        super(props);
-    
-        this.state = {
-            cards: null,
-        }
-    }
-
-    componentDidMount() {
-        this.props.socket.on('updateCards', function(cards) {
-            console.log(cards);
-            this.setState(function() {
-                return {
-                    cards: cards
-                }
-            })
-        }.bind(this))
-    }
-
-    render() {
-        return (
-            <div>
-                <Container>
-                    <Header as='h3' color='grey'>Twenty One </Header>
-                        {!this.state.cards
-                            ? <p>No hand</p>
-                            : <Hand cards={this.state.cards}/>
-                        }
-                </Container>
-            </div>
-        )
-    }
-
-}
-
-export default TwentyOne;

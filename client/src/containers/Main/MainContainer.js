@@ -1,22 +1,14 @@
-
-// React
-import React, { Component } from 'react';
-
-// React Router Dom
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from 'react-router-dom';
+import React from 'react';
+import {NavBottom} from '../../components/';
 
 //Socket.io
 import SocketIOClient from 'socket.io-client';
 
-// Routes
-import Dashboard from './Dashboard';
-import NavBottom from './NavBottom';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as dashboardActionCreators from '../../redux/modules/dashboard';
 
-class App extends Component {
+class MainContainer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -28,13 +20,14 @@ class App extends Component {
 
         if (window.location.hostname === 'localhost') {
             this.socket = SocketIOClient('http://localhost:8080');
+            this.props.setSocket(this.socket);
         } else {
             this.socket = SocketIOClient(window.location.hostname);
+            this.props.setSocket(this.socket);
         }
     }
 
     componentDidMount() {
-
         this.socket.on('connect', function(){
             this.socket.emit('startSession', localStorage.getItem('sessionCode'));
             this.setState(function() {
@@ -46,6 +39,7 @@ class App extends Component {
         this.socket.on('sessionCode', function(code){
             this.setState(function() {
                 localStorage.setItem('sessionCode',code);
+                this.props.setSessionCode(code);
                 return {
                     sessionCode: code
                 }
@@ -55,22 +49,21 @@ class App extends Component {
 
     render() {
         return (
-            <Router>
-                <div>
-                    {!this.state.sessionCode
-                        ? <p>Loading</p>
-                        : <Switch>
-                            <Route exact path='/' render={() => (<Dashboard sessionCode={this.state.sessionCode} socket={this.state.socket}/>)} />
-                            <Route render={function() {
-                            return <p>Not Found</p>
-                            }} />
-                        </Switch>
-                    }  
-                    <NavBottom sessionCode={this.state.sessionCode}/>     
-                </div>
-            </Router>
+            <div> 
+                {this.props.children}
+                <NavBottom />
+            </div>
         )
     }
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(dashboardActionCreators, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
