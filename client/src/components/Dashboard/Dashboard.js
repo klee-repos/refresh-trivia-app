@@ -3,24 +3,21 @@ import {connect} from 'react-redux';
 
 import {Container, Grid} from 'semantic-ui-react';
 
+import {QuadrantLayout} from '../../layouts';
+
 import {TwentyOneContainer} from '../../containers/';
+
+import ColorBlock from '../TestApp/ColorBlock.js'
 
 
 class Dashboard extends Component {
+
     render() {
+        var style = {"minHeight":"100%"}
         return (
-            <Container style={{marginTop:'2em'}}>
-            {!this.props.sessionCode
-                ? <p>Loading...</p>
-                : <Grid.Row style={{marginTop:'1.5em'}}>
-                    <Grid columns={3}>
-                    <Grid.Column>
-                        <TwentyOneContainer />
-                    </Grid.Column>
-                    </Grid>
-                </Grid.Row>
-            }
-            </Container>
+            <div style={style}>
+                <QuadrantLayout apps={[TwentyOneContainer,ColorBlock,TwentyOneContainer,TwentyOneContainer]}/>
+            </div>
         )
     }
 }
