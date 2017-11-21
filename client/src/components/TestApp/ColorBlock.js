@@ -1,10 +1,9 @@
 import React from 'react';
+import './ColorBlock.css'
 
 const ColorBlock = function(props){
-    var style = {"backgroundColor":"green", "height":"100%", "width": "100%"};
     return (
-        <div style={style}>
-        
+        <div className="ColorBlock">
         </div>
     )
 }
