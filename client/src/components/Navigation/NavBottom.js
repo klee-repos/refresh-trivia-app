@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import { NavLink } from 'react-router-dom'
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dashboardActionCreators from '../../redux/modules/dashboard';
@@ -31,24 +31,22 @@ class NavBottom extends Component {
             <div>
             {!this.props.sessionCode
                 ? <p></p>
-                : <Menu fixed='bottom' compact borderless>
+                : <Menu fixed='bottom' borderless icon='labeled'>
                     <Container>
                     <Menu.Item
                         active={this.props.twentyOne}
                         onClick={this.changeTwentyOne}
-                        
                     >
-                        <Icon name='game' size='large' centered/>
-                        Twenty-One
+                        <Icon name='game'/>
+                        <span style={{color:'#E83151'}}>"Open Twenty One"</span>
                     </Menu.Item>
                     <Menu.Menu position='right'>
-                        <Menu.Item
-                            onClick={this.loadHome}
-                        >
-                            <Icon name='home' size='large'/>
+                        <Menu.Item as={NavLink} exact to='/' style={{isActive:false}}>
+                            <Icon name='home'/>
+                            <span style={{color:'#E83151'}}>"Go Home"</span>
                         </Menu.Item>
                         <Menu.Item>
-                            {this.props.sessionCode && <span>Session code<Header as='h4' color='red'>{this.props.sessionCode}</Header></span>}
+                            {this.props.sessionCode && <span>Session code<Header as='h4' color='blue'>{this.props.sessionCode}</Header></span>}
                         </Menu.Item>
                     </Menu.Menu>
                 </Container>
