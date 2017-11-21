@@ -5,11 +5,12 @@ import {Container, Grid} from 'semantic-ui-react';
 
 import {TwentyOneContainer} from '../../containers/';
 
+import './Dashboard.css'
 
 class Dashboard extends Component {
     render() {
         return (
-            <Grid style={{marginTop:'2em'}} centered>
+            <Grid className="Dashboard" centered>
             {!this.props.sessionCode
                 ? <p>Loading...</p>
                 : <Grid.Row><TwentyOneContainer /></Grid.Row>
