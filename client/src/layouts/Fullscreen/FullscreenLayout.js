@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FullscreenLayout = function(props){
+const FullScreenLayout = function(props){
     const App = props.apps[0];
     return (
         <div>
@@ -9,4 +9,4 @@ const FullscreenLayout = function(props){
     )
 }
 
- export default FullscreenLayout;
+ export default FullScreenLayout;

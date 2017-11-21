@@ -25,9 +25,7 @@ class MainContainer extends React.Component {
             this.socket = SocketIOClient(window.location.hostname);
             this.props.setSocket(this.socket);
         }
-    }
 
-    componentDidMount() {
         this.socket.on('connect', function(){
             this.socket.emit('startSession', localStorage.getItem('sessionCode'));
             this.setState(function() {
@@ -36,6 +34,7 @@ class MainContainer extends React.Component {
                 }
             })
         }.bind(this));
+
         this.socket.on('sessionCode', function(code){
             this.setState(function() {
                 localStorage.setItem('sessionCode',code);
@@ -44,7 +43,26 @@ class MainContainer extends React.Component {
                     sessionCode: code
                 }
             })
+        }.bind(this));
+
+        this.socket.on('startTwentyOne', function() {
+            this.startTwentyOne();
         }.bind(this))
+
+        this.socket.on('stopTwentyOne', function() {
+            this.stopTwentyOne();
+        }.bind(this))
+
+        this.startTwentyOne = this.startTwentyOne.bind(this);
+        this.stopTwentyOne = this.stopTwentyOne.bind(this);
+    }
+
+    startTwentyOne() {
+        this.props.setTwentyOne(true);
+    }
+
+    stopTwentyOne() {
+        this.props.setTwentyOne(false);
     }
 
     render() {
@@ -59,6 +77,7 @@ class MainContainer extends React.Component {
 
 function mapStateToProps(state) {
     return {
+        twentyOne: state.twentyOne,
     }
 }
 

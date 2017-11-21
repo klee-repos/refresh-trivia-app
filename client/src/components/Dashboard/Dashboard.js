@@ -8,12 +8,20 @@ import {QuadrantLayout, FullScreenLayout} from '../../layouts';
 import {TwentyOneContainer} from '../../containers/';
 import {ColorBlock} from '../'
 
+import './Dashboard.css'
 
 class Dashboard extends Component {
 
     render() {
         return (
-            <QuadrantLayout apps={[TwentyOneContainer,ColorBlock,TwentyOneContainer,TwentyOneContainer]}/>
+            <Grid className="Dashboard" centered>
+                {!this.props.sessionCode
+                    ? <p>Loading...</p>
+                    : <Grid.Row>
+                        <FullScreenLayout apps={[TwentyOneContainer]}/>
+                    </Grid.Row>
+                }
+            </Grid>
         )
     }
 }
