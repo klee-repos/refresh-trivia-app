@@ -37,7 +37,7 @@ export function setSocket(socket) {
 const initialState = {
     sessionCode: null,
     socket: null,
-    twentyOne: false,
+    twentyOne: false
 }
 
 export default function apps (state = initialState, action) {

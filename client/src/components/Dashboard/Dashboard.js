@@ -8,8 +8,6 @@ import {QuadrantLayout, FullScreenLayout} from '../../layouts';
 import {TwentyOneContainer} from '../../containers/';
 import {ColorBlock} from '../'
 
-import './Dashboard.css'
-
 class Dashboard extends Component {
 
     render() {
