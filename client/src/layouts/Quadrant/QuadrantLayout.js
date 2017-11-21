@@ -2,6 +2,8 @@ import React from 'react';
 import BlankQuarant from './BlankQuadrant'
 import {Grid, Segment} from 'semantic-ui-react'
 
+import './QuadrantLayout.css'
+
 const QuadrantLayout = function(props){
     if(props.apps.length < 4)
         console.log('Not enough apps');
@@ -11,7 +13,7 @@ const QuadrantLayout = function(props){
     const App3 = props.apps[2];
     const App4 = props.apps[3];
     return (
-        <Grid columns='equal' celled >
+        <Grid columns='equal' celled className="Quadrant">
             <Grid.Row>
                 <Grid.Column>
                     <App1 />

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {Container, Grid} from 'semantic-ui-react';
 
-import {QuadrantLayout} from '../../layouts';
+import {QuadrantLayout, FullScreenLayout} from '../../layouts';
 
 import {TwentyOneContainer} from '../../containers/';
 import {ColorBlock} from '../'
@@ -13,9 +13,7 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <div>
-                <QuadrantLayout apps={[TwentyOneContainer,ColorBlock,TwentyOneContainer,TwentyOneContainer]}/>
-            </div>
+            <QuadrantLayout apps={[TwentyOneContainer,ColorBlock,TwentyOneContainer,TwentyOneContainer]}/>
         )
     }
 }

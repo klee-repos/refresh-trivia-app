@@ -1,11 +1,11 @@
 import React from 'react';
 import {Dashboard} from '../../components/';
-// import './Dashboard.css'
+ import './Dashboard.css'
 
 class DashboardContainer extends React.Component {
     render() {
         return (
-            <Dashboard />
+            <Dashboard className="Dashboard"/>
         )
     }
 }
