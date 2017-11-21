@@ -9,18 +9,12 @@ import {TwentyOneContainer} from '../../containers/';
 class Dashboard extends Component {
     render() {
         return (
-            <Container style={{marginTop:'2em'}}>
+            <Grid style={{marginTop:'2em'}} centered>
             {!this.props.sessionCode
                 ? <p>Loading...</p>
-                : <Grid.Row style={{marginTop:'1.5em'}}>
-                    <Grid columns={3}>
-                    <Grid.Column>
-                        <TwentyOneContainer />
-                    </Grid.Column>
-                    </Grid>
-                </Grid.Row>
+                : <Grid.Row><TwentyOneContainer /></Grid.Row>
             }
-            </Container>
+            </Grid>
         )
     }
 }

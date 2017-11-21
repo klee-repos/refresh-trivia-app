@@ -11,6 +11,16 @@ routes.use(function(req, res, next){
     next();
 })
 
+routes.post('/start/', function(req, res) {
+    req.io.emit('startTwentyOne');
+    res.send({'status':'started'});
+})
+
+routes.post('/stop/', function(req, res) {
+    req.io.emit('stopTwentyOne');
+    res.send({'status':'stopped'});
+})
+
 routes.post('/deal/', function(req, res) {
     var blackjack = blackjackGamesBySession[req.sessionCode];
     blackjack.startNewGame();

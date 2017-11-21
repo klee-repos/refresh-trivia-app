@@ -12,8 +12,18 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-var Session = require('./models/Session');
+// Connection to MongoDB Altas via mongoose
+var mongoose = require("mongoose");
+var db_uri = process.env.DB_URI;
+// var Session = require("./models/AlexaSession");
 
+mongoose.connect(db_uri, {useMongoClient: true}, function(err) {
+	if (err) {
+		console.log("Mongoose error: " + err);
+	} else {
+		console.log("successfully connected to db");
+	}
+});
 
 if (process.env.NODE_ENV === 'production') {
 
@@ -46,7 +56,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-
+var Session = require('./models/Session');
 
 var appsBySession = {};
 
@@ -65,14 +75,53 @@ io.on('connection',function(socket){
 	socket.on('startSession',function(requestedCode){
 		if(requestedCode){
 			socket.join(requestedCode)
-			socket.emit('sessionCode', requestedCode);		
+			socket.emit('sessionCode', requestedCode);	
 		}else{
 			findUniqueSessionCode().then(function(sessionCode){
 				socket.join(sessionCode);
 				socket.emit('sessionCode', sessionCode);
+				var newSession = Session({
+					_id: sessionCode,
+					sessionCode: sessionCode,
+					amzUserId: null
+				})
+				newSession.save(function(err) {
+					if (err) {
+						console.log(err)
+					} else {
+						console.log('session created in db');
+					};
+				})
 			});
 		}
 	});
+});
+
+// Need refactoring
+
+app.post('/connect', function(req, res) {
+	var amzId = req.body.amzUserId;
+	var sessionCode = parseInt(req.body.sessionCode);
+	var status;
+
+	Session.findById(sessionCode, function(err, resSession) {
+		if (resSession.amzUserId) {
+			status = 'existing';
+		} else {
+			status ='created';
+			resSession.amzUserId = amzId;
+			resSession.save(function(err) {
+				if (err) {
+					console.log(err)
+				} else {
+					console.log('amzUserId saved to a session');
+				};
+			})
+			
+		}
+	}).then(function() {
+		res.send({"status":status})
+	})
 });
 
 var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
