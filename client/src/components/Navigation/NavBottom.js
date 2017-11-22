@@ -4,9 +4,6 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dashboardActionCreators from '../../redux/modules/dashboard';
 
-import{Nav, Navbar, NavItem} from 'react-bootstrap';
-import './nav.css' 
-
 class NavBottom extends Component {
 
     constructor(props) {
@@ -32,24 +29,30 @@ class NavBottom extends Component {
             <div>
             {!this.props.sessionCode
                 ? <p></p>
-                : <Navbar fixedBottom>
-                    <Nav>
-                        <NavItem>
-                            <NavLink to="/"><div className='home'>"Go Home"</div></NavLink>
-                        </NavItem>
-                        <NavItem
-                            active={this.props.twentyOne}
-                            onClick={this.changeTwentyOne}
-                        >    
-                        <span className='home'>"Open Twenty One"</span>    
-                        </NavItem>
-                    </Nav>
-                    <Nav pullRight>
-                        <NavItem>
-                            {this.props.sessionCode && <div><p>Session code: </p>{this.props.sessionCode}</div>}
-                        </NavItem>
-                    </Nav>
-                </Navbar>
+                : 
+                <nav className="navbar navbar-default navbar-fixed-bottom">
+                    <div className="container">
+                        <div className="navbar-collapse">
+                            <ul className="nav navbar-nav navbar-left">
+                                <li>
+                                    <NavLink exact to='/'><span className='alexa'>Go Home</span></NavLink>
+                                </li>
+                                <li>
+                                    <a onClick={this.changeTwentyOne}>
+                                        <span className='alexa'>Open Twenty One</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul className="nav navbar-nav navbar-right">
+                            <li>
+                                <a>{this.props.sessionCode && 
+                                    <div>Session code: <span className='alexa'>{this.props.sessionCode}</span></div>
+                                }</a>
+                            </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
             }
           </div>
         )

@@ -1,0 +1,23 @@
+.active {
+	font-weight: bold;
+}
+
+body {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+} 
+
+.alexa {
+    color: #D7263D;
+    font-size: larger;
+}
+
+.mainContainer {
+    background-color: #1A181B;
+    min-height: 100vh;
+}
+
+.twentyOneContainer {
+    background-color: #ffffff;
+    min-height: 50vh;
+}
+

@@ -5,7 +5,7 @@ class DashboardContainer extends React.Component {
     render() {
         return (
             <Dashboard/>
-        )
+        )  
     }
 }
 

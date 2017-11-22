@@ -10,6 +10,8 @@ import dashboard from './redux/modules/dashboard';
 
 import registerServiceWorker from './registerServiceWorker';
 
+import './index.css';
+
 const store = createStore(dashboard);
 // console.log(store.getState());
 

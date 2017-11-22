@@ -26,11 +26,19 @@ class TwentyOne extends Component {
 
     render() {
         return (
-            <div className='container'>
-                {!this.state.cards
-                    ? <h4>Deal Cards</h4>
-                    : <Hand cards={this.state.cards}/>
-                }
+            <div className='col-lg-4'>
+            {this.props.twentyOne
+                ? <div className='twentyOneContainer'>
+                    <div className='container' style={{marginBottom:'2em'}}>
+                    <h3>Twenty One</h3>
+                    {!this.state.cards
+                        ? <span className='alexa'>Deal Cards</span>
+                        : <Hand cards={this.state.cards}/>
+                    }
+                    </div>
+                </div>
+                : <p></p>         
+            }   
             </div>
         )
     }
@@ -40,6 +48,7 @@ class TwentyOne extends Component {
 function mapStateToProps(state) {
     return {
         socket: state.socket,
+        twentyOne: state.twentyOne,
     }
 }
 
