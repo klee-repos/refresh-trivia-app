@@ -1,6 +1,5 @@
 
 import React, {Component} from 'react';
-import {Container, Header} from 'semantic-ui-react';
 
 import {connect} from 'react-redux';
 
@@ -27,12 +26,12 @@ class TwentyOne extends Component {
 
     render() {
         return (
-            <Container>
+            <div className='container'>
                 {!this.state.cards
-                    ? <Header as='h4' color='red' textAlign='center'>"Deal Cards"</Header>
+                    ? <h4>Deal Cards</h4>
                     : <Hand cards={this.state.cards}/>
                 }
-            </Container>
+            </div>
         )
     }
 

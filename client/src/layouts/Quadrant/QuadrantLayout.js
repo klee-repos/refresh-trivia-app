@@ -1,6 +1,5 @@
 import React from 'react';
 import BlankQuarant from './BlankQuadrant'
-import {Grid, Segment} from 'semantic-ui-react'
 
 const QuadrantLayout = function(props){
     if(props.apps.length < 4)
@@ -11,24 +10,25 @@ const QuadrantLayout = function(props){
     const App3 = props.apps[2];
     const App4 = props.apps[3];
     return (
-        <Grid columns='equal' celled>
-            <Grid.Row>
-                <Grid.Column>
-                    <App1 />
-                </Grid.Column>
-                <Grid.Column>
-                    <App2 />
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column>
-                    <App3 />
-                </Grid.Column>
-                        <Grid.Column>
-                    <App4 />
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
+        <div></div>
+        // <Grid columns='equal' celled>
+        //     <Grid.Row>
+        //         <Grid.Column>
+        //             <App1 />
+        //         </Grid.Column>
+        //         <Grid.Column>
+        //             <App2 />
+        //         </Grid.Column>
+        //     </Grid.Row>
+        //     <Grid.Row>
+        //         <Grid.Column>
+        //             <App3 />
+        //         </Grid.Column>
+        //                 <Grid.Column>
+        //             <App4 />
+        //         </Grid.Column>
+        //     </Grid.Row>
+        // </Grid>
     )
 }
 

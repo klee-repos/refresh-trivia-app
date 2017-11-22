@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dashboardActionCreators from '../../redux/modules/dashboard';
 
-import {Menu, Container, Icon, Header, Segment} from 'semantic-ui-react';
+import{Nav, Navbar, NavItem} from 'react-bootstrap';
+import './nav.css' 
 
 class NavBottom extends Component {
 
@@ -31,26 +32,24 @@ class NavBottom extends Component {
             <div>
             {!this.props.sessionCode
                 ? <p></p>
-                : <Menu fixed='bottom' borderless icon='labeled'>
-                    <Container>
-                    <Menu.Item
-                        active={this.props.twentyOne}
-                        onClick={this.changeTwentyOne}
-                    >
-                        <Icon name='game'/>
-                        <span style={{color:'#E83151'}}>"Open Twenty One"</span>
-                    </Menu.Item>
-                    <Menu.Menu position='right'>
-                        <Menu.Item as={NavLink} exact to='/' style={{isActive:false}}>
-                            <Icon name='home'/>
-                            <span style={{color:'#E83151'}}>"Go Home"</span>
-                        </Menu.Item>
-                        <Menu.Item>
-                            {this.props.sessionCode && <span>Session code<Header as='h4' color='blue'>{this.props.sessionCode}</Header></span>}
-                        </Menu.Item>
-                    </Menu.Menu>
-                </Container>
-              </Menu>
+                : <Navbar fixedBottom>
+                    <Nav>
+                        <NavItem>
+                            <NavLink to="/"><div className='home'>"Go Home"</div></NavLink>
+                        </NavItem>
+                        <NavItem
+                            active={this.props.twentyOne}
+                            onClick={this.changeTwentyOne}
+                        >    
+                        <span className='home'>"Open Twenty One"</span>    
+                        </NavItem>
+                    </Nav>
+                    <Nav pullRight>
+                        <NavItem>
+                            {this.props.sessionCode && <div><p>Session code: </p>{this.props.sessionCode}</div>}
+                        </NavItem>
+                    </Nav>
+                </Navbar>
             }
           </div>
         )

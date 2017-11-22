@@ -2,8 +2,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {Card, Button} from 'semantic-ui-react';
-
 import {TwentyOne} from '../../components'
 
 class TwentyOneContainer extends Component {
@@ -12,10 +10,10 @@ class TwentyOneContainer extends Component {
         return (
             <div>
             {this.props.twentyOne
-                ? <Card>
-                    <Card.Content header ='Twenty-One' textAlign='center' />
-                    <Card.Content><TwentyOne /></Card.Content>
-                </Card>
+                ? <div className='container'>
+                    <h3>TwentyOne</h3>
+                    <div className='row'><TwentyOne /></div>
+                </div>
                 : <p></p>         
             }
             </div>

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {Container, Grid} from 'semantic-ui-react';
-
 import {QuadrantLayout, FullScreenLayout} from '../../layouts';
 
 import {TwentyOneContainer} from '../../containers/';
@@ -12,14 +10,14 @@ class Dashboard extends Component {
 
     render() {
         return (
-            <Grid className="Dashboard" centered>
+            <div className='container'>
                 {!this.props.sessionCode
                     ? <p>Loading...</p>
-                    : <Grid.Row>
+                    : <div className='row'>
                         <FullScreenLayout apps={[TwentyOneContainer]}/>
-                    </Grid.Row>
+                    </div>
                 }
-            </Grid>
+            </div>
         )
     }
 }
