@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {QuadrantLayout, FullScreenLayout} from '../../layouts';
+import {QuadrantLayout, FullscreenLayout} from '../../layouts';
 
 import {TwentyOneContainer} from '../../containers/';
 import {ColorBlock} from '../'
@@ -14,7 +14,7 @@ class Dashboard extends Component {
                 {!this.props.sessionCode
                     ? <p>Loading...</p>
                     : <div className='row'>
-                        <FullScreenLayout apps={[TwentyOneContainer]}/>
+                        <FullscreenLayout apps={[TwentyOneContainer]}/>
                     </div>
                 }
             </div>
