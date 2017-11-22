@@ -2,24 +2,26 @@
 
 const SET_SESSION_CODE = 'SET_SESSION_CODE';
 const SET_SOCKET = 'SET_SOCKET';
-const OPEN_TWENTYONE = 'OPEN_BLACKJACK';
-const CLOSE_TWENTYONE = 'CLOSE_BLACKJACK';
+const SET_TWENTYONE = 'SET_TWENTYONE';
 
-export function setTwentyOne(active, appName) {
-    if (active === true) {
-
-        return {
-            type: OPEN_TWENTYONE,
-            active,
-            appName
-        }
-    } else {
-        return {
-            type: CLOSE_TWENTYONE,
-            active
-        }
+export function changeTwentyOne(active) {
+    return function (dispatch) {
+        dispatch(setTwentyOne(!active));
     }
 }
+
+function setTwentyOne(active) {
+    return {
+        type: SET_TWENTYONE,
+        active,
+    }
+}
+
+// export function changeTwentyOne(active) {
+//     return function (dispatch) {
+//         dispatch(setTwentyOne(active));
+//     }
+// }
 
 export function setSessionCode(sessionCode) {
     return {
@@ -48,15 +50,10 @@ const initialState = {
 
 export default function apps (state = initialState, action) {
     switch(action.type) {
-        case OPEN_TWENTYONE:
-            state.apps.push(action.appName);
+        case SET_TWENTYONE:
+            state.apps.push(action);
             return Object.assign({}, state, {
-                twentyOne: true,
-                apps: state.apps
-            })
-        case CLOSE_TWENTYONE:
-            return Object.assign({}, state, {
-                twentyOne: false,
+                twentyOne: action.active,
             })
         case SET_SESSION_CODE:
             return Object.assign({},state , {

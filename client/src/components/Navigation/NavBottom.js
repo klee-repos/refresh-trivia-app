@@ -9,19 +9,11 @@ class NavBottom extends Component {
     constructor(props) {
         super(props)
 
-        this.changeTwentyOne = this.changeTwentyOne.bind(this);
+        this.twentyOne = this.twentyOne.bind(this);
     }
 
-    changeTwentyOne() {
-        if (this.props.twentyOne) {
-            this.props.setTwentyOne(false);
-        } else {
-            this.props.setTwentyOne(true, "blackjack");
-        }
-    }
-
-    loadHome() {
-
+    twentyOne() {
+        this.props.changeTwentyOne(this.props.twentyOne);
     }
 
     render() {
@@ -38,7 +30,7 @@ class NavBottom extends Component {
                                     <NavLink exact to='/'><span className='alexa'>Go Home</span></NavLink>
                                 </li>
                                 <li>
-                                    <a onClick={this.changeTwentyOne}>
+                                    <a onClick={this.twentyOne}>
                                         <span className='alexa'>Open Twenty One</span>
                                     </a>
                                 </li>
