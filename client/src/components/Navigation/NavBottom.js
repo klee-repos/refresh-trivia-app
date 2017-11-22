@@ -16,7 +16,7 @@ class NavBottom extends Component {
         if (this.props.twentyOne) {
             this.props.setTwentyOne(false);
         } else {
-            this.props.setTwentyOne(true);
+            this.props.setTwentyOne(true, "blackjack");
         }
     }
 

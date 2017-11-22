@@ -6,11 +6,13 @@ const OPEN_TWENTYONE = 'OPEN_BLACKJACK';
 const CLOSE_TWENTYONE = 'CLOSE_BLACKJACK';
 
 
-export function setTwentyOne(active) {
+export function setTwentyOne(active, appName) {
     if (active === true) {
+
         return {
             type: OPEN_TWENTYONE,
-            active
+            active,
+            appName
         }
     } else {
         return {
@@ -37,14 +39,17 @@ export function setSocket(socket) {
 const initialState = {
     sessionCode: null,
     socket: null,
-    twentyOne: false
+    twentyOne: false,
+    apps: ["blackjack"]
 }
 
 export default function apps (state = initialState, action) {
     switch(action.type) {
         case OPEN_TWENTYONE:
+            state.apps.push(action.appName);
             return Object.assign({}, state, {
                 twentyOne: true,
+                apps: state.apps
             })
         case CLOSE_TWENTYONE:
             return Object.assign({}, state, {
