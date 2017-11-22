@@ -9,12 +9,17 @@ import {ColorBlock} from '../'
 class Dashboard extends Component {
 
     render() {
+        const appMap = {
+            "blackjack": ColorBlock
+        }
+        var apps = appMap.blackjack;
+        console.log(apps);
         return (
             <div className='container'>
                 {!this.props.sessionCode
                     ? <p>Loading...</p>
                     : <div className='row'>
-                        <FullscreenLayout apps={[TwentyOneContainer]}/>
+                        <FullscreenLayout blah={{apps}}/>
                     </div>
                 }
             </div>
