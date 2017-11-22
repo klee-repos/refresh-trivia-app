@@ -4,22 +4,20 @@ import {connect} from 'react-redux';
 import {QuadrantLayout, FullscreenLayout} from '../../layouts';
 
 import {TwentyOneContainer} from '../../containers/';
-import {ColorBlock} from '../'
+import {ColorBlock, TwentyOne} from '../'
 
 class Dashboard extends Component {
 
     render() {
         const appMap = {
-            "blackjack": ColorBlock
+            "blackjack": TwentyOneContainer
         }
-        var apps = appMap.blackjack;
-        console.log(apps);
         return (
             <div className='container'>
                 {!this.props.sessionCode
                     ? <p>Loading...</p>
                     : <div className='row'>
-                        <FullscreenLayout blah={{apps}}/>
+                        <FullscreenLayout apps={appMap[this.props.apps]}/>
                     </div>
                 }
             </div>
@@ -30,6 +28,7 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
     return {
         sessionCode: state.sessionCode,
+        apps: state.apps
     }
 }
 

@@ -40,7 +40,7 @@ const initialState = {
     sessionCode: null,
     socket: null,
     twentyOne: false,
-    apps: []
+    apps: ["blackjack"]
 }
 
 export default function apps (state = initialState, action) {

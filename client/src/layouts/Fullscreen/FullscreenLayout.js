@@ -1,8 +1,10 @@
 import React from 'react';
 
 const FullscreenLayout = function(props){
-    const App = props.blah.apps;
-    console.log(App);
+    if(!props.apps.length >=1 )
+        return <div></div>
+        
+    const App = props.apps;
     return (
         <div>
             <App />
