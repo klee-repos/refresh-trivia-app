@@ -3,19 +3,19 @@ import {connect} from 'react-redux';
 
 import {QuadrantLayout, FullscreenLayout} from '../../layouts';
 
-import {TwentyOneContainer} from '../../containers/';
-
+import {TwentyOneContainer} from '../../containers/'
 class Dashboard extends Component {
     render() {
-        const appMap = {
+        const _appMap = {
             "blackjack": TwentyOneContainer
         }
+        var openApps = this.props.apps.map(function(app){return _appMap[app]});
         return (
             <div className='container'>
                 {!this.props.sessionCode
                     ? <h1>Loading...</h1>
                     : <div className='row'>
-                        <FullscreenLayout apps={appMap[this.props.apps]}/> 
+                        <FullscreenLayout apps={openApps}/> 
                     </div>
                 }
             </div>

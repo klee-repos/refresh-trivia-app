@@ -5,7 +5,6 @@ const SET_SOCKET = 'SET_SOCKET';
 const OPEN_TWENTYONE = 'OPEN_BLACKJACK';
 const CLOSE_TWENTYONE = 'CLOSE_BLACKJACK';
 
-
 export function setTwentyOne(active, appName) {
     if (active === true) {
 
@@ -34,6 +33,10 @@ export function setSocket(socket) {
         type: SET_SOCKET,
         socket,
     }
+}
+
+export function getAppFromName(name){
+
 }
 
 const initialState = {

@@ -13,7 +13,6 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 const store = createStore(dashboard);
-// console.log(store.getState());
 
 ReactDOM.render(
     <Provider store={store}>

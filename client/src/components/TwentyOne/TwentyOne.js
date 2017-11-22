@@ -15,7 +15,6 @@ class TwentyOne extends Component {
         }
 
         this.props.socket.on('updateCards', function(cards) {
-            console.log(cards);
             this.setState(function() {
                 return {
                     cards: cards
