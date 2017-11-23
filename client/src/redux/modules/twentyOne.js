@@ -22,9 +22,10 @@ const initialTwentyOneState = {
 export default function apps (state = initialTwentyOneState, action) {
     switch(action.type) {
         case SET_TWENTYONE:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 twentyOne: action.active,
-            })
+            }
         default:
             return state
     }
