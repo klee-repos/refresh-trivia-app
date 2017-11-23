@@ -15,7 +15,7 @@ class Dashboard extends Component {
                 {!this.props.sessionCode
                     ? <h1>Loading...</h1>
                     : <div className='row'>
-                        <FullscreenLayout apps={openApps}/> 
+                        <QuadrantLayout apps={openApps}/> 
                     </div>
                 }
             </div>
