@@ -1,27 +1,6 @@
 
-
 const SET_SESSION_CODE = 'SET_SESSION_CODE';
 const SET_SOCKET = 'SET_SOCKET';
-const SET_TWENTYONE = 'SET_TWENTYONE';
-
-export function changeTwentyOne(active) {
-    return function (dispatch) {
-        dispatch(setTwentyOne(!active));
-    }
-}
-
-function setTwentyOne(active) {
-    return {
-        type: SET_TWENTYONE,
-        active,
-    }
-}
-
-// export function changeTwentyOne(active) {
-//     return function (dispatch) {
-//         dispatch(setTwentyOne(active));
-//     }
-// }
 
 export function setSessionCode(sessionCode) {
     return {
@@ -44,17 +23,11 @@ export function getAppFromName(name){
 const initialState = {
     sessionCode: null,
     socket: null,
-    twentyOne: false,
     apps: ["blackjack"]
 }
 
 export default function apps (state = initialState, action) {
     switch(action.type) {
-        case SET_TWENTYONE:
-            state.apps.push(action);
-            return Object.assign({}, state, {
-                twentyOne: action.active,
-            })
         case SET_SESSION_CODE:
             return Object.assign({},state , {
                 sessionCode: action.sessionCode,

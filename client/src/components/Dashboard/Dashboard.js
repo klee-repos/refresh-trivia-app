@@ -23,10 +23,10 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({dashboard}) {
     return {
-        sessionCode: state.sessionCode,
-        apps: state.apps
+        sessionCode: dashboard.sessionCode,
+        apps: dashboard.apps
     }
 }
 

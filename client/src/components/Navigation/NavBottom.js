@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom'
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as dashboardActionCreators from '../../redux/modules/dashboard';
+import * as twentyOneActionCreators from '../../redux/modules/twentyOne';
 
 class NavBottom extends Component {
 
@@ -51,15 +51,15 @@ class NavBottom extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({dashboard, twentyOne}) {
     return {
-        sessionCode: state.sessionCode,
-        twentyOne: state.twentyOne,
+        sessionCode: dashboard.sessionCode,
+        twentyOne: twentyOne.twentyOne,
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(dashboardActionCreators, dispatch);
+    return bindActionCreators(twentyOneActionCreators, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(NavBottom);

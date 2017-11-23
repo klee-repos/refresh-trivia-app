@@ -44,10 +44,10 @@ class TwentyOne extends Component {
 
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({dashboard, twentyOne}) {
     return {
-        socket: state.socket,
-        twentyOne: state.twentyOne,
+        socket: dashboard.socket,
+        twentyOne: twentyOne.twentyOne
     }
 }
 

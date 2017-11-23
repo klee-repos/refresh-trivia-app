@@ -4,19 +4,22 @@ import ReactDOM from 'react-dom';
 import routes from './config/routes';
 
 // Redux
-import {createStore, applyMiddleware, compose} from 'redux';
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
-import dashboard from './redux/modules/dashboard';
+
 import thunk from 'redux-thunk'
 
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
+import * as reducers from './redux/modules/';
 
-const store = createStore(dashboard, compose(
-    applyMiddleware(thunk),
-    // ** THIS IS FOR DEVELOPMENT PURPOSES ONLY **
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const store = createStore(
+    combineReducers(reducers), 
+    compose(
+        applyMiddleware(thunk),
+        // ** THIS IS FOR DEVELOPMENT PURPOSES ONLY **
+        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
 ))
 
 ReactDOM.render(
