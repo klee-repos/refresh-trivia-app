@@ -3,11 +3,13 @@ import {connect} from 'react-redux';
 
 import {QuadrantLayout, FullscreenLayout} from '../../layouts';
 
-import {TwentyOneContainer} from '../../containers/'
+import {TwentyOneContainer, GdaxContainer} from '../../containers/'
+
 class Dashboard extends Component {
     render() {
         const _appMap = {
-            "blackjack": TwentyOneContainer
+            "blackjack": TwentyOneContainer,
+            "gdax": GdaxContainer
         }
         var openApps = this.props.apps.map(function(app){return _appMap[app]});
         return (

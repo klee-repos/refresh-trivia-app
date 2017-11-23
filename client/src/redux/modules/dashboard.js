@@ -23,7 +23,7 @@ export function getAppFromName(name){
 const initialState = {
     sessionCode: null,
     socket: null,
-    apps: ["blackjack"]
+    apps: ["blackjack","gdax"]
 }
 
 export default function apps (state = initialState, action) {

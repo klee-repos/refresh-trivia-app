@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as twentyOneActionCreators from '../../redux/modules/twentyOne';
+import * as gdaxActionCreators from '../../redux/modules/gdax';
 
 class NavBottom extends Component {
 
@@ -10,10 +11,15 @@ class NavBottom extends Component {
         super(props)
 
         this.twentyOne = this.twentyOne.bind(this);
+        this.gdax = this.gdax.bind(this);
     }
 
     twentyOne() {
         this.props.changeTwentyOne(this.props.twentyOne);
+    }
+
+    gdax() {
+        this.props.changeGdax(this.props.gdax);
     }
 
     render() {
@@ -34,6 +40,11 @@ class NavBottom extends Component {
                                         <span className='alexa'>Open Twenty One</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a onClick={this.gdax}>
+                                        <span className='alexa'>Open Investments</span>
+                                    </a>
+                                </li>
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
                             <li>
@@ -51,15 +62,19 @@ class NavBottom extends Component {
     }
 }
 
-function mapStateToProps({dashboard, twentyOne}) {
+function mapStateToProps({dashboard, twentyOne, gdax}) {
     return {
         sessionCode: dashboard.sessionCode,
         twentyOne: twentyOne.twentyOne,
+        gdax: gdax.gdax,
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(twentyOneActionCreators, dispatch)
+    return bindActionCreators({
+            ...twentyOneActionCreators,
+            ...gdaxActionCreators
+        }, dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(NavBottom);

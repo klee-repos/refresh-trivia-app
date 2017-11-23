@@ -6,6 +6,8 @@ var io = require('socket.io')(server);
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 
+var GDAX = require('gdax');
+
 require('dotenv').config();
 
 var bodyParser = require('body-parser');
@@ -72,6 +74,7 @@ var findUniqueSessionCode = function(){
 }
 
 io.on('connection',function(socket){
+	
 	socket.on('startSession',function(requestedCode){
 		if(requestedCode){
 			socket.join(requestedCode)
@@ -94,8 +97,18 @@ io.on('connection',function(socket){
 				})
 			});
 		}
+	})
+
+	var gdaxSocket = new GDAX.WebsocketClient(['BTC-USD', 'ETH-USD']);
+	gdaxSocket.on('message', function(data) {
+		if (data.reason === 'filled' && data.price) {
+			socket.emit('gdaxData',data);
+		}			
 	});
+
 });
+
+
 
 // Need refactoring
 
@@ -133,6 +146,7 @@ app.use('/apps', function(req,res,next){
 	next();
 }) 
 
+//Twenty One
 app.use('/apps/blackjack/', blackjackRoutes);
 
 app.get('/test/:name', function(req,res){
