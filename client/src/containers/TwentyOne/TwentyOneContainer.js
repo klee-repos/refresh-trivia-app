@@ -7,8 +7,8 @@ class TwentyOneContainer extends Component {
 
     render() {
         return (
-            <div className='homeContainer'>
-            <TwentyOne />
+            <div className={this.props.layoutClass}>
+                <TwentyOne />
             </div>
         )
     }   

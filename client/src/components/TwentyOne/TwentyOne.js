@@ -1,9 +1,7 @@
-
 import React, {Component} from 'react';
-
 import {connect} from 'react-redux';
-
 import Hand from './Hand';
+import './twentyOne.css'
 
 class TwentyOne extends Component {
 
@@ -25,20 +23,22 @@ class TwentyOne extends Component {
 
     render() {
         return (
-            <div className='col-lg-4'>
-            {this.props.twentyOne
-                ? <div className='twentyOneContainer'>
-                    <div className='container' style={{marginBottom:'2em'}}>
-                    <h3>Twenty One</h3>
-                    {!this.state.cards
-                        ? <span className='alexa'>Deal Cards</span>
-                        : <Hand cards={this.state.cards}/>
-                    }
-                    </div>
-                </div>
-                : <p></p>         
-            }   
-            </div>
+            <span>
+                {this.props.twentyOne ?
+                    <span>
+                        <div className="twentyOne">
+                            <div className="appHeading"><h3>Twenty One</h3></div>
+                            <div>
+                            {!this.state.cards
+                                ? <div className='alexa'>Deal Cards</div>
+                                : <Hand cards={this.state.cards}/>
+                            }
+                            </div>
+                        </div>
+                    </span>
+                    : <div className= "twentyOne"></div>         
+                }   
+            </span>
         )
     }
 

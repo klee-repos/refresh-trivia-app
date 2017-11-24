@@ -10,17 +10,6 @@ body {
     color: #D7263D;
     font-size: larger;
 }
-
-.mainContainer {
-    background-color: #333333;
-    min-height: 100vh;
-}
-
-.twentyOneContainer {
-    background-color: #ffffff;
-    min-height: 50vh;
-}
-
 .gdax {
     background-color: #ffffff;
     min-height: 50vh;
