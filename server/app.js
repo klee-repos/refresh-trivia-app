@@ -6,9 +6,8 @@ var io = require('socket.io')(server);
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 
-var GDAX = require('gdax');
-
 require('dotenv').config();
+require('./apps/gdax/Gdax.js')(io);
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -73,13 +72,16 @@ var findUniqueSessionCode = function(){
 	});
 }
 
-var gdaxSocket = new GDAX.WebsocketClient(['BTC-USD', 'ETH-USD']);
 
 io.on('connection',function(socket){
 	
+	socket.on('gdaxSubscribe', function(){
+		socket.join('gdax-updates');
+	});
+
 	socket.on('startSession',function(requestedCode){
 		if(requestedCode){
-			socket.join(requestedCode)
+			socket.join(requestedCode);
 			socket.emit('sessionCode', requestedCode);	
 		}else{
 			findUniqueSessionCode().then(function(sessionCode){
@@ -101,12 +103,7 @@ io.on('connection',function(socket){
 		}
 	})
 
-	gdaxSocket.on('message', function(data) {
-		if (data.reason === 'filled' && data.price) {
 
-			socket.emit('gdaxData',data);
-		}			
-	});
 
 });
 

@@ -16,6 +16,14 @@ class GdaxComponent extends Component {
             buyPriceETH: null,
         }
 
+        this.setBTC = this.setBTC.bind(this);
+        this.setETH = this.setETH.bind(this);
+
+    }
+
+    componentDidMount() {
+        this.props.socket.emit("gdax-subscribe",true);
+
         this.props.socket.on('gdaxData', function(data) {
             if (data.product_id === 'BTC-USD') {
                 if (data.price > 9000) { 
@@ -26,10 +34,6 @@ class GdaxComponent extends Component {
                 this.setETH(data.side, data.price)
             }
         }.bind(this))
-
-        this.setBTC = this.setBTC.bind(this);
-        this.setETH = this.setETH.bind(this);
-
     }
 
     setBTC(type,price) {
