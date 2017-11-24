@@ -3,7 +3,7 @@ import BlankQuadrant from './BlankQuadrant'
 
 import './quadrant.css'
 
-const QuadrantLayout = function(props){
+const QuadrantLayout = function(props){ 
     if(!props.apps)
         props.apps = []
 
