@@ -67,15 +67,12 @@ class GdaxComponent extends Component {
     render() {
         return (
             <div>
-            {this.props.gdax
-                ? <Gdax 
+                <Gdax 
                     sellPriceBTC={this.state.sellPriceBTC}
                     buyPriceBTC={this.state.buyPriceBTC}  
                     sellPriceETH={this.state.sellPriceETH}
                     buyPriceETH={this.state.buyPriceETH} 
                 />
-                : <div></div>
-            }
             </div>
         )
     }

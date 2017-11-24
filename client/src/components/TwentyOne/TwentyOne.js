@@ -24,30 +24,26 @@ class TwentyOne extends Component {
     render() {
         return (
             <span>
-                {this.props.twentyOne ?
-                    <span>
-                        <div className="twentyOne">
-                            <div className="appHeading"><h3>Twenty One</h3></div>
-                            <div>
-                            {!this.state.cards
-                                ? <div className='alexa'>Deal Cards</div>
-                                : <Hand cards={this.state.cards}/>
-                            }
-                            </div>
+                <span>
+                    <div className="twentyOne">
+                        <div className="appHeading"><h3>Twenty One</h3></div>
+                        <div>
+                        {!this.state.cards
+                            ? <div className='alexa'>Deal Cards</div>
+                            : <Hand cards={this.state.cards}/>
+                        }
                         </div>
-                    </span>
-                    : <div className= "twentyOne"></div>         
-                }   
+                    </div>
+                </span>
             </span>
         )
     }
 
 }
 
-function mapStateToProps({dashboard, twentyOne}) {
+function mapStateToProps({dashboard}) {
     return {
-        socket: dashboard.socket,
-        twentyOne: twentyOne.twentyOne
+        socket: dashboard.socket
     }
 }
 

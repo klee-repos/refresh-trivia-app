@@ -7,17 +7,22 @@ import {TwentyOneContainer, GdaxContainer} from '../../containers/'
 import './Dashboard.css';
 
 class Dashboard extends Component {
+
     render() {
         const _appMap = {
             "blackjack": TwentyOneContainer,
             "gdax": GdaxContainer
         }
-        var openApps = this.props.apps.map(function(app){return _appMap[app]});
+        var openAppContainers = [];
+        for(var _app in this.props.apps){
+            openAppContainers.push(_appMap[_app]);
+        }
+        
         return (
             <div className='dashboard'>
                 {!this.props.sessionCode
                     ? <h1>Loading...</h1>
-                    : <QuadrantLayout apps={openApps}/> 
+                    : <QuadrantLayout blah={openAppContainers}/> 
                 }
             </div>
         )
@@ -27,7 +32,7 @@ class Dashboard extends Component {
 function mapStateToProps({dashboard}) {
     return {
         sessionCode: dashboard.sessionCode,
-        apps: dashboard.apps
+        apps: dashboard.openApps
     }
 }
 

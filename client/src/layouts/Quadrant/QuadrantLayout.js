@@ -4,16 +4,18 @@ import BlankQuadrant from './BlankQuadrant'
 import './quadrant.css'
 
 const QuadrantLayout = function(props){ 
-    if(!props.apps)
-        props.apps = []
+    var apps = props.blah.slice(0,props.blah.length);
+    if(!apps)
+        apps = []
 
-    while(props.apps.length < 4){
-        props.apps.push(BlankQuadrant)
+    while(apps.length < 4){
+        apps.push(BlankQuadrant)
     }
 
     return (
         <div className="quadrantContainer">
-        {props.apps.map(function(app, idx){
+        {apps.map(function(app, idx){
+            //TODO: only render 4
             const App = app;
             return <App layoutClass="quadrantItem" key={idx}/>
         })}

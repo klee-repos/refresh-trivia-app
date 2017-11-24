@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom'
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as twentyOneActionCreators from '../../redux/modules/twentyOne';
-import * as gdaxActionCreators from '../../redux/modules/gdax';
+import * as dashboardActionCreators from '../../redux/modules/dashboard'
 
 class NavBottom extends Component {
 
@@ -15,11 +14,11 @@ class NavBottom extends Component {
     }
 
     twentyOne() {
-        this.props.changeTwentyOne(this.props.twentyOne);
+        this.props.setApp("blackjack");
     }
 
     gdax() {
-        this.props.changeGdax(this.props.gdax);
+        this.props.setApp("gdax");
     }
 
     render() {
@@ -62,18 +61,15 @@ class NavBottom extends Component {
     }
 }
 
-function mapStateToProps({dashboard, twentyOne, gdax}) {
+function mapStateToProps({dashboard}) {
     return {
-        sessionCode: dashboard.sessionCode,
-        twentyOne: twentyOne.twentyOne,
-        gdax: gdax.gdax,
+        sessionCode: dashboard.sessionCode
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-            ...twentyOneActionCreators,
-            ...gdaxActionCreators
+            ...dashboardActionCreators
         }, dispatch)
 }
 

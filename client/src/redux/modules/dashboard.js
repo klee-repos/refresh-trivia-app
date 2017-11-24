@@ -1,6 +1,7 @@
 
 const SET_SESSION_CODE = 'SET_SESSION_CODE';
 const SET_SOCKET = 'SET_SOCKET';
+const SET_APP = 'SET_APP'
 
 export function setSessionCode(sessionCode) {
     return {
@@ -16,6 +17,13 @@ export function setSocket(socket) {
     }
 }
 
+export function setApp(appName){
+    return{
+        type: SET_APP,
+        appName
+    }
+}
+
 export function getAppFromName(name){
 
 }
@@ -23,7 +31,7 @@ export function getAppFromName(name){
 const initialState = {
     sessionCode: null,
     socket: null,
-    apps: ["blackjack","gdax"]
+    openApps: {}
 }
 
 export default function apps (state = initialState, action) {
@@ -35,6 +43,16 @@ export default function apps (state = initialState, action) {
         case SET_SOCKET:
             return Object.assign({}, state, {
                 socket: action.socket,
+            })
+        case SET_APP:
+            var newApps = Object.assign({},state.openApps);
+            if(newApps[action.appName]){
+                delete newApps[action.appName]
+            } else {
+                newApps[action.appName] = action.appName;            
+            }
+            return Object.assign({}, state, {
+                openApps: newApps
             })
         
         default:
