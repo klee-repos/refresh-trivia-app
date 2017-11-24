@@ -73,6 +73,8 @@ var findUniqueSessionCode = function(){
 	});
 }
 
+var gdaxSocket = new GDAX.WebsocketClient(['BTC-USD', 'ETH-USD']);
+
 io.on('connection',function(socket){
 	
 	socket.on('startSession',function(requestedCode){
@@ -99,9 +101,9 @@ io.on('connection',function(socket){
 		}
 	})
 
-	var gdaxSocket = new GDAX.WebsocketClient(['BTC-USD', 'ETH-USD']);
 	gdaxSocket.on('message', function(data) {
 		if (data.reason === 'filled' && data.price) {
+
 			socket.emit('gdaxData',data);
 		}			
 	});

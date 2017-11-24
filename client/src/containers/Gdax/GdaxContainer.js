@@ -18,6 +18,9 @@ class GdaxComponent extends Component {
 
         this.props.socket.on('gdaxData', function(data) {
             if (data.product_id === 'BTC-USD') {
+                if (data.price > 9000) { 
+                    console.log(data);
+                }
                 this.setBTC(data.side, data.price)
             } else {
                 this.setETH(data.side, data.price)
