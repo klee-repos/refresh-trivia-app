@@ -4,6 +4,9 @@ import {connect} from 'react-redux';
 import {QuadrantLayout, FullscreenLayout} from '../../layouts';
 
 import {TwentyOneContainer} from '../../containers/'
+
+import './Dashboard.css';
+
 class Dashboard extends Component {
     render() {
         const _appMap = {
@@ -11,12 +14,10 @@ class Dashboard extends Component {
         }
         var openApps = this.props.apps.map(function(app){return _appMap[app]});
         return (
-            <div className='container'>
+            <div className='dashboard'>
                 {!this.props.sessionCode
                     ? <h1>Loading...</h1>
-                    : <div className='row'>
-                        <QuadrantLayout apps={openApps}/> 
-                    </div>
+                    : <QuadrantLayout apps={openApps}/> 
                 }
             </div>
         )

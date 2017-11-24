@@ -1,6 +1,8 @@
 import React from 'react';
 import BlankQuadrant from './BlankQuadrant'
 
+import './quadrant.css'
+
 const QuadrantLayout = function(props){
     if(!props.apps)
         props.apps = []
@@ -10,10 +12,10 @@ const QuadrantLayout = function(props){
     }
 
     return (
-        <div>
+        <div className="quadrantContainer">
         {props.apps.map(function(app, idx){
             const App = app;
-            return <App key={idx}/>
+            return <App layoutClass="quadrantItem" key={idx}/>
         })}
         </div>
     )

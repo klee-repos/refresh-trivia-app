@@ -1,7 +1,9 @@
 import React from 'react'
+
+import './quadrant.css'
 var BlankQuadrant = function(props){
     
-    return <div></div>
+    return <div className="quadrantItem"></div>
 
 }
 

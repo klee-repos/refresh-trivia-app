@@ -1,0 +1,21 @@
+.quadrantContainer {
+    min-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.quadrantRow {
+    display: flex; 
+    justify-content: center;
+    flex-direction: column;
+}
+
+.quadrantItem {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-basis: calc(50% - 4px);
+    background-color: grey;
+    margin: 2px;
+}

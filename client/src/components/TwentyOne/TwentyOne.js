@@ -25,10 +25,10 @@ class TwentyOne extends Component {
 
     render() {
         return (
-            <div className='col-lg-4'>
+            <div>
             {this.props.twentyOne
                 ? <div className='twentyOneContainer'>
-                    <div className='container' style={{marginBottom:'2em'}}>
+                    <div>
                     <h3>Twenty One</h3>
                     {!this.state.cards
                         ? <span className='alexa'>Deal Cards</span>
