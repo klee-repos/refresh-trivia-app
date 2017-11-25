@@ -1,21 +1,20 @@
-// // const _appMap = {
-// //     "blackjack": TwentyOneContainer
-// // }
+import {TwentyOneContainer, GdaxContainer}  from '../containers/'
 
-// var getAppFromName = function(name){
-//     return _appMap[name];
-// }
+const _appMap = {
+    "blackjack": () => TwentyOneContainer,
+    "gdax": () => GdaxContainer
+}
 
-// var getOpenApps = function(apps){
-//     if (!apps) return 
-//     return apps.map(function(app){
-//         return _appMap[app];
-//     })
-// }
+var getOpenApps = function(apps){
+    var openApps = []
+    Object.keys(apps).map(function(key){
+        return openApps.push(_appMap[key]());
+    });
+    return openApps;
+}
 
-// const AppMap = {
-//     getAppFromName: getAppFromName,
-//     getOpenApps: getOpenApps
-// }
+const AppMap = {
+    getOpenApps: getOpenApps
+}
 
-// export default AppMap
+export default AppMap

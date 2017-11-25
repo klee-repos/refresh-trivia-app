@@ -155,7 +155,7 @@ class GdaxComponent extends Component {
 
 function mapStateToProps({dashboard}) {
     return {
-        socket: dashboard.socket,
+        socket: dashboard.socket
     }
 }
 

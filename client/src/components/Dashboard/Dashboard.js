@@ -1,28 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {QuadrantLayout, FullscreenLayout} from '../../layouts';
+import {QuadrantLayout} from '../../layouts';
 
-import {TwentyOneContainer, GdaxContainer} from '../../containers/'
+import AppMap from '../../config/appMap'
 import './Dashboard.css';
 
 class Dashboard extends Component {
 
     render() {
-        const _appMap = {
-            "blackjack": TwentyOneContainer,
-            "gdax": GdaxContainer
-        }
-        var openAppContainers = [];
-        for(var _app in this.props.apps){
-            openAppContainers.push(_appMap[_app]);
-        }
-        
         return (
             <div className='dashboard'>
                 {!this.props.sessionCode
                     ? <h1>Loading...</h1>
-                    : <QuadrantLayout blah={openAppContainers}/> 
+                    : <QuadrantLayout blah={AppMap.getOpenApps(this.props.apps)}/> 
                 }
             </div>
         )

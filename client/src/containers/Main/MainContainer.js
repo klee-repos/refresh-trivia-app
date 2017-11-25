@@ -57,9 +57,8 @@ class MainContainer extends React.Component {
     }
 }
 
-function mapStateToProps() {
-    return {
-    }
+function mapStateToProps(){
+    return {};
 }
 
 function mapDispatchToProps(dispatch) {
