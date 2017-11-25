@@ -45,24 +45,6 @@ class MainContainer extends React.Component {
             })
         }.bind(this));
 
-        this.socket.on('startTwentyOne', function() {
-            this.startTwentyOne();
-        }.bind(this))
-
-        this.socket.on('stopTwentyOne', function() {
-            this.stopTwentyOne();
-        }.bind(this))
-
-        this.startTwentyOne = this.startTwentyOne.bind(this);
-        this.stopTwentyOne = this.stopTwentyOne.bind(this);
-    }
-
-    startTwentyOne() {
-        this.props.setTwentyOne(true);
-    }
-
-    stopTwentyOne() {
-        this.props.setTwentyOne(false);
     }
 
     render() {
@@ -75,9 +57,8 @@ class MainContainer extends React.Component {
     }
 }
 
-function mapStateToProps({twentyOne}) {
+function mapStateToProps() {
     return {
-        twentyOne: twentyOne.twentyOne,
     }
 }
 

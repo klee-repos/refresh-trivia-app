@@ -79,10 +79,9 @@ class GdaxComponent extends Component {
     }
 }
 
-function mapStateToProps({dashboard, gdax}) {
+function mapStateToProps({dashboard}) {
     return {
         socket: dashboard.socket,
-        gdax: gdax.gdax,
     }
 }
 
