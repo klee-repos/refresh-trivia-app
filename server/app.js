@@ -76,10 +76,18 @@ var findUniqueSessionCode = function(){
 io.on('connection',function(socket){
 	
 	socket.on('gdax-subscribe', function(active){
-		socket.join('gdax-updates');		
+		socket.join('gdax-updates');
+		console.log('gdax server subscribed')		
 	});
 	socket.on('gdax-unsubscribe', function(active){
-		socket.leave('gdax-updates');		
+		socket.leave('gdax-updates', function(err) {
+			if (err) {
+				console.log(err)
+			} else {
+				console.log('success')
+				console.log(socket.adapter.rooms);
+			}
+		});		
 	});
 
 
