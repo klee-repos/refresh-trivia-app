@@ -1,0 +1,48 @@
+
+import React, {Component} from 'react'
+
+class PriceTable extends Component {
+    render() {
+        return (
+            <div className='gdaxContainer'>
+                <div className='gdaxPrices'>
+                    <table className='table gdaxTable'>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Sell Price</th>
+                                <th>Buy Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>BTC</td>
+                            {this.props.sellPriceHistoryBTC[0]
+                                ? <td>${this.props.sellPriceHistoryBTC[0][0]}</td>
+                                : <td></td>
+                            }
+                            {this.props.buyPriceHistoryBTC[0]
+                                ? <td>${this.props.buyPriceHistoryBTC[0][0]}</td>
+                                : <td></td>
+                            }
+                        </tr>
+                        <tr>
+                            <td>ETH</td>
+                            {this.props.sellPriceHistoryETH[0]
+                                ? <td>${this.props.sellPriceHistoryETH[0][0]}</td>
+                                : <td></td>
+                            }
+                            {this.props.buyPriceHistoryETH[0]
+                                ? <td>${this.props.buyPriceHistoryETH[0][0]}</td>
+                                : <td></td>
+                            }
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default PriceTable;

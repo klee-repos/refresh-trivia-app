@@ -11,6 +11,8 @@ var GDAXProvider = function(_io){
         if (data.reason === 'filled' && data.price) 
             gdaxTopic.emit('gdaxData',data);
         });
+
+    
 }
 
 module.exports = GDAXProvider;

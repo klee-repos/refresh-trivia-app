@@ -1,5 +1,63 @@
 
 .gdax {
-    background-color: #ffffff;
-    max-height: 10em;
+    width:100%
 }
+
+.gdax ul {
+    list-style-type: none;
+    padding-left:0;
+    
+}
+
+.gdax img {
+    height: 12px;
+    width: 12px;
+}
+
+.gdax div {
+    color: black;
+}
+
+.gdaxContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    width:100%
+}
+
+.gdaxRow {
+    flex: 1 1 50%;
+}
+
+.gdaxPanel {
+    height: 15em;
+    border: none;
+    box-shadow: none;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 0;
+}
+.gdaxPanel > .panel-heading {
+    border-radius: 0;
+    border: 1px solid #ffffff;
+}
+
+
+.gdaxPrices {
+    flex: 1 1 100%;
+    background-color: white;
+}
+
+.gdaxBTC {
+    flex: 1 1 25%;
+    font-size: '9px';
+}
+.gdaxETH {
+    flex: 1 1 25%;
+}
+
+.priceHistory {
+    height:9.5em;
+    overflow:hidden;
+    flex: 1 1 50%;
+}
+

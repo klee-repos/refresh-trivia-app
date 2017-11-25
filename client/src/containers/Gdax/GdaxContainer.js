@@ -10,10 +10,11 @@ class GdaxComponent extends Component {
         super(props)
 
         this.state = {
-            sellPriceBTC: null,
-            sellPriceETH: null,
-            buyPriceBTC: null,
-            buyPriceETH: null,
+ 
+            buyPriceHistoryBTC: [],
+            sellPriceHistoryBTC: [],
+            sellPriceHistoryETH: [],
+            buyPriceHistoryETH: [],
         }
 
         this.props.socket.on('gdaxData', function(data) {
@@ -38,28 +39,101 @@ class GdaxComponent extends Component {
     }
 
     setBTC(type,price) {
+        var newHistoryBTC = [];
+        var moveBTC;
+        var differenceBTC;
+
+        if (type === 'sell') {
+            if (this.state.sellPriceHistoryBTC.length > 5) {
+                newHistoryBTC = this.state.sellPriceHistoryBTC.slice(0,-1);
+            } else {
+                newHistoryBTC = this.state.sellPriceHistoryBTC.slice();
+            }
+        } else {
+            if (this.state.buyPriceHistoryBTC.length > 5) {
+                newHistoryBTC = this.state.buyPriceHistoryBTC.slice(0,-1);
+            } else {
+                newHistoryBTC = this.state.buyPriceHistoryBTC.slice();
+            }
+        }
+
+        if (newHistoryBTC.length > 0) {
+            differenceBTC = parseFloat(price) - parseFloat(newHistoryBTC[0]);
+        } else {
+            differenceBTC = 0;
+        }
+
+        if (differenceBTC > 0)
+            moveBTC = 'up'
+        if (differenceBTC < 0)
+            moveBTC = 'down'
+
+        if (differenceBTC === 0 && newHistoryBTC.length <= 1) {
+            newHistoryBTC.unshift([parseFloat(price).toFixed(2), parseFloat(differenceBTC).toFixed(2),moveBTC]);
+        }
+        if (differenceBTC !== 0) {
+            newHistoryBTC.unshift([parseFloat(price).toFixed(2), parseFloat(differenceBTC).toFixed(2),moveBTC]);
+        }
+        
+        
         this.setState(function() {
             if (type === 'sell') {
                 return {
-                    sellPriceBTC: parseFloat(price).toFixed(2),
+                    sellPriceHistoryBTC: newHistoryBTC
                 }
             } else {
                 return {
-                    buyPriceBTC: parseFloat(price).toFixed(2),
+                    buyPriceHistoryBTC: newHistoryBTC
                 }
             }
         })
     }
 
     setETH(type,price) {
+        var newHistoryETH = [];
+        var moveETH;
+        var differenceETH;
+
+        if (type === 'sell') {
+            if (this.state.sellPriceHistoryETH.length > 5) {
+                newHistoryETH = this.state.sellPriceHistoryETH.slice(0,-1);
+            } else {
+                newHistoryETH = this.state.sellPriceHistoryETH.slice();
+            }
+        } else {
+            if (this.state.buyPriceHistoryETH.length > 5) {
+                newHistoryETH = this.state.buyPriceHistoryETH.slice(0,-1);
+            } else {
+                newHistoryETH = this.state.buyPriceHistoryETH.slice();
+            }
+        }
+
+        if (newHistoryETH.length > 0) {
+            differenceETH = parseFloat(price) - parseFloat(newHistoryETH[0]);
+        } else {
+            differenceETH = 0;
+        }
+
+        if (differenceETH > 0)
+            moveETH = 'up'
+        if (differenceETH < 0)
+            moveETH = 'down'
+
+        if (differenceETH === 0 && newHistoryETH.length <= 1) {
+            newHistoryETH.unshift([parseFloat(price).toFixed(2), parseFloat(differenceETH).toFixed(2),moveETH]);
+        }
+        if (differenceETH !== 0) {
+            newHistoryETH.unshift([parseFloat(price).toFixed(2), parseFloat(differenceETH).toFixed(2),moveETH]);
+        }
+        
         this.setState(function() {
             if (type === 'sell') {
                 return {
-                    sellPriceETH: parseFloat(price).toFixed(2),
+                    sellPriceHistoryETH: newHistoryETH
                 }
             } else {
                 return {
-                    buyPriceETH: parseFloat(price).toFixed(2),
+                    buyPriceHistoryETH: newHistoryETH
                 }
             }
         })
@@ -69,10 +143,10 @@ class GdaxComponent extends Component {
         return (
             <div className={this.props.layoutClass}>
                 <Gdax 
-                    sellPriceBTC={this.state.sellPriceBTC}
-                    buyPriceBTC={this.state.buyPriceBTC}  
-                    sellPriceETH={this.state.sellPriceETH}
-                    buyPriceETH={this.state.buyPriceETH} 
+                    sellPriceHistoryBTC={this.state.sellPriceHistoryBTC}
+                    buyPriceHistoryBTC = {this.state.buyPriceHistoryBTC}
+                    sellPriceHistoryETH={this.state.sellPriceHistoryETH}
+                    buyPriceHistoryETH={this.state.buyPriceHistoryETH}
                 />
             </div>
         )
