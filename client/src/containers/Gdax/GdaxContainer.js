@@ -16,24 +16,25 @@ class GdaxComponent extends Component {
             buyPriceETH: null,
         }
 
+        this.props.socket.on('gdaxData', function(data) {
+            if (data.product_id === 'BTC-USD') {
+                this.setBTC(data.side, data.price)
+            } else {
+                this.setETH(data.side, data.price)
+            }
+        }.bind(this))
+
         this.setBTC = this.setBTC.bind(this);
         this.setETH = this.setETH.bind(this);
 
     }
 
     componentDidMount() {
-        this.props.socket.emit("gdax-subscribe",true);
+        this.props.socket.emit("gdax-subscribe");
+    }
 
-        this.props.socket.on('gdaxData', function(data) {
-            if (data.product_id === 'BTC-USD') {
-                if (data.price > 9000) { 
-                    console.log(data);
-                }
-                this.setBTC(data.side, data.price)
-            } else {
-                this.setETH(data.side, data.price)
-            }
-        }.bind(this))
+    componentWillUnmount() {
+        this.props.socket.emit('gdax-unsubscribe');
     }
 
     setBTC(type,price) {
@@ -66,7 +67,7 @@ class GdaxComponent extends Component {
 
     render() {
         return (
-            <div>
+            <div className={this.props.layoutClass}>
                 <Gdax 
                     sellPriceBTC={this.state.sellPriceBTC}
                     buyPriceBTC={this.state.buyPriceBTC}  

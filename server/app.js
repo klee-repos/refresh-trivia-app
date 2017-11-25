@@ -75,9 +75,13 @@ var findUniqueSessionCode = function(){
 
 io.on('connection',function(socket){
 	
-	socket.on('gdaxSubscribe', function(){
-		socket.join('gdax-updates');
+	socket.on('gdax-subscribe', function(active){
+		socket.join('gdax-updates');		
 	});
+	socket.on('gdax-unsubscribe', function(active){
+		socket.leave('gdax-updates');		
+	});
+
 
 	socket.on('startSession',function(requestedCode){
 		if(requestedCode){

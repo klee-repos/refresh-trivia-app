@@ -1,11 +1,11 @@
 
 import React, {Component} from 'react'
+import './gdax.css'
 
 class Gdax extends Component {
 
     render() {
         return (
-            <div className="col-lg-4">
                 <div className='gdax'>
                     <table className='table table-bordered'>
                         <thead>
@@ -28,9 +28,7 @@ class Gdax extends Component {
                         </tr>
                         </tbody>
                     </table>
-                    
                 </div>
-            </div>
         )
     }
 }
