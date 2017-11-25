@@ -13,7 +13,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
 import * as reducers from './redux/modules/';
-import * as containers from './containers/index';
 
 const store = createStore(
     combineReducers(reducers), 

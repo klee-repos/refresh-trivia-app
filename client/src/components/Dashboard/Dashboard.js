@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {QuadrantLayout, FullscreenLayout} from '../../layouts';
+import {QuadrantLayout} from '../../layouts';
 
-import {TwentyOneContainer, GdaxContainer} from '../../containers/'
 import AppMap from '../../config/appMap'
 import './Dashboard.css';
 
