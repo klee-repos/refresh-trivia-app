@@ -75,10 +75,8 @@ class MainContainer extends React.Component {
     }
 }
 
-function mapStateToProps({twentyOne}) {
-    return {
-        twentyOne: twentyOne.twentyOne,
-    }
+function mapStateToProps(){
+    return {};
 }
 
 function mapDispatchToProps(dispatch) {
