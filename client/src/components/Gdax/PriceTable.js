@@ -17,22 +17,22 @@ class PriceTable extends Component {
                         <tbody>
                         <tr>
                             <td>BTC</td>
-                            {this.props.sellPriceHistoryBTC[0]
+                            {this.props.sellPriceHistoryBTC
                                 ? <td>${this.props.sellPriceHistoryBTC[0][0]}</td>
                                 : <td></td>
                             }
-                            {this.props.buyPriceHistoryBTC[0]
+                            {this.props.buyPriceHistoryBTC
                                 ? <td>${this.props.buyPriceHistoryBTC[0][0]}</td>
                                 : <td></td>
                             }
                         </tr>
                         <tr>
                             <td>ETH</td>
-                            {this.props.sellPriceHistoryETH[0]
+                            {this.props.sellPriceHistoryETH
                                 ? <td>${this.props.sellPriceHistoryETH[0][0]}</td>
                                 : <td></td>
                             }
-                            {this.props.buyPriceHistoryETH[0]
+                            {this.props.buyPriceHistoryETH
                                 ? <td>${this.props.buyPriceHistoryETH[0][0]}</td>
                                 : <td></td>
                             }

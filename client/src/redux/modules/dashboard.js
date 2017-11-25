@@ -1,19 +1,12 @@
 
 const SET_SESSION_CODE = 'SET_SESSION_CODE';
 const SET_SOCKET = 'SET_SOCKET';
-const SET_APP = 'SET_APP'
+const SET_APP = 'SET_APP';
 
 export function setSessionCode(sessionCode) {
     return {
         type: SET_SESSION_CODE,
         sessionCode,
-    }
-}
-
-export function setSocket(socket) {
-    return {
-        type: SET_SOCKET,
-        socket,
     }
 }
 
@@ -24,14 +17,10 @@ export function setApp(appName){
     }
 }
 
-export function getAppFromName(name){
-
-}
-
 const initialState = {
     sessionCode: null,
-    socket: null,
-    openApps: {}
+    openApps: {},
+    data:null,
 }
 
 export default function apps (state = initialState, action) {
@@ -54,7 +43,6 @@ export default function apps (state = initialState, action) {
             return Object.assign({}, state, {
                 openApps: newApps
             })
-        
         default:
             return state
     }

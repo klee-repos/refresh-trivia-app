@@ -10,9 +10,7 @@ var GDAXProvider = function(_io){
     gdaxSocket.on('message', function(data) {
         if (data.reason === 'filled' && data.price) 
             gdaxTopic.emit('gdaxData',data);
-        });
-
-    
+        });   
 }
 
 module.exports = GDAXProvider;
