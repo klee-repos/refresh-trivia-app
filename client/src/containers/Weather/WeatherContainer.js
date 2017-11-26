@@ -12,10 +12,8 @@ class WeatherContainer extends Component{
         this.state = {
             weatherData: {}
         }
-    }
-
-    componentDidMount(){
         this.Today();
+        
     }
 
     Today(){
@@ -31,7 +29,7 @@ class WeatherContainer extends Component{
         return (
             <div className={this.props.layoutClass}>
                 {/* <Weather weatherData={this.state.weatherData}/> */}
-                {this.state.weatherData.timeZone}
+                {this.state.weatherData.hourly ? this.state.weatherData.hourly.summary : "Summary"}
             </div>
         )
     }
