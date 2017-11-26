@@ -148,20 +148,17 @@ app.post('/connect', function(req, res) {
 });
 
 var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
+var weatherRoutes = require('./apps/weather/api');
 
-//TODO: Really only app routes
+//TODO: Really only Alexa -> app routes
 app.use('/apps', function(req,res,next){  
 	req.sessionCode = req.body.sessionCode;
 	req.io = io.to(req.sessionCode);
 	next();
-}) 
-
-//Twenty One
-app.use('/apps/blackjack/', blackjackRoutes);
-
-app.get('/test/:name', function(req,res){
-    res.send({user:req.params.name})
 });
+
+app.use('/apps/blackjack/', blackjackRoutes);
+app.use('/apps/weather', weatherRoutes);
 
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")

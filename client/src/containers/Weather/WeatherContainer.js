@@ -5,11 +5,13 @@ import Weather from '../../components'
 class WeatherContainer extends Component{
     constructor(props){
         super(props);
-
-
     }
     
     render(){
-        return <Weather />
+        return (
+            <div className={this.props.layoutClass}>
+                <Weather />
+            </div>
+        )
     }
 }

@@ -10,3 +10,8 @@ body {
     color: #D7263D;
     font-size: larger;
 }
+
+.container {
+    width: 100%;
+    height: 100%;
+}
