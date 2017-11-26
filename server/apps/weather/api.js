@@ -26,7 +26,6 @@ routes.get('/forecast/today', function(req,res){
         .latitude(req.query.lat)
         .longitude(req.query.lon)
         .exclude('flags,daily,minutely')
-        // .then(res.status(200).send(data))
         .get()
         .then(function(data){
             res.status(200).send(data);
@@ -34,8 +33,16 @@ routes.get('/forecast/today', function(req,res){
         .catch(console.log)
     });
 
-// routes.get('/forecast/week', function(req,res){
-//     res.status(200).send(data);
-// });
+routes.get('/forecast/week', function(req,res){
+    darkSky
+    .latitude(req.query.lat)
+    .longitude(req.query.lon)
+    .exclude('flags,hourly,minutely')
+    .get()
+    .then(function(data){
+        res.status(200).send(data);
+    })
+    .catch(console.log)
+});
 
 module.exports = routes;

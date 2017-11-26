@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as dashboardActionCreators from '../../redux/modules/dashboard'
 import * as gdaxActionCreators from '../../redux/modules/gdax'
 import * as twentyOneActionCreators from '../../redux/modules/twentyOne'
+import * as weatherActionCreators from '../../redux/modules/weather'
 
 import socket from '../../config/socket';
 
@@ -48,6 +49,11 @@ class SocketManagerContainer extends Component {
         socket.on('buyPriceHistoryBTC', function(data) {
             this.props.setBuyPriceHistoryBTC(data)
         }.bind(this))
+
+        //Weather
+        socket.on('weather', function(data){
+            this.props.setWeatherLocation(data);
+        }).bind(this)
     }
 
     render() {
@@ -67,7 +73,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
             ...dashboardActionCreators,
             ...gdaxActionCreators,
-            ...twentyOneActionCreators
+            ...twentyOneActionCreators,
+            ...weatherActionCreators
         }, dispatch)
 }
 
