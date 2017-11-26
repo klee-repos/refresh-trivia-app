@@ -4,6 +4,4 @@ export {default as DashboardContainer} from './Dashboard/DashboardContainer';
 export {default as TwentyOneContainer} from './TwentyOne/TwentyOneContainer';
 export {default as GdaxContainer} from './Gdax/GdaxContainer';
 export {default as SocketManagerContainer} from './SocketManager/SocketManagerContainer';
-
-// Dev purposes ONLY
-export {default as ExperimentContainer} from './Experiment/ExperimentContainer';
+export {default as WeatherContainer} from './Weather/WeatherContainer'

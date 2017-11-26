@@ -1,7 +1,7 @@
 
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import {MainContainer, DashboardContainer, HomeContainer, ExperimentContainer,SocketManagerContainer} from '../containers';
+import {MainContainer, DashboardContainer, HomeContainer, SocketManagerContainer} from '../containers';
 
 
 const routes = (
@@ -12,7 +12,6 @@ const routes = (
             
             <MainContainer>
                 <Route path='/dashboard' component={DashboardContainer} />
-                <Route path='/experiment' component={ExperimentContainer} />
             </MainContainer>
             <Route render={function() {
             return <p>Not Found</p>

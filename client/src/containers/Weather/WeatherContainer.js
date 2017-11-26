@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux';
 
 import Weather from '../../components'
 import axios from 'axios'
@@ -20,6 +21,7 @@ class WeatherContainer extends Component{
     Today(){
         axios.get('/apps/weather/forecast/today?' + "lat=" + this.props.location.lat +"&lon=" + this.props.location.lon)
             .then(function(data){
+                console.log(data);
                 this.setState({weatherData:data})
             })
     }

@@ -7,6 +7,10 @@ export function setWeatherLocation(location){
     }
 }
 
+const initialState = {
+    location: null
+}
+
 export default function apps(state = initialState, action){
     switch(action.type){
         case SET_LOCATION:

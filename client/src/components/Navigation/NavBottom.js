@@ -11,6 +11,7 @@ class NavBottom extends Component {
 
         this.twentyOne = this.twentyOne.bind(this);
         this.gdax = this.gdax.bind(this);
+        this.weather = this.weather.bind(this);
     }
 
     twentyOne() {
@@ -19,6 +20,10 @@ class NavBottom extends Component {
 
     gdax() {
         this.props.setApp("gdax");
+    }
+
+    weather() {
+        this.props.setApp("weather");
     }
 
     render() {
@@ -42,6 +47,11 @@ class NavBottom extends Component {
                                 <li>
                                     <a onClick={this.gdax}>
                                         <span className='alexa'>Open Investments</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onClick={this.weather}>
+                                        <span className='alexa'>Open Weather</span>
                                     </a>
                                 </li>
                             </ul>
