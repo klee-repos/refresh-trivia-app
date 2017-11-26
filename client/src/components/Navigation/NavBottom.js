@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dashboardActionCreators from '../../redux/modules/dashboard'
+import * as iexActionCreators from '../../redux/modules/iex'
 
 class NavBottom extends Component {
 
@@ -11,6 +12,7 @@ class NavBottom extends Component {
 
         this.twentyOne = this.twentyOne.bind(this);
         this.gdax = this.gdax.bind(this);
+        this.iex = this.iex.bind(this);
     }
 
     twentyOne() {
@@ -19,6 +21,11 @@ class NavBottom extends Component {
 
     gdax() {
         this.props.setApp("gdax");
+    }
+
+    iex() {
+        this.props.setApp("iex");
+    
     }
 
     render() {
@@ -41,7 +48,12 @@ class NavBottom extends Component {
                                 </li>
                                 <li>
                                     <a onClick={this.gdax}>
-                                        <span className='alexa'>Open Investments</span>
+                                        <span className='alexa'>Open Coinbase</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onClick={this.iex}>
+                                        <span className='alexa'>Open IEX</span>
                                     </a>
                                 </li>
                             </ul>
@@ -69,7 +81,8 @@ function mapStateToProps({dashboard}) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-            ...dashboardActionCreators
+            ...dashboardActionCreators,
+            ...iexActionCreators
         }, dispatch)
 }
 

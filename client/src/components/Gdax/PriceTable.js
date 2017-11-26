@@ -6,7 +6,7 @@ class PriceTable extends Component {
         return (
             <div className='gdaxContainer'>
                 <div className='gdaxPrices'>
-                    <table className='table gdaxTable'>
+                    <table className='table'>
                         <thead>
                             <tr>
                                 <th></th>

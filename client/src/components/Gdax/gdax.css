@@ -5,6 +5,7 @@
 
 .gdax ul {
     list-style-type: none;
+    list-style-position: column;
     padding-left:0;
     
 }

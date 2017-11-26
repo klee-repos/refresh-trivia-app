@@ -73,6 +73,10 @@ var findUniqueSessionCode = function(){
 	});
 }
 
+const iexSocket = require('socket.io-client')('https://ws-api.iextrading.com/1.0/last')
+
+
+	
 
 io.on('connection',function(socket){
 	
@@ -89,6 +93,17 @@ io.on('connection',function(socket){
 		});		
 	});
 
+	iexSocket.on('message', function(data) {
+		console.log(data);
+	});
+	
+	iexSocket.on('connect', () => {	
+		// Subscribe to topics (i.e. appl,fb,aig+)
+		console.log('iex')
+		iexSocket.emit('subscribe', 'snap')
+	})
+
+	
 
 	socket.on('startSession',function(requestedCode){
 		if(requestedCode){
@@ -113,8 +128,6 @@ io.on('connection',function(socket){
 			});
 		}
 	})
-
-
 
 });
 
@@ -148,6 +161,8 @@ app.post('/connect', function(req, res) {
 });
 
 var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
+var iexRoutes = require('./apps/iex/api');
+
 
 //TODO: Really only app routes
 app.use('/apps', function(req,res,next){  
@@ -158,6 +173,9 @@ app.use('/apps', function(req,res,next){
 
 //Twenty One
 app.use('/apps/blackjack/', blackjackRoutes);
+
+// IEX Stock Exchange
+app.use('/apps/iex/', iexRoutes);
 
 app.get('/test/:name', function(req,res){
     res.send({user:req.params.name})

@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as dashboardActionCreators from '../../redux/modules/dashboard'
 import * as gdaxActionCreators from '../../redux/modules/gdax'
 import * as twentyOneActionCreators from '../../redux/modules/twentyOne'
+import * as iexActionCreators from '../../redux/modules/iex'
 
 import socket from '../../config/socket';
 
@@ -32,7 +33,7 @@ class SocketManagerContainer extends Component {
             this.props.setCards(cards);
         }.bind(this))
 
-        // GDAX    
+        // GDAX exchange
         socket.on('sellPriceHistoryETH', function(data) {
             this.props.setSellPriceHistoryETH(data)
         }.bind(this))
@@ -48,6 +49,12 @@ class SocketManagerContainer extends Component {
         socket.on('buyPriceHistoryBTC', function(data) {
             this.props.setBuyPriceHistoryBTC(data)
         }.bind(this))
+
+        //IEX exchange
+        socket.on('updateStockList', function(data) {
+            this.props.setStockList(data)
+        }.bind(this))
+
     }
 
     render() {
@@ -67,7 +74,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
             ...dashboardActionCreators,
             ...gdaxActionCreators,
-            ...twentyOneActionCreators
+            ...twentyOneActionCreators,
+            ...iexActionCreators
         }, dispatch)
 }
 
