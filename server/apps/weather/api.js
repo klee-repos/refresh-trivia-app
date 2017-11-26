@@ -22,15 +22,15 @@ routes.post('/setup', function(req,res){
 });
 
 routes.get('/forecast/today', function(req,res){
-    darkSky
+    return darkSky
         .latitude(req.query.lat)
         .longitude(req.query.lon)
         .exclude('flags,daily,minutely')
         .get()
         .then(function(data){
-            res.status(200).send(data);
+            res.send(data)
         })
-        .catch(console.log)
+        // .catch(res.end())
     });
 
 routes.get('/forecast/week', function(req,res){

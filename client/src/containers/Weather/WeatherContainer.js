@@ -19,11 +19,12 @@ class WeatherContainer extends Component{
     }
 
     Today(){
-        axios.get('/apps/weather/forecast/today?' + "lat=" + this.props.location.lat +"&lon=" + this.props.location.lon)
-            .then(function(data){
-                console.log(data);
-                this.setState({weatherData:data})
-            })
+        // axios.get('/apps/weather/forecast/today?' + "lat=" + this.props.location.lat +"&lon=" + this.props.location.lon)
+        axios.get('/apps/weather/forecast/today?' + "lat=" + 42 +"&lon=" + -70)
+        .then((function(res){
+                console.log(res.data);
+                this.setState({weatherData:res.data})
+            }).bind(this));
     }
 
     render(){
