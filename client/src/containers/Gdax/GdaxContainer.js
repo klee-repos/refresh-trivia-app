@@ -9,13 +9,7 @@ class GdaxComponent extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            buyPriceHistoryBTC: [],
-            sellPriceHistoryBTC: [],
-            sellPriceHistoryETH: [],
-            buyPriceHistoryETH: [],
-        }
-
+        this.state = {}
     }
 
     render() {

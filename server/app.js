@@ -7,6 +7,7 @@ var Promise = require('bluebird');
 var mongoose = require('mongoose');
 
 require('dotenv').config();
+
 require('./apps/gdax/Gdax.js')(io);
 
 var bodyParser = require('body-parser');
@@ -79,13 +80,11 @@ io.on('connection',function(socket){
 		socket.join('gdax-updates');
 		console.log('gdax server subscribed')		
 	});
+
 	socket.on('gdax-unsubscribe', function(active){
 		socket.leave('gdax-updates', function(err) {
 			if (err) {
 				console.log(err)
-			} else {
-				console.log('success')
-				console.log(socket.adapter.rooms);
 			}
 		});		
 	});
