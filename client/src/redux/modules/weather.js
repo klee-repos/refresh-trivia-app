@@ -8,14 +8,16 @@ export function setWeatherLocation(location){
 }
 
 const initialState = {
-    location: null
+    lat: null,
+    long: null,
 }
 
 export default function apps(state = initialState, action){
     switch(action.type){
         case SET_LOCATION:
             return Object.assign({},state,{
-                location: action.location
+                lat: action.location.lat,
+                long: action.location.lng
             })
         default: 
             return state;
