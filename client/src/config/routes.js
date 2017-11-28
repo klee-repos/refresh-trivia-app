@@ -7,16 +7,13 @@ import {MainContainer, DashboardContainer, HomeContainer, ExperimentContainer,So
 const routes = (
     <Router>
         <Switch>
-            <Route exact path='/' component={HomeContainer} />
-                <MainContainer>
-                    <SocketManagerContainer>
-                        <Route path='/dashboard' component={DashboardContainer} />
-                        <Route path='/experiment' component={ExperimentContainer} />
-                        <Route render={function() {
-                            return <h2>Not Found</h2>
-                        }} />
-                    </SocketManagerContainer>
+            <SocketManagerContainer>    
+                <MainContainer> 
+                    <Route exact path='/' component={HomeContainer} />
+                    <Route path='/dashboard' component={DashboardContainer} />
+                    <Route path='/experiment' component={ExperimentContainer} />
                 </MainContainer>
+            </SocketManagerContainer>           
         </Switch>
     </Router>
 )

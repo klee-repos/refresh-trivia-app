@@ -25,6 +25,13 @@
     width:100%
 }
 
+.testContainer {
+    padding: 10px;
+    width: 800px;
+    height: 800px;
+    background-color: #fff;
+}
+
 .gdaxRow {
     flex: 1 1 100%;
 }

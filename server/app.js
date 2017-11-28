@@ -73,7 +73,7 @@ var findUniqueSessionCode = function(){
 	});
 }
 
-const iexSocket = require('socket.io-client')('https://ws-api.iextrading.com/1.0/last')
+const iexSocket = require('socket.io-client')('https://ws-api.iextrading.com/1.0/tops')
 
 
 	
@@ -93,15 +93,18 @@ io.on('connection',function(socket){
 		});		
 	});
 
-	iexSocket.on('message', function(data) {
-		console.log(data);
-	});
+	// iexSocket.on('message', function(data) {
+	// 	console.log(data);
+	// });
 	
-	iexSocket.on('connect', () => {	
-		// Subscribe to topics (i.e. appl,fb,aig+)
-		console.log('iex')
-		iexSocket.emit('subscribe', 'snap')
-	})
+	// iexSocket.on('connect', () => {	
+	// 	// Subscribe to topics (i.e. appl,fb,aig+)
+	// 	console.log('iex')
+	// 	iexSocket.emit('subscribe', 'snap')
+	// 	iexSocket.emit('subscribe', 'aapl')
+	// 	iexSocket.emit('subscribe', 'gm')
+	// 	iexSocket.emit('subscribe', 'tsla')
+	// })
 
 	
 

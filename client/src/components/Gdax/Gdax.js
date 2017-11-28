@@ -8,8 +8,9 @@ import PriceTable from './PriceTable';
 
 import './gdax.css'
 
-
 class Gdax extends Component {
+
+   
 
     render() {
         return (
@@ -56,7 +57,7 @@ class Gdax extends Component {
                         </div>
 
                     </div>
-
+                    
                 </div>
         )
     }

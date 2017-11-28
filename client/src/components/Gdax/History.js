@@ -12,11 +12,11 @@ class History extends Component {
                             <li key={idx}>
                                 <div className='gdaxContainer'>
                                     <div className='gdaxRow'>
-                                        <span>{item[1]}</span>
+                                        <span>{item['diff']}</span>
                                     </div>
                                     <div className='gdaxRow'>
-                                        {item[2]
-                                            ? <img src={require(`./img/${item[2]}.png`)} alt={item[2]}/>
+                                        {item['direction']
+                                            ? <img src={require(`./img/${item['direction']}.png`)} alt={item[2]}/>
                                             : <div></div>
                                         }
                                     </div>
