@@ -21,7 +21,6 @@ class WeatherContainer extends Component{
         var lon = this.props.lon || localStorage.getItem('weather_dev_long');
         axios.get('/apps/weather/forecast/today?' + "lat=" + lat +"&lon=" + lon)
         .then((function(res){
-                console.log(res.data);
                 this.setState({weatherData:res.data})
             }).bind(this));
     }
@@ -37,7 +36,8 @@ class WeatherContainer extends Component{
 
 function mapStateToProps({weather}) {
     return {
-        location: weather.location
+        lat: weather.lat,
+        lon: weather.lon
     }
 }
 

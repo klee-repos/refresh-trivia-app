@@ -17,7 +17,7 @@ export default function apps(state = initialState, action){
         case SET_LOCATION:
             return Object.assign({},state,{
                 lat: action.location.lat,
-                long: action.location.lng
+                lon: action.location.lng
             })
         default: 
             return state;

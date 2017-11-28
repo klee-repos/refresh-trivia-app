@@ -13,7 +13,7 @@ routes.post('/setup', function(req,res){
             if(data){
                 // if(data.results.length > 1)
                 req.io.emit("weather", data.results[0].geometry.location)
-                res.status(200).send();
+                res.status(200).send(data.results[0].geometry.location);
             }
         });
     } else {
