@@ -8,7 +8,6 @@ class Weather extends Component{
         return this.props.hourly.summary
     }
     render(){
-        console.log(this.props)
         return (
             <div className="Weather">
                 {this.summary()}

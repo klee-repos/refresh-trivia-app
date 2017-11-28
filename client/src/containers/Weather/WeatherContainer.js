@@ -12,20 +12,19 @@ class WeatherContainer extends Component{
         this.state = {
             weatherData: null
         }
-        this.Today();
-        
     }
 
     Today(){
         var lat = this.props.lat || localStorage.getItem('weather_dev_lat'); //TODO: rethink
         var lon = this.props.lon || localStorage.getItem('weather_dev_long');
         axios.get('/apps/weather/forecast/today?' + "lat=" + lat +"&lon=" + lon)
-        .then((function(res){
-                this.setState({weatherData:res.data})
-            }).bind(this));
+            .then((function(res){
+                    this.setState({weatherData:res.data})
+                }).bind(this));
     }
 
     render(){
+        this.Today(); //What's the right pattern here?
         return (
             <div className={this.props.layoutClass}>
                  {this.state.weatherData ? <Weather {...this.state.weatherData}/> : null}

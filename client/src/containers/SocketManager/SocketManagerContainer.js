@@ -52,7 +52,6 @@ class SocketManagerContainer extends Component {
 
         //Weather
         socket.on('weather', function(data){
-            console.log(data);
             this.props.setWeatherLocation(data);
         }.bind(this))
     }
