@@ -10,7 +10,7 @@ class WeatherContainer extends Component{
         super(props);
 
         this.state = {
-            weatherData: {}
+            weatherData: null
         }
         this.Today();
         
@@ -29,7 +29,7 @@ class WeatherContainer extends Component{
     render(){
         return (
             <div className={this.props.layoutClass}>
-                 <Weather {...this.state.weatherData}/> 
+                 {this.state.weatherData ? <Weather {...this.state.weatherData}/> : null}
             </div>
         )
     }
