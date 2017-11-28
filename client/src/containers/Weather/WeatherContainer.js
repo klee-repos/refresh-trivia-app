@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 
-import Weather from '../../components'
+import {Weather} from '../../components/'
 import axios from 'axios'
 
 class WeatherContainer extends Component{
@@ -29,8 +29,7 @@ class WeatherContainer extends Component{
     render(){
         return (
             <div className={this.props.layoutClass}>
-                {/* <Weather weatherData={this.state.weatherData}/> */}
-                {this.state.weatherData.hourly ? this.state.weatherData.hourly.summary : "Summary"}
+                 <Weather {...this.state.weatherData}/> 
             </div>
         )
     }
