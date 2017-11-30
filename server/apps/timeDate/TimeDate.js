@@ -142,7 +142,6 @@ var time = function(utc, timezone) {
     time.seconds = utc.toUTCString().substring(23,25);
 
     time.timeOfDay = setTimeOfDay(time.hours,time.timeOfDay)
-    console.log(time)
     return time
 }
 
