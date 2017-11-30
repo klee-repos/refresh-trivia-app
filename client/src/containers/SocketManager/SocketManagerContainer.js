@@ -7,6 +7,7 @@ import * as dashboardActionCreators from '../../redux/modules/dashboard'
 import * as gdaxActionCreators from '../../redux/modules/gdax'
 import * as twentyOneActionCreators from '../../redux/modules/twentyOne'
 import * as iexActionCreators from '../../redux/modules/iex'
+import * as timeDateActionCreators from '../../redux/modules/timeDate'
 
 import socket from '../../config/socket';
 
@@ -55,6 +56,15 @@ class SocketManagerContainer extends Component {
             this.props.setStockList(data)
         }.bind(this))
 
+        // Time
+        socket.on('time', function(data) {
+            this.props.setTime(data)
+        }.bind(this))
+
+        socket.on('date', function(data) {
+            this.props.setDate(data)
+        }.bind(this))
+
     }
 
     render() {
@@ -75,7 +85,8 @@ function mapDispatchToProps(dispatch) {
             ...dashboardActionCreators,
             ...gdaxActionCreators,
             ...twentyOneActionCreators,
-            ...iexActionCreators
+            ...iexActionCreators,
+            ...timeDateActionCreators
         }, dispatch)
 }
 

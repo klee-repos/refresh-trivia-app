@@ -1,14 +1,17 @@
+
 var path = require('path');
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
-
+var io = require('socket.io')(server);
 require('dotenv').config();
 
 require('./apps/gdax/Gdax.js')(io);
+require('./apps/iex/IEX.js')(io);
+require('./apps/timeDate/TimeDate.js')(io);
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -73,7 +76,7 @@ var findUniqueSessionCode = function(){
 	});
 }
 
-const iexSocket = require('socket.io-client')('https://ws-api.iextrading.com/1.0/tops')
+
 
 
 	
@@ -93,20 +96,13 @@ io.on('connection',function(socket){
 		});		
 	});
 
-	// iexSocket.on('message', function(data) {
-	// 	console.log(data);
-	// });
-	
-	// iexSocket.on('connect', () => {	
-	// 	// Subscribe to topics (i.e. appl,fb,aig+)
-	// 	console.log('iex')
-	// 	iexSocket.emit('subscribe', 'snap')
-	// 	iexSocket.emit('subscribe', 'aapl')
-	// 	iexSocket.emit('subscribe', 'gm')
-	// 	iexSocket.emit('subscribe', 'tsla')
-	// })
+	socket.on('iex-subscribe', function(active){
+		socket.join('iex-updates');
+	});
+	socket.on('time-subscribe', function(active){
+		socket.join('time-updates');
+	});
 
-	
 
 	socket.on('startSession',function(requestedCode){
 		if(requestedCode){

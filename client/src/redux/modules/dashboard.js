@@ -20,7 +20,7 @@ export function setApp(appName){
 const initialState = {
     sessionCode: null,
     openApps: {},
-    data:null,
+    data: null,
 }
 
 export default function apps (state = initialState, action) {

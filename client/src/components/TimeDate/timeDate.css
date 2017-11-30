@@ -1,0 +1,21 @@
+
+.timeDate {
+    width:100%;
+}
+
+.timeDateContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    width:100%;
+    
+}
+
+.timeDateRow {
+    flex: 1 1 100%;
+    background-color: white;
+}
+
+.timeDateColumn {
+    flex: 1 1 100%;
+    background-color: white;
+}

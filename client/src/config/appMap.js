@@ -1,9 +1,10 @@
-import {TwentyOneContainer, GdaxContainer, IEXContainer}  from '../containers/'
+import {TwentyOneContainer, GdaxContainer, IEXContainer, TimeDateContainer}  from '../containers/'
 
 const _appMap = {
     "blackjack": () => TwentyOneContainer,
     "gdax": () => GdaxContainer,
     "iex": () => IEXContainer,
+    "timeDate": () => TimeDateContainer,
 }
 
 var getOpenApps = function(apps){

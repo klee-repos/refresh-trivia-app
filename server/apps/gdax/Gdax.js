@@ -21,8 +21,9 @@ var GDAXProvider = function(_io) {
     gdaxTopic = _io.to('gdax-updates');
 
     gdaxSocket.on('message', function(data) {
-        var currentTime = new Date(); 
-    
+        var dateTime = new Date(); 
+        var machineTime = dateTime.getTime();
+
         // Ethereum
         if (data.reason === 'filled' && data.price && data.product_id === 'ETH-USD') {
 
@@ -47,7 +48,7 @@ var GDAXProvider = function(_io) {
                 price:parseFloat(data.price).toFixed(2),
                 diff: parseFloat(differenceETH).toFixed(2),
                 direction:moveETH,
-                time:currentTime
+                time:machineTime
             }
 
             if (differenceETH === 0 && newHistoryETH.length <= 1) {
@@ -58,12 +59,12 @@ var GDAXProvider = function(_io) {
             } 
 
             if (data.side === 'sell') {
-                if (sellPriceHistoryETH.length > 20) {
+                if (sellPriceHistoryETH.length > 10) {
                     sellPriceHistoryETH.pop();
                 }
                 gdaxTopic.emit('sellPriceHistoryETH', sellPriceHistoryETH);
             } else {
-                if (buyPriceHistoryETH.length > 5) {
+                if (buyPriceHistoryETH.length > 10) {
                     buyPriceHistoryETH.pop();
                 }
                 gdaxTopic.emit('buyPriceHistoryETH', buyPriceHistoryETH);
@@ -95,7 +96,7 @@ var GDAXProvider = function(_io) {
                 price:parseFloat(data.price).toFixed(2),
                 diff: parseFloat(differenceBTC).toFixed(2),
                 direction:moveBTC,
-                time:currentTime
+                time:machineTime
             }
 
             if (differenceBTC === 0 && newHistoryBTC.length <= 1) {
@@ -106,12 +107,12 @@ var GDAXProvider = function(_io) {
             } 
 
             if (data.side === 'sell') {
-                if (sellPriceHistoryBTC.length > 5) {
+                if (sellPriceHistoryBTC.length > 10) {
                     sellPriceHistoryBTC.pop();
                 }
                 gdaxTopic.emit('sellPriceHistoryBTC', sellPriceHistoryBTC);
             } else {
-                if (buyPriceHistoryBTC.length > 5) {
+                if (buyPriceHistoryBTC.length > 10) {
                     buyPriceHistoryBTC.pop();
                 }
                 gdaxTopic.emit('buyPriceHistoryBTC', buyPriceHistoryBTC);
