@@ -19,12 +19,6 @@ var IEXProvider = function(_io) {
 
 	iexSocket.on('message', function(data) {
 
-		// duplicate handling    
-		var search = stockList.filter(stockItem => stockItem.symbol === stock);
-		if (search.length > 0) {
-			stockList
-		}
-
 		stockData.unshift({
 			symbol: data.symbol,
 			lastSalePrice: data.lastSalePrice,
