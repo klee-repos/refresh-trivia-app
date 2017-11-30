@@ -82,13 +82,52 @@ var date = function(utc, timeZone) {
     return date;
 }
 
+var setHours = function(hours) {
+
+    if (hours > 10) {
+        return hours - 12; 
+    }
+
+    switch(hours) {
+        case '00':
+            return 12
+        case '01':
+            return 1
+        case '02':
+            return 2
+        case '03':
+            return 3
+        case '04':
+            return 4
+        case '05':
+            return 5
+        case '06':
+            return 6
+        case '07':
+            return 7
+        case '08':
+            return 8
+        case '09':
+            return 9
+    }
+
+}
+
+var setTimeOfDay = function(hours,timeOfDay) {
+    if (hours > 10) {
+        return 'pm'
+    } else {
+        return 'am'
+    }
+}
+
 var time = function(utc, timezone) {
 
     var time = {
         hours: null,
         minutes: null,
         seconds: null,
-        timeOfDay: 'am'
+        timeOfDay: null,
     };
 
     if (timezone == 'local') {
@@ -96,19 +135,14 @@ var time = function(utc, timezone) {
     } else {
         time.hours = utc.toUTCString().substring(17,19);
     }
-
-    if (time.hours > 10) {
-        time.hours = time.hours - 12; 
-        time.timeOfDay = 'pm';
-    }
-
-    if (time.hours === '00') {
-        time.hours = 12;
-    }
     
+    time.hours = setHours(time.hours);
+
     time.minutes = utc.toUTCString().substring(20,22);
     time.seconds = utc.toUTCString().substring(23,25);
 
+    time.timeOfDay = setTimeOfDay(time.hours,time.timeOfDay)
+    console.log(time)
     return time
 }
 
