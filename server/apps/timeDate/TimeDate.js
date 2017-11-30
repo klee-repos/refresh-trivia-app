@@ -87,7 +87,6 @@ var setHours = function(hours) {
     if (hours > 10) {
         return hours - 12; 
     }
-
     switch(hours) {
         case '00':
             return 12
@@ -110,7 +109,6 @@ var setHours = function(hours) {
         case '09':
             return 9
     }
-
 }
 
 var setTimeOfDay = function(hours,timeOfDay) {
@@ -135,13 +133,12 @@ var time = function(utc, timezone) {
     } else {
         time.hours = utc.toUTCString().substring(17,19);
     }
-    
+    time.timeOfDay = setTimeOfDay(time.hours,time.timeOfDay)
     time.hours = setHours(time.hours);
 
     time.minutes = utc.toUTCString().substring(20,22);
     time.seconds = utc.toUTCString().substring(23,25);
 
-    time.timeOfDay = setTimeOfDay(time.hours,time.timeOfDay)
     return time
 }
 

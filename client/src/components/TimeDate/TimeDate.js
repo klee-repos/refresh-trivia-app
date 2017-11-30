@@ -10,7 +10,7 @@ class TimeDate extends Component {
             <div className='timeDate'>
                 {this.props.time
                     ? <div className='timeDateContainer'>
-                        <div className='timeDateRow'>
+                        <div className='timeDateColumn'>
                             <h1>{this.props.time.hours}:{this.props.time.minutes}:{this.props.time.seconds} {this.props.time.timeOfDay}</h1>
                         </div>
                     </div>
@@ -18,7 +18,7 @@ class TimeDate extends Component {
                 }
                 {this.props.date
                     ? <div className='timeDateContainer'>
-                        <div className='timeDateRow'>
+                        <div className='timeDateColumn'>
                             <span>{this.props.date.dayOfWeek}, {this.props.date.monthName} {this.props.date.day} {this.props.date.year}</span>
                         </div>
                     </div>

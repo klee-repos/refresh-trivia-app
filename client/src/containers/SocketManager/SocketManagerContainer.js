@@ -8,6 +8,7 @@ import * as gdaxActionCreators from '../../redux/modules/gdax'
 import * as twentyOneActionCreators from '../../redux/modules/twentyOne'
 import * as iexActionCreators from '../../redux/modules/iex'
 import * as timeDateActionCreators from '../../redux/modules/timeDate'
+import * as hackerNewsActionCreators from '../../redux/modules/hackerNews'
 
 import socket from '../../config/socket';
 
@@ -65,6 +66,11 @@ class SocketManagerContainer extends Component {
             this.props.setDate(data)
         }.bind(this))
 
+        // Hacker News
+        socket.on('hackerNews-headlines', function(data) {
+            this.props.setHeadlines(data)
+        }.bind(this))
+
     }
 
     render() {
@@ -86,7 +92,8 @@ function mapDispatchToProps(dispatch) {
             ...gdaxActionCreators,
             ...twentyOneActionCreators,
             ...iexActionCreators,
-            ...timeDateActionCreators
+            ...timeDateActionCreators,
+            ...hackerNewsActionCreators
         }, dispatch)
 }
 
