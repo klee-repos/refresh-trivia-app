@@ -4,7 +4,7 @@ const geocoder = require('geocoder');
 
 const darkSky = new DarkSky(process.env.DARK_SKY);
 
-routes.post('/setup', function(req,res){
+routes.post('/changeCity', function(req,res){
     if (req.body.location){
         geocoder.geocode(req.body.location,function(err,data){
             if(err){

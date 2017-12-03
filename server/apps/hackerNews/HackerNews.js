@@ -44,27 +44,19 @@ var getTopStories = function() {
 }
 
 var makeStoryList = function() {
-    storyList = [];
+    var storyList = [];
+    var storiesToSend = [];
     return new Promise(function(resolve, reject) {
         getTopStories().then(function(topStories) {
-            getStory(topStories[0]).then(function(story) {
-                storyList.push(story)
-                return getStory(topStories[1])
-            }).then(function(story) {
-                storyList.push(story)
-                return getStory(topStories[2])
-            }).then(function(story) {
-                storyList.push(story)
-                return getStory(topStories[3])
-            }).then(function(story) {
-                storyList.push(story)
-                return getStory(topStories[4])
-            }).then(function(story) {
-                storyList.push(story)
-                return getStory(topStories[5])
-            }).then(function(story) {
-                storyList.push(story)
-                resolve()
+            storiesToSend = topStories.slice(0,5);
+            storiesToSend.map(function(story, idx){
+                getStory(story).then(function(data){
+                    storyList.push(data);
+                    console.log(storyList.length);
+                    if(storyList.length == 5){
+                        resolve(storyList);
+                    }
+                });
             })
         })
     })
@@ -73,21 +65,21 @@ var makeStoryList = function() {
 var HackerNews = function(_io) {
     hackerNewsSocket = _io.to('hackerNews-updates');
 
-    setInterval(function() {
-        headlines = [];
-        makeStoryList().then(function() {
-            for (var story in storyList) {
-                headlines.push({
-                    title: storyList[story].title,
-                    score: storyList[story].score,
-                    totalComments: storyList[story].descendants,
-                    url: storyList[story].url,
-                    time: storyList[story].time
-                })
-            }
-            hackerNewsSocket.emit('hackerNews-headlines', headlines);
-        })
-    }, 5000)
+    headlines = [];
+    makeStoryList().then(function(storyList) {
+        console.log("StoryList created")
+        for (var story in storyList) {
+            headlines.push({
+                title: storyList[story].title,
+                score: storyList[story].score,
+                totalComments: storyList[story].descendants,
+                url: storyList[story].url,
+                time: storyList[story].time
+            })
+        }
+        hackerNewsSocket.emit('hackerNews-headlines', headlines);
+
+    })
 }
 
 module.exports = HackerNews;

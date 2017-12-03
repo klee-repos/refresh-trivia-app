@@ -69,6 +69,7 @@ class SocketManagerContainer extends Component {
 
         // Hacker News
         socket.on('hackerNews-headlines', function(data) {
+            console.log(data);
             this.props.setHeadlines(data)
         }.bind(this))
 
