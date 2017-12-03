@@ -1,0 +1,78 @@
+
+.home {
+    width:100vw;
+    color: #F3E8EE;
+}
+
+.homeContainer {
+    display: flex;
+    width:100%;
+}
+
+.homeNavMessage {
+    height: 95vh;
+    width:100%;
+    background-color: #131F2C;
+}
+
+.homeNavMessage h1 {
+    color: #07DCFF;
+    text-align: center;
+    font-size: 5em;
+}
+
+.homeNavMessage img {
+    display: block;
+    margin: auto;
+    width: 35em;
+}
+
+.message {
+    flex: 1 1 100%;
+    margin-top: 10%;
+}
+
+/* Home Navbar */
+
+.homeNavContainer {
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #131F2C;
+}
+.homeNav {
+    align-self: center;
+    margin: 1em 7% 0% 0; 
+}
+
+.homeNav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.homeNav ul li {
+    display: inline-block;
+    padding: 0 1.5em 0 0;
+    font-size: 1.2em;
+    color: #29CD91;
+}
+
+.homeNav span {
+    color: #07DCFF;
+    font-size: 16px;
+}
+
+
+.logo {
+    margin: 0% 0 0% 7%; 
+}
+
+.logo h1 {
+    color: #29CD91;
+    text-align: center;
+    font-size: 2em;
+}
+
+

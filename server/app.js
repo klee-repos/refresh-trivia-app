@@ -1,14 +1,18 @@
+
 var path = require('path');
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
-
+var io = require('socket.io')(server);
 require('dotenv').config();
 
 require('./apps/gdax/Gdax.js')(io);
+require('./apps/iex/IEX.js')(io);
+require('./apps/timeDate/TimeDate.js')(io);
+require('./apps/hackerNews/HackerNews.js')(io);
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -74,6 +78,10 @@ var findUniqueSessionCode = function(){
 }
 
 
+
+
+	
+
 io.on('connection',function(socket){
 	
 	socket.on('gdax-subscribe', function(active){
@@ -87,6 +95,13 @@ io.on('connection',function(socket){
 				console.log(err)
 			}
 		});		
+	});
+
+	socket.on('iex-subscribe', function(active){
+		socket.join('iex-updates');
+	});
+	socket.on('time-subscribe', function(active){
+		socket.join('time-updates');
 	});
 
 
@@ -113,8 +128,6 @@ io.on('connection',function(socket){
 			});
 		}
 	})
-
-
 
 });
 
@@ -148,7 +161,12 @@ app.post('/connect', function(req, res) {
 });
 
 var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
+<<<<<<< HEAD
 var weatherRoutes = require('./apps/weather/api');
+=======
+var iexRoutes = require('./apps/iex/api');
+
+>>>>>>> master
 
 //TODO: Really only Alexa -> app routes
 app.use('/apps', function(req,res,next){  
@@ -158,7 +176,17 @@ app.use('/apps', function(req,res,next){
 });
 
 app.use('/apps/blackjack/', blackjackRoutes);
+<<<<<<< HEAD
 app.use('/apps/weather', weatherRoutes);
+=======
+
+// IEX Stock Exchange
+app.use('/apps/iex/', iexRoutes);
+
+app.get('/test/:name', function(req,res){
+    res.send({user:req.params.name})
+});
+>>>>>>> master
 
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")

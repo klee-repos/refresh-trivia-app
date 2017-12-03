@@ -5,6 +5,7 @@
 
 .gdax ul {
     list-style-type: none;
+    list-style-position: column;
     padding-left:0;
     
 }
@@ -22,6 +23,13 @@
     display: flex;
     flex-wrap: nowrap;
     width:100%
+}
+
+.testContainer {
+    padding: 10px;
+    width: 800px;
+    height: 800px;
+    background-color: #fff;
 }
 
 .gdaxRow {

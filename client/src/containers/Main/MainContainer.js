@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {NavBottom} from '../../components/';
+
 
 class MainContainer extends Component {
 
@@ -7,7 +7,6 @@ class MainContainer extends Component {
         return (
             <div className='mainContainer'> 
                 {this.props.children}
-                <NavBottom />
             </div>
         )
     }

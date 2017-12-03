@@ -12,6 +12,9 @@ class NavBottom extends Component {
         this.twentyOne = this.twentyOne.bind(this);
         this.gdax = this.gdax.bind(this);
         this.weather = this.weather.bind(this);
+        this.iex = this.iex.bind(this);
+        this.timeDate = this.timeDate.bind(this);
+        this.hackerNews = this.hackerNews.bind(this);
     }
 
     twentyOne() {
@@ -25,6 +28,17 @@ class NavBottom extends Component {
     weather() {
         this.props.setApp("weather");
     }
+    iex() {
+        this.props.setApp("iex");
+    }
+
+    timeDate() {
+        this.props.setApp("timeDate");
+    }
+
+    hackerNews() {
+        this.props.setApp("hackerNews");
+    }
 
     render() {
         return (
@@ -37,16 +51,31 @@ class NavBottom extends Component {
                         <div className="navbar-collapse">
                             <ul className="nav navbar-nav navbar-left">
                                 <li>
-                                    <NavLink exact to='/'><span className='alexa'>Go Home</span></NavLink>
+                                    <NavLink exact to='/'><span className='alexa'>Home</span></NavLink>
                                 </li>
                                 <li>
                                     <a onClick={this.twentyOne}>
-                                        <span className='alexa'>Open Twenty One</span>
+                                        <span className='alexa'>Twenty One</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a onClick={this.gdax}>
-                                        <span className='alexa'>Open Investments</span>
+                                        <span className='alexa'>Coinbase</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onClick={this.iex}>
+                                        <span className='alexa'>IEX</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onClick={this.timeDate}>
+                                        <span className='alexa'>Time/Date</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onClick={this.hackerNews}>
+                                        <span className='alexa'>Hacker News</span>
                                     </a>
                                 </li>
                                 <li>
@@ -79,7 +108,7 @@ function mapStateToProps({dashboard}) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-            ...dashboardActionCreators
+            ...dashboardActionCreators,
         }, dispatch)
 }
 

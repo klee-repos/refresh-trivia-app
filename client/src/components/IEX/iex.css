@@ -1,0 +1,27 @@
+
+.iex {
+    width:100%;
+}
+
+.iex thead {
+    background-color: white;
+}
+
+.iex tbody {
+    background-color: white;
+}
+
+.iexContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    width:100%;
+}
+
+.iexRow {
+    flex: 1 1 100%;
+}
+
+iexColumn {
+    flex: 1 1 100%;
+    background-color: white;
+}

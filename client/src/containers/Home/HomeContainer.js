@@ -7,6 +7,7 @@ class HomeContainer extends Component {
 
     render() {
         return (
+            
             <Home />
         )
     }

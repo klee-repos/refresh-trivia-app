@@ -1,9 +1,16 @@
-import {TwentyOneContainer, GdaxContainer, WeatherContainer}  from '../containers/'
+import {TwentyOneContainer, 
+        GdaxContainer, 
+        IEXContainer, 
+        TimeDateContainer, 
+        HackerNewsContainer,
+    WeatherContainer}  from '../containers/'
 
 const _appMap = {
     "blackjack": () => TwentyOneContainer,
     "gdax": () => GdaxContainer,
-    "weather": () => WeatherContainer
+    "iex": () => IEXContainer,
+    "timeDate": () => TimeDateContainer,
+    "hackerNews": () => HackerNewsContainer,
 }
 
 var getOpenApps = function(apps){
