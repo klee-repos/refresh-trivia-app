@@ -161,12 +161,9 @@ app.post('/connect', function(req, res) {
 });
 
 var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
-<<<<<<< HEAD
 var weatherRoutes = require('./apps/weather/api');
-=======
 var iexRoutes = require('./apps/iex/api');
 
->>>>>>> master
 
 //TODO: Really only Alexa -> app routes
 app.use('/apps', function(req,res,next){  
@@ -176,17 +173,10 @@ app.use('/apps', function(req,res,next){
 });
 
 app.use('/apps/blackjack/', blackjackRoutes);
-<<<<<<< HEAD
 app.use('/apps/weather', weatherRoutes);
-=======
 
 // IEX Stock Exchange
 app.use('/apps/iex/', iexRoutes);
-
-app.get('/test/:name', function(req,res){
-    res.send({user:req.params.name})
-});
->>>>>>> master
 
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
