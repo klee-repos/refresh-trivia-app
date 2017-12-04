@@ -85,16 +85,6 @@ class SocketManagerContainer extends Component {
             this.props.setWeatherLocation(data);
         }.bind(this))
 
-        socket.on('userPrefs', function(data){
-            // console.log(data)
-            for (var key in data) {
-                console.log(data[key])
-                if (key === 'weather') {
-                    this.props.setWeatherLocation(data[key]);
-                }
-            }
-        }.bind(this))
-
     }
 
     render() {
