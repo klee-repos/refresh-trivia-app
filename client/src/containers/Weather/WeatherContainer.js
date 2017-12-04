@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {Weather} from '../../components/'
 import axios from 'axios'
 
-import socket from '../../config/socket'
+// import socket from '../../config/socket'
 
 class WeatherContainer extends Component{
 
