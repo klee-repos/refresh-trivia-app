@@ -15,27 +15,30 @@ class WeatherContainer extends Component{
             weatherData: null,
             timer: null,
         }
-
-        // socket.on('weather', function() {
-        //     this.today()
-        // }.bind(this))
     
         this.today = this.today.bind(this)
-
+        this.today();
     }
 
-    today(){
-        console.log('hit')
-        axios.get('/apps/weather/forecast/today?' + 'lat=' + this.props.lat + '&long=' + this.props.long)
-            .then((function(res){
-                console.log(res)
-                this.setState({weatherData:res.data})
-            }).bind(this));
+    componentWillReceiveProps(nextProps){
+        console.log("Next props: lat:" + nextProps.lat + " long: " +nextProps.long)
+        if(nextProps.lat == this.props.lat && nextProps.long == this.props.long){
+            return;
+        }
+        this.today(nextProps);
+    }
+
+    today(loc){
+        if(!loc) return;
+        axios.get('/apps/weather/forecast/today?' + 'lat=' + loc.lat + '&long=' + loc.long)
+            .then(function(res){
+                this.setState({weatherData:res.data});        
+            }.bind(this));
     }
 
     componentDidMount() {
-        let timer = setInterval(this.today, 50000);
-        this.setState({timer})
+        // let timer = setInterval(this.today, 5000);
+        // this.setState({timer})
     }
 
     componentWillUnmount() {
@@ -45,7 +48,6 @@ class WeatherContainer extends Component{
     
 
     render(){
-        
         return (
             <div className={this.props.layoutClass}>
                  {this.state.weatherData ? <Weather {...this.state.weatherData}/> : <p>Loading</p>}
