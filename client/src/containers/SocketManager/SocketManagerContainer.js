@@ -73,6 +73,7 @@ class SocketManagerContainer extends Component {
             this.props.setHeadlines(data)
         }.bind(this))
 
+        // Dark Sky
         socket.on('weather', function(data){
             this.props.setWeatherLocation(data);
         }.bind(this))

@@ -20,8 +20,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Connection to MongoDB Altas via mongoose
 var mongoose = require("mongoose");
+mongoose.Promise = Promise;
 var db_uri = process.env.DB_URI;
-// var Session = require("./models/AlexaSession");
 
 mongoose.connect(db_uri, {useMongoClient: true}, function(err) {
 	if (err) {
@@ -78,10 +78,6 @@ var findUniqueSessionCode = function(){
 }
 
 
-
-
-	
-
 io.on('connection',function(socket){
 	
 	socket.on('gdax-subscribe', function(active){
@@ -116,7 +112,8 @@ io.on('connection',function(socket){
 				var newSession = Session({
 					_id: sessionCode,
 					sessionCode: sessionCode,
-					amzUserId: null
+					amzUserId: null,
+					userPreferences: {weather:{city:'boston',lat:'42.34472',long:'-71.07206'}},
 				})
 				newSession.save(function(err) {
 					if (err) {

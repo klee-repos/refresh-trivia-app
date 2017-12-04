@@ -6,7 +6,8 @@ var sessionSchema = new mongoose.Schema(
 		_id: Number,
 		began: {type:Date, default:Date.now},
 		sessionCode: Number,
-		amzUserId: String
+		amzUserId: String,
+		userPreferences: Object
 	});
 
 var Session = mongoose.model('Session', sessionSchema);

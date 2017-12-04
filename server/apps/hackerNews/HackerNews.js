@@ -21,9 +21,7 @@ var getStory = function(story) {
                 console.log(err)
                 resolve(err)
             })
-    })    
-
-
+    })
 }
 
 var getTopStories = function() {
