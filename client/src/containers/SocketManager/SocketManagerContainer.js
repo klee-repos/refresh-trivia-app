@@ -31,6 +31,10 @@ class SocketManagerContainer extends Component {
             this.props.setSessionCode(code);
         }.bind(this));
 
+        socket.on('connectCode', function(code){
+            this.props.setConnectCode(code);
+        }.bind(this));
+
         // TwentyOne
         socket.on('updateCards', function(cards) {
             this.props.setCards(cards);

@@ -52,7 +52,6 @@ var makeStoryList = function() {
             storiesToSend.map(function(story, idx){
                 getStory(story).then(function(data){
                     storyList.push(data);
-                    console.log(storyList.length);
                     if(storyList.length == 5){
                         resolve(storyList);
                     }
@@ -67,7 +66,6 @@ var HackerNews = function(_io) {
 
     headlines = [];
     makeStoryList().then(function(storyList) {
-        console.log("StoryList created")
         for (var story in storyList) {
             headlines.push({
                 title: storyList[story].title,
@@ -78,7 +76,6 @@ var HackerNews = function(_io) {
             })
         }
         hackerNewsSocket.emit('hackerNews-headlines', headlines);
-
     })
 }
 

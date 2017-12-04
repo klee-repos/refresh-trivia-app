@@ -7,6 +7,9 @@ var server = require('http').createServer(app);
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var io = require('socket.io')(server);
+var sessionManager = {};
+
+var guid = require('uuid/v4')
 require('dotenv').config();
 
 require('./apps/gdax/Gdax.js')(io);
@@ -20,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 // Connection to MongoDB Altas via mongoose
 var mongoose = require("mongoose");
+mongoose.Promise = Promise;
 var db_uri = process.env.DB_URI;
 // var Session = require("./models/AlexaSession");
 
@@ -62,25 +66,26 @@ app.use(function (req, res, next) {
     next();
 });
 
-var Session = require('./models/Session');
+var User = require('./models/User');
 
 var appsBySession = {};
 
-var findUniqueSessionCode = function(){
+var getConnectCode = function(){
 	return new Promise(function(resolve,reject){
-		var sessionCode = Session.generateName().then(function(sessionCode){
+		resolve(Math.floor(Math.random() * (10000 - 1000)) + 1000); //The maximum is exclusive and the minimum is inclusive
+	  })
+}
+
+var findFreeConnectCode = function(){
+	return new Promise(function(resolve,reject){
+		var sessionCode = getConnectCode().then(function(sessionCode){
 			if(!appsBySession[sessionCode])
 				resolve(sessionCode);				
 			else
-				findUniqueSessionCode();
+				findFreeConnectCode();
 		});
 	});
 }
-
-
-
-
-	
 
 io.on('connection',function(socket){
 	
@@ -108,56 +113,39 @@ io.on('connection',function(socket){
 	socket.on('startSession',function(requestedCode){
 		if(requestedCode){
 			socket.join(requestedCode);
-			socket.emit('sessionCode', requestedCode);	
+			socket.emit('sessionCode', requestedCode);
 		}else{
-			findUniqueSessionCode().then(function(sessionCode){
-				socket.join(sessionCode);
-				socket.emit('sessionCode', sessionCode);
-				var newSession = Session({
-					_id: sessionCode,
-					sessionCode: sessionCode,
-					amzUserId: null
-				})
-				newSession.save(function(err) {
-					if (err) {
-						console.log(err)
-					} else {
-						console.log('session created in db');
-					};
-				})
+			findFreeConnectCode().then(function(connectCode){
+				var socketName = guid();
+				sessionManager[connectCode] = socketName;
+				socket.join(socketName);
+				socket.emit('sessionCode', socketName);
+				socket.emit('connectCode', connectCode);
 			});
 		}
 	})
 
 });
 
-
-
 // Need refactoring
 
 app.post('/connect', function(req, res) {
 	var amzId = req.body.amzUserId;
-	var sessionCode = parseInt(req.body.sessionCode);
-	var status;
-
-	Session.findById(sessionCode, function(err, resSession) {
-		if (resSession.amzUserId) {
-			status = 'existing';
-		} else {
-			status ='created';
-			resSession.amzUserId = amzId;
-			resSession.save(function(err) {
-				if (err) {
-					console.log(err)
-				} else {
-					console.log('amzUserId saved to a session');
-				};
-			})
-			
+	var sessionCode;
+	var connectCode = req.body.connectCode;
+	User.findOne({amzUserId:amzId}, function(err, user) {
+		if (!user) {
+			var user = new User();
+			user.amzUserId = amzId;
+			user.sessionCode = User.generateSessionCode();
+			user.save();
 		}
-	}).then(function() {
-		res.send({"status":status})
-	})
+		if(sessionManager[connectCode]){
+			io.to(sessionManager[connectCode]).emit('sessionCode', user.sessionCode);
+			delete sessionManager[connectCode];
+		}
+		res.status(200).send(user.sessionCode);
+	});
 });
 
 var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
@@ -181,4 +169,3 @@ app.use('/apps/iex/', iexRoutes);
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
 });
-

@@ -86,8 +86,8 @@ class NavBottom extends Component {
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
                             <li>
-                                <a>{this.props.sessionCode && 
-                                    <div>Session code: <span className='alexa'>{this.props.sessionCode}</span></div>
+                                <a>{this.props.connectCode && 
+                                    <div>Connect code: <span className='alexa'>{this.props.connectCode}</span></div>
                                 }</a>
                             </li>
                             </ul>
@@ -102,7 +102,8 @@ class NavBottom extends Component {
 
 function mapStateToProps({dashboard}) {
     return {
-        sessionCode: dashboard.sessionCode
+        sessionCode: dashboard.sessionCode,
+        connectCode: dashboard.connectCode
     }
 }
 
