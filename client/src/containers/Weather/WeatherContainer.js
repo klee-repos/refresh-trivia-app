@@ -12,23 +12,26 @@ class WeatherContainer extends Component{
         this.state = {
             weatherData: null
         }
+        
+        this.today = this.today.bind(this)
     }
 
-    Today(){
-        var lat = this.props.lat || localStorage.getItem('weather_dev_lat'); //TODO: rethink
-        var lon = this.props.lon || localStorage.getItem('weather_dev_long');
-
-        axios.get('/apps/weather/forecast/today?' + "lat=" + lat +"&lon=" + lon)
+    today(){
+        axios.get('/apps/weather/forecast/today?' + "lat=" + this.props.lat +"&long=" + this.props.long)
             .then((function(res){
                     this.setState({weatherData:res.data})
                 }).bind(this));
     }
 
+    componentDidMount() {
+       
+    }
+
     render(){
-        this.Today(); //What's the right pattern here?
+        this.today();
         return (
             <div className={this.props.layoutClass}>
-                 {this.state.weatherData ? <Weather {...this.state.weatherData}/> : null}
+                 {this.state.weatherData ? <Weather {...this.state.weatherData}/> : <p>Loading</p>}
             </div>
         )
     }
@@ -37,7 +40,7 @@ class WeatherContainer extends Component{
 function mapStateToProps({weather}) {
     return {
         lat: weather.lat,
-        lon: weather.lon
+        long: weather.long
     }
 }
 

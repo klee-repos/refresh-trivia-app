@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var mongoose = require("mongoose");
 mongoose.Promise = Promise;
 var db_uri = process.env.DB_URI;
-// var Session = require("./models/AlexaSession");
 
 mongoose.connect(db_uri, {useMongoClient: true}, function(err) {
 	if (err) {
@@ -138,6 +137,7 @@ app.post('/connect', function(req, res) {
 			var user = new User();
 			user.amzUserId = amzId;
 			user.sessionCode = User.generateSessionCode();
+			user.preferences = {test:"test"};
 			user.save();
 		}
 		if(sessionManager[connectCode]){
