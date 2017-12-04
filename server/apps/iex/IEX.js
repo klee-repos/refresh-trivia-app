@@ -16,7 +16,6 @@ var IEXProvider = function(_io) {
 	})
 
 	iexSocket.on('message', function(data) {
-<<<<<<< HEAD
 		var jsonData = JSON.parse(data)
 		var name = jsonData.symbol;
 		stockData[name] = {
@@ -26,16 +25,6 @@ var IEXProvider = function(_io) {
 			securityType: jsonData.securityType
 		}
 		console.log(stockData);
-=======
-
-		stockData.unshift({
-			symbol: data.symbol,
-			lastSalePrice: data.lastSalePrice,
-			lastSaleTime: data.lastSaleTime,
-			sector: data.sector,
-			securityType: data.securityType
-		})
->>>>>>> bba3377228989658934e03bf8068839df05a61f1
 	});
 
 
