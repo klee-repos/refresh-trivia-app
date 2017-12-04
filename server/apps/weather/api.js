@@ -12,19 +12,26 @@ routes.post('/changeCity', function(req,res){
                 res.status(400).send(err);
             }
             if(data){
-                User.findOne({sessionCode:req.sessionCode}, function(err, user) {
-                    var lat = data.results[0].geometry.location.lat;
-                    var long = data.results[0].geometry.location.lng;
-                    var location = {lat:lat,long:long};
-                    user.preferences.weather =  {
-                        city: req.body.location,
-                        lat: lat,
+                var lat = data.results[0].geometry.location.lat;
+                var long = data.results[0].geometry.location.lng;
+                var update = {
+                    weather: {
+                        city:req.body.location, 
+                        lat: lat, 
                         long: long
                     }
-                    req.io.emit("weather", location);
-                    res.status(200).send(location);
-
-                    user.save();
+                }
+                User.findOneAndUpdate({sessionCode:req.sessionCode}, {
+                    preferences: update
+                },
+                function(err, user) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        console.log(update)
+                        req.io.emit("weather", update.weather);
+                        res.status(200).send(update.weather);  
+                    }
                 });
             }
         })

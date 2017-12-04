@@ -137,7 +137,7 @@ app.post('/connect', function(req, res) {
 			var user = new User();
 			user.amzUserId = amzId;
 			user.sessionCode = User.generateSessionCode();
-			user.preferences = {test:"test"};
+			user.preferences = {weather:{city:'boston',lat:'0',long:'0'}};
 			user.save();
 		}
 		if(sessionManager[connectCode]){
