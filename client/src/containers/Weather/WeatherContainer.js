@@ -15,14 +15,15 @@ class WeatherContainer extends Component{
             weatherData: null,
             timer: null,
         }
-    
-        this.today = this.today.bind(this)
+        
         this.today();
+        this.today = this.today.bind(this)
+        
     }
 
     componentWillReceiveProps(nextProps){
         console.log("Next props: lat:" + nextProps.lat + " long: " +nextProps.long)
-        if(nextProps.lat == this.props.lat && nextProps.long == this.props.long){
+        if(nextProps.lat === this.props.lat && nextProps.long === this.props.long){
             return;
         }
         this.today(nextProps);
@@ -37,15 +38,13 @@ class WeatherContainer extends Component{
     }
 
     componentDidMount() {
-        // let timer = setInterval(this.today, 5000);
-        // this.setState({timer})
+        let timer = setInterval(this.today, 50000);
+        this.setState({timer})
     }
 
     componentWillUnmount() {
         clearInterval(this.state.timer);
     }
-
-    
 
     render(){
         return (

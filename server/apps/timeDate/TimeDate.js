@@ -4,6 +4,8 @@ var timeZone = 'local';
 
 var setDayOfWeek = function(dayOfWeek) {
     switch(dayOfWeek) {
+        case 0:
+            return 'Sunday'
         case 1:
             return 'Monday'
         case 2:
@@ -16,8 +18,6 @@ var setDayOfWeek = function(dayOfWeek) {
             return 'Friday'
         case 6:
             return 'Saturday'
-        case 7:
-            return 'Sunday'
         default:
             return dayOfWeek
     }
@@ -84,7 +84,7 @@ var date = function(utc, timeZone) {
 
 var setHours = function(hours) {
 
-    if (hours > 10) {
+    if (hours > 12) {
         return hours - 12; 
     }
     switch(hours) {
@@ -108,11 +108,17 @@ var setHours = function(hours) {
             return 8
         case '09':
             return 9
+        case '10':
+            return 10
+        case '11':
+            return 11
+        default:
+            return hours
     }
 }
 
 var setTimeOfDay = function(hours,timeOfDay) {
-    if (hours > 10) {
+    if (hours > 12) {
         return 'pm'
     } else {
         return 'am'

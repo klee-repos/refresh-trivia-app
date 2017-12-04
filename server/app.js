@@ -110,10 +110,10 @@ io.on('connection',function(socket){
 
 
 	socket.on('startSession',function(requestedCode){
-		if(requestedCode){
+		if (requestedCode){
 			socket.join(requestedCode);
 			socket.emit('sessionCode', requestedCode);
-		}else{
+		} else {
 			findFreeConnectCode().then(function(connectCode){
 				var socketName = guid();
 				sessionManager[connectCode] = socketName;
@@ -135,7 +135,6 @@ app.post('/connect', function(req, res) {
 			var user = new User();
 			user.amzUserId = amzId;
 			user.sessionCode = User.generateSessionCode();
-			user.preferences = {weather:{city:'boston',lat:'0',long:'0'}};
 			user.save();
 		}
 		if(sessionManager[connectCode]){

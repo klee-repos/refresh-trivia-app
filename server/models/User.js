@@ -13,6 +13,14 @@ var userSchema = new mongoose.Schema(
 	preferences: Object
 });
 
+userSchema.methods.setPreference = function(appName, updates) {
+	if (!this.preferences) {
+		this.preferences = {};
+	}
+	this.preferences[appName] = updates;
+	this.markModified('preferences');
+}
+
 var User = mongoose.model('User', userSchema);
 
 User.generateSessionCode = generateSessionCode;

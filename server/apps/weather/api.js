@@ -5,6 +5,15 @@ var User = require('../../models/User');
 
 const darkSky = new DarkSky(process.env.DARK_SKY);
 
+routes.post('/getWeather', function(req, res) {
+    User.findOne({sessionCode:req.sessionCode}, function(err, user) {
+        if(user) {
+            req.io.emit("weather", user.preferences.weather);
+            res.status(200).send(user.preferences.weather);  
+        }
+    })
+})
+
 routes.post('/changeCity', function(req,res){
     if (req.body.location){
         geocoder.geocode(req.body.location,function(err,data){
@@ -16,23 +25,19 @@ routes.post('/changeCity', function(req,res){
                 var lat = data.results[0].geometry.location.lat;
                 var long = data.results[0].geometry.location.lng;
                 var update = {
-                    weather: {
-                        city:req.body.location, 
-                        lat: lat, 
-                        long: long
-                    }
+                    city:req.body.location, 
+                    lat: lat, 
+                    long: long
                 }
-                User.findOneAndUpdate({sessionCode:req.sessionCode}, {
-                    preferences: update
-                },
-                function(err, user) {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        req.io.emit("weather", update.weather);
-                        res.status(200).send(update.weather);  
+                User.findOne({sessionCode:req.sessionCode}, function(err, user) {
+                    if(user) {
+                        user.setPreference('weather', update)
+                        user.save();
                     }
-                });
+                }).then(function() {
+                    req.io.emit("weather", update);
+                    res.status(200).send(update);  
+                })
             }
         })
     } else {
