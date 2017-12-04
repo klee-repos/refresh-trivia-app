@@ -5,15 +5,6 @@ var User = require('../../models/User');
 
 const darkSky = new DarkSky(process.env.DARK_SKY);
 
-routes.post('/getWeather', function(req, res) {
-    User.findOne({sessionCode:req.sessionCode}, function(err, user) {
-        if(user) {
-            req.io.emit("weather", user.preferences.weather);
-            res.status(200).send(user.preferences.weather);  
-        }
-    })
-})
-
 routes.post('/changeCity', function(req,res){
     if (req.body.location){
         geocoder.geocode(req.body.location,function(err,data){
