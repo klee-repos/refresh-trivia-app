@@ -12,6 +12,7 @@ import * as hackerNewsActionCreators from '../../redux/modules/hackerNews'
 import * as weatherActionCreators from '../../redux/modules/weather'
 
 import socket from '../../config/socket';
+import axios from 'axios'
 
 class SocketManagerContainer extends Component {
 
@@ -23,12 +24,15 @@ class SocketManagerContainer extends Component {
 
         // Dashboard
         socket.on('connect', function(){
+            var sessionCode = localStorage.getItem('sessionCode');
+            if(sessionCode) axios.defaults.headers['sessionCode'] = sessionCode;
             socket.emit('startSession', localStorage.getItem('sessionCode'));
         });
 
         socket.on('sessionCode', function(code){
             localStorage.setItem('sessionCode',code);
             this.props.setSessionCode(code);
+            axios.defaults.headers['sessionCode'] = code;
         }.bind(this));
 
         socket.on('connectCode', function(code){
