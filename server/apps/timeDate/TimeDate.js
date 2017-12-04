@@ -118,7 +118,7 @@ var setHours = function(hours) {
 }
 
 var setTimeOfDay = function(hours,timeOfDay) {
-    if (hours > 12) {
+    if (hours >= 12) {
         return 'pm'
     } else {
         return 'am'

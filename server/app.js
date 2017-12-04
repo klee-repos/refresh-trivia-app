@@ -111,6 +111,11 @@ io.on('connection',function(socket){
 
 	socket.on('startSession',function(requestedCode){
 		if (requestedCode){
+			User.findOne({sessionCode:requestedCode}, function(err, user) {
+				if(user) {
+					socket.emit("userPrefs", user.preferences);
+				}
+			})
 			socket.join(requestedCode);
 			socket.emit('sessionCode', requestedCode);
 		} else {

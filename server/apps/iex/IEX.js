@@ -24,10 +24,6 @@ var IEXProvider = function(_io) {
 			sector: jsonData.sector,
 			securityType: jsonData.securityType
 		}
-<<<<<<< HEAD
-		// console.log(stockData);
-=======
->>>>>>> 015d99eae70e7103ca3271781a9cb94db3d859bf
 	});
 
 

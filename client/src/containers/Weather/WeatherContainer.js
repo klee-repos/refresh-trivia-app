@@ -4,8 +4,6 @@ import {connect} from 'react-redux';
 import {Weather} from '../../components/'
 import axios from 'axios'
 
-// import socket from '../../config/socket'
-
 class WeatherContainer extends Component{
 
     constructor(props){
@@ -16,7 +14,7 @@ class WeatherContainer extends Component{
             timer: null,
         }
         
-        this.today();
+        this.today(this.props.lat,this.props.long);
         this.today = this.today.bind(this)
         
     }
@@ -29,9 +27,9 @@ class WeatherContainer extends Component{
         this.today(nextProps);
     }
 
-    today(loc){
-        if(!loc) return;
-        axios.get('/apps/weather/forecast/today?' + 'lat=' + loc.lat + '&long=' + loc.long)
+    today(lat,long){
+        if(!lat) return;
+        axios.get('/apps/weather/forecast/today?' + 'lat=' + lat + '&long=' + long)
             .then(function(res){
                 this.setState({weatherData:res.data});        
             }.bind(this));
