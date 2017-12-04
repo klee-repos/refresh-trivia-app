@@ -123,7 +123,6 @@ io.on('connection',function(socket){
 			});
 		}
 	})
-
 });
 
 app.post('/connect', function(req, res) {
@@ -152,6 +151,7 @@ var iexRoutes = require('./apps/iex/api');
 //TODO: Really only Alexa -> app routes
 app.use('/apps', function(req,res,next){  
 	req.sessionCode = req.get('sessionCode');
+	console.log(req.sessionCode);
 	req.io = io.to(req.sessionCode);
 	next();
 });
