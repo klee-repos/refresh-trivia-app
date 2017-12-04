@@ -3,9 +3,7 @@ const iexSocket = require('socket.io-client')('https://ws-api.iextrading.com/1.0
 
 var stockList = ['snap', 'aapl', 'gm', 'tsla']
 
-var testData = {"symbol":"TSLA","marketPercent":0.0278,"bidSize":0,"bidPrice":0,"askSize":0,"askPrice":0,"volume":243326,"lastSalePrice":306.81,"lastSaleSize":100,"lastSaleTime":1511990427485,"lastUpdated":1511990427485,"sector":"automobilescomponents","securityType":"commonstock"}
-
-var stockData=[];
+var stockData = {};
 
 var IEXProvider = function(_io) {
     iexTopic = _io.to('iex-updates');
@@ -18,15 +16,14 @@ var IEXProvider = function(_io) {
 	})
 
 	iexSocket.on('message', function(data) {
-
-		stockData.unshift({
-			symbol: data.symbol,
-			lastSalePrice: data.lastSalePrice,
-			lastSaleTime: data.lastSaleTime,
-			sector: data.sector,
-			securityType: data.securityType
-		})
-		console.log(data)
+		var jsonData = JSON.parse(data)
+		var name = jsonData.symbol;
+		stockData[name] = {
+			lastSalePrice: jsonData.lastSalePrice,
+			lastSaleTime: jsonData.lastSaleTime,
+			sector: jsonData.sector,
+			securityType: jsonData.securityType
+		}
 		console.log(stockData);
 	});
 
