@@ -12,6 +12,7 @@ routes.post('/changeCity', function(req,res){
                 res.status(400).send(err);
             }
             if(data){
+                if(!data.results[0]) return res.status(400).send()
                 var lat = data.results[0].geometry.location.lat;
                 var long = data.results[0].geometry.location.lng;
                 var update = {
@@ -28,7 +29,6 @@ routes.post('/changeCity', function(req,res){
                     if (err) {
                         console.log(err)
                     } else {
-                        console.log(update)
                         req.io.emit("weather", update.weather);
                         res.status(200).send(update.weather);  
                     }

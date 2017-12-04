@@ -42,12 +42,10 @@ routes.post('/add/', function(req, res) {
                 ytdChange: parseFloat(ytdChange)
             })
 
-            console.log(stockList);
             req.io.emit('updateStockList', stockList)
             res.send(jsonRes);
 
         }).catch(function(err) { 
-            console.log(err)
             res.send({'status':err});
         })
 })
@@ -56,7 +54,6 @@ routes.post('/remove/', function(req, res) {
     var stock = req.body.stock;
     var updatedList = stockList.filter(stockItem => stockItem.symbol !== stock);
 
-    console.log(updatedList)
     stockList = updatedList.slice();
     req.io.emit('updateStockList', stockList)
     res.send(stockList);
