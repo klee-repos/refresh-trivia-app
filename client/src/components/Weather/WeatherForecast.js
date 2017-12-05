@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Weather extends Component{
+class WeatherForecast extends Component{
 
     summary(){
         if(!this.props.hourly)
@@ -17,4 +17,4 @@ class Weather extends Component{
     }
 }
 
-export default Weather;
+export default WeatherForecast;

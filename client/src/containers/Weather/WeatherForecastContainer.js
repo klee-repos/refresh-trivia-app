@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 
-import {Weather} from '../../components/'
-import axios from 'axios'
+import {WeatherForecast} from '../../components/'
 
-class WeatherContainer extends Component{
+var weatherRequests = require('./requests.js');
+
+class WeatherForecastContainer extends Component{
 
     constructor(props){
         super(props);
@@ -14,9 +15,7 @@ class WeatherContainer extends Component{
             timer: null,
         }
         
-        this.today(this.props.lat,this.props.long);
-        this.today = this.today.bind(this)
-        
+        weatherRequests.today(this.props.lat,this.props.long).then((data) => this.setState(data));
     }
 
     componentWillReceiveProps(nextProps){
@@ -25,14 +24,6 @@ class WeatherContainer extends Component{
             return;
         }
         this.today(nextProps);
-    }
-
-    today(lat,long){
-        if(!lat) return;
-        axios.get('/apps/weather/forecast/today?' + 'lat=' + lat + '&long=' + long)
-            .then(function(res){
-                this.setState({weatherData:res.data});        
-            }.bind(this));
     }
 
     componentDidMount() {
@@ -47,7 +38,7 @@ class WeatherContainer extends Component{
     render(){
         return (
             <div className={this.props.layoutClass}>
-                 {this.state.weatherData ? <Weather {...this.state.weatherData}/> : <p>Loading</p>}
+                 {this.state.weatherData ? <WeatherForecast {...this.state.weatherData}/> : <p>Loading</p>}
             </div>
         )
     }
@@ -60,4 +51,4 @@ function mapStateToProps({weather}) {
     }
 }
 
-export default connect(mapStateToProps)(WeatherContainer)
+export default connect(mapStateToProps)(WeatherForecastContainer)

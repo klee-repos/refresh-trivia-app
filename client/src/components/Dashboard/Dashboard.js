@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {QuadrantLayout} from '../../layouts';
+import {QuadrantLayout, FullscreenLayout} from '../../layouts';
 
 import AppMap from '../../config/appMap'
 import './Dashboard.css';
