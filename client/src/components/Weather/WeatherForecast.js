@@ -2,15 +2,10 @@ import React, {Component} from 'react';
 
 class WeatherForecast extends Component{
 
-    summary(){
-        if(!this.props.hourly)
-            return ""
-        return this.props.hourly.summary
-    }
     render(){
         return (
             <div className="Weather">
-                {this.summary()}
+                {this.props.summary}
                 <div className="appDisclaimer">Powered By DarkSky</div>
             </div>
         )

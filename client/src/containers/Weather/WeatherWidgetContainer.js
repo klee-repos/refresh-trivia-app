@@ -6,28 +6,11 @@ import  {WeatherRequests} from '../../requests'
 
 class WeatherWidgetContainer extends Component{
 
-    constructor(props){
-        super(props);
-
-        this.state = {
-            weatherData:null
-        }
-    }
-
-    hasChanged(nextProps){
-        return !(nextProps.lat === this.props.lat && nextProps.long === this.props.long)
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(this.hasChanged(nextProps))
-            WeatherRequests.today(nextProps.lat, nextProps.long)
-            .then((res) => this.setState({weatherData:res.data}));
-    }
     render(){
         
         return (
             <div className={this.props.layoutClass}>
-                 {this.state.weatherData ? <WeatherWidget {...this.state.weatherData}/> : <p></p>}
+                 {this.props.summary ? <WeatherWidget {...this.props}/> : <p></p>}
             </div>
         )
     }
@@ -37,7 +20,8 @@ class WeatherWidgetContainer extends Component{
 function mapStateToProps({weather}) {
     return {
         lat: weather.location.lat,
-        long: weather.location.long
+        long: weather.location.long,
+        summary: weather.forecast.summary
     }
 }
 
