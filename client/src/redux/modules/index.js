@@ -3,5 +3,4 @@ export {default as gdax} from './gdax';
 export {default as twentyOne} from './twentyOne';
 export {default as weather} from './weather'
 export {default as iex} from './iex';
-export {default as timeDate} from './timeDate';
 export {default as hackerNews} from './hackerNews';

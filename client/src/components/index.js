@@ -5,5 +5,5 @@ export {default as TwentyOne} from './TwentyOne/TwentyOne';
 export {default as Gdax} from './Gdax/Gdax';
 export {default as WeatherForecast} from './Weather/WeatherForecast'
 export {default as IEX} from './IEX/IEX';
-export {default as TimeDate} from './TimeDate/TimeDate';
+export {default as TimeDateWidget} from './TimeDate/TimeDateWidget';
 export {default as HackerNews} from './HackerNews/HackerNews';

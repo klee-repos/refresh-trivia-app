@@ -1,11 +1,13 @@
-import {TwentyOneContainer, GdaxContainer, IEXContainer, TimeDateContainer
-    , HackerNewsContainer, WeatherForecastContainer}  from '../containers/'
+import {TwentyOneContainer, 
+        GdaxContainer, 
+        IEXContainer, 
+        HackerNewsContainer, 
+        WeatherForecastContainer}  from '../containers/'
 
 const _appMap = {
     "blackjack": () => TwentyOneContainer,
     "gdax": () => GdaxContainer,
     "iex": () => IEXContainer,
-    "timeDate": () => TimeDateContainer,
     "hackerNews": () => HackerNewsContainer,
     "weather": () => WeatherForecastContainer
 }
