@@ -15,7 +15,7 @@ class WeatherForecastContainer extends Component{
             timer: null,
         }
         
-        weatherRequests.today(this.props.lat,this.props.long).then((data) => this.setState(data));
+        weatherRequests.today(this.props.lat,this.props.long).then(res => this.setState({weatherData:res.data}));
     }
 
     componentWillReceiveProps(nextProps){
