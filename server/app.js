@@ -14,7 +14,6 @@ require('dotenv').config();
 
 require('./apps/gdax/Gdax.js')(io);
 require('./apps/iex/IEX.js')(io);
-require('./apps/timeDate/TimeDate.js')(io);
 require('./apps/hackerNews/HackerNews.js')(io);
 
 var bodyParser = require('body-parser');

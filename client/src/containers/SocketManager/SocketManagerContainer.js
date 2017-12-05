@@ -7,7 +7,6 @@ import * as dashboardActionCreators from '../../redux/modules/dashboard'
 import * as gdaxActionCreators from '../../redux/modules/gdax'
 import * as twentyOneActionCreators from '../../redux/modules/twentyOne'
 import * as iexActionCreators from '../../redux/modules/iex'
-import * as timeDateActionCreators from '../../redux/modules/timeDate'
 import * as hackerNewsActionCreators from '../../redux/modules/hackerNews'
 import * as weatherActionCreators from '../../redux/modules/weather'
 
@@ -66,15 +65,6 @@ class SocketManagerContainer extends Component {
             this.props.setStockList(data)
         }.bind(this))
 
-        // Time
-        socket.on('time', function(data) {
-            this.props.setTime(data)
-        }.bind(this))
-
-        socket.on('date', function(data) {
-            this.props.setDate(data)
-        }.bind(this))
-
         // Hacker News
         socket.on('hackerNews-headlines', function(data) {
             this.props.setHeadlines(data)
@@ -106,7 +96,6 @@ function mapDispatchToProps(dispatch) {
             ...gdaxActionCreators,
             ...twentyOneActionCreators,
             ...iexActionCreators,
-            ...timeDateActionCreators,
             ...hackerNewsActionCreators,
             ...weatherActionCreators
         }, dispatch)

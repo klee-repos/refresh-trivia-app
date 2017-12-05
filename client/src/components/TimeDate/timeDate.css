@@ -3,6 +3,17 @@
     width:100%;
 }
 
+.timeDate span {
+    color: #EED6A8;
+}
+
+.timeDate h1 {
+    margin: 0 0 0 0;
+    font-size: 25px;
+    color: #EED6A8;
+}
+
+
 .timeDateContainer {
     display: flex;
     flex-wrap: nowrap;
@@ -11,5 +22,7 @@
 
 .timeDateColumn {
     flex: 1 1 100%;
-    background-color: white;
+    background-color: #252526;
+    text-align: right;
 }
+
