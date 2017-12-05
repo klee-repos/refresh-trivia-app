@@ -14,12 +14,14 @@ class WeatherWidgetContainer extends Component{
         }
     }
 
+    hasChanged(nextProps){
+        return !(nextProps.lat === this.props.lat && nextProps.long === this.props.long)
+    }
+
     componentWillReceiveProps(nextProps){
-        // if(nextProps.lat === this.props.lat && nextProps.long === this.props.long){
-        //     return;
-        // }
-        weatherRequests.today(nextProps.lat, nextProps.long)
-        .then((res) => this.setState({weatherData:res.data}));
+        if(this.hasChanged(nextProps))
+            weatherRequests.today(nextProps.lat, nextProps.long)
+            .then((res) => this.setState({weatherData:res.data}));
     }
     render(){
         
