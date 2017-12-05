@@ -1,0 +1,47 @@
+
+.weather {
+    width:100%;
+    color: #EED6A8;
+}
+
+.weather span {
+    color: #EED6A8;
+}
+
+.weather h1 {
+    margin: 0 0 0 0;
+    font-size: 20px;
+    color: #EED6A8;
+}
+
+.weatherContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    width:100%;
+}
+
+.weatherIcon {
+    display: flex;
+    flex-wrap: nowrap;
+    width:8%;
+}
+
+
+.weatherDescription {
+    display: flex;
+    flex-wrap: wrap;
+    width:92%;
+    justify-content: flex-start;
+}
+
+.weatherSummary {
+    flex: 1 1 100%;
+    align-self: center;
+}
+
+.weatherTemp {
+    flex: 1 1 100%;
+    align-self: center;
+}
+
+

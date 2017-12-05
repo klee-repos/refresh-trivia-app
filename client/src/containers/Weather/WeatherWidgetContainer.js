@@ -21,12 +21,16 @@ class WeatherWidgetContainer extends Component{
     componentWillReceiveProps(nextProps){
         if(this.hasChanged(nextProps))
             weatherRequests.today(nextProps.lat, nextProps.long)
-            .then((res) => this.setState({weatherData:res.data}));
+            .then((res) => {
+                console.log(res.data)
+                this.setState({weatherData:res.data})
+            })
+            
     }
     render(){
         
         return (
-            <div className={this.props.layoutClass}>
+            <div className='weather'>
                  {this.state.weatherData ? <WeatherWidget {...this.state.weatherData}/> : <p></p>}
             </div>
         )

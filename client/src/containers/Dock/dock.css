@@ -13,7 +13,7 @@
     flex-direction: row;
     justify-content: flex-end;
     background-color: #252526;
-    margin: 0 50px 0 0;
+    margin: 5px 50px 5px 0;
 }
 .weatherWidgetDock { 
     width:100%;
@@ -21,6 +21,7 @@
     flex-direction: row;
     justify-content: flex-start;
     background-color: #252526;
+    margin: 5px 0 5px 0;
 }
 
 
