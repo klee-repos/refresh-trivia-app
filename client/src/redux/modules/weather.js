@@ -1,23 +1,58 @@
-const SET_LOCATION = 'SET_LOCATION'
+import {WeatherRequests} from '../../requests';
 
-export function setWeatherLocation(location){
+const UPDATE_LOCATION = 'UPDATE_LOCATION'
+const UPDATE_FORECAST = 'UPDATE_FORECAST'
+
+export function updateLocation(location){
     return {
-        type: SET_LOCATION,
+        type: UPDATE_LOCATION,
         location
     }
 }
 
+function updateForecast(forecast){
+    return {
+        type: UPDATE_FORECAST,
+        forecast
+    }
+}
+
+export function getForecast(loc){
+    return function(dispatch){
+        WeatherRequests.today(loc.lat,loc.long)
+            .then((res) => dispatch(updateForecast(res.data)))
+    }
+}
+
 const initialState = {
-    lat: null,
-    long: null,
+    location:{
+        lat: null,
+        long: null,
+        city: null
+    },
+    forecast:{
+        summary: null,
+        temp: null,
+        icon: null,
+    }
 }
 
 export default function apps(state = initialState, action){
     switch(action.type){
-        case SET_LOCATION:
+        case UPDATE_LOCATION:
             return Object.assign({},state,{
-                lat: action.location.lat,
-                long: action.location.long,
+                location: {
+                    lat: action.location.lat,
+                    long: action.location.long,
+                }
+            })
+        case UPDATE_FORECAST:
+            return Object.assign({},state,{
+                forecast: {
+                    summary: action.forecast.hourly.summary,
+                    temp: action.forecast.currently.temperature,
+                    icon: action.forecast.currently.icon,
+                }
             })
         default: 
             return state;

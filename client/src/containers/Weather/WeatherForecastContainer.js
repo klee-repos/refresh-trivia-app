@@ -3,31 +3,13 @@ import {connect} from 'react-redux';
 
 import {WeatherForecast} from '../../components/'
 
-import * as weatherRequests from './requests'
+import  {WeatherRequests} from '../../requests'
 class WeatherForecastContainer extends Component{
 
-    constructor(props){
-        super(props);
-
-        this.state = {
-            weatherData: null
-        }
-        weatherRequests.today(this.props.lat,this.props.long)
-            .then(res => this.setState({weatherData:res.data}));
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.lat === this.props.lat && nextProps.long === this.props.long){
-            return;
-        }
-        weatherRequests.today(nextProps.lat, nextProps.long)
-            .then(res => this.setState({weatherData:res.data}));;
-    }
-
-    render(){
+   render(){
         return (
             <div className={this.props.layoutClass}>
-                 {this.state.weatherData ? <WeatherForecast {...this.state.weatherData}/> : <p></p>}
+                  <WeatherForecast {...this.props}/>
             </div>
         )
     }
@@ -35,8 +17,9 @@ class WeatherForecastContainer extends Component{
 
 function mapStateToProps({weather}) {
     return {
-        lat: weather.lat,
-        long: weather.long
+        lat: weather.location.lat,
+        long: weather.location.long,
+        summary: weather.forecast.summary
     }
 }
 
