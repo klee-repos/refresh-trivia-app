@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {WeatherForecast} from '../../components/'
 
 import * as weatherRequests from './requests'
-
 class WeatherForecastContainer extends Component{
 
     constructor(props){
@@ -13,25 +12,17 @@ class WeatherForecastContainer extends Component{
         this.state = {
             weatherData: null
         }
-        
-        weatherRequests.today(this.props.lat,this.props.long).then(res => this.setState({weatherData:res.data}));
+        weatherRequests.today(this.props.lat,this.props.long)
+            .then(res => this.setState({weatherData:res.data}));
     }
 
     componentWillReceiveProps(nextProps){
         if(nextProps.lat === this.props.lat && nextProps.long === this.props.long){
             return;
         }
-        this.today(nextProps);
+        weatherRequests.today(nextProps.lat, nextProps.long)
+            .then(res => this.setState({weatherData:res.data}));;
     }
-
-    // componentDidMount() {
-    //     let timer = setInterval(this.today, 50000);
-    //     this.setState({timer})
-    // }
-
-    // componentWillUnmount() {
-    //     clearInterval(this.state.timer);
-    // }
 
     render(){
         return (

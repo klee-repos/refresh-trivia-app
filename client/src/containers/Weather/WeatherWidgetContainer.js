@@ -1,9 +1,10 @@
-import React, {Component} from 'redux'
+import React, {Component} from 'react'
 import {connect} from 'react-redux';
-import {WeatherWidget} from '../../components'
 
+import {WeatherWidget} from '../../components'
 import * as weatherRequests from './requests'
-class WeatherWidgetConatiner {
+
+class WeatherWidgetContainer extends Component{
 
     constructor(props){
         super(props);
@@ -11,16 +12,17 @@ class WeatherWidgetConatiner {
         this.state = {
             weatherData:null
         }
-
-        weatherRequests.today(this.props.lat,this.props.long).then(res => this.setState({weatherData:res.data}));        
     }
+
     componentWillReceiveProps(nextProps){
-        if(nextProps.lat === this.props.lat && nextProps.long === this.props.long){
-            return;
-        }
-        this.today(nextProps);
+        // if(nextProps.lat === this.props.lat && nextProps.long === this.props.long){
+        //     return;
+        // }
+        weatherRequests.today(nextProps.lat, nextProps.long)
+        .then((res) => this.setState({weatherData:res.data}));
     }
     render(){
+        
         return (
             <div className={this.props.layoutClass}>
                  {this.state.weatherData ? <WeatherWidget {...this.state.weatherData}/> : <p></p>}
@@ -28,3 +30,13 @@ class WeatherWidgetConatiner {
         )
     }
 }
+
+
+function mapStateToProps({weather}) {
+    return {
+        lat: weather.lat,
+        long: weather.long
+    }
+}
+
+export default connect(mapStateToProps)(WeatherWidgetContainer)

@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react'
 
-import {TimeDateContainer} from '../../containers/'
+import {TimeDateContainer, WeatherWidgetContainer} from '../../containers/'
 
 import './dock.css'
 
@@ -15,7 +15,7 @@ class DockContainer extends Component {
                         <TimeDateContainer />
                     </div>
                     <div className='weatherWidgetDock' >
-                    asdf
+                        <WeatherWidgetContainer />
                     </div>
                 </div>
             </div>
