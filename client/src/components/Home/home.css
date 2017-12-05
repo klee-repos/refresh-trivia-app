@@ -12,11 +12,11 @@
 .homeNavMessage {
     height: 95vh;
     width:100%;
-    background-color: #131F2C;
+    background-color: #FCF9C7;
 }
 
 .homeNavMessage h1 {
-    color: #07DCFF;
+    color: #14191F;
     text-align: center;
     font-size: 5em;
 }
@@ -39,7 +39,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #131F2C;
+    background-color: #FCF9C7;
 }
 .homeNav {
     align-self: center;
@@ -56,11 +56,11 @@
     display: inline-block;
     padding: 0 1.5em 0 0;
     font-size: 1.2em;
-    color: #29CD91;
+    color: #14191F;
 }
 
 .homeNav span {
-    color: #07DCFF;
+    color: #14191F;
     font-size: 16px;
 }
 

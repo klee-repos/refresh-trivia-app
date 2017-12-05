@@ -8,4 +8,5 @@ export {default as WeatherForecastContainer} from './Weather/WeatherForecastCont
 export {default as IEXContainer} from './IEX/IEXContainer';
 export {default as TimeDateContainer} from './TimeDate/TimeDateContainer';
 export {default as HackerNewsContainer} from './HackerNews/HackerNewsContainer';
+export {default as DockContainer} from './Dock/DockContainer';
 
