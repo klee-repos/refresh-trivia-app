@@ -22,6 +22,7 @@ function mapStateToProps({weather}) {
         summary: weather.forecast.summary,
         icon: weather.forecast.icon,
         temp: weather.forecast.temp,
+        city: weather.location.city,
     }
 }
 

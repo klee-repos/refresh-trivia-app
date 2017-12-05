@@ -13,14 +13,25 @@ export function updateLocation(location){
 function updateForecast(forecast){
     return {
         type: UPDATE_FORECAST,
-        forecast
+        forecast,
     }
+}
+
+function setIcon(i) {
+    var icon = i.replace(/-/g, "_")
+    return icon.toUpperCase()
 }
 
 export function getForecast(loc){
     return function(dispatch){
         WeatherRequests.today(loc.lat,loc.long)
-            .then((res) => dispatch(updateForecast(res.data)))
+            .then((res) => {
+                var icon = setIcon(res.data.currently.icon);
+                var forecast = res.data;
+                forecast.icon = icon
+                dispatch(updateForecast(forecast))
+            })
+           
     }
 }
 
@@ -44,6 +55,7 @@ export default function apps(state = initialState, action){
                 location: {
                     lat: action.location.lat,
                     long: action.location.long,
+                    city: action.location.city,
                 }
             })
         case UPDATE_FORECAST:
@@ -51,7 +63,7 @@ export default function apps(state = initialState, action){
                 forecast: {
                     summary: action.forecast.hourly.summary,
                     temp: action.forecast.currently.temperature,
-                    icon: action.forecast.currently.icon,
+                    icon: action.forecast.icon
                 }
             })
         default: 
