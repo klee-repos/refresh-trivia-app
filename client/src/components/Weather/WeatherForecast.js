@@ -4,9 +4,13 @@ class WeatherForecast extends Component{
 
     render(){
         return (
-            <div className="Weather">
-                {this.props.summary}
-                <div className="appDisclaimer">Powered By DarkSky</div>
+            <div className="weather">
+                <div className="weather">
+                    <div className="largeDisplay"></div>
+                    <div className="small display">
+                        <div className="appDisclaimer">Powered By DarkSky</div>                
+                    </div>
+                </div>
             </div>
         )
     }
