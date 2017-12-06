@@ -17,6 +17,10 @@ class WeatherForecast extends Component{
     componentWillReceiveProps(nextProps) {
         if (this.props.city === nextProps.city) {
             this.state.test.set("icon2", Skycons[nextProps.icon]);
+            this.state.test.set("icon3", Skycons[nextProps.nextDay.icon]);
+            this.state.test.set("icon4", Skycons[nextProps.secondDay.icon]);
+            this.state.test.set("icon5", Skycons[nextProps.thirdDay.icon]);
+            this.state.test.set("icon6", Skycons[nextProps.fourthDay.icon]);
         }
     }
 
