@@ -27,7 +27,9 @@ function getForecastStructure(day){
         summary: day.summary,
         tempHigh: day.temperatureHigh,
         tempLow: day.temperatureLow,
-        icon: setIcon(day.icon)
+        icon: setIcon(day.icon),
+        sunriseTime:day.sunriseTime,
+        sunsetTime:day.sunsetTime
     }
 }
 
