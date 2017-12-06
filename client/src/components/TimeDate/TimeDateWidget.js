@@ -15,7 +15,7 @@
                             <h1>{this.props.time}</h1>
                         </div>
                     </div>
-                    : <span>Loading...</span>
+                    : null
                 }
                 {this.props.date
                     ? <div className='timeDateContainer'>

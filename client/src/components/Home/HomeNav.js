@@ -12,9 +12,7 @@ class HomeNav extends Component {
                     <h1>Refresh Labs</h1>
                 </div>
                 <div className='homeNav'>
-                 <ul>
-                    <li>Home</li>
-                    
+                 <ul>                    
                     <li>
                         <NavLink to='/dashboard'><span>Dashboard</span></NavLink>
                     </li>

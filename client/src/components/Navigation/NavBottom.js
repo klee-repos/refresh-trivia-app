@@ -13,7 +13,6 @@ class NavBottom extends Component {
         this.gdax = this.gdax.bind(this);
         this.weather = this.weather.bind(this);
         this.iex = this.iex.bind(this);
-        this.timeDate = this.timeDate.bind(this);
         this.hackerNews = this.hackerNews.bind(this);
     }
 
@@ -30,10 +29,6 @@ class NavBottom extends Component {
     }
     iex() {
         this.props.setApp("iex");
-    }
-
-    timeDate() {
-        this.props.setApp("timeDate");
     }
 
     hackerNews() {
@@ -66,11 +61,6 @@ class NavBottom extends Component {
                                 <li>
                                     <a onClick={this.iex}>
                                         <span className='alexa'>IEX</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a onClick={this.timeDate}>
-                                        <span className='alexa'>Time/Date</span>
                                     </a>
                                 </li>
                                 <li>

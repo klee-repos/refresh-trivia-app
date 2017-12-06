@@ -19,20 +19,11 @@ class WeatherWidget extends Component{
     temp() {
         return parseInt(this.props.temp) + String.fromCharCode(176) + " F";
     }
-
-    componentDidUpdate(nextProps) {
-        if (nextProps.icon != this.props.icon) {
-            console.log(this.props.icon)
+    
+    componentWillReceiveProps(nextProps) {
+        if (this.props.city === nextProps.city) {
+            this.state.skycons.set("icon1", Skycons[nextProps.icon]);
         }
-        console.log(nextProps.icon)
-            this.state.skycons.add("icon1", Skycons[this.props.icon]);
-            // console.log(nextProps.icon)
-    }
-        
-        
-
-    componentDidUpdate() {
-        this.state.skycons.add("icon1", Skycons[this.props.icon]);
     }
 
     componentDidMount() {
