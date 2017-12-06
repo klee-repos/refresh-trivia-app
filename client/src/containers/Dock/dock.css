@@ -3,7 +3,7 @@
     width:100%;
     display: flex;
     flex-direction: row;
-    color: #EED6A8;
+    color: #C4AE83;
 }
 
 .timeDateWidgetDock { 
@@ -35,9 +35,9 @@
     position: absolute;
     width:100%;
     height: 40%;
-    background: #EED6A8;
+    background: #C4AE83;
     top: 30%;
-    box-shadow: 0px 0px 30px 20px #EED6A8;
+    box-shadow: 0px 0px 30px 20px #C4AE83;
   }
 
 .weatherWidgetDock { 

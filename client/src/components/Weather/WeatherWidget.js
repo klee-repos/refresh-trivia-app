@@ -10,7 +10,7 @@ class WeatherWidget extends Component{
         super(props)
 
         this.state = {
-            skycons: new Skycons({"color": "#EED6A8"}),
+            skycons: new Skycons({"color": "#C4AE83"}),
         }
         
     }
