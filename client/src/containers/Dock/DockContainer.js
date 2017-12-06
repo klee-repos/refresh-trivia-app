@@ -12,6 +12,11 @@ class DockContainer extends Component {
                 <div className='timeDateWidgetDock'>
                     <TimeDateWidgetContainer />
                 </div>
+                <div className="dockSeparatorContainer">
+                    <div className="dockSeparatorBox">
+                        <div className="dockSeparatorLine"></div>
+                    </div>
+                </div>
                 <div className='weatherWidgetDock' >
                     <WeatherWidgetContainer />
                 </div>

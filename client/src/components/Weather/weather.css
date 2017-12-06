@@ -1,17 +1,12 @@
 
 .weatherWidget {
     width:100%;
-    color: #EED6A8;
 }
 
-.weatherWidget span {
-    color: #EED6A8;
-}
 
 .weatherWidget h1 {
     margin: 0 0 0 0;
     font-size: 20px;
-    color: #EED6A8;
 }
 
 .weatherWidgetContainer {
