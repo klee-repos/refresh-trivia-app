@@ -19,7 +19,8 @@ function mapStateToProps({weather}) {
     return {
         lat: weather.location.lat,
         long: weather.location.long,
-        summary: weather.forecast.summary
+        summary: weather.forecast.summary,
+        icon: weather.forecast.icon
     }
 }
 
