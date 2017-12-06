@@ -15,7 +15,6 @@ class WeatherWidget extends Component{
         
     }
 
-
     temp() {
         return parseInt(this.props.temp) + String.fromCharCode(176) + " F";
     }
