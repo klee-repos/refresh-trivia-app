@@ -21,7 +21,6 @@ class WeatherForecast extends Component{
     }
 
     componentDidMount() {
-        console.log(this.props.nextDay)
         this.state.test.add("icon2", Skycons[this.props.icon]);
         this.state.test.add("icon3", Skycons[this.props.nextDay.icon]);
         this.state.test.add("icon4", Skycons[this.props.secondDay.icon]);
@@ -40,6 +39,14 @@ class WeatherForecast extends Component{
                 </div>
                 <div className="smallDisplay">
                     <div className='smallDisplayColumn'>
+                        <div className='forecastSmallDay'>
+                            <div className='forecastSmallTitle'>
+                                <h1>{moment().add(1, 'days').format('dddd')}</h1>
+                            </div>
+                            <div className='forecastSmallTitle'>
+                                {moment().add(1, 'days').format('ll')}
+                            </div>
+                        </div>
                         <div className='forecastSmallSummary'>
                             <div className='forecastSmallTitle'>
                                 {this.props.nextDay.summary}
@@ -48,12 +55,12 @@ class WeatherForecast extends Component{
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>High: {parseInt(this.props.nextDay.temperatureMax) + String.fromCharCode(176) + " F"}</td>
-                                            <td>Sunrise: {moment(this.props.nextDay.sunriseTime).format('LT')}</td>
+                                            <td>High: {parseInt(this.props.nextDay.temperatureMax, 10) + String.fromCharCode(176) + " F"}</td>
+                                            <td>Sunrise: {moment.unix(this.props.nextDay.sunriseTime).format('LT')}</td>
                                         </tr>
                                         <tr>
-                                            <td>Low: {parseInt(this.props.nextDay.temperatureMin) + String.fromCharCode(176) + " F"}</td>
-                                            <td>Sunset: {moment(this.props.nextDay.sunsetTime).format('LT')}</td>
+                                            <td>Low: {parseInt(this.props.nextDay.temperatureMin, 10) + String.fromCharCode(176) + " F"}</td>
+                                            <td>Sunset: {moment.unix(this.props.nextDay.sunsetTime).format('LT')}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -65,11 +72,11 @@ class WeatherForecast extends Component{
                     </div>
                     <div className='smallDisplayColumn'>
                         <div className='forecastSmallDay'>
-                            <div className='forecastSmallyTitle'>
-                                {moment().add(1, 'days').format('dddd')}
+                            <div className='forecastSmallTitle'>
+                                <h1>{moment().add(2, 'days').format('dddd')}</h1>
                             </div>
-                            <div className='forecastSmallyTitle'>
-                                {moment().add(1, 'days').format('ll')}
+                            <div className='forecastSmallTitle'>
+                                {moment().add(2, 'days').format('ll')}
                             </div>
                         </div>
                         <div className='forecastSmallSummary'>
@@ -80,12 +87,12 @@ class WeatherForecast extends Component{
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>High: {parseInt(this.props.secondDay.temperatureMax) + String.fromCharCode(176) + " F"}</td>
-                                            <td>Sunrise: {moment(this.props.secondDay.sunriseTime).format('LT')}</td>
+                                            <td>High: {parseInt(this.props.secondDay.temperatureMax, 10) + String.fromCharCode(176) + " F"}</td>
+                                            <td>Sunrise: {moment.unix(this.props.secondDay.sunriseTime).format('LT')}</td>
                                         </tr>
                                         <tr>
-                                            <td>Low: {parseInt(this.props.secondDay.temperatureMin) + String.fromCharCode(176) + " F"}</td>
-                                            <td>Sunset: {moment(this.props.secondDay.sunsetTime).format('LT')}</td>
+                                            <td>Low: {parseInt(this.props.secondDay.temperatureMin, 10) + String.fromCharCode(176) + " F"}</td>
+                                            <td>Sunset: {moment.unix(this.props.secondDay.sunsetTime).format('LT')}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -96,6 +103,14 @@ class WeatherForecast extends Component{
                         </div>
                     </div>
                     <div className='smallDisplayColumn'>
+                        <div className='forecastSmallDay'>
+                            <div className='forecastSmallTitle'>
+                                <h1>{moment().add(3, 'days').format('dddd')}</h1>
+                            </div>
+                            <div className='forecastSmallTitle'>
+                                {moment().add(3, 'days').format('ll')}
+                            </div>
+                        </div>
                         <div className='forecastSmallSummary'>
                             <div className='forecastSmallTitle'>
                                 {this.props.thirdDay.summary}
@@ -104,12 +119,12 @@ class WeatherForecast extends Component{
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>High: {parseInt(this.props.thirdDay.temperatureMax) + String.fromCharCode(176) + " F"}</td>
-                                            <td>Sunrise: {moment(this.props.thirdDay.sunriseTime).format('LT')}</td>
+                                            <td>High: {parseInt(this.props.thirdDay.temperatureMax, 10) + String.fromCharCode(176) + " F"}</td>
+                                            <td>Sunrise: {moment.unix(this.props.thirdDay.sunriseTime).format('LT')}</td>
                                         </tr>
                                         <tr>
-                                            <td>Low: {parseInt(this.props.thirdDay.temperatureMin) + String.fromCharCode(176) + " F"}</td>
-                                            <td>Sunset: {moment(this.props.thirdDay.sunsetTime).format('LT')}</td>
+                                            <td>Low: {parseInt(this.props.thirdDay.temperatureMin, 10) + String.fromCharCode(176) + " F"}</td>
+                                            <td>Sunset: {moment.unix(this.props.thirdDay.sunsetTime).format('LT')}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -120,6 +135,14 @@ class WeatherForecast extends Component{
                         </div>
                     </div>
                     <div className='smallDisplayColumn'>
+                        <div className='forecastSmallDay'>
+                            <div className='forecastSmallTitle'>
+                                <h1>{moment().add(4, 'days').format('dddd')}</h1>
+                            </div>
+                            <div className='forecastSmallTitle'>
+                                {moment().add(4, 'days').format('ll')}
+                            </div>
+                        </div>
                         <div className='forecastSmallSummary'>
                             <div className='forecastSmallTitle'>
                                 {this.props.fourthDay.summary}
@@ -128,12 +151,12 @@ class WeatherForecast extends Component{
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td>High: {parseInt(this.props.fourthDay.temperatureMax) + String.fromCharCode(176) + " F"}</td>
-                                            <td>Sunrise: {moment(this.props.fourthDay.sunriseTime).format('LT')}</td>
+                                            <td>High: {parseInt(this.props.fourthDay.temperatureMax, 10) + String.fromCharCode(176) + " F"}</td>
+                                            <td>Sunrise: {moment.unix(this.props.fourthDay.sunriseTime).format('LT')}</td>
                                         </tr>
                                         <tr>
-                                            <td>Low: {parseInt(this.props.fourthDay.temperatureMin) + String.fromCharCode(176) + " F"}</td>
-                                            <td>Sunset: {moment(this.props.fourthDay.sunsetTime).format('LT')}</td>
+                                            <td>Low: {parseInt(this.props.fourthDay.temperatureMin, 10) + String.fromCharCode(176) + " F"}</td>
+                                            <td>Sunset: {moment.unix(this.props.fourthDay.sunsetTime).format('LT')}</td>
                                         </tr>
                                     </tbody>
                                 </table>

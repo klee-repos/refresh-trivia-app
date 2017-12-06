@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 
 import {WeatherForecast} from '../../components/'
 
-import  {WeatherRequests} from '../../requests'
 class WeatherForecastContainer extends Component{
 
    render(){

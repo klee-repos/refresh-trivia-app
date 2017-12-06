@@ -69,12 +69,17 @@
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     width:35%;
 }
 
 .smallDisplay table {
     width:100%
+}
+
+.smallDisplay h1 {
+    font-size: 2em;
+    margin: 0 0 0 0;
 }
 
 .smallDisplayColumn {
@@ -84,29 +89,27 @@
     align-items: center;
 }
 
-.forecastSmallSummary {
-    display: flex;
-    flex-wrap: wrap;
-    width:30%;
-    margin: 0 0 0 10%;
-}
-
 .forecastSmallDay { 
     display: flex;
     flex-wrap: wrap;
-    width:30%;
-    margin: 0 0 0 10%;
+    width: 12em;
+}
+
+.forecastSmallSummary {
+    display: flex;
+    flex-wrap: wrap;
+    width: 18em;
 }
 
 .forecastSmallIcon { 
     display: flex;
     flex-wrap: wrap;
-    width:30%;
-    margin: 0 0 0 10%;
+    justify-content: flex-start;
 }
 
 .forecastSmallTitle { 
-    flex: 1 1 50%;
+    flex: 1 1 100%;
+    margin: 0 0 5px 0;
 }
 
 .forecastSmallTable {
