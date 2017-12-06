@@ -13,7 +13,7 @@ export function updateLocation(location){
 function updateForecast(forecast){
     return {
         type: UPDATE_FORECAST,
-        forecast,
+        forecast
     }
 }
 
@@ -22,20 +22,29 @@ function setIcon(i) {
     return icon.toUpperCase()
 }
 
+function getForecastStructure(day){
+    return {
+        summary: day.summary,
+        tempHigh: day.temperatureHigh,
+        tempLow: day.temperatureLow,
+        icon: setIcon(day.icon)
+    }
+}
+
 export function getForecast(loc){
     return function(dispatch){
         WeatherRequests.today(loc.lat,loc.long)
             .then((res) => {
-                var icon = setIcon(res.data.currently.icon);
-                var futureIcon;
-                var forecast = res.data;
-                for (var i = 1; i < 5; i++) {
-                    futureIcon = setIcon(res.data.daily.data[i].icon);
-                    forecast.daily.data[i].icon = futureIcon;
+                var updatedForecast = res.data.daily.data
+                    .filter((day,idx) => {if(idx < 5) return day} )
+                    .map((day,idx) => {return getForecastStructure(day)});
+
+                updatedForecast[0].currentTemp = res.data.currently.temperature;
+                var forecast = {
+                    currently: updatedForecast[0],
+                    future: updatedForecast.slice(1)
                 }
-                // var nextDayIcon = setIcon(res.data.daily.data[1].icon)
-                forecast.icon = icon
-                dispatch(updateForecast(forecast))
+                dispatch(updateForecast(forecast));
             })
     }
 }
@@ -46,14 +55,9 @@ const initialState = {
         long: null,
         city: null
     },
-    forecast:{
-        summary: null,
-        temp: null,
-        icon: null,
-        nextDay: null,
-        secondDay: null,
-        thirdDay: null,
-        fourthDay: null
+    forecast: {
+        currently: {},
+        future: {}
     }
 }
 
@@ -70,14 +74,8 @@ export default function apps(state = initialState, action){
         case UPDATE_FORECAST:
             return Object.assign({},state,{
                 forecast: {
-                    summary: action.forecast.hourly.summary,
-                    temp: action.forecast.currently.temperature,
-                    icon: action.forecast.icon,
-                    nextDay: action.forecast.daily.data[1],
-                    secondDay: action.forecast.daily.data[2],
-                    thirdDay: action.forecast.daily.data[3],
-                    fourthDay: action.forecast.daily.data[4],
-
+                    currently: action.forecast.currently,
+                    future: action.forecast.future
                 }
             })
         default: 
