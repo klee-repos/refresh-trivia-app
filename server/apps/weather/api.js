@@ -40,7 +40,7 @@ routes.get('/forecast/today', function(req,res){
     return darkSky
         .latitude(req.query.lat)
         .longitude(req.query.long)
-        .exclude('flags,daily,minutely')
+        .exclude('flags,minutely')
         .get()
         .then(function(data){
             res.send(data)

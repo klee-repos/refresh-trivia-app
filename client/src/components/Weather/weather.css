@@ -27,27 +27,6 @@
     justify-content: center;
 }
 
-.forecastContainer {
-    display: flex;
-    flex-wrap: nowrap;
-    width:100%;
-    height: 100%;
-}
-
-.largeDisplay {
-    display: flex;
-    background-color:grey;
-    flex-grow: 6;
-    height: 100%
-}
-
-.smallDisplay {
-    display: flex;
-    background-color: white;
-    height: 100%;
-    flex-grow: 3;
-}
-
 
 .weatherDescription {
     display: flex;
@@ -66,7 +45,54 @@
     align-self: center;
 }
 
-.appDisclaimer {
+/* Forecast  */
+
+.forecast {
+    width:100%;
+    height: 100%;
     color: #EED6A8;
 }
 
+.forecastContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    width:100%;
+    height:100%;
+}
+
+.largeDisplay {
+    display: flex;
+    background-color:grey;
+    flex-grow: 6;
+}
+
+.smallDisplay {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 4;
+}
+
+
+
+.smallDisplayColumn {
+    display: flex;
+    flex-wrap: wrap;
+    height:20%
+}
+
+.forecastSmallSummary {
+    display: flex;
+    flex-wrap: nowrap;
+    width:50%;
+    background-color: white;
+}
+
+.forecastSmallTitle { 
+    flex: 1 1 100%;
+}
+
+.forecastSmallIcon { 
+    flex: 1 1 50%;
+}

@@ -27,11 +27,16 @@ export function getForecast(loc){
         WeatherRequests.today(loc.lat,loc.long)
             .then((res) => {
                 var icon = setIcon(res.data.currently.icon);
+                var futureIcon;
                 var forecast = res.data;
+                for (var i = 1; i < 5; i++) {
+                    futureIcon = setIcon(res.data.daily.data[i].icon);
+                    forecast.daily.data[i].icon = futureIcon;
+                }
+                // var nextDayIcon = setIcon(res.data.daily.data[1].icon)
                 forecast.icon = icon
                 dispatch(updateForecast(forecast))
             })
-           
     }
 }
 
@@ -45,6 +50,10 @@ const initialState = {
         summary: null,
         temp: null,
         icon: null,
+        nextDay: null,
+        secondDay: null,
+        thirdDay: null,
+        fourthDay: null
     }
 }
 
@@ -63,7 +72,12 @@ export default function apps(state = initialState, action){
                 forecast: {
                     summary: action.forecast.hourly.summary,
                     temp: action.forecast.currently.temperature,
-                    icon: action.forecast.icon
+                    icon: action.forecast.icon,
+                    nextDay: action.forecast.daily.data[1],
+                    secondDay: action.forecast.daily.data[2],
+                    thirdDay: action.forecast.daily.data[3],
+                    fourthDay: action.forecast.daily.data[4],
+
                 }
             })
         default: 

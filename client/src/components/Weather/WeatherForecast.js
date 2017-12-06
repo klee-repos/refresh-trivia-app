@@ -19,20 +19,58 @@ class WeatherForecast extends Component{
     }
 
     componentDidMount() {
+        console.log(this.props.nextDay.icon)
         this.state.test.add("icon2", Skycons[this.props.icon]);
+        this.state.test.add("icon3", Skycons[this.props.nextDay.icon]);
+        this.state.test.add("icon4", Skycons[this.props.secondDay.icon]);
+        this.state.test.add("icon5", Skycons[this.props.thirdDay.icon]);
+        this.state.test.add("icon6", Skycons[this.props.fourthDay.icon]);
         this.state.test.play();
     }
 
     render(){
         return (
             <div className="forecastContainer">
-                <div className="forecastContainer">
-                    <div className="largeDisplay">
-                        <canvas id="icon2" width="45" height="45" />
+                <div className="largeDisplay">
+                    <div>
+                    <canvas id="icon2" width="500" height="500" />
                     </div>
-                    <div className="smallDisplay">
-                        <div className="appDisclaimer">Powered By DarkSky</div>                
+                </div>
+                <div className="smallDisplay">
+                    <div className='smallDisplayColumn'>
+                        <div className='forecastSmallSummary'>
+                            <div className='forecastSmallTitle'>
+                                Hello
+                            </div>
+                        </div>
+                        <div className='forecastSmallIcon'>
+                            <canvas id="icon3" width="100" height="100" />
+                        </div>
                     </div>
+                    <div className='smallDisplayColumn'>
+                        <div className='forecastSmallTitle'>
+                            Hello
+                        </div>
+                        <div className='forecastSmallIcon'>
+                            <canvas id="icon4" width="100" height="100" />
+                        </div>
+                    </div>  
+                    <div className='smallDisplayColumn'>
+                        <div className='forecastSmallTitle'>
+                            Hello
+                        </div>
+                        <div className='forecastSmallIcon'>
+                            <canvas id="icon5" width="100" height="100" />
+                        </div>
+                    </div>  
+                    <div className='smallDisplayColumn'>
+                        <div className='forecastSmallTitle'>
+                            Hello
+                        </div>
+                        <div className='forecastSmallIcon'>
+                            <canvas id="icon6" width="100" height="100" />
+                        </div>
+                    </div>             
                 </div>
             </div>
         )
