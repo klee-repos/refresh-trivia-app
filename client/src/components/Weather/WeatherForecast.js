@@ -7,7 +7,7 @@ class WeatherForecast extends Component{
             <div className="weather">
                 <div className="weather">
                     <div className="largeDisplay"></div>
-                    <div className="small display">
+                    <div className="smallDisplay">
                         <div className="appDisclaimer">Powered By DarkSky</div>                
                     </div>
                 </div>
