@@ -8,7 +8,7 @@ class WeatherForecastContainer extends Component{
 
    render(){
         return (
-            <div className={this.props.layoutClass}>
+            <div className="forecastContainer">
                   <WeatherForecast {...this.props}/>
             </div>
         )
