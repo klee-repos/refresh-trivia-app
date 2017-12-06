@@ -28,7 +28,6 @@ class WeatherForecast extends Component{
             <div className="forecastContainer">
                 <div className="forecastContainer">
                     <div className="largeDisplay">
-                        <canvas id="icon2" width="45" height="45" />
                     </div>
                     <div className="smallDisplay">
                         <div className="appDisclaimer">Powered By DarkSky</div>                

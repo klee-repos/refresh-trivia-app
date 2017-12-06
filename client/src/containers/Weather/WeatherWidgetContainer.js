@@ -7,7 +7,7 @@ class WeatherWidgetContainer extends Component{
 
     render(){
         return (
-            <div className='weather'>
+            <div className='weatherWidget'>
                  {this.props.summary ? <WeatherWidget {...this.props}/> : <p></p>}
             </div>
         )

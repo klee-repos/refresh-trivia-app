@@ -1,29 +1,34 @@
 
-.weather {
+.weatherWidget {
     width:100%;
     color: #EED6A8;
 }
 
-.weather span {
+.weatherWidget span {
     color: #EED6A8;
 }
 
-.weather h1 {
+.weatherWidget h1 {
     margin: 0 0 0 0;
     font-size: 20px;
     color: #EED6A8;
 }
 
-.weatherContainer {
+.weatherWidgetContainer {
     display: flex;
     flex-wrap: nowrap;
     width:100%;
 }
 
-.weatherIcon {
+.weatherWidgetIcon {
     display: flex;
     flex-wrap: nowrap;
-    width:8%;
+    margin-right: 10px;
+}
+
+.weatherWidgetSummary {
+    flex: 1 1 100%;
+    align-self: center;
 }
 
 .forecastContainer {
@@ -47,17 +52,11 @@
     flex-grow: 3;
 }
 
-
 .weatherDescription {
     display: flex;
     flex-wrap: wrap;
     width:92%;
     justify-content: flex-start;
-}
-
-.weatherSummary {
-    flex: 1 1 100%;
-    align-self: center;
 }
 
 .weatherTemp {
