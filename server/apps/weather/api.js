@@ -1,38 +1,29 @@
 var routes = require('express').Router();
 const DarkSky = require('dark-sky');
-const geocoder = require('geocoder');
 var User = require('../../models/User');
-
 const darkSky = new DarkSky(process.env.DARK_SKY);
+
+var geoOptions = {provider: 'google',apiKey: process.env.GOOGLE_GEOCODER}
+const geocoder = require('node-geocoder')(geoOptions);
 
 routes.post('/changeCity', function(req,res){
     if (req.body.location){
-        geocoder.geocode(req.body.location,function(err,data){
-            if(err){
-                res.status(400).send(err);
+        geocoder.geocode(req.body.location).then(function(data){
+            var update = {
+                city: data[0].city, 
+                lat: data[0].latitude, 
+                long: data[0].longitude
             }
-            if(data){
-                if(!data.results[0]) return res.status(400).send()
-                var lat = data.results[0].geometry.location.lat;
-                var long = data.results[0].geometry.location.lng;
-                var update = {
-                    city:req.body.location, 
-                    lat: lat, 
-                    long: long
+            User.findOne({sessionCode:req.sessionCode}, function(err, user) {
+                if(user) {
+                    user.setPreference('weather', update)
+                    user.save();
                 }
-                User.findOne({sessionCode:req.sessionCode}, function(err, user) {
-                    if(user) {
-                        user.setPreference('weather', update)
-                        user.save();
-                    }
-                }).then(function() {
-                    req.io.emit("weather", update);
-                    res.status(200).send(update);  
-                })
-            }
+            }).then(function() {
+                req.io.emit("weather", update);
+                res.status(200).send(update);  
+            })
         })
-    } else {
-        res.status(404).send("Missing location data");
     }
 });
 
