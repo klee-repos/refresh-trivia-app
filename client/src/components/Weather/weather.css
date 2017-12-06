@@ -22,8 +22,8 @@
 }
 
 .weatherWidgetSummary {
-    flex: 1 1 100%;
     align-self: center;
+    justify-content: center;
 }
 
 .forecastContainer {

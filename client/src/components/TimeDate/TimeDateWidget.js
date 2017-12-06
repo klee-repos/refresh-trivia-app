@@ -20,7 +20,7 @@
                 {this.props.date
                     ? <div className='timeDateContainer'>
                         <div className='timeDateColumn'>
-                            <span>{this.props.date}</span>
+                            <span>{this.props.day}, {this.props.date}</span>
                         </div>
                     </div>
                     : null

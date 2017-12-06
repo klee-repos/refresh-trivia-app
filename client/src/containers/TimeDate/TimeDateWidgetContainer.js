@@ -22,8 +22,9 @@ class TimeDateWidgetContainer extends Component {
 
     setTime() {
         this.setState({ 
-            time: moment().format('LTS'),
-            date: moment().format('LL'),
+            time: moment().format('LT'),
+            date: moment().format('ll'),
+            day: moment().format('dddd')
         })
     }
 
@@ -39,7 +40,7 @@ class TimeDateWidgetContainer extends Component {
     render() {
         return (
             <div>
-                <TimeDateWidget time={this.state.time} date={this.state.date}/>
+                <TimeDateWidget time={this.state.time} date={this.state.date} day={this.state.day}/>
             </div>
         )
     }
