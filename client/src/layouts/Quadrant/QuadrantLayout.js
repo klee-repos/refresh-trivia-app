@@ -4,7 +4,7 @@ import BlankQuadrant from './BlankQuadrant'
 import './quadrant.css'
 
 const QuadrantLayout = function(props){ 
-    var apps = props.blah.slice(0,props.blah.length);
+    var apps = props.openApps.slice(0,props.openApps.length);
     if(!apps)
         apps = []
 
