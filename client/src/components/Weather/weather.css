@@ -62,34 +62,55 @@
 .largeDisplay {
     display: flex;
     background-color:grey;
-    flex-grow: 6;
+    width:65%;
 }
 
 .smallDisplay {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 4;
+    justify-content: space-around;
+    width:35%;
+}
+
+.smallDisplay table {
+    width:100%
 }
 
 .smallDisplayColumn {
     display: flex;
-    flex-wrap: wrap;
-    height:20%
+    flex-wrap: nowrap;
+    height:20%;
+    align-items: center;
 }
 
 .forecastSmallSummary {
     display: flex;
-    flex-wrap: nowrap;
-    width:50%;
-    background-color: white;
+    flex-wrap: wrap;
+    width:30%;
+    margin: 0 0 0 10%;
 }
 
-.forecastSmallTitle { 
-    flex: 1 1 100%;
+.forecastSmallDay { 
+    display: flex;
+    flex-wrap: wrap;
+    width:30%;
+    margin: 0 0 0 10%;
 }
 
 .forecastSmallIcon { 
+    display: flex;
+    flex-wrap: wrap;
+    width:30%;
+    margin: 0 0 0 10%;
+}
+
+.forecastSmallTitle { 
     flex: 1 1 50%;
 }
+
+.forecastSmallTable {
+    flex: 1 1 100%;
+}
+
+
