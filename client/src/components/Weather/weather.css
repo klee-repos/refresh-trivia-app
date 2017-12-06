@@ -1,29 +1,28 @@
 
-.weather {
+.weatherWidget {
     width:100%;
-    color: #EED6A8;
 }
 
-.weather span {
-    color: #EED6A8;
-}
 
-.weather h1 {
+.weatherWidget h1 {
     margin: 0 0 0 0;
     font-size: 20px;
-    color: #EED6A8;
 }
 
-.weatherContainer {
+.weatherWidgetContainer {
     display: flex;
     flex-wrap: nowrap;
     width:100%;
 }
 
-.weatherIcon {
+.weatherWidgetIcon {
     display: flex;
     flex-wrap: nowrap;
-    width:8%;
+    margin-right: 10px;
+}
+
+.weatherWidgetSummary {
+    align-self: center;
     justify-content: center;
 }
 
@@ -73,8 +72,6 @@
     justify-content: space-between;
     flex-grow: 4;
 }
-
-
 
 .smallDisplayColumn {
     display: flex;

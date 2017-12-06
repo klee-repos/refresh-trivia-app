@@ -3,16 +3,10 @@
     width:100%;
 }
 
-.timeDate span {
-    color: #EED6A8;
-}
-
 .timeDate h1 {
     margin: 0 0 0 0;
     font-size: 25px;
-    color: #EED6A8;
 }
-
 
 .timeDateContainer {
     display: flex;

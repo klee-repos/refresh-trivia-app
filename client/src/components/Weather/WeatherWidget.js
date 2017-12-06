@@ -32,15 +32,15 @@ class WeatherWidget extends Component{
     
     render(){
         return (
-            <div className='weatherContainer'>
-                <div className='weatherIcon'>
+            <div className='weatherWidgetContainer'>
+                <div className='weatherWidgetIcon'>
                     <canvas id="icon1" width="45" height="45" />
                 </div>
-                <div className='weatherDescription'>
-                    <div className='weatherSummary'>
+                <div className='weatherWidgetDescription'>
+                    <div className='weatherWidgetSummary'>
                         <h1>{this.temp()}</h1>
                     </div>
-                    <div className='weatherTemp'>
+                    <div className='weatherWidgetTemp'>
                         {this.props.city}
                     </div>
                 </div>
