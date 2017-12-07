@@ -19,9 +19,9 @@ function mapStateToProps({weather}) {
     return {
         lat: weather.location.lat,
         long: weather.location.long,
-        summary: weather.forecast.summary,
-        icon: weather.forecast.icon,
-        temp: weather.forecast.temp,
+        summary: weather.forecast.currently.summary,
+        icon: weather.forecast.currently.icon,
+        temp: weather.forecast.currently.currentTemp,
         city: weather.location.city,
     }
 }
