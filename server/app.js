@@ -55,7 +55,7 @@ app.post('/connect', function(req, res) {
 			user.save();
 		}
 		if(sessionManager.getSession(connectCode)){
-			io.to(sessionManager.getSession(connectCode)).emit('sessionCode', user.sessionCode);
+			io.to(sessionManager.getSession(connectCode)).emit('reconnect', user.sessionCode);
 			sessionManager.removeSession(connectCode);
 		}
 		res.status(200).send(user.sessionCode);

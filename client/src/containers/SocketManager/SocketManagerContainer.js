@@ -21,12 +21,14 @@ class SocketManagerContainer extends Component {
         this.state={
         };
 
-        // Dashboard
-        socket.on('connect', function(){
-            var sessionCode = localStorage.getItem('sessionCode');
+        var connect = function(code){
+            var sessionCode = code || localStorage.getItem('sessionCode');
             if(sessionCode) axios.defaults.headers['sessionCode'] = sessionCode;
-            socket.emit('startSession', localStorage.getItem('sessionCode'));
-        });
+            socket.emit('startSession', sessionCode);
+        }
+        // Dashboard
+        socket.on('connect', connect);
+        socket.on('reconnect', connect);
 
         socket.on('sessionCode', function(code){
             localStorage.setItem('sessionCode',code);
