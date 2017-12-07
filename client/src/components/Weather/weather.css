@@ -62,6 +62,8 @@
 .largeDisplay {
     display: flex;
     width:65%;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .smallDisplay {
@@ -115,4 +117,6 @@
     flex: 1 1 100%;
 }
 
-
+.forecastCurrently {
+    
+}

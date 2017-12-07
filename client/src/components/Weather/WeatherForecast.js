@@ -33,7 +33,7 @@ class WeatherForecast extends Component{
             <div className="forecastContainer">
                 <div className="largeDisplay">
                     <div>
-                    <canvas id="forecastCurrently" width="500" height="500" />
+                    <canvas id="forecastCurrently" width="400" height="400" />
                     </div>
                 </div>
                 <div className="smallDisplay">
