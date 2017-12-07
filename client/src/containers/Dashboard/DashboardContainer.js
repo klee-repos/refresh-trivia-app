@@ -28,11 +28,9 @@ class DashboardContainer extends React.Component {
     dashboard(){
         return(
             <div>
-            <div>
                 <DockContainer />
                 <Dashboard apps={this.props.openApps} />
                 <NavBottom />
-            </div>
             </div>
         )
     }
