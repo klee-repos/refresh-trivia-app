@@ -34,11 +34,25 @@ class WeatherForecast extends Component{
                 <div className="largeDisplay">
                     <div className="todayIcon">
                         <div><canvas id="forecastCurrently" width="400" height="400" /></div>
-                        <div>{this.props.today.currentTemp}</div>
+                        <div>{parseInt(this.props.today.currentTemp,10) +  String.fromCharCode(176) + "F"}</div>
                     </div>
                     <div>
                         <div class="todayForecastContainer">
                             {this.props.today.summary}
+                            <div className='forecastTable'>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>High: {parseInt(this.props.today.tempHigh, 10) + String.fromCharCode(176) + "F "}</td>
+                                            <td>Sunrise: {moment.unix(this.props.today.sunriseTime).format('LT')}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Low: {parseInt(this.props.today.tempLow, 10) + String.fromCharCode(176) + "F "}</td>
+                                            <td>Sunset: {moment.unix(this.props.today.sunsetTime).format('LT')}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -48,38 +62,16 @@ class WeatherForecast extends Component{
                         return (
                             <div className='smallDisplayColumn' key={idx}>
                                 <div className='forecastSmallDay'>
-                                    <div className='forecastSmallTitle'>
+                                    <div>
                                         <h1>{moment().add(idx+1, 'days').format('dddd')}</h1>
                                     </div>
-                                    <div className='forecastSmallTitle'>
-                                        {moment().add(idx+1, 'days').format('ll')}
+                                    <div >
+                                        <canvas id={canvasId} width="100" height="100" />
                                     </div>
                                 </div>
-                                <div className='forecastSmallSummary'>
-                                    <div className='forecastSmallTitle'>
-                                        {day.summary}
-                                    </div>
-                                    <div className='forecastSmallTable'>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td>High: {parseInt(day.tempHigh, 10) + String.fromCharCode(176) + " F"}</td>
-                                                    <td>Sunrise: {moment.unix(day.sunriseTime).format('LT')}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Low: {parseInt(day.tempLow, 10) + String.fromCharCode(176) + " F"}</td>
-                                                    <td>Sunset: {moment.unix(day.sunsetTime).format('LT')}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            <div className='forecastSmallIcon'>
-                                <canvas id={canvasId} width="100" height="100" />
                             </div>
-                        </div>
                         )
-                    })} 
+                    })}
                 </div>
             </div>
         )

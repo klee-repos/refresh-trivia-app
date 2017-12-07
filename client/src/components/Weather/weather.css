@@ -75,12 +75,8 @@
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     width:35%;
-}
-
-.smallDisplay table {
-    width:100%
 }
 
 .smallDisplay h1 {
@@ -90,27 +86,19 @@
 
 .smallDisplayColumn {
     display: flex;
-    flex-wrap: nowrap;
     height:20%;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .forecastSmallDay { 
     display: flex;
-    flex-wrap: wrap;
-    width: 12em;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
-.forecastSmallSummary {
-    display: flex;
-    flex-wrap: wrap;
-    width: 18em;
-}
-
-.forecastSmallIcon { 
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+.forecastSmallDay > div {
+    padding-bottom: 15px;
 }
 
 .forecastSmallTitle { 
@@ -118,7 +106,7 @@
     margin: 0 0 5px 0;
 }
 
-.forecastSmallTable {
+.forecastTable {
     flex: 1 1 100%;
 }
 
