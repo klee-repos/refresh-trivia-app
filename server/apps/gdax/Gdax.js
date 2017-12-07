@@ -39,7 +39,7 @@ var GDAXProvider = function(_io) {
         getETHStatus(gdaxTopic);
         getBTCStatus(gdaxTopic);
     
-    },10000)
+    },30000)
     
     gdaxSocket.on('message', function(data) {
         
