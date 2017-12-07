@@ -53,7 +53,6 @@ var sessionManager = function(io){
                     var socketName = guid();
                     connectingSessions[connectCode] = socketName;
                     socket.join(socketName);
-                    socket.emit('sessionCode', socketName);
                     socket.emit('connectCode', connectCode);
                 });
             }

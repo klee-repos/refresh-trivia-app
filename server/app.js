@@ -45,7 +45,7 @@ var User = require('./models/User');
 
 app.post('/connect', function(req, res) {
 	var amzId = req.body.amzUserId;
-	var sessionCode;
+	if(!amzId) {return res.status(400).send()}
 	var connectCode = req.body.connectCode;
 	User.findOne({amzUserId:amzId}, function(err, user) {
 		if (!user) {
@@ -56,7 +56,7 @@ app.post('/connect', function(req, res) {
 		}
 		if(sessionManager.getSession(connectCode)){
 			io.to(sessionManager.getSession(connectCode)).emit('sessionCode', user.sessionCode);
-			delete sessionManager[connectCode];
+			sessionManager.removeSession(connectCode);
 		}
 		res.status(200).send(user.sessionCode);
 	});
