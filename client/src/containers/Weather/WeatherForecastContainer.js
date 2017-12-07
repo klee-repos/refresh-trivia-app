@@ -18,12 +18,8 @@ function mapStateToProps({weather}) {
     return {
         lat: weather.location.lat,
         long: weather.location.long,
-        summary: weather.forecast.summary,
-        icon: weather.forecast.icon,
-        nextDay: weather.forecast.nextDay,
-        secondDay: weather.forecast.secondDay,
-        thirdDay: weather.forecast.thirdDay,
-        fourthDay: weather.forecast.fourthDay,
+        today: weather.forecast.currently,
+        future: weather.forecast.future
     }
 }
 
