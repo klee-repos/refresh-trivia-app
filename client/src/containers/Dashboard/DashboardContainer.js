@@ -6,21 +6,50 @@ import {connect} from 'react-redux'
 import './dashboard.css'
 
 class DashboardContainer extends React.Component {
+
+    landingPage(){
+        return (
+            <div className="container">
+                <div className="connectCode">Connect to Dash using Alexa</div>
+                <div className="connectCode">Alexa, tell Dash I'm using code {this.props.connectCode}</div>
+            </div>
+        )
+    }
+
+    setup(){
+        return (
+            <div className="container">
+                <div className="connectCode">What city are you in?</div>
+                <div className="connectCode">Alexa, tell Dash I'm in city CITY_NAME</div>
+            </div>
+        )
+    }
+
+    dashboard(){
+        return(
+            <div>
+            <div>
+                <DockContainer />
+                <Dashboard apps={this.props.openApps} />
+                <NavBottom />
+            </div>
+            </div>
+        )
+    }
+
+    currentPage(status){
+        switch(this.props.loadingStatus){
+            case "INIT" : return this.landingPage();
+            case "SETUP": return this.setup();
+            default: return this.dashboard(); 
+        }
+    }
+
     render() {
+        var page = this.currentPage();
         return (
             <div className="dashboard">
-                {!this.props.sessionCode ? 
-                <div>
-                    <div className="connectCode">Say to alexa: Alexa</div>
-                    <div className="alexa">Use dash code {this.props.connectCode}</div>
-                    </div>
-                    :
-                    <div >
-                        <DockContainer />
-                        <Dashboard apps={this.props.openApps} />
-                        <NavBottom />
-                    </div>
-                }
+                {page}
             </div>
         )  
     }
@@ -30,7 +59,8 @@ function mapStateToProps({dashboard}) {
     return {
         sessionCode: dashboard.sessionCode,
         connectCode: dashboard.connectCode,
-        openApps: dashboard.openApps
+        openApps: dashboard.openApps,
+        loadingStatus: dashboard.loadingStatus
     }
 }
 

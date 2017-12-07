@@ -3,6 +3,10 @@ const SET_SESSION_CODE = 'SET_SESSION_CODE';
 const SET_SOCKET = 'SET_SOCKET';
 const SET_APP = 'SET_APP';
 const SET_CONNECT_CODE = 'SET_CONNECT_CODE';
+const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
+
+const STATUS_INIT = "INIT";
+const STATUS_COMPLETE = "COMPLETE"
 
 export function setSessionCode(sessionCode) {
     return {
@@ -18,6 +22,13 @@ export function setConnectCode(connectCode) {
     }
 }
 
+export function statusUpdate(status) {
+    return {
+        type: SET_LOADING_STATUS,
+        status
+    }
+}
+
 export function setApp(appName){
     return{
         type: SET_APP,
@@ -26,6 +37,7 @@ export function setApp(appName){
 }
 
 const initialState = {
+    loadingStatus: STATUS_INIT,
     sessionCode: null,
     openApps: {},
     data: null,
@@ -46,6 +58,10 @@ export default function apps (state = initialState, action) {
         case SET_SOCKET:
             return Object.assign({}, state, {
                 socket: action.socket,
+            })
+        case SET_LOADING_STATUS: 
+            return Object.assign({}, state, {
+                loadingStatus: action.status
             })
         case SET_APP:
             var newApps = Object.assign({},state.openApps);
