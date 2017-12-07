@@ -32,12 +32,17 @@ class WeatherForecast extends Component{
         return (
             <div className="forecastContainer">
                 <div className="largeDisplay">
+                    <div className="todayIcon">
+                        <div><canvas id="forecastCurrently" width="400" height="400" /></div>
+                        <div>{this.props.today.currentTemp}</div>
+                    </div>
                     <div>
-                    <canvas id="forecastCurrently" width="400" height="400" />
+                        <div class="todayForecastContainer">
+                            {this.props.today.summary}
+                        </div>
                     </div>
                 </div>
                 <div className="smallDisplay">
-
                     {this.props.future.map((day, idx) =>{
                         var canvasId = "forecastFuture" + idx;
                         return (
