@@ -14,13 +14,8 @@ class GdaxComponent extends Component {
 
     render() {
         return (
-            <div className={this.props.layoutClass}>
-                <Gdax 
-                    sellPriceHistoryBTC={this.props.sellPriceHistoryBTC}
-                    buyPriceHistoryBTC = {this.props.buyPriceHistoryBTC}
-                    sellPriceHistoryETH={this.props.sellPriceHistoryETH}
-                    buyPriceHistoryETH={this.props.buyPriceHistoryETH}
-                />
+            <div className='gdax'>
+                <Gdax {...this.props}/>
             </div>
         )
     }
@@ -28,10 +23,10 @@ class GdaxComponent extends Component {
 
 function mapStateToProps({gdax}) {
     return {
-        sellPriceHistoryBTC: gdax.sellPriceHistoryBTC,
         buyPriceHistoryBTC: gdax.buyPriceHistoryBTC,
         buyPriceHistoryETH: gdax.buyPriceHistoryETH,
-        sellPriceHistoryETH: gdax.sellPriceHistoryETH
+        statusETH: gdax.statusETH,
+        statusBTC: gdax.statusBTC
     }
 }
 

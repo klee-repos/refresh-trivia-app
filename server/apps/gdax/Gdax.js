@@ -1,73 +1,63 @@
 var GDAX = require('gdax');
+
 var gdaxSocket;
 var gdaxTopic;
 
-var moveETH = '';
-var differenceETH = 0;
-var moveBTC = '';
-var differenceBTC = 0;
-
-var newHistoryETH = [];
-var sellPriceHistoryETH= [];
-var buyPriceHistoryETH = [];
-
-var newHistoryBTC = [];
-var sellPriceHistoryBTC =[];
-var buyPriceHistoryBTC = [];
-
 var gdaxSocket = new GDAX.WebsocketClient(['BTC-USD', 'ETH-USD']);
+var gdaxETHClient = new GDAX.PublicClient('ETH-USD');
+var gdaxBTCClient = new GDAX.PublicClient('BTC-USD');
+
+
+var getETHStatus = function(gdaxTopic) {
+    gdaxETHClient
+        .getProduct24HrStats(function(err, res, data) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    gdaxTopic.emit('gdaxETHStatus', data)
+                    console.log(data);
+                }
+            })
+}
+
+var getBTCStatus = function(gdaxTopic) {
+    gdaxBTCClient
+        .getProduct24HrStats(function(err, res, data) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    gdaxTopic.emit('gdaxBTCStatus', data)
+                    console.log(data);
+                }
+            })
+}
+
 
 var GDAXProvider = function(_io) {
     gdaxTopic = _io.to('gdax-updates');
 
-    gdaxSocket.on('message', function(data) {
-        var dateTime = new Date(); 
-        var machineTime = dateTime.getTime();
+    getETHStatus(gdaxTopic);
+    getBTCStatus(gdaxTopic);
 
+    setInterval(function() {
+        getETHStatus(gdaxTopic);
+        getBTCStatus(gdaxTopic);
+    
+    },10000)
+    
+    gdaxSocket.on('message', function(data) {
+        
         // Ethereum
         if (data.reason === 'filled' && data.price && data.product_id === 'ETH-USD') {
-
-            if (data.side === 'sell') {
-                newHistoryETH = sellPriceHistoryETH;
-            } else {
-                newHistoryETH = buyPriceHistoryETH;
-            }
-
-            if (newHistoryETH.length > 0) {
-                differenceETH = parseFloat(data.price) - parseFloat(newHistoryETH[0]['price']);
-            } else {
-                differenceETH = 0;
-            }
-
-            if (differenceETH > 0)
-                moveETH = 'up'
-            if (differenceETH < 0)
-                moveETH = 'down'
-
-            var additionETH = {
+            
+            var currentETH = {
                 price:parseFloat(data.price).toFixed(2),
-                diff: parseFloat(differenceETH).toFixed(2),
-                direction:moveETH,
-                time:machineTime
-            }
-
-            if (differenceETH === 0 && newHistoryETH.length <= 1) {
-                newHistoryETH.unshift(additionETH);
-            }
-            if (differenceETH !== 0) {
-                newHistoryETH.unshift(additionETH);
-            } 
+            }    
 
             if (data.side === 'sell') {
-                if (sellPriceHistoryETH.length > 10) {
-                    sellPriceHistoryETH.pop();
-                }
-                gdaxTopic.emit('sellPriceHistoryETH', sellPriceHistoryETH);
+                gdaxTopic.emit('sellPriceHistoryETH', currentETH);
             } else {
-                if (buyPriceHistoryETH.length > 10) {
-                    buyPriceHistoryETH.pop();
-                }
-                gdaxTopic.emit('buyPriceHistoryETH', buyPriceHistoryETH);
+                gdaxTopic.emit('buyPriceHistoryETH', currentETH);
             }
 
         }
@@ -75,47 +65,14 @@ var GDAXProvider = function(_io) {
         // Bitcoin
         if (data.reason === 'filled' && data.price && data.product_id === 'BTC-USD') {
 
-            if (data.side === 'sell') {
-                newHistoryBTC = sellPriceHistoryBTC;
-            } else {
-                newHistoryBTC = buyPriceHistoryBTC;
-            }
-
-            if (newHistoryBTC.length > 0) {
-                differenceBTC = parseFloat(data.price) - parseFloat(newHistoryBTC[0]['price']);
-            } else {
-                differenceBTC = 0;
-            }
-
-            if (differenceBTC > 0)
-                moveBTC = 'up'
-            if (differenceBTC < 0)
-                moveBTC = 'down'
-
-            var additionBTC = {
+            var currentBTC = {
                 price:parseFloat(data.price).toFixed(2),
-                diff: parseFloat(differenceBTC).toFixed(2),
-                direction:moveBTC,
-                time:machineTime
             }
-
-            if (differenceBTC === 0 && newHistoryBTC.length <= 1) {
-                newHistoryBTC.unshift(additionBTC);
-            }
-            if (differenceBTC !== 0) {
-                newHistoryBTC.unshift(additionBTC);
-            } 
 
             if (data.side === 'sell') {
-                if (sellPriceHistoryBTC.length > 10) {
-                    sellPriceHistoryBTC.pop();
-                }
-                gdaxTopic.emit('sellPriceHistoryBTC', sellPriceHistoryBTC);
+                gdaxTopic.emit('sellPriceHistoryBTC', currentBTC);
             } else {
-                if (buyPriceHistoryBTC.length > 10) {
-                    buyPriceHistoryBTC.pop();
-                }
-                gdaxTopic.emit('buyPriceHistoryBTC', buyPriceHistoryBTC);
+                gdaxTopic.emit('buyPriceHistoryBTC', currentBTC);
             }
         }
     })

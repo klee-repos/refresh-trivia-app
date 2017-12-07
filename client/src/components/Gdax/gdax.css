@@ -1,71 +1,98 @@
 
 .gdax {
-    width:100%
+    width: 100%;
+    height: 100%;
+    color: #EED6A8;
 }
 
-.gdax ul {
-    list-style-type: none;
-    list-style-position: column;
-    padding-left:0;
-    
+
+
+.gdax h1 {
+    font-size: 8em;
+    margin: 0 0 0 0;
 }
 
-.gdax img {
-    height: 12px;
-    width: 12px;
+.gdax table {
+    width:100%;
 }
 
-.gdax div {
-    color: black;
+.gdaxImageLarge {
+    height: 200px;
+    width: 200px;
 }
+
+.gdaxTableImage {
+    height: 50px;
+    width: 50px;
+}
+
+.gdax table tbody tr td {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.gdaxTableLabel {
+    font-size: 1em;
+    width: 15%;
+}
+
+.gdaxTableHeader {
+    font-size: 2em;
+}
+
+.gdaxTableNumbers {
+    font-size: 2.5em;
+}
+
+.gdaxTable {
+    flex: 1 1 100%;
+    align-self:center;
+}
+
 
 .gdaxContainer {
     display: flex;
     flex-wrap: nowrap;
-    width:100%
+    width:100%;
+    height: 100%;
 }
 
-.testContainer {
-    padding: 10px;
-    width: 800px;
-    height: 800px;
-    background-color: #fff;
+.gdaxLargeDisplay {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 0 0 5%;
+    width:65%;
 }
 
-.gdaxRow {
-    flex: 1 1 100%;
+.gdaxSmallDisplay {
+    display: flex;
+    flex-wrap: nowrap;
+    width:35%;
 }
 
-.gdaxPanel {
-    height: 15em;
-    border: none;
-    box-shadow: none;
-    background-color: #ffffff;
-    border: 1px solid #ffffff;
-    border-radius: 0;
-}
-.gdaxPanel > .panel-heading {
-    border-radius: 0;
-    border: 1px solid #ffffff;
+.gdaxBitcoin {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0 0 5em 0;
+
 }
 
-
-.gdaxPrices {
-    flex: 1 1 100%;
-    background-color: white;
+.gdaxEthereum {
+    display: flex;
+    flex-wrap: nowrap;
 }
 
-.gdaxBTC {
-    flex: 1 1 25%;
-    font-size: '9px';
-}
-.gdaxETH {
-    flex: 1 1 25%;
+.gdaxIcon {
+    flex: 1 1 20%;
+    align-self: center;
 }
 
-.priceHistory {
-    height:9.5em;
-    overflow:hidden;
-    flex: 1 1 50%;
+.gdaxPrice {
+    flex: 1 1 80%;
+    align-self: center;
+    margin: 0 0 0 2em;
 }
+
 
