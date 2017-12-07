@@ -36,22 +36,22 @@ class WeatherForecast extends Component{
                 <div className="largeDisplay">
                     <div className="todayIcon">
                         <div><canvas id="forecastCurrently" width="400" height="400" /></div>
-                        <div>{parseInt(this.props.today.currentTemp,10) +  String.fromCharCode(176) + "F"}</div>
+                        <div><span>{parseInt(this.props.today.currentTemp,10) +  String.fromCharCode(176) + "F"}</span></div>
                     </div>
                     <div className="todayForecastContainer">
                         <div className='forecastLargeTitle'>
-                            {this.props.today.summary}
+                            <span>{this.props.today.summary}</span>
                         </div>
                         <div className='forecastTable'>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>High: {parseInt(this.props.today.tempHigh, 10) + String.fromCharCode(176) + "F "}</td>
-                                        <td>Sunrise: {moment.unix(this.props.today.sunriseTime).format('LT')}</td>
+                                        <td className='forecastTableValues'>High: {parseInt(this.props.today.tempHigh, 10) + String.fromCharCode(176) + "F "}</td>
+                                        <td className='forecastTableValues'>Sunrise: {moment.unix(this.props.today.sunriseTime).format('LT')}</td>
                                     </tr>
                                     <tr>
-                                        <td>Low: {parseInt(this.props.today.tempLow, 10) + String.fromCharCode(176) + "F "}</td>
-                                        <td>Sunset: {moment.unix(this.props.today.sunsetTime).format('LT')}</td>
+                                        <td className='forecastTableValues'>Low: {parseInt(this.props.today.tempLow, 10) + String.fromCharCode(176) + "F "}</td>
+                                        <td className='forecastTableValues'>Sunset: {moment.unix(this.props.today.sunsetTime).format('LT')}</td>
                                     </tr>
                                 </tbody>
                             </table>

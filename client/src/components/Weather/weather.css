@@ -109,26 +109,45 @@
 .forecastLargeTitle {
     flex: 1 1 100%;
     margin: 0 0 10px 0;
+    text-align: center;
+}
+
+.forecastLargeTitle span {
+    font-size:2.5em;
 }
 
 .forecastTable {
-    flex: 1 1 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
 }
 
-.forecastTable table tr td {
-    width:50%;
+.forecastTable table {
+    width: 50%;
+}
+
+.forecastTableValues { 
+    font-size: 1.5em;
+    text-align: center;
 }
 
 .todayForecastContainer {
-    font-size: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    
+    width: 100%;
 }
 
 .todayIcon {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
     font-size:90px;
     width: 100%;
+}
+
+.todayIcon span {
+    font-size: 1em;
 }
 

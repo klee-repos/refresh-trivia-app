@@ -15,7 +15,6 @@ var getETHStatus = function(gdaxTopic) {
                     console.log(err)
                 } else {
                     gdaxTopic.emit('gdaxETHStatus', data)
-                    console.log(data);
                 }
             })
 }
@@ -27,7 +26,6 @@ var getBTCStatus = function(gdaxTopic) {
                     console.log(err)
                 } else {
                     gdaxTopic.emit('gdaxBTCStatus', data)
-                    console.log(data);
                 }
             })
 }
@@ -43,7 +41,7 @@ var GDAXProvider = function(_io) {
         getETHStatus(gdaxTopic);
         getBTCStatus(gdaxTopic);
     
-    },10000)
+    },30000)
     
     gdaxSocket.on('message', function(data) {
         
