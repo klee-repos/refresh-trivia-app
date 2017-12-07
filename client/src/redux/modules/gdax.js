@@ -1,27 +1,14 @@
 
-const SET_SELLPRICE_HISTORY_BTC = 'SET_SELLPRICE_HISTORY_BTC';
+const SET_ETH_STATUS = 'SET_ETH_STATUS';
 const SET_BUYPRICE_HISTORY_BTC = 'SET_BUYPRICE_HISTORY_BTC';
-const SET_SELLPRICE_HISTORY_ETH = 'SET_SELLPRICE_HISTORY_ETH'
+const SET_BTC_STATUS = 'SET_BTC_STATUS'
 const SET_BUYPRICE_HISTORY_ETH = 'SET_BUYPRICE_HISTORY_ETH';
 
-export function setSellPriceHistoryBTC(sellPriceHistoryBTC) {
-    return {
-        type: SET_SELLPRICE_HISTORY_BTC,
-        sellPriceHistoryBTC
-    }
-}
 
 export function setBuyPriceHistoryBTC(buyPriceHistoryBTC) {
     return {
         type: SET_BUYPRICE_HISTORY_BTC,
         buyPriceHistoryBTC
-    }
-}
-
-export function setSellPriceHistoryETH(sellPriceHistoryETH) {
-    return {
-        type: SET_SELLPRICE_HISTORY_ETH,
-        sellPriceHistoryETH
     }
 }
 
@@ -32,29 +19,43 @@ export function setBuyPriceHistoryETH(buyPriceHistoryETH) {
     }
 }
 
+export function setETHStatus(statusETH) {
+    return {
+        type: SET_ETH_STATUS,
+        statusETH
+    }
+}
+
+export function setBTCStatus(statusBTC) {
+    return {
+        type: SET_BTC_STATUS,
+        statusBTC
+    }
+}
+
 const initialState = {
-    sellPriceHistoryBTC: null,
     buyPriceHistoryBTC: null,
     buyPriceHistoryETH: null,
-    sellPriceHistoryETH: null
+    statusETH: null,
+    statusBTC: null,
 }
 
 export default function apps (state = initialState, action) {
     switch(action.type) {
-        case SET_SELLPRICE_HISTORY_BTC:
+        case SET_BTC_STATUS:
             return {
                 ...state,
-                sellPriceHistoryBTC:action.sellPriceHistoryBTC
+                statusBTC:action.statusBTC
             }
         case SET_BUYPRICE_HISTORY_BTC:
             return {
                 ...state,
                 buyPriceHistoryBTC:action.buyPriceHistoryBTC
             }
-        case SET_SELLPRICE_HISTORY_ETH:
+        case SET_ETH_STATUS:
             return {
                 ...state,
-                sellPriceHistoryETH:action.sellPriceHistoryETH
+                statusETH:action.statusETH
             }
         case SET_BUYPRICE_HISTORY_ETH:
             return {

@@ -44,20 +44,21 @@ class SocketManagerContainer extends Component {
         }.bind(this))
 
         // GDAX exchange
-        socket.on('sellPriceHistoryETH', function(data) {
-            this.props.setSellPriceHistoryETH(data)
-        }.bind(this))
-
         socket.on('buyPriceHistoryETH', function(data) {
             this.props.setBuyPriceHistoryETH(data)
         }.bind(this))
 
-        socket.on('sellPriceHistoryBTC', function(data) {
-            this.props.setSellPriceHistoryBTC(data)
-        }.bind(this))
-
         socket.on('buyPriceHistoryBTC', function(data) {
             this.props.setBuyPriceHistoryBTC(data)
+        }.bind(this))
+
+        socket.on('gdaxETHStatus', function(data) {
+            console.log(data)
+            this.props.setETHStatus(data)
+        }.bind(this))
+
+        socket.on('gdaxBTCStatus', function(data) {
+            this.props.setBTCStatus(data)
         }.bind(this))
 
         //IEX exchange
