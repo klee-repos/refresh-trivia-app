@@ -5,7 +5,7 @@ class MainContainer extends Component {
 
     render() {
         return (
-            <div className='mainContainer'> 
+            <div> 
                 {this.props.children}
             </div>
         )

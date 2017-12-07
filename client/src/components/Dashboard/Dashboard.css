@@ -1,4 +1,3 @@
-.dashboard {
-    height: 95vh;
-    background-color: #C5F7E6;
+.dashboardComponent {
+    height: 100%;
 }

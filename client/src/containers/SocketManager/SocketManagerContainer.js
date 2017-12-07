@@ -55,7 +55,6 @@ class SocketManagerContainer extends Component {
         }.bind(this))
 
         socket.on('gdaxETHStatus', function(data) {
-            console.log(data)
             this.props.setETHStatus(data)
         }.bind(this))
 

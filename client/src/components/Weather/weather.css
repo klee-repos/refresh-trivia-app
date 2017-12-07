@@ -62,14 +62,11 @@
 .largeDisplay {
     display: flex;
     width:65%;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.largeDisplay > div {
-    margin-top: 100px;
-}
 
 .smallDisplay {
     display: flex;
@@ -84,30 +81,42 @@
     margin: 0 0 0 0;
 }
 
-.smallDisplayColumn {
+.smallDisplayContainer {
     display: flex;
     height:20%;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 30px 0;
 }
+
 
 .forecastSmallDay { 
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-}
-
-.forecastSmallDay > div {
-    padding-bottom: 15px;
 }
 
 .forecastSmallTitle { 
     flex: 1 1 100%;
-    margin: 0 0 5px 0;
+    margin: 0 0 10px 0;
+}
+
+.forecastSmallIcon { 
+    flex: 1 1 100%;
+}
+
+.forecastLargeTitle {
+    flex: 1 1 100%;
+    margin: 0 0 10px 0;
 }
 
 .forecastTable {
     flex: 1 1 100%;
+}
+
+.forecastTable table tr td {
+    width:50%;
 }
 
 .todayForecastContainer {
@@ -123,7 +132,3 @@
     width: 100%;
 }
 
-.todayIcon > div {
-    padding-left: 40px;
-    padding-right: 40px;
-}

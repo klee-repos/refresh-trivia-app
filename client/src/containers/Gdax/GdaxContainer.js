@@ -26,7 +26,7 @@ function mapStateToProps({gdax}) {
         buyPriceHistoryBTC: gdax.buyPriceHistoryBTC,
         buyPriceHistoryETH: gdax.buyPriceHistoryETH,
         statusETH: gdax.statusETH,
-        statusBTC: gdax.statusBTC
+        statusBTC: gdax.statusBTC,
     }
 }
 

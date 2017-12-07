@@ -16,6 +16,7 @@ class WeatherForecast extends Component{
             this.state.skycon.set("forecastCurrently", Skycons[nextProps.today.icon]);
             nextProps.future.map((day, idx) => {
                 this.state.skycon.set("forecastFuture"+idx, Skycons[day.icon])
+                return {}
             });
         }
     }
@@ -24,6 +25,7 @@ class WeatherForecast extends Component{
         this.state.skycon.set("forecastCurrently", Skycons[this.props.today.icon]);
         this.props.future.map((day, idx) => {
             this.state.skycon.set("forecastFuture"+idx, Skycons[day.icon])
+            return {}
         });
         this.state.skycon.play();
     }
@@ -36,23 +38,23 @@ class WeatherForecast extends Component{
                         <div><canvas id="forecastCurrently" width="400" height="400" /></div>
                         <div>{parseInt(this.props.today.currentTemp,10) +  String.fromCharCode(176) + "F"}</div>
                     </div>
-                    <div>
-                        <div class="todayForecastContainer">
+                    <div className="todayForecastContainer">
+                        <div className='forecastLargeTitle'>
                             {this.props.today.summary}
-                            <div className='forecastTable'>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>High: {parseInt(this.props.today.tempHigh, 10) + String.fromCharCode(176) + "F "}</td>
-                                            <td>Sunrise: {moment.unix(this.props.today.sunriseTime).format('LT')}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Low: {parseInt(this.props.today.tempLow, 10) + String.fromCharCode(176) + "F "}</td>
-                                            <td>Sunset: {moment.unix(this.props.today.sunsetTime).format('LT')}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        </div>
+                        <div className='forecastTable'>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>High: {parseInt(this.props.today.tempHigh, 10) + String.fromCharCode(176) + "F "}</td>
+                                        <td>Sunrise: {moment.unix(this.props.today.sunriseTime).format('LT')}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Low: {parseInt(this.props.today.tempLow, 10) + String.fromCharCode(176) + "F "}</td>
+                                        <td>Sunset: {moment.unix(this.props.today.sunsetTime).format('LT')}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -60,12 +62,12 @@ class WeatherForecast extends Component{
                     {this.props.future.map((day, idx) =>{
                         var canvasId = "forecastFuture" + idx;
                         return (
-                            <div className='smallDisplayColumn' key={idx}>
+                            <div className='smallDisplayContainer' key={idx}>
                                 <div className='forecastSmallDay'>
-                                    <div>
+                                    <div className='forecastSmallTitle'>
                                         <h1>{moment().add(idx+1, 'days').format('dddd')}</h1>
                                     </div>
-                                    <div >
+                                    <div className='forecastSmallIcon'>
                                         <canvas id={canvasId} width="100" height="100" />
                                     </div>
                                 </div>

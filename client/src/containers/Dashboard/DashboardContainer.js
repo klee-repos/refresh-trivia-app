@@ -8,11 +8,12 @@ import './dashboard.css'
 class DashboardContainer extends React.Component {
     render() {
         return (
-            <div className="dashboard">
-                {!this.props.sessionCode ? 
-                    <div className="connectCode">Connect to this dashboard using code {this.props.connectCode}</div>
-                    :
-                    <div >
+            <div>
+                {!this.props.sessionCode
+                    ? <div className="connectCode">Connect to this dashboard using code {this.props.connectCode}</div>
+                    
+
+                    :<div className='dashboard'>
                         <DockContainer />
                         <Dashboard apps={this.props.openApps} />
                         <NavBottom />
