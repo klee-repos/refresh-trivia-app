@@ -12,10 +12,8 @@ var getETHStatus = function(gdaxTopic) {
     gdaxETHClient
         .getProduct24HrStats(function(err, res, data) {
                 if (err) {
-                    console.log(err)
                 } else {
                     gdaxTopic.emit('gdaxETHStatus', data)
-                    console.log(data);
                 }
             })
 }
@@ -24,10 +22,8 @@ var getBTCStatus = function(gdaxTopic) {
     gdaxBTCClient
         .getProduct24HrStats(function(err, res, data) {
                 if (err) {
-                    console.log(err)
                 } else {
                     gdaxTopic.emit('gdaxBTCStatus', data)
-                    console.log(data);
                 }
             })
 }
