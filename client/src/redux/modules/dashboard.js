@@ -37,6 +37,7 @@ export default function apps (state = initialState, action) {
         case SET_SESSION_CODE:
             return Object.assign({},state , {
                 sessionCode: action.sessionCode,
+                connectCode: null
             })
         case SET_CONNECT_CODE:
             return Object.assign({},state , {
