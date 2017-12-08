@@ -2,11 +2,19 @@ import {WeatherRequests} from '../../requests';
 
 const UPDATE_LOCATION = 'UPDATE_LOCATION'
 const UPDATE_FORECAST = 'UPDATE_FORECAST'
+const CHANGE_FORECAST_DAY = 'CHANGE_FORECAST_DAY'
 
 export function updateLocation(location){
     return {
         type: UPDATE_LOCATION,
         location
+    }
+}
+
+export function changeActiveDay(forecastDay){
+    return {
+        type: CHANGE_FORECAST_DAY,
+        forecastDay
     }
 }
 
@@ -59,7 +67,8 @@ const initialState = {
     },
     forecast: {
         currently: {},
-        future: {}
+        future: {},
+        activeDay: null
     }
 }
 
@@ -78,6 +87,14 @@ export default function apps(state = initialState, action){
                 forecast: {
                     currently: action.forecast.currently,
                     future: action.forecast.future
+                }
+            })
+        case CHANGE_FORECAST_DAY: 
+            return Object.assign({}, state, {
+                forecast: {
+                    activeDay: action.forecastDay,
+                    currently: state.forecast.currently,
+                    future: state.forecast.future
                 }
             })
         default: 

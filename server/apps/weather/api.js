@@ -6,7 +6,7 @@ const darkSky = new DarkSky(process.env.DARK_SKY);
 var geoOptions = {provider: 'google',apiKey: process.env.GOOGLE_GEOCODER}
 const geocoder = require('node-geocoder')(geoOptions);
 
-routes.post('/changeCity', function(req,res){
+routes.post('/changeCity', function(req,res){ //TODO: move dashboard commands
     if (req.body.location){
         geocoder.geocode(req.body.location).then(function(data){
             var update = {
@@ -27,8 +27,13 @@ routes.post('/changeCity', function(req,res){
     }
 });
 
-routes.post('/open', function(req,res){
+routes.post('/open', function(req,res){  //TODO: move dashboard commands
     req.io.emit("openApp", "weather");
+    res.status(200).send();
+});
+
+routes.post('/changeForecast', function(req,res){
+    req.io.emit("weather/changeForecast", req.body.day);
     res.status(200).send();
 });
 

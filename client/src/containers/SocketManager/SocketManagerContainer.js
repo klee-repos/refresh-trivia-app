@@ -18,8 +18,7 @@ class SocketManagerContainer extends Component {
     constructor(props) {
         super(props)
 
-        this.state={
-        };
+        this.state={};
 
         var connect = function(code){
             var sessionCode = code || localStorage.getItem('sessionCode');
@@ -86,6 +85,10 @@ class SocketManagerContainer extends Component {
             this.props.getForecast(data);
             this.props.statusUpdate("")
         }.bind(this))
+
+        socket.on('weather/changeForecast', function(dayOfWeek){
+            this.props.changeActiveDay(dayOfWeek);
+        }.bind(this));
 
     }
 
