@@ -27,6 +27,11 @@ routes.post('/changeCity', function(req,res){
     }
 });
 
+routes.post('/open', function(req,res){
+    req.io.emit("openApp", "weather");
+    res.status(200).send();
+});
+
 routes.get('/forecast/today', function(req,res){
     return darkSky
         .latitude(req.query.lat)

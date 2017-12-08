@@ -64,13 +64,10 @@ export default function apps (state = initialState, action) {
                 loadingStatus: action.status
             })
         case SET_APP:
-            var newApps = Object.assign({},state.openApps);
-            if(newApps[action.appName]){
-                delete newApps[action.appName]
-            } else {
-                newApps[action.appName] = action.appName;            
-            }
-            return Object.assign({}, state, {
+            var newApps = {}
+            newApps[action.appName] = true;
+
+           return Object.assign({}, state, {
                 openApps: newApps
             })
         default:
