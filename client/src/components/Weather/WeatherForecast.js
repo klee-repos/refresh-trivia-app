@@ -3,6 +3,7 @@ import {Skycons} from './skycons.js'
 import moment from 'moment'
 
 class WeatherForecast extends Component{
+    
     constructor(props) {
         super(props)
 
@@ -11,70 +12,90 @@ class WeatherForecast extends Component{
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.city === nextProps.city) {
-            this.state.skycon.set("forecastCurrently", Skycons[nextProps.today.icon]);
-            nextProps.future.map((day, idx) => {
-                this.state.skycon.set("forecastFuture"+idx, Skycons[day.icon])
-                return {}
-            });
-        }
+    shouldComponentUpdate(nextProps){
+        console.log((nextProps.activeDayIdx == this.props.activeDayIdx && this.props.forecast[0].currentTemp == nextProps.forecast[0].currentTemp))
+        return !(nextProps.activeDayIdx == this.props.activeDayIdx && this.props.forecast[0].currentTemp == nextProps.forecast[0].currentTemp)
+    }
+
+    componentDidUpdate() {
+        this.setSkycons(this.props);
     }
 
     componentDidMount() {
-        this.state.skycon.set("forecastCurrently", Skycons[this.props.today.icon]);
-        this.props.future.map((day, idx) => {
-            this.state.skycon.set("forecastFuture"+idx, Skycons[day.icon])
-            return {}
-        });
+        this.setSkycons(this.props)
         this.state.skycon.play();
     }
 
-    render(){
+    setSkycons(props) {
+        this.state.skycon.set("activeForecastIcon", Skycons[props.forecast[props.activeDayIdx].icon]);
+        props.forecast.map((day, idx) => {
+            this.state.skycon.set("forecastFuture"+idx, Skycons[day.icon])
+        });
+    }
+    
+
+
+    renderActiveForecast() {
+        var activeDay = this.props.forecast[this.props.activeDayIdx];
         return (
-            <div className="forecastContainer">
-                <div className="largeDisplay">
-                    <div className="todayIcon">
-                        <div><canvas id="forecastCurrently" width="400" height="400" /></div>
-                        <div><span>{parseInt(this.props.today.currentTemp,10) +  String.fromCharCode(176) + "F"}</span></div>
-                    </div>
-                    <div className="todayForecastContainer">
-                        <div className='forecastLargeTitle'>
-                            <span>{this.props.today.summary}</span>
-                        </div>
-                        <div className='forecastTable'>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td className='forecastTableValues'>High: {parseInt(this.props.today.tempHigh, 10) + String.fromCharCode(176) + "F "}</td>
-                                        <td className='forecastTableValues'>Sunrise: {moment.unix(this.props.today.sunriseTime).format('LT')}</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='forecastTableValues'>Low: {parseInt(this.props.today.tempLow, 10) + String.fromCharCode(176) + "F "}</td>
-                                        <td className='forecastTableValues'>Sunset: {moment.unix(this.props.today.sunsetTime).format('LT')}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+        <div className="largeDisplay">
+            <div className="activeIcon">
+                <div><canvas id="activeForecastIcon" width="400" height="400" /></div>
+                <div>
+                {this.props.activeDayIdx == 0 ? <span>{parseInt(activeDay.currentTemp,10) +  String.fromCharCode(176) + "F"}</span> : null}
                 </div>
-                <div className="smallDisplay">
-                    {this.props.future.map((day, idx) =>{
-                        var canvasId = "forecastFuture" + idx;
-                        return (
-                            <div className='smallDisplayContainer' key={idx}>
-                                <div className='forecastSmallDay'>
-                                    <div className='forecastSmallTitle'>
-                                        <h1>{moment().add(idx+1, 'days').format('dddd')}</h1>
-                                    </div>
-                                    <div className='forecastSmallIcon'>
-                                        <canvas id={canvasId} width="100" height="100" />
-                                    </div>
+            </div>
+            <div className="todayForecastContainer">
+                <div className='forecastLargeTitle'>
+                    <span>{activeDay.summary}</span>
+                </div>
+                <div className='forecastTable'>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td className='forecastTableValues'>High: {parseInt(activeDay.tempHigh, 10) + String.fromCharCode(176) + "F "}</td>
+                                <td className='forecastTableValues'>Sunrise: {moment.unix(activeDay.sunriseTime).format('LT')}</td>
+                            </tr>
+                            <tr>
+                                <td className='forecastTableValues'>Low: {parseInt(activeDay.tempLow, 10) + String.fromCharCode(176) + "F "}</td>
+                                <td className='forecastTableValues'>Sunset: {moment.unix(activeDay.sunsetTime).format('LT')}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        )
+    }
+
+    renderRemainingForecast(){
+        return(
+            <div className="smallDisplay">
+                {this.props.forecast.map((day, idx) =>{
+                    if(idx == this.props.activeDayIdx) return null;
+                    var canvasId = "forecastFuture" + idx;
+                    return (
+                        <div className='smallDisplayContainer' key={idx}>
+                            <div className='forecastSmallDay'>
+                                <div className='forecastSmallTitle'>
+                                    <h1>{moment().add(idx, 'days').format('dddd')}</h1>
+                                </div>
+                                <div className='forecastSmallIcon'>
+                                    <canvas id={canvasId} width="100" height="100" />
                                 </div>
                             </div>
-                        )
-                    })}
-                </div>
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
+
+    render(){
+      return (
+            <div className="forecastContainer">
+                {this.renderActiveForecast()}
+                {this.renderRemainingForecast()}
             </div>
         )
     }

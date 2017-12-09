@@ -32,7 +32,7 @@ routes.post('/open', function(req,res){  //TODO: move dashboard commands
     res.status(200).send();
 });
 
-routes.post('/changeForecast', function(req,res){
+routes.post('/changeActiveDay', function(req,res){
     req.io.emit("weather/changeForecast", req.body.day);
     res.status(200).send();
 });

@@ -139,7 +139,7 @@
     width: 100%;
 }
 
-.todayIcon {
+.activeIcon {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 
+import moment from 'moment'
 import {WeatherForecast} from '../../components/'
 
 class WeatherForecastContainer extends Component{
@@ -14,12 +15,23 @@ class WeatherForecastContainer extends Component{
     }
 }
 
+function day(idx){
+    return moment().add(idx, 'days').format('dddd')
+}
+
+function activeDayIdx(forecast, activeDay){
+    var activeDayIdx = 0;
+    forecast.map((foo, idx) => {if(day(idx) == activeDay) activeDayIdx = idx })
+    return activeDayIdx;
+}
 function mapStateToProps({weather}) {
+    var forecast = weather.forecast.future.slice() || [];
+    forecast.unshift(weather.forecast.currently);
+    var activeIndex = activeDayIdx(forecast,weather.forecast.activeDay);
     return {
-        lat: weather.location.lat,
-        long: weather.location.long,
-        today: weather.forecast.currently,
-        future: weather.forecast.future
+        forecast: forecast,
+        activeDay: weather.forecast.activeDay,
+        activeDayIdx: activeIndex
     }
 }
 
