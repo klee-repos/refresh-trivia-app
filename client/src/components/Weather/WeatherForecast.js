@@ -13,7 +13,6 @@ class WeatherForecast extends Component{
     }
 
     shouldComponentUpdate(nextProps){
-        console.log((nextProps.activeDayIdx == this.props.activeDayIdx && this.props.forecast[0].currentTemp == nextProps.forecast[0].currentTemp))
         return !(nextProps.activeDayIdx == this.props.activeDayIdx && this.props.forecast[0].currentTemp == nextProps.forecast[0].currentTemp)
     }
 
