@@ -9,18 +9,26 @@ class DashboardContainer extends React.Component {
 
     landingPage(){
         return (
-            <div className="container">
-                <div className="connectCode">Connect to Dash using Alexa</div>
-                <div className="connectCode">Alexa, tell Dash I'm using code {this.props.connectCode}</div>
+            <div className="welcome">
+                <div className="welcomeContainer">
+                    <div className="connectCode">Connect to Dash using Alexa</div>
+                </div>
+                <div className="welcomeContainer">
+                    <div className="connectCode">Alexa, tell Dash I'm using code {this.props.connectCode}</div>
+                </div>
             </div>
         )
     }
 
     setup(){
         return (
-            <div className="container">
-                <div className="connectCode">What city are you in?</div>
-                <div className="connectCode">Alexa, tell Dash I'm in city CITY_NAME</div>
+            <div className="welcome">
+                <div className="welcomeContainer">
+                    <div className="connectCode">What city are you in?</div>
+                </div>
+                <div className="welcomeContainer">
+                    <div className="connectCode">Alexa, tell Dash I'm in _____</div>
+                </div>
             </div>
         )
     }
