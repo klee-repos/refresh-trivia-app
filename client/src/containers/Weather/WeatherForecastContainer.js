@@ -21,8 +21,11 @@ function day(idx){
 
 function activeDayIdx(forecast, activeDay){
     var activeDayIdx = 0;
-    forecast.map((foo, idx) => {if(day(idx) == activeDay) activeDayIdx = idx })
-    return activeDayIdx;
+    forecast.map((foo, idx) => {
+        if(day(idx) === activeDay) 
+            activeDayIdx = idx 
+        return activeDayIdx
+    })
 }
 function mapStateToProps({weather}) {
     var forecast = weather.forecast.future.slice() || [];

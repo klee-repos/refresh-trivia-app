@@ -13,7 +13,7 @@ class WeatherForecast extends Component{
     }
 
     shouldComponentUpdate(nextProps){
-        return !(nextProps.activeDayIdx == this.props.activeDayIdx && this.props.forecast[0].currentTemp == nextProps.forecast[0].currentTemp)
+        return !(nextProps.activeDayIdx === this.props.activeDayIdx && this.props.forecast[0].currentTemp === nextProps.forecast[0].currentTemp)
     }
 
     componentDidUpdate() {
@@ -41,7 +41,7 @@ class WeatherForecast extends Component{
             <div className="activeIcon">
                 <div><canvas id="activeForecastIcon" width="400" height="400" /></div>
                 <div>
-                {this.props.activeDayIdx == 0 ? <span>{parseInt(activeDay.currentTemp,10) +  String.fromCharCode(176) + "F"}</span> : null}
+                {this.props.activeDayIdx === 0 ? <span>{parseInt(activeDay.currentTemp,10) +  String.fromCharCode(176) + "F"}</span> : null}
                 </div>
             </div>
             <div className="todayForecastContainer">
@@ -71,7 +71,7 @@ class WeatherForecast extends Component{
         return(
             <div className="smallDisplay">
                 {this.props.forecast.map((day, idx) =>{
-                    if(idx == this.props.activeDayIdx) return null;
+                    if(idx === this.props.activeDayIdx) return null;
                     var canvasId = "forecastFuture" + idx;
                     return (
                         <div className='smallDisplayContainer' key={idx}>

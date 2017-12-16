@@ -5,6 +5,9 @@
   "proxy": {
     "/apps": {
       "target": "http://localhost:8080"
+    },
+    "/voice": {
+      "target": "http://localhost:8080"
     }
   },
   "dependencies": {

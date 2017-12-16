@@ -21,6 +21,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+
+
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
 var db_uri = process.env.DB_URI;
@@ -41,6 +43,12 @@ app.use(function (req, res, next) {
 });
 
 var User = require('./models/User');
+
+app.post('/voice', function(req,res) {
+	var voice = req.body.voice;
+	sessionManager.runDF(voice)
+	res.send();
+})
 
 
 app.post('/connect', function(req, res) {

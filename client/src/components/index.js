@@ -8,3 +8,4 @@ export {default as WeatherWidget} from './Weather/WeatherWidget'
 export {default as IEX} from './IEX/IEX';
 export {default as TimeDateWidget} from './TimeDate/TimeDateWidget';
 export {default as HackerNews} from './HackerNews/HackerNews';
+export {default as QueryBar} from './QueryBar/QueryBar';
