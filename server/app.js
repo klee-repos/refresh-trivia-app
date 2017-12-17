@@ -53,31 +53,30 @@ var User = require('./models/User');
 app.post('/voice', function(req,res) {
 	var voice = req.body.voice;
 	voiceManager.runDF(voice).then(function(result) {
-	
 		if (result.intent.displayName === 'Connect') {
-			Connect(io,result)
+			Connect(result)
 		}
 	})
 })
 
-app.post('/connect', function(req, res) {
-	var amzId = req.body.amzUserId;
-	if(!amzId) {return res.status(400).send()}
-	var connectCode = req.body.connectCode;
-	User.findOne({amzUserId:amzId}, function(err, user) {
-		if (!user) {
-			var user = new User();
-			user.amzUserId = amzId;
-			user.sessionCode = User.generateSessionCode();
-			user.save();
-		}
-		if(sessionManager.getSession(connectCode)){
-			io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
-			sessionManager.removeSession(connectCode);
-		}
-		res.status(200).send(user.sessionCode);
-	});
-});
+// app.post('/connect', function(req, res) {
+// 	var amzId = req.body.amzUserId;
+// 	if(!amzId) {return res.status(400).send()}
+// 	var connectCode = req.body.connectCode;
+// 	User.findOne({amzUserId:amzId}, function(err, user) {
+// 		if (!user) {
+// 			var user = new User();
+// 			user.amzUserId = amzId;
+// 			user.sessionCode = User.generateSessionCode();
+// 			user.save();
+// 		}
+// 		if(sessionManager.getSession(connectCode)){
+// 			io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
+// 			sessionManager.removeSession(connectCode);
+// 		}
+// 		res.status(200).send(user.sessionCode);
+// 	});
+// });
 
 var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
 var weatherRoutes = require('./apps/weather/api');
