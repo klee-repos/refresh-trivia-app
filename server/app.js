@@ -11,8 +11,10 @@ var io = require('socket.io')(server);
 var SessionManager = require('./sessionManager');
 var sessionManager = new SessionManager(io);
 
-var voiceManager = require('./voiceManager');
-var voiceManager = new voiceManager(io);
+var VoiceManager = require('./voiceManager');
+var voiceManager = new VoiceManager(io);
+
+var Connect = require('./Connect');
 
 var guid = require('uuid/v4')
 require('dotenv').config();
@@ -51,22 +53,9 @@ var User = require('./models/User');
 app.post('/voice', function(req,res) {
 	var voice = req.body.voice;
 	voiceManager.runDF(voice).then(function(result) {
+	
 		if (result.intent.displayName === 'Connect') {
-			var amzId = "123sdfssdsdddfs45";
-			if(!amzId) {return res.status(400).send()}
-			var connectCode = result.parameters.fields.connectCode.numberValue;
-			User.findOne({amzUserId:amzId}, function(err, user) {
-				if (!user) {
-					var user = new User();
-					user.amzUserId = amzId;
-					user.sessionCode = User.generateSessionCode();
-					user.save();
-				}
-				if(sessionManager.getSession(connectCode)){
-					io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
-					sessionManager.removeSession(connectCode);
-				}
-			});
+			Connect(io,result)
 		}
 	})
 })

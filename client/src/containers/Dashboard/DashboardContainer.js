@@ -24,7 +24,6 @@ class DashboardContainer extends React.Component {
 
     setup(){
         return (
-            <div>
             <div className="welcome">
                 <div className="welcomeContainer">
                     <div className="connectCode">What city are you in?</div>
@@ -32,8 +31,7 @@ class DashboardContainer extends React.Component {
                 <div className="welcomeContainer">
                     <div className="connectCode">Alexa, tell Dash I'm in _____</div>
                 </div>
-            </div>
-            <QueryBarContainer />
+                <QueryBarContainer />
             </div>
         )
     }
