@@ -90,6 +90,11 @@ class SocketManagerContainer extends Component {
             this.props.changeActiveDay(dayOfWeek);
         }.bind(this));
 
+        // Voice
+        socket.on('voiceResponse', function(data) {
+            console.log(data)
+        })
+
     }
 
     render() {

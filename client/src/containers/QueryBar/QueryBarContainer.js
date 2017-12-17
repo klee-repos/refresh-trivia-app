@@ -15,36 +15,21 @@ class QueryBarContainer extends Component {
         super(props)
 
         this.state = {
-            final_transcript: ''
+            final_transcript: '',
+            recognizing: false
         }
 
-        var recognizing = false;
-        var ignore_onend;
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
         recognition.continuous = false;
         recognition.interimResults = true;
         
         recognition.onstart = function() {
-            recognizing = true;
-        }
-        
-        recognition.onerror = function(event) { 
-            if (event.error === 'no-speech') {
-            ignore_onend = true;
-            }
-            if (event.error === 'audio-capture') {
-            ignore_onend = true;
-            }
-        }
+            this.setState({final_transcript:''})
+            this.setState({recognizing:true})
+        }.bind(this)
         
         recognition.onend = function() {
-            recognizing = false;
-            if (ignore_onend) {
-            return;
-            }
-            if (!this.state.final_transcript) {
-            return;
-            }
+            this.setState({recognizing:false})
         }.bind(this)
         
         recognition.onresult = function(event) {
@@ -59,21 +44,19 @@ class QueryBarContainer extends Component {
                 }
                 interim_transcript = interim_transcript.substring(original.length,)
             }
-            
         }.bind(this)
     
         document.addEventListener('keydown', (event) => {
             const keyCode = event.keyCode;
           
             if (keyCode === 32) {
-              if (recognizing) {
+              if (this.state.recognizing) {
                 recognition.stop();
                 return;
               }
               final_transcript = '';
               recognition.lang = 'en-US';
               recognition.start();
-              ignore_onend = false;
               return;
             }
         }, false);
