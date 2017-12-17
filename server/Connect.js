@@ -1,9 +1,7 @@
 
 var User = require('./models/User');
 
-var sessionManager = require('./sessionManager');
-
-var Connect = function(result) {
+var Connect = function(result, sessionManager) {
     var amzId = "123sdfssdsdddfs45";
     if(!amzId) {return res.status(400).send()}
     var connectCode = result.parameters.fields.connectCode.numberValue;
@@ -16,7 +14,7 @@ var Connect = function(result) {
         }
         if(sessionManager.getSession(connectCode)){
             var tmpSession = sessionManager.getSession(connectCode);
-            sessionManager.emitDataToRoom(tmpSession, 're-connect', user.sessionCode)
+            sessionManager.io.to(tmpSession).emit('re-connect', user.sessionCode)
             sessionManager.removeSession(connectCode);
         }
     });

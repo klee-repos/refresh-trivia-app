@@ -1,5 +1,6 @@
 
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 
 import {QueryBar} from '../../components'
 
@@ -16,7 +17,7 @@ class QueryBarContainer extends Component {
 
         this.state = {
             final_transcript: '',
-            recognizing: false
+            recognizing: 'new'
         }
 
         var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
@@ -24,20 +25,19 @@ class QueryBarContainer extends Component {
         recognition.interimResults = true;
         
         recognition.onstart = function() {
-            this.setState({final_transcript:''})
-            this.setState({recognizing:true})
+            this.setState({final_transcript:'',recognizing:'listening'})
         }.bind(this)
         
         recognition.onend = function() {
-            this.setState({recognizing:false})
+            this.setState({recognizing:'complete'})
         }.bind(this)
         
         recognition.onresult = function(event) {
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
                     final_transcript += event.results[i][0].transcript;
+                    VoiceRequests.voiceInput(final_transcript, this.props.sessionCode)
                     this.setState({final_transcript})
-                    VoiceRequests.voiceInput(final_transcript)
                 } else { 
                     original = interim_transcript
                     interim_transcript += event.results[i][0].transcript;
@@ -49,8 +49,8 @@ class QueryBarContainer extends Component {
         document.addEventListener('keydown', (event) => {
             const keyCode = event.keyCode;
           
-            if (keyCode === 32) {
-              if (this.state.recognizing) {
+            if (keyCode === 192) {
+              if (this.state.recognizing === 'listening') {
                 recognition.stop();
                 return;
               }
@@ -65,9 +65,15 @@ class QueryBarContainer extends Component {
     
     render() {
         return (
-            <QueryBar {...this.state}/>
+            <QueryBar {...this.state} {...this.props}/>
         )
     }
 }
 
-export default QueryBarContainer;
+function mapStateToProps({dashboard}) {
+    return {
+        sessionCode: dashboard.sessionCode
+    }
+}
+
+export default connect(mapStateToProps)(QueryBarContainer);

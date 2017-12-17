@@ -67,9 +67,7 @@ var sessionManager = function(io){
         delete connectingSessions[connectCode];
     }
 
-    this.emitDataToRoom = function(event, data, room){
-        this.to(room).emit(data);
-    }.bind(io)
+    this.io = io;
 
 }
 

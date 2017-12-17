@@ -1,24 +1,73 @@
 
 import React, {Component} from 'react'
 
+import {VoiceRequests} from '../../requests'
+
 import './queryBar.css'
+
+var newMessage = "Press Tilde to begin speaking...";
+
 
 class QueryBar extends Component {
 
     constructor(props) {
         super(props)
 
-        this.state = {}
+        this.state = {
+            value:'',
+        }
 
         this.setPlaceholder = this.setPlaceholder.bind(this);
+
+        this.setVoice = this.setVoice.bind(this);
+
+        this.setValue = this.setValue.bind(this)
+
+        document.addEventListener('keydown', (event) => {
+            const keyCode = event.keyCode;
+          
+            if (keyCode === 13) {
+                if (this.state.value) {
+                    VoiceRequests.voiceInput(this.state.value, this.props.sessionCode)
+                }
+                return;
+            }
+        }, false);
+
+        document.addEventListener('keyup', (event) => {
+            const keyCode = event.keyCode;
+          
+            if (keyCode === 13) {
+                if (this.state.value) {
+                    this.setVoice();
+                }
+                return;
+            }
+        }, false);
+
+    }
+
+    setValue(evt) {
+        this.setState({value:evt.target.value})
     }
 
     setPlaceholder(recognizing) {
-        if (recognizing) {
+        if (recognizing === 'listening') {
             return "Listening..."
-        } else {
-            return "Press the Spacebar to begin speaking..."
         }
+        if (recognizing === 'new') {
+            return newMessage
+        }
+        if (recognizing === 'complete') {
+            if (this.props.final_transcript === '') {
+                return newMessage
+            }
+            return this.props.final_transcript
+        }
+    }
+
+    setVoice() {
+        this.setState({value:''})
     }
 
     render() {
@@ -32,7 +81,7 @@ class QueryBar extends Component {
                                     <img className='micIcon' src={require(`./img/mic.png`)} alt='mic'/>
                                 </button>
                             </span>
-                            <input type="text" className="form-control" placeholder={this.setPlaceholder(this.props.recognizing)} value={this.props.final_transcript} />
+                            <input type="text" className="form-control" placeholder={this.setPlaceholder(this.props.recognizing)} value={this.state.value} onChange={this.setValue}/>
                         </div>
                     </div>
                 </div>

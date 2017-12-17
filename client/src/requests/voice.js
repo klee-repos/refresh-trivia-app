@@ -1,8 +1,13 @@
 const axios = require('axios');
 
-var voiceInput = function(data){
+var voiceInput = function(data, code){
+    var sessionCode = '';
+    if (code) {
+        sessionCode = code;
+    }
     return axios.post('/voice', {
-        voice: data
+        voice: data,
+        sessionCode: sessionCode
     })
 }
 

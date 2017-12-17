@@ -11,10 +11,7 @@ class DashboardContainer extends React.Component {
         return (
             <div className="welcome">
                 <div className="welcomeContainer">
-                    <div className="connectCode">Connect to Dash using Alexa</div>
-                </div>
-                <div className="welcomeContainer">
-                    <div className="connectCode">Alexa, tell Dash I'm using code {this.props.connectCode}</div>
+                    <div className="connectCode"> Connect to code {this.props.connectCode}</div>
                 </div>
                 <QueryBarContainer />
             </div>
@@ -26,10 +23,7 @@ class DashboardContainer extends React.Component {
         return (
             <div className="welcome">
                 <div className="welcomeContainer">
-                    <div className="connectCode">What city are you in?</div>
-                </div>
-                <div className="welcomeContainer">
-                    <div className="connectCode">Alexa, tell Dash I'm in _____</div>
+                    <div className="connectCode">What city are you located in?</div>
                 </div>
                 <QueryBarContainer />
             </div>
@@ -41,7 +35,7 @@ class DashboardContainer extends React.Component {
             <div>
                 <DockContainer />
                 <Dashboard apps={this.props.openApps} />
-                <NavBottom />
+                <QueryBarContainer />
             </div>
         )
     }
