@@ -38,9 +38,9 @@ class WeatherForecast extends Component{
         var activeDay = this.props.forecast[this.props.activeDayIdx];
         return (
         <div className="largeDisplay">
-            <div className="activeIcon">
-                <div><canvas id="activeForecastIcon" width="400" height="400" /></div>
-                <div>
+            <div className="activeIconContainer">
+                <div className='activeIcon'><canvas id="activeForecastIcon" className='forecastCanvas' width="300" height='300'/></div>
+                <div className="activeTemp">
                 {this.props.activeDayIdx == 0 ? <span>{parseInt(activeDay.currentTemp,10) +  String.fromCharCode(176) + "F"}</span> : null}
                 </div>
             </div>
@@ -80,7 +80,7 @@ class WeatherForecast extends Component{
                                     <h1>{moment().add(idx, 'days').format('dddd')}</h1>
                                 </div>
                                 <div className='forecastSmallIcon'>
-                                    <canvas id={canvasId} width="100" height="100" />
+                                    <canvas id={canvasId} width="90" height="90" />
                                 </div>
                             </div>
                         </div>
