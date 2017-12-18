@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dashboard, NavBottom} from '../../components/'
-import {DockContainer, QueryBarContainer} from '../../containers/'
+import {DockContainer, QueryBarContainer, SpeechContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -13,7 +13,6 @@ class DashboardContainer extends React.Component {
                 <div className="welcomeContainer">
                     <div className="connectCode"> Connect to code {this.props.connectCode}</div>
                 </div>
-                <QueryBarContainer />
             </div>
             
         )
@@ -25,7 +24,6 @@ class DashboardContainer extends React.Component {
                 <div className="welcomeContainer">
                     <div className="connectCode">What city are you located in?</div>
                 </div>
-                <QueryBarContainer />
             </div>
         )
     }
@@ -35,7 +33,6 @@ class DashboardContainer extends React.Component {
             <div>
                 <DockContainer />
                 <Dashboard apps={this.props.openApps} />
-                <QueryBarContainer />
             </div>
         )
     }
@@ -53,6 +50,7 @@ class DashboardContainer extends React.Component {
         return (
             <div className="dashboard">
                 {page}
+                <QueryBarContainer />
             </div>
         )  
     }

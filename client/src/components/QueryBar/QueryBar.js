@@ -5,8 +5,7 @@ import {VoiceRequests} from '../../requests'
 
 import './queryBar.css'
 
-var newMessage = "Press Tilde to begin speaking...";
-
+const newMessage = "Press ~ to begin speaking...";
 
 class QueryBar extends Component {
 
@@ -18,9 +17,7 @@ class QueryBar extends Component {
         }
 
         this.setPlaceholder = this.setPlaceholder.bind(this);
-
         this.setVoice = this.setVoice.bind(this);
-
         this.setValue = this.setValue.bind(this)
 
         document.addEventListener('keydown', (event) => {
@@ -51,18 +48,11 @@ class QueryBar extends Component {
         this.setState({value:evt.target.value})
     }
 
-    setPlaceholder(recognizing) {
-        if (recognizing === 'listening') {
-            return "Listening..."
-        }
-        if (recognizing === 'new') {
+    setPlaceholder() {
+        if (this.props.listening) {
+            return this.props.interimTranscript
+        } else {
             return newMessage
-        }
-        if (recognizing === 'complete') {
-            if (this.props.final_transcript === '') {
-                return newMessage
-            }
-            return this.props.final_transcript
         }
     }
 
@@ -81,7 +71,7 @@ class QueryBar extends Component {
                                     <img className='micIcon' src={require(`./img/mic.png`)} alt='mic'/>
                                 </button>
                             </span>
-                            <input type="text" className="form-control" placeholder={this.setPlaceholder(this.props.recognizing)} value={this.state.value} onChange={this.setValue}/>
+                            <input type="text" className="form-control" placeholder={this.setPlaceholder()} value={this.state.value} onChange={this.setValue}/>
                         </div>
                     </div>
                 </div>
