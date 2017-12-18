@@ -1,5 +1,5 @@
 
-var User = require('./models/User');
+var User = require('../models/User');
 
 var Connect = function(result, sessionManager) {
     var amzId = "123sdfssdsdddfs45";

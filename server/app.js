@@ -14,8 +14,8 @@ var sessionManager = new SessionManager(io);
 var VoiceManager = require('./VoiceManager');
 var voiceManager = new VoiceManager(io);
 
-var Connect = require('./Connect');
-var ChangeCity = require('./ChangeCity')
+var Connect = require('./Intents/Connect');
+var ChangeCity = require('./Intents/ChangeCity')
 
 var guid = require('uuid/v4')
 require('dotenv').config();
@@ -60,6 +60,14 @@ app.post('/voice', function(req,res) {
 		}
 		if (result.intent.displayName === 'setLocation') {
 			ChangeCity(result, sessionManager, sessionCode)
+		}
+		if (result.intent.displayName === 'openApp') {
+			if (result.parameters.fields.Application.stringValue === 'coinbase') {
+				sessionManager.io.emit("openApp", "gdax")
+			}
+			if (result.parameters.fields.Application.stringValue === 'weather') {
+				sessionManager.io.emit("openApp", "weather")
+			}
 		}
 	})
 })

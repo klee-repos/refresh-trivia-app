@@ -5,7 +5,7 @@ const darkSky = new DarkSky(process.env.DARK_SKY);
 var geoOptions = {provider: 'google',apiKey: process.env.GOOGLE_GEOCODER}
 const geocoder = require('node-geocoder')(geoOptions);
 
-var User = require('./models/User');
+var User = require('../models/User');
 
 var ChangeCity = function(result, sessionManager, sessionCode) {
     if (result.parameters.fields.location) {
