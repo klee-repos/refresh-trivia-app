@@ -6,7 +6,10 @@ const languageCode = 'en-US';
 
 // Instantiate a DialogFlow client.
 const dialogflow = require('dialogflow');
-const sessionClient = new dialogflow.SessionsClient();
+const sessionClient = new dialogflow.SessionsClient({
+        client_email: process.env.DIALOGFLOW_CLIENT_EMAIL,
+        private_key: process.env.DIALOGFLOW_PRIVATE_KEY
+});
 
 // Define Dialogflow session path
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
@@ -22,7 +25,7 @@ var VoiceManager = function(socket) {
                 text: {
                     text: data,
                     languageCode: languageCode,
-                },
+                }
             },
         }
         sessionClient
