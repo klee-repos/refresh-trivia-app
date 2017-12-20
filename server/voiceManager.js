@@ -1,6 +1,4 @@
 
- 
-
 // You can find your project ID in your Dialogflow agent settings
 const projectId = 'dashboard-57f45'; //https://dialogflow.com/docs/agents#settings
 const sessionId = '123456789';
@@ -9,7 +7,7 @@ const languageCode = 'en-US';
 // Instantiate a DialogFlow client.
 const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient({
-    client_email: process.env.DIALOGFLOW_CLIENT_EMAIL,
+    client_email: process.env.DIALOGFLOW_CLIENT_EMAIL.replace(/\\n/g, '\n'),
     private_key: process.env.DIALOGFLOW_PRIVATE_KEY
 });
 
@@ -29,6 +27,7 @@ var VoiceManager = function(socket) {
                     languageCode: languageCode,
                 }
             },
+            auth: authClient
         }
         sessionClient
             .detectIntent(requestDF)
