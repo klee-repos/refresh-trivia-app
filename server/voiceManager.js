@@ -7,8 +7,8 @@ const languageCode = 'en-US';
 // Instantiate a DialogFlow client.
 const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient({
-    client_email: process.env.DIALOGFLOW_CLIENT_EMAIL.replace(/\\n/g, '\n'),
-    private_key: process.env.DIALOGFLOW_PRIVATE_KEY
+    client_email: process.env.DIALOGFLOW_CLIENT_EMAIL,
+    private_key: process.env.DIALOGFLOW_PRIVATE_KEY.replace(/\\n/g, '\n')
 });
 
 // Define Dialogflow session path
