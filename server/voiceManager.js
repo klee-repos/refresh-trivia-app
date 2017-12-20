@@ -1,20 +1,20 @@
 
-// var GoogleAuth = require('google-auth-library');
+var GoogleAuth = require('google-auth-library');
 
-// var authFactory = new GoogleAuth();
+var authFactory = new GoogleAuth();
 
-// var authClient
+var authClient
 
-// authFactory.getApplicationDefault(function(err, authClient) {
-//     if (err) {
-//         console.log('Authentication failed because of ', err);
-//         return;
-//     }
-//     if (authClient.createScopedRequired && authClient.createScopedRequired()) {
-//         var scopes = ['https://www.googleapis.com/auth/cloud-platform'];
-//         authClient = authClient.createScoped(scopes);
-//     }
-// });
+authFactory.getApplicationDefault(function(err, authClient) {
+    if (err) {
+        console.log('Authentication failed because of ', err);
+        return;
+    }
+    if (authClient.createScopedRequired && authClient.createScopedRequired()) {
+        var scopes = ['https://www.googleapis.com/auth/cloud-platform'];
+        authClient = authClient.createScoped(scopes);
+    }
+});
 
 // You can find your project ID in your Dialogflow agent settings
 const projectId = 'dashboard-57f45'; //https://dialogflow.com/docs/agents#settings
@@ -23,10 +23,7 @@ const languageCode = 'en-US';
 
 // Instantiate a DialogFlow client.
 const dialogflow = require('dialogflow');
-const sessionClient = new dialogflow.SessionsClient({
-    client_email: process.env.DIALOGFLOW_CLIENT_EMAIL,
-    private_key: process.env.DIALOGFLOW_PRIVATE_KEY.replace(/\\n/g, '\n')
-});
+const sessionClient = new dialogflow.SessionsClient();
 
 // Define Dialogflow session path
 const sessionPath = sessionClient.sessionPath(projectId, sessionId);
@@ -43,7 +40,8 @@ var VoiceManager = function(socket) {
                     text: data,
                     languageCode: languageCode,
                 }
-            }
+            },
+            auth:authClient
         }
         sessionClient
             .detectIntent(requestDF)
@@ -67,4 +65,8 @@ var VoiceManager = function(socket) {
     }
 }
 
-module.exports = VoiceManager;
+module.exports = {
+    VoiceManager,
+    private_key: process.env.DIALOGFLOW_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    client_email: process.env.DIALOGFLOW_CLIENT_EMAIL,
+}
