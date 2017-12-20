@@ -1,4 +1,21 @@
 
+// var GoogleAuth = require('google-auth-library');
+
+// var authFactory = new GoogleAuth();
+
+// var authClient
+
+// authFactory.getApplicationDefault(function(err, authClient) {
+//     if (err) {
+//         console.log('Authentication failed because of ', err);
+//         return;
+//     }
+//     if (authClient.createScopedRequired && authClient.createScopedRequired()) {
+//         var scopes = ['https://www.googleapis.com/auth/cloud-platform'];
+//         authClient = authClient.createScoped(scopes);
+//     }
+// });
+
 // You can find your project ID in your Dialogflow agent settings
 const projectId = 'dashboard-57f45'; //https://dialogflow.com/docs/agents#settings
 const sessionId = '123456789';
@@ -26,8 +43,7 @@ var VoiceManager = function(socket) {
                     text: data,
                     languageCode: languageCode,
                 }
-            },
-            auth: authClient
+            }
         }
         sessionClient
             .detectIntent(requestDF)
