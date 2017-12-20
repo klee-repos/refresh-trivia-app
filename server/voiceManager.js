@@ -9,8 +9,8 @@ const languageCode = 'en-US';
 // Instantiate a DialogFlow client.
 const dialogflow = require('dialogflow');
 const sessionClient = new dialogflow.SessionsClient({
-        client_email: process.env.GOOGLE_APPLICATION_CREDENTIALS.client_email,
-        private_key: process.env.GOOGLE_APPLICATION_CREDENTIALS.private_key
+        client_email: process.env.GOOGLE.client_email,
+        private_key: process.env.GOOGLE.private_key
 });
 
 // Define Dialogflow session path
