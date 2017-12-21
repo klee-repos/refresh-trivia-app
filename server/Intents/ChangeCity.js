@@ -8,8 +8,9 @@ const geocoder = require('node-geocoder')(geoOptions);
 var User = require('../models/User');
 
 var ChangeCity = function(result, sessionManager, sessionCode) {
-    if (result.parameters.fields.location) {
-        var location = result.parameters.fields.location.stringValue;
+    var location = result.result.parameters.location;
+    
+    if (location) {
         geocoder.geocode(location).then(function(data){
             var update = {
                 city: data[0].city, 

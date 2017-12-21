@@ -1,10 +1,10 @@
 
 var User = require('../models/User');
 
-var Connect = function(result, sessionManager) {
+var Connect = function(res, sessionManager) {
     var amzId = "123sdfssdsdddfs45";
     if(!amzId) {return res.status(400).send()}
-    var connectCode = result.parameters.fields.connectCode.numberValue;
+    var connectCode = res.result.parameters.connectCode;
     User.findOne({amzUserId:amzId}, function(err, user) {
         if (!user) {
             var user = new User();

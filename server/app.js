@@ -55,17 +55,18 @@ app.post('/voice', function(req,res) {
 	var voice = req.body.voice;
 	var sessionCode = req.body.sessionCode;
 	voiceManager.runDF(voice).then(function(result) {
-		if (result.intent.displayName === 'Connect') {
+		var intentName =  result.result.metadata.intentName
+		if (intentName === 'Connect') {
 			Connect(result, sessionManager)
 		}
-		if (result.intent.displayName === 'setLocation') {
+		if (intentName === 'setLocation') {
 			ChangeCity(result, sessionManager, sessionCode)
 		}
-		if (result.intent.displayName === 'openApp') {
-			if (result.parameters.fields.Application.stringValue === 'coinbase') {
+		if (intentName === 'openApp') {
+			if (result.result.parameters.Application === 'coinbase') {
 				sessionManager.io.emit("openApp", "gdax")
 			}
-			if (result.parameters.fields.Application.stringValue === 'weather') {
+			if (result.result.parameters.Application === 'weather') {
 				sessionManager.io.emit("openApp", "weather")
 			}
 		}
