@@ -7,6 +7,7 @@ var server = require('http').createServer(app);
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var io = require('socket.io')(server);
+require('dotenv').config();
 
 var SessionManager = require('./sessionManager');
 var sessionManager = new SessionManager(io);
@@ -18,7 +19,7 @@ var Connect = require('./Intents/Connect');
 var ChangeCity = require('./Intents/ChangeCity')
 
 var guid = require('uuid/v4')
-require('dotenv').config();
+
 
 require('./apps/gdax/Gdax.js')(io);
 require('./apps/iex/IEX.js')(io);
