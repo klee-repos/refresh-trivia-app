@@ -1,14 +1,13 @@
 
 var User = require('../models/User');
 
-var Connect = function(res, sessionManager) {
-    var amzId = "123sdfssdsdddfs45";
-    if(!amzId) {return res.status(400).send()}
+var Connect = function(res, uniqueUserId, sessionManager) {
+    if(!uniqueUserId) {return res.status(400).send()}
     var connectCode = res.result.parameters.connectCode;
-    User.findOne({amzUserId:amzId}, function(err, user) {
+    User.findOne({amzUserId:uniqueUserId}, function(err, user) {
         if (!user) {
             var user = new User();
-            user.amzUserId = amzId;
+            user.amzUserId = uniqueUserId;
             user.sessionCode = User.generateSessionCode();
             user.save();
         }

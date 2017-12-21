@@ -83,7 +83,8 @@ class QueryBarContainer extends Component {
       }
 
       onRecognitionDisconnect() {
-        VoiceRequests.voiceInput(finalTranscript, this.props.sessionCode)
+        var userId = localStorage.getItem('name');
+        VoiceRequests.voiceInput(finalTranscript, this.props.sessionCode, userId)
         this.stopListening()
         this.resetTranscript()
       }

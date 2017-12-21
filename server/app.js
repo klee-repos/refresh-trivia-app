@@ -55,10 +55,11 @@ var User = require('./models/User');
 app.post('/voice', function(req,res) {
 	var voice = req.body.voice;
 	var sessionCode = req.body.sessionCode;
+	var uniqueUserId = req.body.userId;	
 	voiceManager.runDF(voice).then(function(result) {
 		var intentName =  result.result.metadata.intentName
 		if (intentName === 'Connect') {
-			Connect(result, sessionManager)
+			Connect(result, uniqueUserId, sessionManager)
 		}
 		if (intentName === 'setLocation') {
 			ChangeCity(result, sessionManager, sessionCode)
@@ -75,7 +76,7 @@ app.post('/voice', function(req,res) {
 })
 
 app.post('/connect', function(req, res) {
-	var amzId = req.body.amzUserId;
+	var amzId = req.body.amzUserId || req.body.userId;  //TDOD: How can we uniquely identify users across all assistants
 	if(!amzId) {return res.status(400).send()}
 	var connectCode = req.body.connectCode;
 	User.findOne({amzUserId:amzId}, function(err, user) {

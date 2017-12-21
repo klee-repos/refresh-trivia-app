@@ -25,7 +25,7 @@ class QueryBar extends Component {
           
             if (keyCode === 13) {
                 if (this.state.value) {
-                    VoiceRequests.voiceInput(this.state.value, this.props.sessionCode)
+                    VoiceRequests.voiceInput(this.state.value, this.props.sessionCode, localStorage.getItem("name"))
                 }
                 return;
             }
