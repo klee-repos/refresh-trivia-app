@@ -22,7 +22,7 @@ var VoiceManager = function(socket) {
             });
             
             request.end();
-        })
+
 
     }
 }

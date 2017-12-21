@@ -11,7 +11,7 @@ var io = require('socket.io')(server);
 var SessionManager = require('./sessionManager');
 var sessionManager = new SessionManager(io);
 
-var VoiceManager = require('./VoiceManager');
+var VoiceManager = require('./voiceManager');
 var voiceManager = new VoiceManager(io);
 
 var Connect = require('./Intents/Connect');
