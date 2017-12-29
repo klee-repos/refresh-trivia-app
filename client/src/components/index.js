@@ -1,11 +1,4 @@
 export {default as NavBottom} from './Navigation/NavBottom';
 export {default as Home} from './Home/Home';
 export {default as Dashboard} from './Dashboard/Dashboard';
-export {default as TwentyOne} from './TwentyOne/TwentyOne';
-export {default as Gdax} from './Gdax/Gdax';
-export {default as WeatherForecast} from './Weather/WeatherForecast'
-export {default as WeatherWidget} from './Weather/WeatherWidget'
-export {default as IEX} from './IEX/IEX';
-export {default as TimeDateWidget} from './TimeDate/TimeDateWidget';
-export {default as HackerNews} from './HackerNews/HackerNews';
 export {default as QueryBar} from './QueryBar/QueryBar';

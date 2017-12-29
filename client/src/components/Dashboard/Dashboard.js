@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {QuadrantLayout, FullscreenLayout} from '../../layouts';
+import {FullscreenLayout} from '../../layouts';
 
 import AppMap from '../../config/appMap'
 

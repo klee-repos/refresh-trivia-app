@@ -1,15 +1,11 @@
-import {TwentyOneContainer, 
-        GdaxContainer, 
-        IEXContainer, 
-        HackerNewsContainer, 
-        WeatherForecastContainer}  from '../containers/'
+
 
 const _appMap = {
-    "blackjack": () => TwentyOneContainer,
-    "gdax": () => GdaxContainer,
-    "iex": () => IEXContainer,
-    "hackerNews": () => HackerNewsContainer,
-    "weather": () => WeatherForecastContainer
+    // "blackjack": () => TwentyOneContainer,
+    // "gdax": () => GdaxContainer,
+    // "iex": () => IEXContainer,
+    // "hackerNews": () => HackerNewsContainer,
+    // "weather": () => WeatherForecastContainer
 }
 
 var getOpenApps = function(apps){

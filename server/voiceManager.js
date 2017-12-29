@@ -1,5 +1,4 @@
 var dialogFlow = require('apiai');
-console.log(process.env.DIALOGFLOW)
 var df = dialogFlow(process.env.DIALOGFLOW);
 
 var VoiceManager = function(socket) {

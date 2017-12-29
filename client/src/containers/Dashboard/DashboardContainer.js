@@ -1,6 +1,6 @@
 import React from 'react';
-import {Dashboard, NavBottom} from '../../components/'
-import {DockContainer, QueryBarContainer, SpeechContainer} from '../../containers/'
+import {Dashboard} from '../../components/'
+import {QueryBarContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -31,7 +31,6 @@ class DashboardContainer extends React.Component {
     dashboard(){
         return(
             <div>
-                <DockContainer />
                 <Dashboard apps={this.props.openApps} />
             </div>
         )

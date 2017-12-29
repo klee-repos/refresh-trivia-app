@@ -20,15 +20,9 @@ var ChangeCity = require('./Intents/ChangeCity')
 
 var guid = require('uuid/v4')
 
-
-require('./apps/gdax/Gdax.js')(io);
-require('./apps/iex/IEX.js')(io);
-require('./apps/hackerNews/HackerNews.js')(io);
-
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-
 
 
 // Connection to MongoDB Altas via mongoose
@@ -64,14 +58,6 @@ app.post('/voice', function(req,res) {
 		if (intentName === 'setLocation') {
 			ChangeCity(result, sessionManager, sessionCode)
 		}
-		if (intentName === 'openApp') {
-			if (result.result.parameters.Application === 'coinbase') {
-				sessionManager.io.emit("openApp", "gdax")
-			}
-			if (result.result.parameters.Application === 'weather') {
-				sessionManager.io.emit("openApp", "weather")
-			}
-		}
 	})
 })
 
@@ -94,23 +80,12 @@ app.post('/connect', function(req, res) {
 	});
 });
 
-var blackjackRoutes = require('./apps/blackjack/api'); //We should consolidate app routes. 
-var weatherRoutes = require('./apps/weather/api');
-var iexRoutes = require('./apps/iex/api');
-var gdaxRoutes = require('./apps/gdax/api');
-
 //TODO: Really only Alexa -> app routes
 app.use('/apps', function(req,res,next){  
 	req.sessionCode = req.get('sessionCode');
 	req.io = io.to(req.sessionCode);
 	next();
 });
-
-app.use('/apps/blackjack/', blackjackRoutes);
-app.use('/apps/weather', weatherRoutes);
-app.use('/apps/iex/', iexRoutes);
-app.use('/apps/gdax/', gdaxRoutes);
-
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
 });
