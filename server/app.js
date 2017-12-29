@@ -100,6 +100,7 @@ app.post('/gAssistant', function(req, res) {
 		var connectCode = req.body.result.parameters.connectCode;
 		result.speech = "ok";
 		Intents.Connect(res, result, gId, connectCode, sessionManager);
+		sessionManager.io.emit("openApp", "mainMenu");
 	} else if (intent ==='startGame') {
 		var game = req.body.result.parameters.game;
 		result.contextOut = [{"name":"game", "lifespan":2, "parameters":{'turns':5}}]; 
@@ -115,6 +116,10 @@ app.post('/gAssistant', function(req, res) {
 		result.speech = answer ? answer.key : "Not an answer";
 		res.send(result);
 	}
+})
+
+app.get ('/games', function(req, res) {
+	res.send(quizes)
 })
 
 // app.post('/voice', function(req,res) {

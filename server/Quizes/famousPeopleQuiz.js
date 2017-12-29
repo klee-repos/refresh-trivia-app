@@ -1,20 +1,20 @@
 module.exports = {
-    name: "States Quiz",
+    name: "Famous People Quiz",
     type: "GuessAsManyAsYouCan",
     id: "GUID",
     questions:[
         {
-            text: "Name as many US states as you can before the time runs out!",
+            text: "Who likes to do flips?",
             id: "GUID",
             answers:[
                 {
-                    key: "New Jersey",
-                    phrasings: ["New Jersey", "Jersey", "NJ"],
+                    key: "Gavin",
+                    phrasings: ["Gav", "Berkowitz"],
                     id: "GUID"
                 },
                 {
-                    key: "New York",
-                    phrasings: ["New York", "NY"],
+                    key: "Kevin",
+                    phrasings: ["Kev", "Lee"],
                     id: "GUID"
                 }
             ]

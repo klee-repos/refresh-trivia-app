@@ -8,6 +8,9 @@
     },
     "/voice": {
       "target": "http://localhost:8080"
+    },
+    "/games": {
+      "target": "http://localhost:8080"
     }
   },
   "dependencies": {

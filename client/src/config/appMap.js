@@ -1,6 +1,8 @@
 
+import {MainMenuContainer} from '../containers'
 
 const _appMap = {
+    "mainMenu": () => MainMenuContainer
     // "blackjack": () => TwentyOneContainer,
     // "gdax": () => GdaxContainer,
     // "iex": () => IEXContainer,

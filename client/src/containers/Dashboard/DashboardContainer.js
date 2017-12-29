@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dashboard} from '../../components/'
-import {QueryBarContainer} from '../../containers/'
+import {QueryBarContainer, MainMenuContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -18,16 +18,6 @@ class DashboardContainer extends React.Component {
         )
     }
 
-    setup(){
-        return (
-            <div className="welcome">
-                <div className="welcomeContainer">
-                    <div className="connectCode">What city are you located in?</div>
-                </div>
-            </div>
-        )
-    }
-
     dashboard(){
         return(
             <div>
@@ -36,10 +26,18 @@ class DashboardContainer extends React.Component {
         )
     }
 
+    mainMenu() {
+        return (
+            <div>
+                <MainMenuContainer />
+            </div>
+        )
+    }
+
     currentPage(status){
         switch(this.props.loadingStatus){
             case "INIT" : return this.landingPage();
-            default: return this.dashboard(); 
+            default: return this.mainMenu(); 
         }
     }
 
