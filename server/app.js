@@ -63,6 +63,9 @@ app.post('/gAssistant', function(req, res) {
 	console.log(req.body)
 	console.log("userId: " + req.body.originalRequest.data.user.userId)
 
+	var intent = req.body.result.action;
+    var result = dialogflowResponse();
+
 	var gId = req.body.originalRequest.data.user.userId;
 	if(!gId) {return res.status(400).send()}
 
@@ -89,17 +92,8 @@ app.post('/gAssistant', function(req, res) {
 				io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
 				sessionManager.removeSession(connectCode);
 			}
-			res.status(200).send(user.sessionCode);
-		});
+		})
 	}
-
-	
-	
-
-
-	var intent = req.body.result.action;
-    var result = dialogflowResponse();
-    
 	res.send(result)
 })
 
