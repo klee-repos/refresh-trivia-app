@@ -1,7 +1,7 @@
 
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import {MainContainer, DashboardContainer, HomeContainer, SocketManagerContainer} from '../containers';
+import {MainContainer, DashboardContainer, SocketManagerContainer} from '../containers';
 
 
 const routes = (
@@ -9,8 +9,7 @@ const routes = (
         <Switch>
             <SocketManagerContainer>    
                 <MainContainer> 
-                    <Route exact path='/' component={HomeContainer} />
-                    <Route path='/dashboard' component={DashboardContainer} />
+                    <Route exact path='/' component={DashboardContainer} />
                 </MainContainer>
             </SocketManagerContainer>           
         </Switch>
