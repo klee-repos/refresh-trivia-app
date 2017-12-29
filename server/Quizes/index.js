@@ -1,7 +1,7 @@
 var statesQuiz = require('./statesQuiz');
 
 var quizes = {
-    "statesQuiz": statesQuiz
+    "name": statesQuiz
 }
 
 module.exports = quizes;
