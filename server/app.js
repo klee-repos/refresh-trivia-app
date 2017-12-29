@@ -9,6 +9,13 @@ var mongoose = require('mongoose');
 var io = require('socket.io')(server);
 require('dotenv').config();
 
+var guid = require('uuid/v4')
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+
 var SessionManager = require('./sessionManager');
 var sessionManager = new SessionManager(io);
 
@@ -16,13 +23,8 @@ var VoiceManager = require('./voiceManager');
 var voiceManager = new VoiceManager(io);
 
 var Connect = require('./Intents/Connect');
-var ChangeCity = require('./Intents/ChangeCity')
 
-var guid = require('uuid/v4')
-
-var bodyParser = require('body-parser');
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+var statesQuiz = require('./Quizes/statesQuiz');
 
 
 // Connection to MongoDB Altas via mongoose
@@ -46,6 +48,27 @@ app.use(function (req, res, next) {
 
 var User = require('./models/User');
 
+var dialogflowResponse = function(){
+	return {
+		speech: "",
+		displayText: "",
+		data: {},
+		contextOut: [],
+		source: "",
+		followupEvent: {}
+	}
+}
+
+app.post('/gAssistant', function(req, res) {
+	console.log(req.body)
+	var intent = req.body.result.action;
+    var result = dialogflowResponse();
+    if (intent === 'input.welcome') {
+        result.speech = "Welcome to Trivia. What game would you like to play?"
+	}
+	res.send(result)
+})
+
 app.post('/voice', function(req,res) {
 	var voice = req.body.voice;
 	var sessionCode = req.body.sessionCode;
@@ -54,9 +77,6 @@ app.post('/voice', function(req,res) {
 		var intentName =  result.result.metadata.intentName
 		if (intentName === 'Connect') {
 			Connect(result, uniqueUserId, sessionManager)
-		}
-		if (intentName === 'setLocation') {
-			ChangeCity(result, sessionManager, sessionCode)
 		}
 	})
 })
