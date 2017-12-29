@@ -73,8 +73,10 @@ app.post('/gAssistant', function(req, res) {
 		User.findOne({gAssistantId:gId}, function(err, user) {
 			if (!user) {
 				result.speech = "Welcome to Trivia. What session would you like to connect to?"
+				res.send(result)
 			} else {
 				result.speech = "Welcome to Trivia."
+				res.send(result)
 			}
 		})
 	}
