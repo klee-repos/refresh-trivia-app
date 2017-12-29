@@ -28,22 +28,6 @@ var Connect = require('./Intents/Connect');
 var quizes = require('./Quizes')
 var currentGame;
 
-var isAnAnswer = function(guess,answers){
-    var answer = null;
-    guess = guess.toLowerCase();
-    answers.some(function(ans){
-        if(ans.key.toLowerCase() === guess){
-            answer = ans;
-            return true;
-        }
-        if(ans.phrasings.some(function(phr){
-            if(phr.toLowerCase() === guess){
-                answer = ans;
-            }
-        }));
-    });
-    return answer;
-}
 
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
@@ -77,6 +61,23 @@ var dialogflowResponse = function(){
 	}
 }
 
+var isAnAnswer = function(guess,answers){
+    var answer = null;
+    guess = guess.toLowerCase();
+    answers.some(function(ans){
+        if(ans.key.toLowerCase() === guess){
+            answer = ans;
+            return true;
+        }
+        if(ans.phrasings.some(function(phr){
+            if(phr.toLowerCase() === guess){
+                answer = ans;
+            }
+        }));
+    });
+    return answer;
+}
+
 app.post('/gAssistant', function(req, res) {
 	console.log(req.body)
 	console.log("userId: " + req.body.originalRequest.data.user.userId)
@@ -96,18 +97,24 @@ app.post('/gAssistant', function(req, res) {
 			}
 			res.send(result);
 		})
-	} else if (intent === 'connect' ) {
+	} 
+	
+	else if (intent === 'connect' ) {
 		var connectCode = req.body.result.parameters.connectCode;
 		result.speech = "ok";
 		Intents.Connect(res, result, gId, connectCode, sessionManager);
 		sessionManager.io.emit("openApp", "mainMenu");
-	} else if (intent ==='startGame') {
+	} 
+	
+	else if (intent ==='startGame') {
 		var game = req.body.result.parameters.game;
 		result.contextOut = [{"name":"game", "lifespan":2, "parameters":{'turns':5}}]; 
 		result.speech = quizes[game].questions[0].text;
 		currentGame = game;
 		res.send(result);
-	} else if (intent === 'guess') {
+	} 
+	
+	else if (intent === 'guess') {
         var result = dialogflowResponse();
         var guess = req.body.result.parameters.guess;
 		var quiz = quizes[currentGame];

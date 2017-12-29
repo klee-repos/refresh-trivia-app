@@ -17,7 +17,6 @@ class MainMenu extends Component {
                     <div className='games'>
                         {this.props.triviaGames
                             ? this.props.triviaGames.map(function(game, idx) {
-                                console.log(game)
                                 return (
                                     <p key={idx}>{game}</p>
                                 )
