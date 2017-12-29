@@ -48,7 +48,8 @@
 
 .forecast {
     width:100%;
-    height: 100%;
+    height:100em;
+    max-height: 85vh;
     color: #EED6A8;
 }
 
@@ -77,17 +78,17 @@
 }
 
 .smallDisplay h1 {
-    font-size: 2em;
+    font-size: 150%;
     margin: 0 0 0 0;
 }
 
 .smallDisplayContainer {
     display: flex;
-    height:20%;
+    /* height:20%; */
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
-    margin: 0 0 30px 0;
+    margin: 0 0 2% 0;
 }
 
 
@@ -99,7 +100,7 @@
 
 .forecastSmallTitle { 
     flex: 1 1 100%;
-    margin: 0 0 10px 0;
+    margin: 0 0 10% 0;
 }
 
 .forecastSmallIcon { 
@@ -108,12 +109,12 @@
 
 .forecastLargeTitle {
     flex: 1 1 100%;
-    margin: 0 0 10px 0;
+    margin: 0 0 1% 0;
     text-align: center;
 }
 
 .forecastLargeTitle span {
-    font-size:2.5em;
+    font-size:250%;
 }
 
 .forecastTable {
@@ -128,26 +129,40 @@
 }
 
 .forecastTableValues { 
-    font-size: 1.5em;
+    font-size: 200%;
     text-align: center;
 }
 
 .todayForecastContainer {
     display: flex;
     flex-wrap: wrap;
-    
     width: 100%;
+    margin: 5% 0 0 0;
+}
+
+.activeIconContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    width: 100%;
+    font-size:900%;
 }
 
 .activeIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size:90px;
-    width: 100%;
+    flex: 1 1 50%;
+    margin: 0 5% 0 0;
+    text-align: right;
+}
+
+.activeTemp {
+    flex: 1 1 50%;
+    align-self: center;
+}
+
+.forecastCanvas {
+    height: 100%;
 }
 
 .todayIcon span {
     font-size: 1em;
 }
-

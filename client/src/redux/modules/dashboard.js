@@ -4,9 +4,7 @@ const SET_SOCKET = 'SET_SOCKET';
 const SET_APP = 'SET_APP';
 const SET_CONNECT_CODE = 'SET_CONNECT_CODE';
 const SET_LOADING_STATUS = 'SET_LOADING_STATUS';
-
 const STATUS_INIT = "INIT";
-const STATUS_COMPLETE = "COMPLETE"
 
 export function setSessionCode(sessionCode) {
     return {

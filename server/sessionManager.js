@@ -66,5 +66,9 @@ var sessionManager = function(io){
     this.removeSession = function(connectCode){
         delete connectingSessions[connectCode];
     }
+
+    this.io = io;
+
 }
+
 module.exports = sessionManager;

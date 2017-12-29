@@ -7,11 +7,19 @@ var server = require('http').createServer(app);
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 var io = require('socket.io')(server);
+require('dotenv').config();
+
 var SessionManager = require('./sessionManager');
 var sessionManager = new SessionManager(io);
 
+var VoiceManager = require('./voiceManager');
+var voiceManager = new VoiceManager(io);
+
+var Connect = require('./Intents/Connect');
+var ChangeCity = require('./Intents/ChangeCity')
+
 var guid = require('uuid/v4')
-require('dotenv').config();
+
 
 require('./apps/gdax/Gdax.js')(io);
 require('./apps/iex/IEX.js')(io);
@@ -20,6 +28,8 @@ require('./apps/hackerNews/HackerNews.js')(io);
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+
 
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
@@ -42,9 +52,31 @@ app.use(function (req, res, next) {
 
 var User = require('./models/User');
 
+app.post('/voice', function(req,res) {
+	var voice = req.body.voice;
+	var sessionCode = req.body.sessionCode;
+	var uniqueUserId = req.body.userId;	
+	voiceManager.runDF(voice).then(function(result) {
+		var intentName =  result.result.metadata.intentName
+		if (intentName === 'Connect') {
+			Connect(result, uniqueUserId, sessionManager)
+		}
+		if (intentName === 'setLocation') {
+			ChangeCity(result, sessionManager, sessionCode)
+		}
+		if (intentName === 'openApp') {
+			if (result.result.parameters.Application === 'coinbase') {
+				sessionManager.io.emit("openApp", "gdax")
+			}
+			if (result.result.parameters.Application === 'weather') {
+				sessionManager.io.emit("openApp", "weather")
+			}
+		}
+	})
+})
 
 app.post('/connect', function(req, res) {
-	var amzId = req.body.amzUserId;
+	var amzId = req.body.amzUserId || req.body.userId;  //TDOD: How can we uniquely identify users across all assistants
 	if(!amzId) {return res.status(400).send()}
 	var connectCode = req.body.connectCode;
 	User.findOne({amzUserId:amzId}, function(err, user) {
@@ -55,7 +87,6 @@ app.post('/connect', function(req, res) {
 			user.save();
 		}
 		if(sessionManager.getSession(connectCode)){
-			console.log('here')
 			io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
 			sessionManager.removeSession(connectCode);
 		}

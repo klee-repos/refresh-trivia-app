@@ -1,12 +1,13 @@
 
 .gdax {
     width: 100%;
-    height: 100%;
+    height: 100em;
+    max-height: 90vh;
     color: #EED6A8;
 }
 
 .gdax h1 {
-    font-size: 8em;
+    font-size: 700%;
     margin: 0 0 0 0;
 }
 
@@ -15,31 +16,26 @@
 }
 
 .gdaxImageLarge {
-    height: 200px;
-    width: 200px;
+    height: 100%;
+    width: 100%;
 }
 
 .gdaxTableImage {
-    height: 50px;
-    width: 50px;
+    height: 15%;
 }
 
 .gdax table tbody tr td {
-    padding-bottom: 20px;
+    padding-bottom: 10%;
     text-align: center;
 }
 
 .gdaxTableLabel {
-    font-size: 1em;
-    width: 15%;
-}
-
-.gdaxTableHeader {
-    font-size: 2em;
+    font-size: 150%;
+    width: 20%;
 }
 
 .gdaxTableNumbers {
-    font-size: 2.5em;
+    font-size: 250%;
 }
 
 .gdaxTable {
@@ -75,7 +71,7 @@
 .gdaxBitcoin {
     display: flex;
     flex-wrap: nowrap;
-    margin: 0 0 5em 0;
+    margin: 0 0 10% 0;
 
 }
 
@@ -92,7 +88,7 @@
 .gdaxPrice {
     flex: 1 1 80%;
     align-self: center;
-    margin: 0 0 0 2em;
+    margin: 0 0 0 5%;
 }
 
 

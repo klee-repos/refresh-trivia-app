@@ -10,5 +10,6 @@ export {default as IEXContainer} from './IEX/IEXContainer';
 export {default as TimeDateWidgetContainer} from './TimeDate/TimeDateWidgetContainer';
 export {default as HackerNewsContainer} from './HackerNews/HackerNewsContainer';
 export {default as DockContainer} from './Dock/DockContainer';
+export {default as QueryBarContainer} from './QueryBar/QueryBarContainer';
 
 

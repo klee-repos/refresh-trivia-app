@@ -1,0 +1,16 @@
+
+.queryBar {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    color: red;
+}
+
+.queryContainer {
+    width:90vw;
+    align-self: center;
+}
+
+.micIcon {
+    height: 16px;
+}
