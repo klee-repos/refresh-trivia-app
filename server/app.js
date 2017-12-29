@@ -96,6 +96,7 @@ app.post('/gAssistant', function(req, res) {
 		})
 	} else if (intent === 'connect' ) {
 		var connectCode = req.body.result.parameters.connectCode;
+		result.speech = "ok";
 		User.findOne({gAssistantId:gId}, function(err, user) {
 			if (!user) {
 				var user = new User();
