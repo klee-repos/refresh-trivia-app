@@ -16,6 +16,8 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 
+var Intents = require('./Intents');
+
 var SessionManager = require('./sessionManager');
 var sessionManager = new SessionManager(io);
 
@@ -84,7 +86,7 @@ app.post('/gAssistant', function(req, res) {
 
 	var gId = req.body.originalRequest.data.user.userId;
 	if(!gId) {return res.status(400).send()}
-
+		
 	if (intent === 'input.welcome') {
 		User.findOne({gAssistantId:gId}, function(err, user) {
 			if (!user) {
@@ -97,20 +99,7 @@ app.post('/gAssistant', function(req, res) {
 	} else if (intent === 'connect' ) {
 		var connectCode = req.body.result.parameters.connectCode;
 		result.speech = "ok";
-		User.findOne({gAssistantId:gId}, function(err, user) {
-			if (!user) {
-				var user = new User();
-				user.gAssistantId = gId;
-				user.sessionCode = User.generateSessionCode();
-				user.save();
-			}
-			if(sessionManager.getSession(connectCode)){
-				io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
-				sessionManager.removeSession(connectCode);
-			}
-			res.send(result);
-		})
-
+		Intents.Connect(res, result, gId, connectCode, sessionManager);
 	} else if (intent ==='startGame') {
 		var game = req.body.result.parameters.game;
 		result.contextOut = [{"name":"game", "lifespan":2, "parameters":{'turns':5}}]; 
@@ -128,43 +117,44 @@ app.post('/gAssistant', function(req, res) {
 	}
 })
 
-app.post('/voice', function(req,res) {
-	var voice = req.body.voice;
-	var sessionCode = req.body.sessionCode;
-	var uniqueUserId = req.body.userId;	
-	voiceManager.runDF(voice).then(function(result) {
-		var intentName =  result.result.metadata.intentName
-		if (intentName === 'Connect') {
-			Connect(result, uniqueUserId, sessionManager)
-		}
-	})
-})
+// app.post('/voice', function(req,res) {
+// 	var voice = req.body.voice;
+// 	var sessionCode = req.body.sessionCode;
+// 	var uniqueUserId = req.body.userId;	
+// 	voiceManager.runDF(voice).then(function(result) {
+// 		var intentName =  result.result.metadata.intentName
+// 		if (intentName === 'Connect') {
+// 			Connect(result, uniqueUserId, sessionManager)
+// 		}
+// 	})
+// })
 
-app.post('/connect', function(req, res) {
-	var amzId = req.body.amzUserId || req.body.userId;  //TDOD: How can we uniquely identify users across all assistants
-	if(!amzId) {return res.status(400).send()}
-	var connectCode = req.body.connectCode;
-	User.findOne({amzUserId:amzId}, function(err, user) {
-		if (!user) {
-			var user = new User();
-			user.amzUserId = amzId;
-			user.sessionCode = User.generateSessionCode();
-			user.save();
-		}
-		if(sessionManager.getSession(connectCode)){
-			io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
-			sessionManager.removeSession(connectCode);
-		}
-		res.status(200).send(user.sessionCode);
-	});
-});
+// app.post('/connect', function(req, res) {
+// 	var amzId = req.body.amzUserId || req.body.userId;  //TDOD: How can we uniquely identify users across all assistants
+// 	if(!amzId) {return res.status(400).send()}
+// 	var connectCode = req.body.connectCode;
+// 	User.findOne({amzUserId:amzId}, function(err, user) {
+// 		if (!user) {
+// 			var user = new User();
+// 			user.amzUserId = amzId;
+// 			user.sessionCode = User.generateSessionCode();
+// 			user.save();
+// 		}
+// 		if(sessionManager.getSession(connectCode)){
+// 			io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
+// 			sessionManager.removeSession(connectCode);
+// 		}
+// 		res.status(200).send(user.sessionCode);
+// 	});
+// });
 
 //TODO: Really only Alexa -> app routes
-app.use('/apps', function(req,res,next){  
-	req.sessionCode = req.get('sessionCode');
-	req.io = io.to(req.sessionCode);
-	next();
-});
+// app.use('/apps', function(req,res,next){  
+// 	req.sessionCode = req.get('sessionCode');
+// 	req.io = io.to(req.sessionCode);
+// 	next();
+// });
+
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
 });
