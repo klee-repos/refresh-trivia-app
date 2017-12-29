@@ -9,7 +9,7 @@ var userSchema = new mongoose.Schema(
 {
 	began: {type:Date, default:Date.now},
 	sessionCode: String,
-	amzUserId: String,
+	gAssistantId: String,
 	preferences: Object
 });
 

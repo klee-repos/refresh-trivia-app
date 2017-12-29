@@ -62,11 +62,44 @@ var dialogflowResponse = function(){
 app.post('/gAssistant', function(req, res) {
 	console.log(req.body)
 	console.log("userId: " + req.body.originalRequest.data.user.userId)
+
+	var gId = req.body.originalRequest.data.user.userId;
+	if(!gId) {return res.status(400).send()}
+
+	if (intent === 'input.welcome') {
+		User.findOne({gAssistantId:gId}, function(err, user) {
+			if (!user) {
+				result.speech = "Welcome to Trivia. What session would you like to connect to?"
+			} else {
+				result.speech = "Welcome to Trivia."
+			}
+		})
+	}
+
+	if (intent === 'connect' ) {
+		var connectCode = req.body.result.parameters.connectCode;
+		User.findOne({gAssistantId:gId}, function(err, user) {
+			if (!user) {
+				var user = new User();
+				user.gAssistantId = gId;
+				user.sessionCode = User.generateSessionCode();
+				user.save();
+			}
+			if(sessionManager.getSession(connectCode)){
+				io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
+				sessionManager.removeSession(connectCode);
+			}
+			res.status(200).send(user.sessionCode);
+		});
+	}
+
+	
+	
+
+
 	var intent = req.body.result.action;
     var result = dialogflowResponse();
-    if (intent === 'input.welcome') {
-        result.speech = "Welcome to Trivia. What game would you like to play?"
-	}
+    
 	res.send(result)
 })
 
