@@ -24,6 +24,24 @@ var voiceManager = new VoiceManager(io);
 
 var Connect = require('./Intents/Connect');
 var quizes = require('./Quizes')
+var currentGame;
+
+var isAnAnswer = function(guess,answers){
+    var answer = null;
+    guess = guess.toLowerCase();
+    answers.some(function(ans){
+        if(ans.key.toLowerCase() === guess){
+            answer = ans;
+            return true;
+        }
+        if(ans.phrasings.some(function(phr){
+            if(phr.toLowerCase() === guess){
+                answer = ans;
+            }
+        }));
+    });
+    return answer;
+}
 
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
@@ -96,9 +114,16 @@ app.post('/gAssistant', function(req, res) {
 		var game = req.body.result.parameters.game;
 		result.contextOut = [{"name":"game", "lifespan":2, "parameters":{'turns':5}}]; 
 		result.speech = quizes[game].questions[0].text;
+		currentGame = game;
 		res.send(result);
 	} else if (intent === 'guess') {
-
+        var result = dialogflowResponse();
+        var guess = req.body.result.parameters.guess;
+		var quiz = quizes[currentGame];
+		var answers = quiz.questions[0].answers;
+        var answer = isAnAnswer(guess,answers);
+		result.speech = answer ? answer.key : "Not an answer";
+		res.send(result);
 	}
 })
 
