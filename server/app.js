@@ -129,32 +129,6 @@ app.post('/gAssistant', function(req, res) {
 // 	})
 // })
 
-// app.post('/connect', function(req, res) {
-// 	var amzId = req.body.amzUserId || req.body.userId;  //TDOD: How can we uniquely identify users across all assistants
-// 	if(!amzId) {return res.status(400).send()}
-// 	var connectCode = req.body.connectCode;
-// 	User.findOne({amzUserId:amzId}, function(err, user) {
-// 		if (!user) {
-// 			var user = new User();
-// 			user.amzUserId = amzId;
-// 			user.sessionCode = User.generateSessionCode();
-// 			user.save();
-// 		}
-// 		if(sessionManager.getSession(connectCode)){
-// 			io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
-// 			sessionManager.removeSession(connectCode);
-// 		}
-// 		res.status(200).send(user.sessionCode);
-// 	});
-// });
-
-//TODO: Really only Alexa -> app routes
-// app.use('/apps', function(req,res,next){  
-// 	req.sessionCode = req.get('sessionCode');
-// 	req.io = io.to(req.sessionCode);
-// 	next();
-// });
-
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
 });
