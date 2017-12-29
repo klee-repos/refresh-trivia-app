@@ -61,7 +61,7 @@ var dialogflowResponse = function(){
 
 app.post('/gAssistant', function(req, res) {
 	console.log(req.body)
-	console.log(req.body.originalRequest.data.user)
+	console.log("userId: " + req.body.originalRequest.data.user.userId)
 	var intent = req.body.result.action;
     var result = dialogflowResponse();
     if (intent === 'input.welcome') {
