@@ -39,7 +39,6 @@ class DashboardContainer extends React.Component {
     currentPage(status){
         switch(this.props.loadingStatus){
             case "INIT" : return this.landingPage();
-            case "SETUP": return this.setup();
             default: return this.dashboard(); 
         }
     }

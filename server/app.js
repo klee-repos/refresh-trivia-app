@@ -23,9 +23,7 @@ var VoiceManager = require('./voiceManager');
 var voiceManager = new VoiceManager(io);
 
 var Connect = require('./Intents/Connect');
-
-var statesQuiz = require('./Quizes/statesQuiz');
-
+var quizes = require('./Quizes')
 
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
@@ -78,9 +76,7 @@ app.post('/gAssistant', function(req, res) {
 			}
 			res.send(result);
 		})
-	}
-
-	if (intent === 'connect' ) {
+	} else if (intent === 'connect' ) {
 		var connectCode = req.body.result.parameters.connectCode;
 		User.findOne({gAssistantId:gId}, function(err, user) {
 			if (!user) {
@@ -95,6 +91,14 @@ app.post('/gAssistant', function(req, res) {
 			}
 			res.send(result);
 		})
+
+	} else if (intent ==='startGame') {
+		var game = req.body.result.parameters.game;
+		result.contextOut = [{"name":"game", "lifespan":2, "parameters":{'turns':5}}]; 
+		result.speech = quizes[game].questions[0].text;
+		res.send(result);
+	} else if (intent === 'guess') {
+
 	}
 })
 
