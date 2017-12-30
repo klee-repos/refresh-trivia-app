@@ -91,9 +91,9 @@ app.post('/gAssistant', function(req, res) {
 	if (intent === 'input.welcome') {
 		User.findOne({gAssistantId:gId}, function(err, user) {
 			if (!user) {
-				result.speech = "Welcome to Trivia. What session would you like to connect to?"
+				result.speech = "What session would you like to connect to?"
 			} else {
-				result.speech = "Welcome to Trivia."
+				result.speech = "Welcome"
 			}
 			res.send(result);
 		})
@@ -101,16 +101,17 @@ app.post('/gAssistant', function(req, res) {
 	
 	else if (intent === 'connect' ) {
 		var connectCode = req.body.result.parameters.connectCode;
-		result.speech = "ok";
+		result.speech = "connected";
 		Intents.Connect(res, result, gId, connectCode, sessionManager);
-		sessionManager.io.emit("openApp", "mainMenu");
 	} 
 	
 	else if (intent ==='startGame') {
 		var game = req.body.result.parameters.game;
-		result.contextOut = [{"name":"game", "lifespan":2, "parameters":{'turns':5}}]; 
-		result.speech = quizes[game].questions[0].text;
+		var question = quizes[game].questions[0].text
 		currentGame = game;
+		sessionManager.io.emit('startGame', currentGame, question);
+		result.contextOut = [{"name":"game", "lifespan":2, "parameters":{'turns':5}}]; 
+		result.speech = question;
 		res.send(result);
 	} 
 	
@@ -119,8 +120,13 @@ app.post('/gAssistant', function(req, res) {
         var guess = req.body.result.parameters.guess;
 		var quiz = quizes[currentGame];
 		var answers = quiz.questions[0].answers;
-        var answer = isAnAnswer(guess,answers);
-		result.speech = answer ? answer.key : "Not an answer";
+		var answer = isAnAnswer(guess,answers);
+		if (answer) {
+			sessionManager.io.emit('correctAnswer', answer.key)
+			result.speech = answer.key + " is a correct guess!"
+		} else {
+			result.speech = "Not a correct guess!"
+		}
 		res.send(result);
 	}
 })

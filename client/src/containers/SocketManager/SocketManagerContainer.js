@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dashboardActionCreators from '../../redux/modules/dashboard'
+import * as quizActionCreators from '../../redux/modules/quiz'
 
 import socket from '../../config/socket';
 import axios from 'axios'
@@ -45,7 +46,21 @@ class SocketManagerContainer extends Component {
         // Voice
         socket.on('voiceResponse', function(data) {
             console.log(data)
-        })
+        }.bind(this))
+
+        // Start game
+        socket.on('startGame', function(game, question) {
+            console.log(question)
+            this.props.statusUpdate(game);
+            this.props.setQuestion(question);
+        }.bind(this))
+
+        // Correct answer
+        socket.on('correctAnswer', function(answer) {
+            var newAnswers = this.props.quizAnswers.slice()
+            newAnswers.push(answer)
+            this.props.setAnswers(newAnswers);
+        }.bind(this))
 
     }
 
@@ -57,14 +72,16 @@ class SocketManagerContainer extends Component {
 
 }
 
-function mapStateToProps({dashboard}) {
+function mapStateToProps({dashboard, quiz}) {
     return {
+        quizAnswers: quiz.quizAnswers
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
             ...dashboardActionCreators,
+            ...quizActionCreators,
         }, dispatch)
 }
 

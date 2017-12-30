@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dashboard} from '../../components/'
-import {QueryBarContainer, MainMenuContainer} from '../../containers/'
+import {QueryBarContainer, MainMenuContainer, StatesQuizContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -28,15 +28,20 @@ class DashboardContainer extends React.Component {
 
     mainMenu() {
         return (
-            <div>
-                <MainMenuContainer />
-            </div>
+            <MainMenuContainer />
+        )
+    }
+
+    statesQuiz() {
+        return (
+            <StatesQuizContainer />
         )
     }
 
     currentPage(status){
         switch(this.props.loadingStatus){
             case "INIT" : return this.landingPage();
+            case "states": return this.statesQuiz();
             default: return this.mainMenu(); 
         }
     }
