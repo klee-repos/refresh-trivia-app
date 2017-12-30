@@ -110,7 +110,7 @@ app.post('/gAssistant', function(req, res) {
 		var question = quizes[game].questions[0].text
 		currentGame = game;
 		sessionManager.io.emit('startGame', currentGame, question);
-		result.contextOut = [{"name":"game", "lifespan":2, "parameters":{'turns':5}}]; 
+		result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
 		result.speech = question;
 		res.send(result);
 	} 
@@ -127,6 +127,7 @@ app.post('/gAssistant', function(req, res) {
 		} else {
 			result.speech = "Not a correct guess!"
 		}
+		result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
 		res.send(result);
 	}
 })
