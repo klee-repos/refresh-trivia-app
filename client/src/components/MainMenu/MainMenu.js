@@ -15,8 +15,8 @@ class MainMenu extends Component {
                 </div>
                 <div className='gameList'>
                     <div className='games'>
-                        {this.props.triviaGames
-                            ? this.props.triviaGames.map(function(game, idx) {
+                        {this.props.quizTitles
+                            ? this.props.quizTitles.map(function(game, idx) {
                                 return (
                                     <p key={idx}>{game}</p>
                                 )

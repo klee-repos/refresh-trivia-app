@@ -132,9 +132,13 @@ app.post('/gAssistant', function(req, res) {
 	}
 })
 
-app.get ('/games', function(req, res) {
-	res.send(quizes)
-})
+
+var mainMenuRoutes = require('./MainMenu/api');
+app.use('/mainMenu', mainMenuRoutes);
+
+// app.get ('/games', function(req, res) {
+// 	res.send(quizes)
+// })
 
 // app.post('/voice', function(req,res) {
 // 	var voice = req.body.voice;

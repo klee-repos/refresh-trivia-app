@@ -1,11 +1,11 @@
 module.exports = {
     name: "States Quiz",
     type: "GuessAsManyAsYouCan",
-    id: "GUID",
+    id: "states_1",
     questions:[
         {
             text: "Name as many US states as you can before the time runs out!",
-            id: "GUID",
+            id: "question_1",
             answers:[
                 {
                     key: "Alabama",
