@@ -50,16 +50,6 @@ app.use(function (req, res, next) {
 
 var User = require('./models/User');
 
-var dialogflowResponse = function(){
-	return {
-		speech: "",
-		displayText: "",
-		data: {},
-		contextOut: [],
-		source: "",
-		followupEvent: {}
-	}
-}
 
 var isAnAnswer = function(guess,answers){
     var answer = null;
@@ -82,11 +72,13 @@ app.post('/gAssistant', function(req, res) {
 	console.log(req.body)
 	console.log("userId: " + req.body.originalRequest.data.user.userId)
 
-	var intent = req.body.result.action;
-    var result = dialogflowResponse();
+	// var intent = req.body.result.action;
+    // var result = dialogflowResponse();
 
-	var gId = req.body.originalRequest.data.user.userId;
-	if(!gId) {return res.status(400).send()}
+	// var gId = req.body.originalRequest.data.user.userId;
+	// if(!gId) {return res.status(400).send()}
+
+	
 		
 	if (intent === 'input.welcome') {
 		User.findOne({gAssistantId:gId}, function(err, user) {
