@@ -4,7 +4,7 @@ var User = require('../models/User');
 var Connect = function(res, result, uniqueUserId, connectCode, sessionManager) {
     if(!uniqueUserId) {return res.status(400).send()}
     console.log(uniqueUserId);
-    console.log(connectCode)
+    console.log(connectCode);
     User.findOne({gAssistantId:uniqueUserId}, function(err, user) {
         if (!user) {
             var user = new User();

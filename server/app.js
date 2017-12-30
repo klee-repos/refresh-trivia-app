@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 
 var Intents = require('./Intents');
+var ExecuteRequest = require('./RequestHandlers');
 
 var SessionManager = require('./sessionManager');
 var sessionManager = new SessionManager(io);
@@ -72,57 +73,59 @@ app.post('/gAssistant', function(req, res) {
 	console.log(req.body)
 	console.log("userId: " + req.body.originalRequest.data.user.userId)
 
-	// var intent = req.body.result.action;
-    // var result = dialogflowResponse();
+	ExecuteRequest.FromGoogle(req.body);
+	res.end();
+		// .then(function(responseData){
+		// 	res.status(responseData.status).send(responseData.data);
+		// }).catch(function(error){
+		// 	logError(error);
+		// 	res.status(500).send(error)
+		// });
+	})
 
-	// var gId = req.body.originalRequest.data.user.userId;
-	// if(!gId) {return res.status(400).send()}
-
+	// if (intent === 'input.welcome') {
+	// 	User.findOne({gAssistantId:gId}, function(err, user) {
+	// 		if (!user) {
+	// 			result.speech = "What session would you like to connect to?"
+	// 		} else {
+	// 			result.speech = "Welcome"
+	// 		}
+	// 		res.send(result);
+	// 	})
+	// } 
 	
-		
-	if (intent === 'input.welcome') {
-		User.findOne({gAssistantId:gId}, function(err, user) {
-			if (!user) {
-				result.speech = "What session would you like to connect to?"
-			} else {
-				result.speech = "Welcome"
-			}
-			res.send(result);
-		})
-	} 
+	// else if (intent === 'connect' ) {
+	// 	var connectCode = req.body.result.parameters.connectCode;
+	// 	result.speech = "connected";
+	// 	Intents.Connect(res, result, gId, connectCode, sessionManager);
+	// } 
 	
-	else if (intent === 'connect' ) {
-		var connectCode = req.body.result.parameters.connectCode;
-		result.speech = "connected";
-		Intents.Connect(res, result, gId, connectCode, sessionManager);
-	} 
+	// else if (intent ==='startGame') {
+	// 	var game = req.body.result.parameters.game;
+	// 	var question = quizes[game].questions[0].text
+	// 	currentGame = game;
+	// 	sessionManager.io.emit('startGame', currentGame, question);
+	// 	result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
+	// 	result.speech = question;
+	// 	res.send(result);
+	// } 
 	
-	else if (intent ==='startGame') {
-		var game = req.body.result.parameters.game;
-		var question = quizes[game].questions[0].text
-		currentGame = game;
-		sessionManager.io.emit('startGame', currentGame, question);
-		result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
-		result.speech = question;
-		res.send(result);
-	} 
-	
-	else if (intent === 'guess') {
-        var result = dialogflowResponse();
-        var guess = req.body.result.parameters.guess;
-		var quiz = quizes[currentGame];
-		var answers = quiz.questions[0].answers;
-		var answer = isAnAnswer(guess,answers);
-		if (answer) {
-			sessionManager.io.emit('correctAnswer', answer.key)
-			result.speech = answer.key + " is a correct guess!"
-		} else {
-			result.speech = "Not a correct guess!"
-		}
-		result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
-		res.send(result);
-	}
-})
+	// else if (intent === 'guess') {
+    //     var result = dialogflowResponse();
+    //     var guess = req.body.result.parameters.guess;
+	// 	var quiz = quizes[currentGame];
+	// 	var answers = quiz.questions[0].answers;
+	// 	var answer = isAnAnswer(guess,answers);
+	// 	if (answer) {
+	// 		sessionManager.io.emit('correctAnswer', answer.key)
+	// 		result.speech = answer.key + " is a correct guess!"
+	// 	} else {
+	// 		result.speech = "Not a correct guess!"
+	// 	}
+	// 	result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
+	// 	res.send(result);
+	// }
+// })
 
 app.get ('/games', function(req, res) {
 	res.send(quizes)
@@ -143,3 +146,7 @@ app.get ('/games', function(req, res) {
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
 });
+
+var logError = function(error){
+	console.log(error);
+}
