@@ -1,6 +1,6 @@
 const routes = require('express').Router();
 
-const Quiz = require('./Quiz');
+const Quiz = require('../components/Quiz');
 const quiz = new Quiz();
 
 // Get object of all quiz names
@@ -16,8 +16,21 @@ routes.post('/allAnswers', function(req,res) {
         return;
     }
     let quizEntity = req.body.quizEntity;
-    let allAnswers = quiz.getAllAnswers(quizEntity);
+    let allAnswers = quiz.getAnswers(quizEntity);
     res.send(allAnswers);
 })
+
+//Returns all questions attched to a quiz entity
+routes.post('/allQuestions', function(req,res) {
+    if (!req.body.quizEntity) {
+        res.send('Missing input: Need to supply quiz entity name in request body')
+        return;
+    }
+    let quizEntity = req.body.quizEntity;
+    let allQuestions = quiz.getQuestions(quizEntity);
+    res.send(allQuestions)
+})
+
+routes.get('')
 
 module.exports = routes;

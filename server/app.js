@@ -78,6 +78,9 @@ var isAnAnswer = function(guess,answers){
     return answer;
 }
 
+const Game = require('./components/Game');
+const game = new Game();
+
 app.post('/gAssistant', function(req, res) {
 	console.log(req.body)
 	console.log("userId: " + req.body.originalRequest.data.user.userId)
@@ -106,13 +109,20 @@ app.post('/gAssistant', function(req, res) {
 	} 
 	
 	else if (intent ==='startGame') {
-		var game = req.body.result.parameters.game;
-		var question = quizes[game].questions[0].text
-		currentGame = game;
-		sessionManager.io.emit('startGame', currentGame, question);
-		result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
-		result.speech = question;
-		res.send(result);
+		let quizEntity = req.body.result.parameters.game;
+		let question;
+		game.createGame(quizEntity, gId).then(function(state) {
+			for (let i = 0; i < state.totalQuestions; i++) {
+				if (state.questions[i].state === 'new') {
+					question = state.questions[i].question;
+					break;
+				}
+			}
+			sessionManager.io.emit('startGame', quizEntity, question);
+			result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
+			result.speech = question;
+			res.send(result);
+		})	
 	} 
 	
 	else if (intent === 'guess') {
@@ -132,13 +142,8 @@ app.post('/gAssistant', function(req, res) {
 	}
 })
 
-
 var mainMenuRoutes = require('./MainMenu/api');
 app.use('/mainMenu', mainMenuRoutes);
-
-// app.get ('/games', function(req, res) {
-// 	res.send(quizes)
-// })
 
 // app.post('/voice', function(req,res) {
 // 	var voice = req.body.voice;

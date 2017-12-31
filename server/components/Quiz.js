@@ -17,14 +17,27 @@ function Quiz() {
         return quizNames;
     }
 
-    this.getAllAnswers = function(quizEntity) {
-        let answers = {};
+    this.getAnswers = function(quizEntity) {
+        let allAnswers = {};
         let questions = quizes[quizEntity].questions;
         for (let i = 0; i < questions.length; i++) {
-            answers[questions[i].id] = questions[i].answers;
+            allAnswers[questions[i].id] = questions[i].answers;
         }
-        console.log(answers)
-        return answers
+        return allAnswers
+    }
+
+    this.getQuestions = function(quizEntity) {
+        let allQuestions = {};
+        let questions = quizes[quizEntity].questions;
+        for (let i = 0; i < questions.length; i++) {
+            allQuestions[questions[i].id] = questions[i].text;
+        }
+        return allQuestions
+    }
+
+    this.getQuiz = function(quizEntity) {
+        let quiz = quizes[quizEntity];
+        return quiz;
     }
 
 }
