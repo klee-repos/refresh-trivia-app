@@ -5,6 +5,7 @@ var gameStateSchema = new mongoose.Schema(
         began: {type:Date, default:Date.now},
         gameStateId: String,
         gAssistantId: String,
+        status: String,
         entity: String,
         quizId: String,
         type: String,

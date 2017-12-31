@@ -31,11 +31,24 @@
 .answer {
     display: flex;
     flex-wrap: nowrap;
-    margin: 10% 0 0 0;
+    margin: 5% 0 0 0;
 }
 
 .answerBox {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%
+}
+
+.answerRow {
+    display: flex;
+    flex-direction: column;
+    margin: 0 2em 0 0;
+}
+
+.answerColumn {
     flex: 1 1 100%;
-    text-align: center;
+    margin: 1em 0 0 0;
 }
 

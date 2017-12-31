@@ -28,6 +28,7 @@ var Game = function() {
             let state = {
                 gameStateId: gameStateId,
                 gAssistantId: gId,
+                status: 'new',
                 quizId: chosenQuiz.id,
                 type: chosenQuiz.type,
                 totalQuestions: totalQuestions,

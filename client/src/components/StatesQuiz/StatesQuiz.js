@@ -15,11 +15,21 @@ class StatesQuiz extends Component {
                 </div>
                 <div className='answer'>
                     <div className='answerBox'>
-                        {this.props.quizAnswers.map(function(answer,idx) {
-                            return (
-                                <p key={idx}>{answer}</p>
-                            )
-                        })}
+                        {this.props.quizAnswers
+                            ? this.props.quizAnswers.map(function(answer,rowIdx) {
+                                console.log(answer)
+                                return (
+                                    <div className='answerRow' key={rowIdx}>
+                                        {answer.map(function(item, columnIdx) {
+                                            return (
+                                                <div className='answerColumn' key={columnIdx}>{item}</div>
+                                            )
+                                        })}
+                                    </div>
+                                )
+                            })
+                            : null
+                        }
                     </div>
                 </div>
             </div>
