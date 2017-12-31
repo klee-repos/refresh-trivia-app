@@ -38,7 +38,27 @@ var Game = function() {
             gameState.save();
             resolve(state);
         })  
-    } 
+    }
+    
+    this.formatAnswers = function(answers) {
+        return new Promise(function(resolve, reject) {
+            var answerKey = [];
+            let column = [];
+            let row = 0;
+            for (let i = 0; i < answers.length; i++) {
+                column.push(answers[i].key)
+                if (row === 8) {
+                    answerKey.push(column)
+                    column = [];
+                    row = 0;
+                } else {
+                    row++
+                }
+            }
+            answerKey.push(column)
+            resolve(answerKey)
+        })
+    }
 
 }
 

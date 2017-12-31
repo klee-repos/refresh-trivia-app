@@ -38,17 +38,18 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    width: 100%
+    width: 100%;
 }
 
 .answerRow {
     display: flex;
     flex-direction: column;
-    margin: 0 2em 0 0;
+    margin: 0 2% 0 2%;
 }
 
 .answerColumn {
     flex: 1 1 100%;
-    margin: 1em 0 0 0;
+    margin: .5em 0 .5em 0;
+    text-align: center
 }
 

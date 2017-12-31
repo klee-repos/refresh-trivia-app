@@ -111,32 +111,20 @@ app.post('/gAssistant', function(req, res) {
 	else if (intent ==='startGame') {
 		let quizEntity = req.body.result.parameters.game;
 		let question;
-		var answerKey = [];
-		let row = [];
-		let column = 0;
 		game.createGame(quizEntity, gId).then(function(state) {
 			for (let i = 0; i < state.totalQuestions; i++) {
 				if (state.questions[i].state === 'new') {
 					question = state.questions[i].question;
 					var answers = state.questions[i].answers;
-					for (let x = 0; x < answers.length; x++) {
-						if (column === 5) {
-							answerKey.push(row)
-							row = [];
-							column = 0;
-						} else {
-							row.push(answers[x].key)
-							column++
-						}
-					}
+					game.formatAnswers(answers).then(function(answerKey) {
+						sessionManager.io.emit('startGame', quizEntity, question, answerKey);
+						result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
+						result.speech = question;
+						res.send(result);
+					})
 					break;
 				}
 			}
-			console.log(answerKey)
-			sessionManager.io.emit('startGame', quizEntity, question, answerKey);
-			result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
-			result.speech = question;
-			res.send(result);
 		})	
 	} 
 	
