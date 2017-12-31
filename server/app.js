@@ -70,17 +70,13 @@ var isAnAnswer = function(guess,answers){
 }
 
 app.post('/gAssistant', function(req, res) {
-	console.log(req.body)
-	console.log("userId: " + req.body.originalRequest.data.user.userId)
-
-	ExecuteRequest.FromGoogle(req.body);
-	res.end();
-		// .then(function(responseData){
-		// 	res.status(responseData.status).send(responseData.data);
-		// }).catch(function(error){
-		// 	logError(error);
-		// 	res.status(500).send(error)
-		// });
+	ExecuteRequest.FromGoogle(req.body)
+		.then(function(responseData){
+			res.status(200).send(responseData);
+		}).catch(function(error){
+			logError(error);
+			res.status(500).send(error)
+		});
 	})
 
 	// if (intent === 'input.welcome') {

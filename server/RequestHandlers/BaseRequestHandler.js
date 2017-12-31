@@ -1,19 +1,17 @@
 var Promise = require('bluebird');
 var Intents = require('../Intents');
 
-var executeIntent = function(baseArgs){
-    return new Promise(function(resolve,reject){
-        //entendHandler with intent requirements
-        //execute generic Intent function
-        var intent = Intents[baseArgs.intentName];
-        intent(baseArgs).then(resolve()).catch();
-    })
-}
+var UserProvider = require('../models/User');
 
-var BaseRequestParser = function(options){
+var executeIntent = function(options){
+    //entendHandler with intent requirements
+    //execute generic Intent function
     this.options = options;
+    var intent = new Intents[options.intent.toUpperCase()](); //gets and instantiates new IntentClass
+    if(intent.hasOwnProperty('User')){
+        return UserProvider.inject(options, intent).then(intent.execute);
+    }
+    return intent.execute(options)
 }
-BaseRequestParser.prototype.executeIntent = executeIntent
-BaseRequestParser.prototype.testFunction = function(){console.log("here")}
 
-module.exports = BaseRequestParser
+module.exports = executeIntent;

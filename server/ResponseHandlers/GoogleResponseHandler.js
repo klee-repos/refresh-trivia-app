@@ -8,3 +8,7 @@ var emptyResponse = function(){
         followupEvent: {}
     }
 }
+
+var GoogleResponseHandler = function(){
+    
+}

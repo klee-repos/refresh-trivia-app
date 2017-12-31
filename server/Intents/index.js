@@ -1,5 +1,5 @@
 var Intents = {};
 
-Intents.Connect = require('./Connect');
+Intents.CONNECT = require('./Connect');
 
 module.exports = Intents;
