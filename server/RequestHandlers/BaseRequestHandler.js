@@ -7,11 +7,12 @@ var executeIntent = function(options){
     //entendHandler with intent requirements
     //execute generic Intent function
     this.options = options;
-    var intent = new Intents[options.intent.toUpperCase()](); //gets and instantiates new IntentClass
-    if(intent.hasOwnProperty('User')){
-        return UserProvider.inject(options, intent).then(intent.execute);
-    }
+    var intent = new intentClass();
     return intent.execute(options)
+}
+
+var intentClass = function(){
+    return Intents[options.intent.toUpperCase()]
 }
 
 module.exports = executeIntent;
