@@ -54,7 +54,7 @@ var dialogflowResponse = function(){
 	return {
 		speech: "",
 		displayText: "",
-		data: {},
+		data: {"google":{"is_ssml":true}},
 		contextOut: [],
 		source: "",
 		followupEvent: {}
@@ -103,7 +103,8 @@ app.post('/gAssistant', function(req, res) {
 					game.formatAnswers(answersGiven).then(function(preparedAnswers) {
 						sessionManager.io.emit('startGame', quizEntity, question, preparedAnswers);
 						result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":state.gameStateId, "questionIndex":i}}]; 
-						result.speech = question;
+						// result.speech = question;
+						result.speech = "<speak><say-as interpret-as='cardinal'>12345</say-as></speak>"
 						res.send(result);
 						
 					})
