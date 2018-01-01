@@ -104,7 +104,7 @@ app.post('/gAssistant', function(req, res) {
 						sessionManager.io.emit('startGame', quizEntity, question, preparedAnswers);
 						result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":state.gameStateId, "questionIndex":i}}]; 
 						// result.speech = question;
-						result.speech = "<speak><say-as interpret-as='cardinal'>12345</say-as></speak>"
+						result.speech = '<speak><say-as interpret-as="cardinal">12345</say-as></speak>'
 						res.send(result);
 						
 					})
