@@ -13,7 +13,7 @@ module.exports = {
                     id: "GUID"
                 },
                 {
-                    key: "Alaksa",
+                    key: "Alaska",
                     phrasings: ["AK"],
                     id: "GUID"
                 },
@@ -38,7 +38,7 @@ module.exports = {
                     id: "GUID"
                 },
                 {
-                    key: "Conneticut",
+                    key: "Connecticut",
                     phrasings: ["CT"],
                     id: "GUID"
                 },
@@ -73,7 +73,7 @@ module.exports = {
                     id: "GUID"
                 },
                 {
-                    key: "Indiania",
+                    key: "Indiana",
                     phrasings: ["IN"],
                     id: "GUID"
                 },
