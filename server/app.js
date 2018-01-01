@@ -114,7 +114,8 @@ app.post('/gAssistant', function(req, res) {
 	else if (intent === 'guess') {
 		var guess = req.body.result.parameters.guess;
 		// var gameStateId = req.body.result.parameters.gameStateId;
-		console.log(req.body)
+		console.log(req.body.result.contexts)
+		console.log(req.body.result.contexts[0])
 		// var quiz = quizes[currentGame];
 		// var answers = quiz.questions[0].answers;
 		// var answer = game.isAnAnswer(guess,answers,gameStateId);
