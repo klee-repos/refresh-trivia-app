@@ -57,10 +57,8 @@ class SocketManagerContainer extends Component {
         }.bind(this))
 
         // Correct answer
-        socket.on('correctAnswer', function(answer) {
-            var newAnswers = this.props.quizAnswers.slice()
-            newAnswers.push(answer)
-            this.props.setAnswers(newAnswers);
+        socket.on('correctAnswer', function(answers) {
+            this.props.setAnswers(answers);
         }.bind(this))
 
     }

@@ -13,6 +13,9 @@ var gameStateSchema = new mongoose.Schema(
         questions: Object,
     });
 
+
 var GameState = mongoose.model('GameState', gameStateSchema);
+
+
 
 module.exports = GameState;

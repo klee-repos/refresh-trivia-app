@@ -65,6 +65,8 @@ var dialogflowResponse = function(){
 const Game = require('./components/Game');
 const game = new Game();
 
+var GameState = require('./models/GameState');
+
 app.post('/gAssistant', function(req, res) {
 
 	var intent = req.body.result.action;
@@ -100,7 +102,7 @@ app.post('/gAssistant', function(req, res) {
 					var answersGiven = state.questions[i].answersGiven;
 					game.formatAnswers(answersGiven).then(function(preparedAnswers) {
 						sessionManager.io.emit('startGame', quizEntity, question, preparedAnswers);
-						result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":state.gameStateId}}]; 
+						result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":state.gameStateId, "questionIndex":i}}]; 
 						result.speech = question;
 						res.send(result);
 						
@@ -113,21 +115,55 @@ app.post('/gAssistant', function(req, res) {
 	
 	else if (intent === 'guess') {
 		var guess = req.body.result.parameters.guess;
-		// var gameStateId = req.body.result.parameters.gameStateId;
-		console.log(req.body.result.contexts)
-		console.log(req.body.result.contexts[0])
-		// var quiz = quizes[currentGame];
-		// var answers = quiz.questions[0].answers;
-		// var answer = game.isAnAnswer(guess,answers,gameStateId);
-		// if (answer) {
-		// 	sessionManager.io.emit('correctAnswer', answer.key)
-		// 	result.speech = answer.key + " is correct!"
-		// } else {
-		// 	result.speech = "Not correct!"
-		// }
-		// result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
-		result.speech="test"
-		res.send(result);
+		let contexts = req.body.result.contexts;
+		let gameContext;
+		for (let i = 0; i < contexts.length; i++) {
+			if (contexts[i].name === 'game') {
+				gameContext = contexts[i]
+				break;
+			}
+		}
+		if (!gameContext) {
+			console.log('Error: Missing game context')
+			return;
+		}
+		let gStateId = gameContext.parameters.gameStateId
+		let questionIndex = gameContext.parameters.questionIndex
+		// console.log(req.body.result.contexts)
+
+		GameState.findOne({gameStateId:gStateId}, function(err, gameState) {
+			if (gameState) {
+				let theQuestion = gameState.questions[parseInt(questionIndex)];
+				let newAnswers = theQuestion.answersGiven.slice();
+				let answerKey = theQuestion.answerKey.slice();
+				let answerIndex;
+				game.isAnAnswer(guess, theQuestion.answersFull).then(function(answer) {
+					if (answer) {
+						for (let i = 0; i < answerKey.length; i++) {
+							if (answerKey[i] === answer.key) {
+								answerIndex = i;
+								break;
+							}
+						}
+						newAnswers[answerIndex] = answer.key
+						gameState.questions[parseInt(questionIndex)].answersGiven = newAnswers;
+						gameState.markModified('questions');
+						gameState.save();
+						result.speech = answer.key + " is correct!"
+						game.formatAnswers(newAnswers).then(function(preparedAnswers) {
+							sessionManager.io.emit('correctAnswer', preparedAnswers)
+						})
+					} else {
+						result.speech = "Not correct!"
+					}
+					result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":gStateId, "questionIndex":questionIndex}}]; 
+					res.send(result);
+				})
+			} else {
+				result.speech = "There was a problem. Please try your guess again."
+				res.send(result);
+			}
+		})		
 	}
 })
 

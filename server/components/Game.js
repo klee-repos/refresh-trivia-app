@@ -76,20 +76,23 @@ var Game = function() {
     }
 
     this.isAnAnswer = function(guess,answers){
-        var answer = null;
-        guess = guess.toLowerCase();
-        answers.some(function(ans){
-            if(ans.key.toLowerCase() === guess){
-                answer = ans;
-                return true;
-            }
-            if(ans.phrasings.some(function(phr){
-                if(phr.toLowerCase() === guess){
+        return new Promise(function(resolve,reject) {
+            var answer = null;
+            guess = guess.toLowerCase();
+            answers.some(function(ans){
+                if(ans.key.toLowerCase() === guess){
                     answer = ans;
+                    resolve(answer);
                 }
-            }));
-        });
-        return answer;
+                if(ans.phrasings.some(function(phr){
+                    if(phr.toLowerCase() === guess){
+                        answer = ans;
+                        resolve(answer);
+                    }
+                }));
+            });
+            resolve(answer);
+        })   
     }
     
     
