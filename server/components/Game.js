@@ -25,7 +25,7 @@ var Game = function() {
                 let answers = chosenQuiz.questions[i].answers;
                 for (let i = 0; i < answers.length; i++) {
                     answerKey.push(answers[i].key)
-                    answersGiven.push(counter)
+                    answersGiven.push("")
                     counter++;
                 }
                 questions.push({
