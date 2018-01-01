@@ -104,7 +104,7 @@ app.post('/gAssistant', function(req, res) {
 						sessionManager.io.emit('startGame', quizEntity, question, preparedAnswers);
 						result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":state.gameStateId, "questionIndex":i}}]; 
 						// result.speech = question;
-						result.speech = '<speak><audio src="https://actions.google.com/sounds/v1/animals/cat_purr_close.ogg""><desc>a cat purring</desc>PURR (sound didnt load)</audio></speak>'
+						result.speech = '<speak><audio src="https://actions.google.com/sounds/v1/animals/cat_purr_close.ogg"><desc>a cat purring</desc>PURR (sound didnt load)</audio></speak>'
 						res.send(result);
 							
 						})
