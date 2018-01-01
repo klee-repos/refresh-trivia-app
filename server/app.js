@@ -104,10 +104,10 @@ app.post('/gAssistant', function(req, res) {
 						sessionManager.io.emit('startGame', quizEntity, question, preparedAnswers);
 						result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":state.gameStateId, "questionIndex":i}}]; 
 						// result.speech = question;
-						result.speech = '<speak><say-as interpret-as="characters">can</say-as></speak>'
+						result.speech = '<speak><audio src="http://k003.kiwi6.com/hotlink/gn2apld32k/wrong.mp3"></audio></speak>'
 						res.send(result);
-						
-					})
+							
+						})
 				}
 				break;
 			}
