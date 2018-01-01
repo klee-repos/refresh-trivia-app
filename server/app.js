@@ -28,6 +28,10 @@ var Connect = require('./Intents/Connect');
 var quizes = require('./Quizes')
 var currentGame;
 
+// Sounds
+const correctURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/correct-guitar.mp3";
+const wrongURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/wrong.mp3";
+
 
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
@@ -103,8 +107,7 @@ app.post('/gAssistant', function(req, res) {
 					game.formatAnswers(answersGiven).then(function(preparedAnswers) {
 						sessionManager.io.emit('startGame', quizEntity, question, preparedAnswers);
 						result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":state.gameStateId, "questionIndex":i}}]; 
-						// result.speech = question;
-						result.speech = '<speak><audio src="https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/wrong.mp3"><desc>wrong</desc>PURR (sound didnt load)</audio></speak>'
+						result.speech = question;
 						res.send(result);
 							
 						})
@@ -150,12 +153,12 @@ app.post('/gAssistant', function(req, res) {
 						gameState.questions[parseInt(questionIndex)].answersGiven = newAnswers;
 						gameState.markModified('questions');
 						gameState.save();
-						result.speech = answer.key + " is correct!"
+						result.speech = '<speak><audio src="' + correctURL + '"><desc>' + answer.key + ' is correct!</desc></audio></speak>';
 						game.formatAnswers(newAnswers).then(function(preparedAnswers) {
 							sessionManager.io.emit('correctAnswer', preparedAnswers)
 						})
 					} else {
-						result.speech = "Not correct!"
+						result.speech = '<speak><audio src="' + wrongURL + '"><desc>Incorrect!</desc></audio></speak>'
 					}
 					result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":gStateId, "questionIndex":questionIndex}}]; 
 					res.send(result);
