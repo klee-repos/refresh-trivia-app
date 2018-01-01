@@ -61,34 +61,16 @@ var dialogflowResponse = function(){
 	}
 }
 
-var isAnAnswer = function(guess,answers){
-    var answer = null;
-    guess = guess.toLowerCase();
-    answers.some(function(ans){
-        if(ans.key.toLowerCase() === guess){
-            answer = ans;
-            return true;
-        }
-        if(ans.phrasings.some(function(phr){
-            if(phr.toLowerCase() === guess){
-                answer = ans;
-            }
-        }));
-    });
-    return answer;
-}
 
 const Game = require('./components/Game');
 const game = new Game();
 
 app.post('/gAssistant', function(req, res) {
-	console.log(req.body)
-	console.log("userId: " + req.body.originalRequest.data.user.userId)
 
 	var intent = req.body.result.action;
     var result = dialogflowResponse();
 
-	var gId = req.body.originalRequest.data.user.userId;
+	var gId = req.body.originalRequest.data.user.userId;  // Unique identifier for Google
 	if(!gId) {return res.status(400).send()}
 		
 	if (intent === 'input.welcome') {
@@ -118,7 +100,7 @@ app.post('/gAssistant', function(req, res) {
 					var answersGiven = state.questions[i].answersGiven;
 					game.formatAnswers(answersGiven).then(function(preparedAnswers) {
 						sessionManager.io.emit('startGame', quizEntity, question, preparedAnswers);
-						result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
+						result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":state.gameStateId}}]; 
 						result.speech = question;
 						res.send(result);
 						
@@ -130,18 +112,20 @@ app.post('/gAssistant', function(req, res) {
 	} 
 	
 	else if (intent === 'guess') {
-        var result = dialogflowResponse();
-        var guess = req.body.result.parameters.guess;
-		var quiz = quizes[currentGame];
-		var answers = quiz.questions[0].answers;
-		var answer = isAnAnswer(guess,answers);
-		if (answer) {
-			sessionManager.io.emit('correctAnswer', answer.key)
-			result.speech = answer.key + " is a correct guess!"
-		} else {
-			result.speech = "Not a correct guess!"
-		}
-		result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
+		var guess = req.body.result.parameters.guess;
+		// var gameStateId = req.body.result.parameters.gameStateId;
+		console.log(req.body)
+		// var quiz = quizes[currentGame];
+		// var answers = quiz.questions[0].answers;
+		// var answer = game.isAnAnswer(guess,answers,gameStateId);
+		// if (answer) {
+		// 	sessionManager.io.emit('correctAnswer', answer.key)
+		// 	result.speech = answer.key + " is correct!"
+		// } else {
+		// 	result.speech = "Not correct!"
+		// }
+		// result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
+		result.speech="test"
 		res.send(result);
 	}
 })

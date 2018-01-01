@@ -32,7 +32,8 @@ var Game = function() {
                     state: "new",
                     question: chosenQuiz.questions[i].text,
                     answerKey: answerKey,
-                    answersGiven: answersGiven
+                    answersGiven: answersGiven,
+                    answersFull: answers
                 })
             }
 
@@ -70,9 +71,25 @@ var Game = function() {
             if (column.length > 0) {
                 answerKey.push(column)
             }
-            console.log(answerKey)
             resolve(answerKey)
         })
+    }
+
+    this.isAnAnswer = function(guess,answers){
+        var answer = null;
+        guess = guess.toLowerCase();
+        answers.some(function(ans){
+            if(ans.key.toLowerCase() === guess){
+                answer = ans;
+                return true;
+            }
+            if(ans.phrasings.some(function(phr){
+                if(phr.toLowerCase() === guess){
+                    answer = ans;
+                }
+            }));
+        });
+        return answer;
     }
     
     
