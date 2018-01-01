@@ -14,17 +14,28 @@ var Game = function() {
 
     this.createGame = function(quizEntity, gId) {
         return new Promise(function(resolve,reject) {
+            let counter = 1;
             let questions = []
+            let answerKey = []
+            let answersGiven = []
             let gameStateId = generateId();
             let chosenQuiz = quiz.getQuiz(quizEntity)
             let totalQuestions = chosenQuiz.questions.length;
             for (let i = 0; i < totalQuestions; i++) {
+                let answers = chosenQuiz.questions[i].answers;
+                for (let i = 0; i < answers.length; i++) {
+                    answerKey.push(answers[i].key)
+                    answersGiven.push(counter)
+                    counter++;
+                }
                 questions.push({
                     state: "new",
                     question: chosenQuiz.questions[i].text,
-                    answers: chosenQuiz.questions[i].answers,
+                    answerKey: answerKey,
+                    answersGiven: answersGiven
                 })
             }
+
             let state = {
                 gameStateId: gameStateId,
                 gAssistantId: gId,
@@ -39,15 +50,16 @@ var Game = function() {
             resolve(state);
         })  
     }
-    
+
     this.formatAnswers = function(answers) {
         return new Promise(function(resolve, reject) {
             var answerKey = [];
             let column = [];
             let row = 0;
+            
             for (let i = 0; i < answers.length; i++) {
-                column.push(answers[i].key)
-                if (row === 8) {
+                column.push(answers[i])
+                if (row === 4) {
                     answerKey.push(column)
                     column = [];
                     row = 0;
@@ -55,10 +67,15 @@ var Game = function() {
                     row++
                 }
             }
-            answerKey.push(column)
+            if (column.length > 0) {
+                answerKey.push(column)
+            }
+            console.log(answerKey)
             resolve(answerKey)
         })
     }
+    
+    
 
 }
 

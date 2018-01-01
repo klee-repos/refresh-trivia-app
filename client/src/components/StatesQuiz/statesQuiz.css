@@ -44,7 +44,7 @@
 .answerRow {
     display: flex;
     flex-direction: column;
-    margin: 0 2% 0 2%;
+    margin: 0 1em 0 1em;
 }
 
 .answerColumn {

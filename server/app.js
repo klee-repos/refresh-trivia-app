@@ -115,15 +115,16 @@ app.post('/gAssistant', function(req, res) {
 			for (let i = 0; i < state.totalQuestions; i++) {
 				if (state.questions[i].state === 'new') {
 					question = state.questions[i].question;
-					var answers = state.questions[i].answers;
-					game.formatAnswers(answers).then(function(answerKey) {
-						sessionManager.io.emit('startGame', quizEntity, question, answerKey);
+					var answersGiven = state.questions[i].answersGiven;
+					game.formatAnswers(answersGiven).then(function(preparedAnswers) {
+						sessionManager.io.emit('startGame', quizEntity, question, preparedAnswers);
 						result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
 						result.speech = question;
 						res.send(result);
+						
 					})
-					break;
 				}
+				break;
 			}
 		})	
 	} 

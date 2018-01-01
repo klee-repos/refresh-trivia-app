@@ -163,16 +163,6 @@ module.exports = {
                     id: "GUID"
                 },
                 {
-                    key: "Michigan",
-                    phrasings: ["MI"],
-                    id: "GUID"
-                },
-                {
-                    key: "New Jersey",
-                    phrasings: ["New Jersey", "Jersey", "NJ"],
-                    id: "GUID"
-                },
-                {
                     key: "New York",
                     phrasings: ["New York"],
                     id: "GUID"
