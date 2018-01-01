@@ -29,7 +29,7 @@ var quizes = require('./Quizes')
 var currentGame;
 
 // Sounds
-const correctURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/correct-guitar.mp3";
+const correctURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/correct-chime.wav";
 const wrongURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/wrong.mp3";
 
 
