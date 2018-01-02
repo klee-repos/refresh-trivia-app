@@ -13,7 +13,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-var SessionManager = require('./sessionManager');
+var SessionManager = require('./SessionManager');
 SessionManager.initialize(io);
 
 var Intents = require('./Intents');
@@ -68,32 +68,8 @@ var isAnAnswer = function(guess,answers){
 app.post('/gAssistant', function(req, res) {
 	ExecuteRequest.FromGoogle(req.body, res);
 })
-
-	// if (intent === 'input.welcome') {
-	// 	User.findOne({gAssistantId:gId}, function(err, user) {
-	// 		if (!user) {
-	// 			result.speech = "What session would you like to connect to?"
-	// 		} else {
-	// 			result.speech = "Welcome"
-	// 		}
-	// 		res.send(result);
-	// 	})
-	// } 
-	
-	// else if (intent === 'connect' ) {
-	// 	var connectCode = req.body.result.parameters.connectCode;
-	// 	result.speech = "connected";
-	// 	Intents.Connect(res, result, gId, connectCode, sessionManager);
-	// } 
-	
 	// else if (intent ==='startGame') {
-	// 	var game = req.body.result.parameters.game;
-	// 	var question = quizes[game].questions[0].text
-	// 	currentGame = game;
-	// 	sessionManager.io.emit('startGame', currentGame, question);
-	// 	result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
-	// 	result.speech = question;
-	// 	res.send(result);
+
 	// } 
 	
 	// else if (intent === 'guess') {

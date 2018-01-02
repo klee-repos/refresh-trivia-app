@@ -1,4 +1,4 @@
-var Promise = require('bluebird');
+
 var Intents = require('../Intents');
 
 var executeIntent = function(options, responseHandler){

@@ -1,6 +1,5 @@
-var Promise = require('bluebird');
 var User = require('../models/User');
-var SessionManager = require('../sessionManager');
+var SessionManager = require('../SessionManager');
 
 var execute = function(args, resolve, reject){
     User.findOne({gAssistantId:args.uniqueUserId})
@@ -26,4 +25,5 @@ var execute = function(args, resolve, reject){
 var ConnectIntent = {
     execute: execute
 }
+
 module.exports = ConnectIntent;

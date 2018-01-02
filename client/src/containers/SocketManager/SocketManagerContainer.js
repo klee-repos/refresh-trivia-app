@@ -50,7 +50,6 @@ class SocketManagerContainer extends Component {
 
         // Start game
         socket.on('startGame', function(game, question) {
-            console.log(question)
             this.props.statusUpdate(game);
             this.props.setQuestion(question);
         }.bind(this))

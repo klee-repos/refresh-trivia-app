@@ -1,15 +1,11 @@
-var RequestHandler = require('./BaseRequestHandler');
+var IntentExecution = require('./IntentExecuter');
 
 var GoogleRequestHandler = function(googleArgs, res){
     //parse googleArgs -> generic args
-    var gId = googleArgs.originalRequest.data.user.userId;
     var args = googleArgs.result.parameters;
-    var responseHandler = new GoogleResponseHandler(res);
-    return new RequestHandler({
-        uniqueUserId: gId,
-        intent: googleArgs.result.action,
-        args: args
-    }, responseHandler);
+    args.uniqueUserId = googleArgs.originalRequest.data.user.userId;
+    args.intent = googleArgs.result.action
+    return new IntentExecution(args, new GoogleResponseHandler(res));
 }
 
 var GoogleResponseHandler = function(res){

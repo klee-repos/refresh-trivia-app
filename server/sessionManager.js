@@ -39,9 +39,6 @@ var SessionManager = (function(){
     }
 
     var getSession = function(connectCode){
-        console.log(connectingSessions);
-        console.log(connectCode);
-        console.log(connectingSessions[connectCode])
         return connectingSessions[connectCode];
     }
 
