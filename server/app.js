@@ -24,7 +24,6 @@ var voiceManager = new VoiceManager(io);
 
 var Connect = require('./Intents/Connect');
 var quizes = require('./Quizes')
-var currentGame;
 
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
@@ -45,65 +44,13 @@ app.use(function (req, res, next) {
     next();
 });
 
-var User = require('./models/User');
-
-
-var isAnAnswer = function(guess,answers){
-    var answer = null;
-    guess = guess.toLowerCase();
-    answers.some(function(ans){
-        if(ans.key.toLowerCase() === guess){
-            answer = ans;
-            return true;
-        }
-        if(ans.phrasings.some(function(phr){
-            if(phr.toLowerCase() === guess){
-                answer = ans;
-            }
-        }));
-    });
-    return answer;
-}
-
 app.post('/gAssistant', function(req, res) {
 	ExecuteRequest.FromGoogle(req.body, res);
 })
-	// else if (intent ==='startGame') {
-
-	// } 
-	
-	// else if (intent === 'guess') {
-    //     var result = dialogflowResponse();
-    //     var guess = req.body.result.parameters.guess;
-	// 	var quiz = quizes[currentGame];
-	// 	var answers = quiz.questions[0].answers;
-	// 	var answer = isAnAnswer(guess,answers);
-	// 	if (answer) {
-	// 		sessionManager.io.emit('correctAnswer', answer.key)
-	// 		result.speech = answer.key + " is a correct guess!"
-	// 	} else {
-	// 		result.speech = "Not a correct guess!"
-	// 	}
-	// 	result.contextOut = [{"name":"game", "lifespan":3, "parameters":{'turns':5}}]; 
-	// 	res.send(result);
-	// }
-// })
 
 app.get ('/games', function(req, res) {
 	res.send(quizes)
 })
-
-// app.post('/voice', function(req,res) {
-// 	var voice = req.body.voice;
-// 	var sessionCode = req.body.sessionCode;
-// 	var uniqueUserId = req.body.userId;	
-// 	voiceManager.runDF(voice).then(function(result) {
-// 		var intentName =  result.result.metadata.intentName
-// 		if (intentName === 'Connect') {
-// 			Connect(result, uniqueUserId, sessionManager)
-// 		}
-// 	})
-// })
 
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")

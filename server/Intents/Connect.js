@@ -1,7 +1,7 @@
 var User = require('../models/User');
 var SessionManager = require('../SessionManager');
 
-var execute = function(args, resolve, reject){
+var execute = function(args, assistant){
     User.findOne({gAssistantId:args.uniqueUserId})
         .then(function(user){
             if (!user) {
@@ -15,15 +15,28 @@ var execute = function(args, resolve, reject){
                 SessionManager.sendData(room, 're-connect', user.sessionCode);
                 SessionManager.removeSession(args.connectCode);
             }
-            resolve("Connected", {"uniqueUserId":user.gAssistantId});
+
+            assistant
+                .say("Connected")
+                .data({"uniqueUserId":user.gAssistantId})
+                .finish();
         })
         .catch(function(err){
-            reject("Error", {"error":err} ) 
+            assistant.say("Error").error(err.code).data(err).finish();
         })
 }
 
+var validateInput = function(args){
+    if(!args.uniqueUserId || args.uniqueUserId ==null || args.uniqueUserId.length == 0)
+        return "Missing userId";
+    if(!args.connectCode)
+        return "Missing connectCode"
+    return null;
+}
+
 var ConnectIntent = {
-    execute: execute
+    execute: execute,
+    validateInput: validateInput
 }
 
 module.exports = ConnectIntent;

@@ -1,38 +1,42 @@
-var IntentExecution = require('./IntentExecuter');
+var IntentExecution = require('./IntentExecutor');
 
-var GoogleRequestHandler = function(googleArgs, res){
-    //parse googleArgs -> generic args
-    var args = googleArgs.result.parameters;
-    args.uniqueUserId = googleArgs.originalRequest.data.user.userId;
-    args.intent = googleArgs.result.action
-    return new IntentExecution(args, new GoogleResponseHandler(res));
-}
-
-var GoogleResponseHandler = function(res){
-    this.respond = function(speech,data){
-        var response = emptyResponse();
-        response.speech = speech;
-        response.data = data;
-        res.status(200).send(response);
-    }
-
-    this.fail = function(speech,error){
-        var response = emptyResponse();
-        response.speech = speech;
-        response.data = error;
-        res.status(500).send(response);
-    }
-}
-
-var emptyResponse = function(){
-    return {
+var GoogleAssistant = function(googleArgs, _res){
+    var res = _res;
+    var responseData = {
         speech: "",
         displayText: "",
         data: {},
         contextOut: [],
         source: "",
         followupEvent: {}
+    };
+
+    var resStatus = 200;
+
+    this.say = function(speech){
+        responseData.speech += speech;
+        return this;
     }
+
+    this.data = function(_data){
+        responseData.data = _data;
+        return this;
+    }
+
+    this.error = function(errorCode){
+        resStatus = errorCode;
+        return this;
+    }
+
+    this.finish = function(){
+        res.status(resStatus).send(responseData);
+    }
+
+    //Automatically execute
+    var context = googleArgs.result.parameters;
+    context.uniqueUserId = googleArgs.originalRequest.data.user.userId;
+    context.intent = googleArgs.result.action
+    new IntentExecution(context, this);
 }
 
-module.exports = GoogleRequestHandler;
+module.exports = GoogleAssistant;
