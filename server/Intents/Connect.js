@@ -1,38 +1,29 @@
 var Promise = require('bluebird');
+var User = require('../models/User');
+var SessionManager = require('../sessionManager');
 
-function ConnectIntent(){
-    this.User = null;
-    this.SessionManager = null;
+var execute = function(args, resolve, reject){
+    User.findOne({gAssistantId:args.uniqueUserId})
+        .then(function(user){
+            if (!user) {
+                var user = new User();
+                user.gAssistantId = args.uniqueUserId;
+                user.sessionCode = User.generateSessionCode();
+                user.save();
+            }
+            if(SessionManager.getSession(args.connectCode)){
+                var room = SessionManager.getSession(args.connectCode);
+                SessionManager.sendData(room, 're-connect', user.sessionCode);
+                SessionManager.removeSession(args.connectCode);
+            }
+            resolve("Connected", {"uniqueUserId":user.gAssistantId});
+        })
+        .catch(function(err){
+            reject("Error", {"error":err} ) 
+        })
 }
 
-ConnectIntent.prototype.execute = function(args){
-    return new Promise(function(resolve,reject){
-        resolve(args);
-        // if(sessionManager.getSession(connectCode)){
-        //     sessionManager.io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
-        //     sessionManager.removeSession(connectCode);
-        // }
-    });
+var ConnectIntent = {
+    execute: execute
 }
-
-// var Connect = function(res, result, uniqueUserId, connectCode) {
-//     if(!uniqueUserId) {return res.status(400).send()}
-//     // console.log(uniqueUserId);
-//     // console.log(connectCode);
-//     User.findOne({gAssistantId:uniqueUserId}, function(err, user) {
-//         if (!user) {
-//             var user = new User();
-//             user.gAssistantId = uniqueUserId;
-//             user.sessionCode = User.generateSessionCode();
-//             user.save();
-//         }
-//         if(sessionManager.getSession(connectCode)){
-//             sessionManager.io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
-//             sessionManager.removeSession(connectCode);
-//         }
-//         res.send(result)
-//     });
-// }
-
-
 module.exports = ConnectIntent;

@@ -9,18 +9,15 @@ var mongoose = require('mongoose');
 var io = require('socket.io')(server);
 require('dotenv').config();
 
-var guid = require('uuid/v4')
-
 var bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+var SessionManager = require('./sessionManager');
+SessionManager.initialize(io);
 
 var Intents = require('./Intents');
 var ExecuteRequest = require('./RequestHandlers');
-
-var SessionManager = require('./sessionManager');
-var sessionManager = new SessionManager(io);
 
 var VoiceManager = require('./voiceManager');
 var voiceManager = new VoiceManager(io);
@@ -28,7 +25,6 @@ var voiceManager = new VoiceManager(io);
 var Connect = require('./Intents/Connect');
 var quizes = require('./Quizes')
 var currentGame;
-
 
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
@@ -70,14 +66,8 @@ var isAnAnswer = function(guess,answers){
 }
 
 app.post('/gAssistant', function(req, res) {
-	ExecuteRequest.FromGoogle(req.body)
-		.then(function(responseData){
-			res.status(200).send(responseData);
-		}).catch(function(error){
-			logError(error);
-			res.status(500).send(error)
-		});
-	})
+	ExecuteRequest.FromGoogle(req.body, res);
+})
 
 	// if (intent === 'input.welcome') {
 	// 	User.findOne({gAssistantId:gId}, function(err, user) {
@@ -142,7 +132,3 @@ app.get ('/games', function(req, res) {
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
 });
-
-var logError = function(error){
-	console.log(error);
-}
