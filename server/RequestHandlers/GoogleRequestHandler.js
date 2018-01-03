@@ -28,11 +28,6 @@ var GoogleAssistant = function(googleArgs, _res){
         return this;
     }
 
-    // this.context = function(_context){
-    //     responseData.contextOut = _context;
-    //     return this;
-    // }
-
     this.finish = function(){
         res.status(resStatus).send(responseData);
     }

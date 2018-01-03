@@ -2,7 +2,6 @@ var Intents = require('../Intents');
 
 var IntentExecutor = function(context, assistantContext){
     var intent = Intents[context.intent.toUpperCase()];
-
     //Validate the intent input if a validator exists
     if (intent.validateInput && typeof(intent.validateInput) === "function"){
         var validationError = intent.validateInput(context);
@@ -11,6 +10,8 @@ var IntentExecutor = function(context, assistantContext){
         else {
             intent.execute(context, assistantContext);
         }
+    }else{
+        intent.execute(context, assistantContext);
     }
 }
 

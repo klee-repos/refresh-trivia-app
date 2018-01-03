@@ -4,13 +4,10 @@ var gameStateSchema = new mongoose.Schema(
 {
     previousQuestions: [mongoose.Schema.Types.ObjectId],
     nextQuestion: {type: mongoose.Schema.Types.ObjectId, ref:'Question'},
-    totalScore: [Number],
-    roundScore: [Number],
     roundNumber: {type:Number, default:1, required: true, min: 1},
     status: {
         type: String,
         enum: ["New", "In Progress", "Finished"],
-        default: "New",
         required: true
     }
 })
@@ -20,12 +17,17 @@ var gameSchema = new mongoose.Schema(
     began: {type:Date, default:Date.now},
     gameId: mongoose.Schema.Types.ObjectId,
     devices: [{type:String, ref:'Device'}],
-    numPlayers: {type:Number, default:1},
+    numTeams: {type:Number, default:2},
     numRounds: {type:Number, default: 4},
-    gameState: gameStateSchema
+    gameState: {type:gameStateSchema, default: {status:"New"}}
 });
 
-
+gameSchema.methods.newGame = function(){
+    this.gameState = {
+        status: "New",
+        roundNumber: 1
+    }
+}
 
 // gameSchema.methods.formatAnswers = function(answers) {
 //     return new Promise(function(resolve, reject) {
