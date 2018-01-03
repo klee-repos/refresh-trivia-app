@@ -7,7 +7,7 @@ var IntentExecutor = function(context, assistantContext){
     if (intent.validateInput && typeof(intent.validateInput) === "function"){
         var validationError = intent.validateInput(context);
         if (validationError)
-            assistantContext.error(500).data(validationError).finish();
+            assistantContext.say("Theres an error").error(500).data(validationError).finish();
         else {
             intent.execute(context, assistantContext);
         }

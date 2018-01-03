@@ -24,6 +24,7 @@ var voiceManager = new VoiceManager(io);
 
 var Connect = require('./Intents/Connect');
 var quizes = require('./Quizes')
+var currentGame;
 
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
@@ -51,6 +52,18 @@ app.post('/gAssistant', function(req, res) {
 app.get ('/games', function(req, res) {
 	res.send(quizes)
 })
+
+// app.post('/voice', function(req,res) {
+// 	var voice = req.body.voice;
+// 	var sessionCode = req.body.sessionCode;
+// 	var uniqueUserId = req.body.userId;	
+// 	voiceManager.runDF(voice).then(function(result) {
+// 		var intentName =  result.result.metadata.intentName
+// 		if (intentName === 'Connect') {
+// 			Connect(result, uniqueUserId, sessionManager)
+// 		}
+// 	})
+// })
 
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
