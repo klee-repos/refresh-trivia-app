@@ -13,14 +13,6 @@ class DashboardContainer extends React.Component {
         )
     }
 
-    dashboard(){
-        return(
-            <div>
-                <Dashboard apps={this.props.openApps} />
-            </div>
-        )
-    }
-
     mainMenu() {
         return (
             <MainMenuContainer />

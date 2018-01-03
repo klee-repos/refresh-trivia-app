@@ -10,7 +10,7 @@ class Welcome extends Component {
                 <div className="welcomeContainer">
                     <div className='instructions'>
                         <div className='instructionsBox'>
-                            <span>Please use your Google Assistant </span>
+                            <span>Welcome! Use your Google Assistant </span>
                             <span><img className='gAssistantIcon' src={require(`./img/googleAssistant.png`)} alt='gAssistant'/></span>
                             <span> Or Home </span>
                             <span><img className='gHomeIcon' src={require(`./img/googleHome.png`)} alt='gHome'/></span>
