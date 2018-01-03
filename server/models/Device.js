@@ -5,7 +5,7 @@ var deviceSchema = new mongoose.Schema(
 {
     platform: String,
     id: String,
-    user: {type: Schema.Types.ObjectId, ref:'User'}
+    user: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
 });
 
 var Device = mongoose.model('Device', deviceSchema);

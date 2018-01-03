@@ -26,14 +26,10 @@ var Connect = require('./Intents/Connect');
 var quizes = require('./Quizes')
 var currentGame;
 
-<<<<<<< HEAD
-=======
 // Sounds
 const correctURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/correct-chime.wav";
 const wrongURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/wrong.mp3";
 
-
->>>>>>> master
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
 var db_uri = process.env.DB_URI;
@@ -53,138 +49,13 @@ app.use(function (req, res, next) {
     next();
 });
 
-<<<<<<< HEAD
+
 app.post('/gAssistant', function(req, res) {
 	ExecuteRequest.FromGoogle(req.body, res);
-=======
-var User = require('./models/User');
-
-var dialogflowResponse = function(){
-	return {
-		speech: "",
-		displayText: "",
-		data: {"google":{"is_ssml":true}},
-		contextOut: [],
-		source: "",
-		followupEvent: {}
-	}
-}
-
-
-const Game = require('./components/Game');
-const game = new Game();
-
-var GameState = require('./models/GameState');
-
-app.post('/gAssistant', function(req, res) {
-
-	var intent = req.body.result.action;
-    var result = dialogflowResponse();
-
-	var gId = req.body.originalRequest.data.user.userId;  // Unique identifier for Google
-	if(!gId) {return res.status(400).send()}
-		
-	if (intent === 'input.welcome') {
-		User.findOne({gAssistantId:gId}, function(err, user) {
-			if (!user) {
-				result.speech = "What session would you like to connect to?"
-			} else {
-				result.speech = "Welcome"
-			}
-			res.send(result);
-		})
-	} 
-
-	else if (intent ==='startGame') {
-		let quizEntity = req.body.result.parameters.game;
-		let question;
-		game.createGame(quizEntity, gId).then(function(state) {
-			for (let i = 0; i < state.totalQuestions; i++) {
-				if (state.questions[i].state === 'new') {
-					question = state.questions[i].question;
-					var answersGiven = state.questions[i].answersGiven;
-					game.formatAnswers(answersGiven).then(function(preparedAnswers) {
-						sessionManager.io.emit('startGame', quizEntity, question, preparedAnswers);
-						result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":state.gameStateId, "questionIndex":i}}]; 
-						result.speech = question;
-						res.send(result);
-							
-						})
-				}
-				break;
-			}
-		})	
-	} 
-	
-	else if (intent === 'guess') {
-		var guess = req.body.result.parameters.guess;
-		let contexts = req.body.result.contexts;
-		let gameContext;
-		for (let i = 0; i < contexts.length; i++) {
-			if (contexts[i].name === 'game') {
-				gameContext = contexts[i]
-				break;
-			}
-		}
-		if (!gameContext) {
-			console.log('Error: Missing game context')
-			return;
-		}
-		let gStateId = gameContext.parameters.gameStateId
-		let questionIndex = gameContext.parameters.questionIndex
-		// console.log(req.body.result.contexts)
-
-		GameState.findOne({gameStateId:gStateId}, function(err, gameState) {
-			if (gameState) {
-				let theQuestion = gameState.questions[parseInt(questionIndex)];
-				let newAnswers = theQuestion.answersGiven.slice();
-				let answerKey = theQuestion.answerKey.slice();
-				let answerIndex;
-				game.isAnAnswer(guess, theQuestion.answersFull).then(function(answer) {
-					if (answer) {
-						for (let i = 0; i < answerKey.length; i++) {
-							if (answerKey[i] === answer.key) {
-								answerIndex = i;
-								break;
-							}
-						}
-						newAnswers[answerIndex] = answer.key
-						gameState.questions[parseInt(questionIndex)].answersGiven = newAnswers;
-						gameState.markModified('questions');
-						gameState.save();
-						result.speech = '<speak><audio src="' + correctURL + '"><desc>' + answer.key + ' is correct!</desc></audio></speak>';
-						game.formatAnswers(newAnswers).then(function(preparedAnswers) {
-							sessionManager.io.emit('correctAnswer', preparedAnswers)
-						})
-					} else {
-						result.speech = '<speak><audio src="' + wrongURL + '"><desc>Incorrect!</desc></audio></speak>'
-					}
-					result.contextOut = [{"name":"game", "lifespan":5, "parameters":{"gameStateId":gStateId, "questionIndex":questionIndex}}]; 
-					res.send(result);
-				})
-			} else {
-				result.speech = "There was a problem. Please try your guess again."
-				res.send(result);
-			}
-		})		
-	}
->>>>>>> master
 })
 
 var mainMenuRoutes = require('./MainMenu/api');
 app.use('/mainMenu', mainMenuRoutes);
-
-// app.post('/voice', function(req,res) {
-// 	var voice = req.body.voice;
-// 	var sessionCode = req.body.sessionCode;
-// 	var uniqueUserId = req.body.userId;	
-// 	voiceManager.runDF(voice).then(function(result) {
-// 		var intentName =  result.result.metadata.intentName
-// 		if (intentName === 'Connect') {
-// 			Connect(result, uniqueUserId, sessionManager)
-// 		}
-// 	})
-// })
 
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
