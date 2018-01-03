@@ -18,7 +18,6 @@ var execute = function(args, assistant){
 
             assistant
                 .say("Connected")
-                .data({"uniqueUserId":user.gAssistantId})
                 .finish();
         })
         .catch(function(err){

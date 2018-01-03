@@ -9,7 +9,7 @@
     "/voice": {
       "target": "http://localhost:8080"
     },
-    "/games": {
+    "/mainMenu": {
       "target": "http://localhost:8080"
     }
   },

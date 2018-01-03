@@ -20,7 +20,7 @@ export function setAnswers(newAnswers) {
 
 const initialState = {
     quizQuestion: null,
-    quizAnswers:[],
+    quizAnswers:null,
 }
 
 export default function apps (state = initialState, action) {

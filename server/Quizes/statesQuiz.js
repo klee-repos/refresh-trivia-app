@@ -1,11 +1,11 @@
 module.exports = {
     name: "States Quiz",
     type: "GuessAsManyAsYouCan",
-    id: "GUID",
+    id: "states_1",
     questions:[
         {
             text: "Name as many US states as you can before the time runs out!",
-            id: "GUID",
+            id: "question_1",
             answers:[
                 {
                     key: "Alabama",
@@ -13,7 +13,7 @@ module.exports = {
                     id: "GUID"
                 },
                 {
-                    key: "Alaksa",
+                    key: "Alaska",
                     phrasings: ["AK"],
                     id: "GUID"
                 },
@@ -38,7 +38,7 @@ module.exports = {
                     id: "GUID"
                 },
                 {
-                    key: "Conneticut",
+                    key: "Connecticut",
                     phrasings: ["CT"],
                     id: "GUID"
                 },
@@ -73,7 +73,7 @@ module.exports = {
                     id: "GUID"
                 },
                 {
-                    key: "Indiania",
+                    key: "Indiana",
                     phrasings: ["IN"],
                     id: "GUID"
                 },
@@ -160,16 +160,6 @@ module.exports = {
                 {
                     key: "New Mexico",
                     phrasings: ["NM"],
-                    id: "GUID"
-                },
-                {
-                    key: "Michigan",
-                    phrasings: ["MI"],
-                    id: "GUID"
-                },
-                {
-                    key: "New Jersey",
-                    phrasings: ["New Jersey", "Jersey", "NJ"],
                     id: "GUID"
                 },
                 {

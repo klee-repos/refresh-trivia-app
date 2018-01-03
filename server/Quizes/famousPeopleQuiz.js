@@ -1,11 +1,11 @@
 module.exports = {
     name: "Famous People Quiz",
     type: "GuessAsManyAsYouCan",
-    id: "GUID",
+    id: "famousPeople_1",
     questions:[
         {
             text: "Who likes to do flips?",
-            id: "GUID",
+            id: "question_1",
             answers:[
                 {
                     key: "Gavin",

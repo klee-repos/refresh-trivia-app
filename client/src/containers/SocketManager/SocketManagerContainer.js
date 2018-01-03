@@ -49,16 +49,16 @@ class SocketManagerContainer extends Component {
         }.bind(this))
 
         // Start game
-        socket.on('startGame', function(game, question) {
-            this.props.statusUpdate(game);
+        socket.on('startGame', function(gameEntity, question, answers) {
+            console.log(question)
+            this.props.statusUpdate(gameEntity);
             this.props.setQuestion(question);
+            this.props.setAnswers(answers);
         }.bind(this))
 
         // Correct answer
-        socket.on('correctAnswer', function(answer) {
-            var newAnswers = this.props.quizAnswers.slice()
-            newAnswers.push(answer)
-            this.props.setAnswers(newAnswers);
+        socket.on('correctAnswer', function(answers) {
+            this.props.setAnswers(answers);
         }.bind(this))
 
     }

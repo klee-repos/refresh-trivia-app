@@ -1,0 +1,56 @@
+
+.topBar {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    position: fixed; /* Set the navbar to fixed position */
+    margin: 2% 0 0 0;
+    width: 100%; /* Full width */
+}
+
+.topBarContainer {
+    display: flex;
+    
+    width: 90%;
+}
+
+.leftContainer {
+    display: flex;
+    align-items: center;
+
+    width: 50%;
+}
+
+.logo {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.logo h1 {
+    font-size: 200%;
+    color: #6B5AFF;
+}
+
+.rightContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width:50%;
+}
+
+.rightContainer span {
+    font-size: 150%;
+}
+
+.info {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    margin: 0 10% 0 0;
+}
+
+.tokens {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}

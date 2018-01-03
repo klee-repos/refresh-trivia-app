@@ -2,7 +2,6 @@
     width: 100%;
     height: 100em;
     max-height: 90vh;
-    color: #EED6A8;
  }
 
  .statesQuizContainer {
@@ -31,11 +30,25 @@
 .answer {
     display: flex;
     flex-wrap: nowrap;
-    margin: 10% 0 0 0;
+    margin: 5% 0 0 0;
 }
 
 .answerBox {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+}
+
+.answerRow {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1em 0 1em;
+}
+
+.answerColumn {
     flex: 1 1 100%;
-    text-align: center;
+    margin: .5em 0 .5em 0;
+    text-align: center
 }
 

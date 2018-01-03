@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 
 import {MainMenu} from '../../components'
 
-import {Games} from '../../requests'
+import {AllQuizes} from '../../requests'
 
 class MainMenuContainer extends Component {
 
@@ -11,31 +11,31 @@ class MainMenuContainer extends Component {
         super(props)
 
         this.state = {
-            triviaGames: null
+            quizTitles: null
         }
 
         this.setGameList = this.setGameList.bind(this)
     }
 
-    setGameList(games) {
-        let gameNames = []
-        var totalGames = Object.keys(games.data).length;
-        for (let i = 0; i < totalGames; i++) {
-            gameNames.push(games.data[Object.keys(games.data)[i]].name)
+    setGameList(quizList) {
+        let allEntities = [];
+        let quizListSize = Object.keys(quizList).length
+        for (let i = 0; i < quizListSize; i++) {
+            allEntities.push(quizList[Object.keys(quizList)[i]].name)
         }
-        this.setState({triviaGames:gameNames})
+        this.setState({quizTitles:allEntities})
     }
 
     componentDidMount() {
-        Games.gamesList().then(function(games) {
-            this.setGameList(games)
+        AllQuizes.quizList().then(function(quizList) {
+            this.setGameList(quizList.data)
         }.bind(this))
     }
 
     render() {
         return (
             <div className='mainMenu'>
-                <MainMenu triviaGames={this.state.triviaGames}/>
+                <MainMenu quizTitles={this.state.quizTitles}/>
             </div>
         )
     }

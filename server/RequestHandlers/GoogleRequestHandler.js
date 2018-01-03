@@ -5,7 +5,7 @@ var GoogleAssistant = function(googleArgs, _res){
     var responseData = {
         speech: "",
         displayText: "",
-        data: {},
+        data: {"google":{"is_ssml":true}},
         contextOut: [],
         source: "",
         followupEvent: {}
@@ -27,6 +27,11 @@ var GoogleAssistant = function(googleArgs, _res){
         resStatus = errorCode;
         return this;
     }
+
+    // this.context = function(_context){
+    //     responseData.contextOut = _context;
+    //     return this;
+    // }
 
     this.finish = function(){
         res.status(resStatus).send(responseData);

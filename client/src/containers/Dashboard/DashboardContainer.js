@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dashboard} from '../../components/'
-import {QueryBarContainer, MainMenuContainer, StatesQuizContainer} from '../../containers/'
+import {TopBarContainer, WelcomeContainer, MainMenuContainer, StatesQuizContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -9,12 +9,7 @@ class DashboardContainer extends React.Component {
 
     landingPage(){
         return (
-            <div className="welcome">
-                <div className="welcomeContainer">
-                    <div className="connectCode"> Connect to code {this.props.connectCode}</div>
-                </div>
-            </div>
-            
+            <WelcomeContainer />
         )
     }
 
@@ -50,8 +45,8 @@ class DashboardContainer extends React.Component {
         var page = this.currentPage();
         return (
             <div className="dashboard">
+                <TopBarContainer />
                 {page}
-                <QueryBarContainer />
             </div>
         )  
     }

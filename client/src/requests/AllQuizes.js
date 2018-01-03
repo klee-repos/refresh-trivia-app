@@ -1,16 +1,16 @@
 const axios = require('axios');
 const Promise = require('bluebird');
 
-var gamesList = function(){
+var quizList = function(){
     return new Promise(function (resolve, reject) {
-        axios.get('/games').then(function(res) {
+        axios.get('/mainMenu/allQuizes').then(function(res) {
             resolve(res)
         })
     })
 }
 
-var Games = {
-    gamesList:gamesList
+var AllQuizes = {
+    quizList:quizList
 }
 
-export default Games
+export default AllQuizes
