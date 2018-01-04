@@ -1,10 +1,25 @@
 var mongoose = require('mongoose');
 
+var teamSchema = mongoose.Schema(
+    {
+        score: Number,
+        bonuses: Number,
+        players: [String]
+    }
+)
+
+var roundSchema = mongoose.Schema(
+{
+
+})
+
 var gameStateSchema = new mongoose.Schema(
 {
     previousQuestions: [{type:mongoose.Schema.Types.ObjectId, ref:'Question'}],
     nextQuestion: {type: mongoose.Schema.Types.ObjectId, ref:'Question'},
-    roundNumber: {type:Number, default:1, required: true, min: 1},
+    round: roundSchema,
+    team1: teamSchema,
+    team2: teamSchema,
     status: {
         type: String,
         enum: ["New", "In Progress", "Finished"],

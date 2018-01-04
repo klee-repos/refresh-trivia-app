@@ -1,7 +1,7 @@
 var Intents = {};
 
 Intents.CONNECT = require('./Connect');
-Intents.STARTGAME = require('./StartGame');
+Intents.NEWGAME = require('./NewGame');
 
 
 module.exports = Intents;

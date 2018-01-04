@@ -23,7 +23,6 @@ var VoiceManager = require('./voiceManager');
 var voiceManager = new VoiceManager(io);
 
 var Connect = require('./Intents/Connect');
-var quizes = require('./Quizes')
 var currentGame;
 
 // Sounds
@@ -54,8 +53,8 @@ app.post('/gAssistant', function(req, res) {
 	ExecuteRequest.FromGoogle(req.body, res);
 })
 
-var mainMenuRoutes = require('./MainMenu/api');
-app.use('/mainMenu', mainMenuRoutes);
+// var mainMenuRoutes = require('./MainMenu/api');
+// app.use('/mainMenu', mainMenuRoutes);
 
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")

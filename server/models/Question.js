@@ -11,7 +11,12 @@ var questionSchema = new mongoose.Schema(
     {
         text: String,
         id: mongoose.Schema.Types.ObjectId,
-        answers: [answerSchema]
+        answers: [answerSchema],
+        category: String,
+        difficulty: {
+            type: Number,
+            enum: [1,2,3,4,5]
+        }
     }
 )
 
