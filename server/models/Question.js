@@ -10,7 +10,6 @@ var answerSchema = new mongoose.Schema(
 var questionSchema = new mongoose.Schema(
     {
         text: String,
-        id: mongoose.Schema.Types.ObjectId,
         answers: [answerSchema],
         category: String,
         difficulty: {

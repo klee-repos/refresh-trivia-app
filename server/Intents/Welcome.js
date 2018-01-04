@@ -3,7 +3,7 @@ var User = require('../models/User')
 
 var execute = function(args, assistant){
 
-    User.findOne({gAssistantId:args.uniqueUserId}, function(err, user) {
+    User.findOne({gAssistantId:args.platformUserId}, function(err, user) {
         let speech;
         if (!user) {
             speech = "<speak>What session would you like to connect to?</speak>"

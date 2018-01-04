@@ -3,15 +3,19 @@ var guid = require('uuid/v4');
 
 var userSchema = new mongoose.Schema(
 {
-	id: mongoose.Schema.Types.ObjectId,
 	began: {type:Date, default:Date.now},
 	sessionCode: String,
 	gAssistantId: String,
-	gameId: mongoose.Schema.Types.ObjectId,
+	game: {type:mongoose.Schema.Types.ObjectId, ref:"Game"}
 });
+
+userSchema.methods.generateSessionCode = function(){
+	this.sessionCode = guid();
+	this.markModified('sessionCode');
+}
 
 var User = mongoose.model('User', userSchema);
 
-User.generateSessionCode = guid;
+
 
 module.exports = User;

@@ -3,10 +3,9 @@ var SessionManager = require('../SessionManager');
 const Game = require('../models/Game');
 
 var execute = function(args, assistant){
-
     var game = new Game()
     game.save().then(function() {
-        User.findOne({gAssistantId:args.uniqueUserId}).then(function(user) {
+        User.findOne({_id: assistant.device.user}).then(function(user) {
             let sessionCode = user.sessionCode
             user.gameId = game._id
             user.save()

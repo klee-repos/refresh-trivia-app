@@ -1,7 +1,25 @@
 var IntentExecution = require('./IntentExecutor');
+var Device = require('../models/Device')
 
-var GoogleAssistant = function(googleArgs, _res){
+var GoogleRequestParser = function(googleArgs, _res){
+    //attach or create Device related to request
+    var context = googleArgs.result.parameters;
+    context.intent = googleArgs.result.action
+    var deviceData = {id: context.platformUserId, platform: 'google'}
+    Device.findOne(deviceData).populate('user') //We can probably make this cleaner; load device in GoogleAssistant constructor?
+        .then(function(device){
+            if (!device){
+                device = new Device(deviceData);
+                device.save();
+            }
+            new IntentExecution(context, new GoogleAssistant(_res,device));            
+        })
+}
+
+var GoogleAssistant = function(_res, _device){
     var res = _res;
+    this.device = _device;
+
     var responseData = {
         speech: "",
         displayText: "",
@@ -29,14 +47,13 @@ var GoogleAssistant = function(googleArgs, _res){
     }
 
     this.finish = function(){
-        res.status(resStatus || 200).send(responseData);
+        res.status(resStatus).send(responseData);
     }
 
-    //Automatically execute
-    var context = googleArgs.result.parameters;
-    context.uniqueUserId = googleArgs.originalRequest.data.user.userId;
-    context.intent = googleArgs.result.action
-    new IntentExecution(context, this);
+    this.setUser = function(user){
+        this.device.user = user._id;
+        this.device.save();
+    }
 }
 
-module.exports = GoogleAssistant;
+module.exports = GoogleRequestParser;

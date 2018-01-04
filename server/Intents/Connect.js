@@ -1,32 +1,25 @@
 var User = require('../models/User');
+var Device = require('../models/Device');
 var SessionManager = require('../SessionManager');
 
 var execute = function(args, assistant){
-    User.findOne({gAssistantId:args.uniqueUserId})
-        .then(function(user){
-            if (!user) {
-                var user = new User();
-                user.gAssistantId = args.uniqueUserId;
-                user.sessionCode = SessionManager.getSession(args.connectCode);
-                user.save();
-            }
-            if (SessionManager.getSession(args.connectCode)){
-                var room = SessionManager.getSession(args.connectCode);
-                SessionManager.sendData(room, 're-connect', user.sessionCode);
-            }
+    var user;
+    if(!assistant.device.user){
+        user = new User();        
+        user.generateSessionCode();
+        assistant.setUser(user)
+        user.save();
+    }
 
-            assistant
-                .say("Connected")
-                .finish();
-        })
-        .catch(function(err){
-            assistant.say("Error").error(err.code).data(err).finish();
-        })
+    var room = SessionManager.getSession(args.connectCode);
+    SessionManager.sendData(room, 're-connect', user.sessionCode);
+
+    assistant.say("Connected").finish();
 }
 
 var validateInput = function(args){
-    if(!args.uniqueUserId || args.uniqueUserId ==null || args.uniqueUserId.length == 0)
-        return "Missing userId";
+    if(!args.device)
+        return "I don't know this device"
     if(!args.connectCode)
         return "Missing connectCode"
     return null;

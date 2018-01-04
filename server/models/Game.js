@@ -25,15 +25,14 @@ var gameStateSchema = new mongoose.Schema(
         enum: ["New", "In Progress", "Finished"],
         required: true
     }
-})
+});
 
 var gameSchema = new mongoose.Schema(
 {
     began: {type:Date, default:Date.now},
-    gameId: mongoose.Schema.Types.ObjectId,
     devices: [{type:String, ref:'Device'}],
     numTeams: {type:Number, default:2},
-    numRounds: {type:Number, default: 4},
+    numRounds: {type:Number, default: 8},
     gameState: {type:gameStateSchema, default: {status:"New"}}
 });
 
