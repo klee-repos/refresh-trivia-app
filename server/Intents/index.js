@@ -1,8 +1,13 @@
 var Intents = {};
 
+Intents["INPUT.WELCOME"] = require('./Welcome');
+
+//Menu
 Intents.CONNECT = require('./Connect');
 Intents.NEWGAME = require('./NewGame');
-Intents.UPDATEROSTER = require('./AddTeamMembers');
-Intents["INPUT.WELCOME"] = require('./Welcome');
+
+//Roster
+Intents.ADDPLAYERSTOTEAM = require('./Roster/AddPlayersToTeam');
+Intents.REMOVEPLAYERSFROMTEAM = require('./Roster/RemovePlayersFromTeam');
 
 module.exports = Intents;

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+var _ = require('lodash')
 /* ///////////////////////////////////
 // Team
 */ ////////////////////////////////
@@ -18,11 +18,14 @@ teamSchema.methods.isSet = function(){
 }
 
 teamSchema.methods.addPlayers = function(names){
-    // console.log(this.name)
     this.players = (this.players || []).concat(names);
     this.markModified('players')
-    // console.log(this.players);
-    return this.players
+    
+}
+
+teamSchema.methods.removePlayers = function(names){
+    this.players = _.difference(this.players, names);
+    this.markModified('players')
 }
 
 var roundSchema = new mongoose.Schema({
@@ -49,28 +52,57 @@ var gameStateSchema = new mongoose.Schema(
     }
 });
 
-gameStateSchema.methods.updateRoster = function(names, teamName)
+gameStateSchema.methods.addPlayersToTeam = function(names, teamName)
 {
     return new Promise(function(resolve,reject){
         teamName = teamName.toUpperCase();
         var team1Name = this.teams.team1.name.toUpperCase();
         var team2Name = this.teams.team2.name.toUpperCase();
-        if(teamName == team1Name)
-            this.teams.team1.addPlayers(names)
+        if(teamName == team1Name){
+            this.teams.team1.addPlayers(names);
+            this.updateStatus();
+            resolve();            
+        }
         else if(teamName==team2Name)
+        {
             this.teams.team2.addPlayers(names)
+            this.updateStatus();
+            resolve();
+        }
         else
-            return reject("No team found")
+            reject("No team found")
+    }.bind(this));
+}
 
-        return resolve(this.updateStatus())
+gameStateSchema.methods.removePlayersFromTeam = function(names, teamName)
+{
+    return new Promise(function(resolve,reject){
+        teamName = teamName.toUpperCase();
+        var team1Name = this.teams.team1.name.toUpperCase();
+        var team2Name = this.teams.team2.name.toUpperCase();
+        if(teamName == team1Name){
+            this.teams.team1.removePlayers(names);
+            this.updateStatus();
+            resolve();            
+        }
+        else if(teamName==team2Name)
+        {
+            this.teams.team2.removePlayers(names)
+            this.updateStatus();
+            resolve();
+        }
+        else
+            reject("No team found")
     }.bind(this));
 }
 
 gameStateSchema.methods.updateStatus = function()
 {
-    if (this.team1.isSet() && this.team2.isSet()){
-        this.status = "Roster Set"
-    }
+    this.status = "New";
+     if (this.teams.team1.isSet() && this.teams.team2.isSet()){
+        this.status = "Roster Set";
+     }
+     this.markModified('status')
 }
 
 /* /////////////////////////////////
@@ -86,8 +118,12 @@ var gameSchema = new mongoose.Schema(
     gameState: {type:gameStateSchema, default: {status:"New"}}
 });
 
-gameSchema.methods.updateRoster = function(names, team){
-    return this.gameState.updateRoster(names, team);
+gameSchema.methods.addPlayersToTeam = function(names, team){
+    return this.gameState.addPlayersToTeam(names, team);
+}
+
+gameSchema.methods.removePlayersFromTeam = function(names, team){
+    return this.gameState.removePlayersFromTeam(names,team)
 }
 
 gameSchema.methods.getStatus = function(){
