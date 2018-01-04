@@ -17,8 +17,8 @@ var execute = function(args, assistant){
     assistant.say("Connected").finish();
 }
 
-var validateInput = function(args){
-    if(!args.device)
+var validateInput = function(args, assistant){
+    if(!assistant.device)
         return "I don't know this device"
     if(!args.connectCode)
         return "Missing connectCode"
