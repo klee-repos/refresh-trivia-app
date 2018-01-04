@@ -6,17 +6,14 @@ var execute = function(args, assistant){
     .then(function(game){
         game.updateRoster(args.names, args.teamName)
             .then(function(){
-                if(game.status == "Roster Set")
-                    assistant.say("Ready to play")
-                else
-                    assistant.say("Who's on team 2")
-
                 game.save();
-                assistant.finish();
+                if(game.status == "Roster Set")
+                    assistant.say("Ready to play").data(game.gameState).finish()
+                else
+                    assistant.say("Who's on team 2").data(game.gameState).finish();
             })
             .catch(function(err){
                 assistant.error(500).data(err).finish();
-
             })
     });
 }

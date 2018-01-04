@@ -18,7 +18,11 @@ teamSchema.methods.isSet = function(){
 }
 
 teamSchema.methods.addPlayers = function(names){
-    (this.players || []).concat(names)
+    // console.log(this.name)
+    this.players = (this.players || []).concat(names);
+    this.markModified('players')
+    // console.log(this.players);
+    return this.players
 }
 
 var roundSchema = new mongoose.Schema({
@@ -51,25 +55,22 @@ gameStateSchema.methods.updateRoster = function(names, teamName)
         teamName = teamName.toUpperCase();
         var team1Name = this.teams.team1.name.toUpperCase();
         var team2Name = this.teams.team2.name.toUpperCase();
-        if(name == team1Name){
-            this.markModified('teams')
-            resolve(this.teams.team1.addPlayers(names))
-        } 
-        else if(name==team2Name){
-            this.markModified('teams')
-            resolve(this.teams.team2.addPlayers(names))
-        } 
+        if(teamName == team1Name)
+            this.teams.team1.addPlayers(names)
+        else if(teamName==team2Name)
+            this.teams.team2.addPlayers(names)
         else
-            reject("No team found")
-    });
+            return reject("No team found")
+
+        return resolve(this.updateStatus())
+    }.bind(this));
 }
 
 gameStateSchema.methods.updateStatus = function()
 {
     if (this.team1.isSet() && this.team2.isSet()){
-
-    }
         this.status = "Roster Set"
+    }
 }
 
 /* /////////////////////////////////
@@ -86,7 +87,7 @@ var gameSchema = new mongoose.Schema(
 });
 
 gameSchema.methods.updateRoster = function(names, team){
-    return this.gameState.updateRoster(names, team)
+    return this.gameState.updateRoster(names, team);
 }
 
 gameSchema.methods.getStatus = function(){
