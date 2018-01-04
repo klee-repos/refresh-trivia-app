@@ -6,7 +6,6 @@ var execute = function(args, assistant){
     .then(function(game){
         game.addPlayersToTeam(args.names, args.teamName)
             .then(function(){
-                console.log(game);
                 game.save();
                 if(game.getStatus() == "Roster Set")
                     assistant.say("Ready to play?").data().finish()

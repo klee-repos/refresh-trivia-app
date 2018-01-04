@@ -1,7 +1,3 @@
-//Behold...ES6!!
-require('babel-register');
-var test = () => {console.log("ES6 works")};
-test();
 var path = require('path');
 var express = require('express');
 var app = express();
