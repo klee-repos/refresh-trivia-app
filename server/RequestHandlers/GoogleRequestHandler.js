@@ -1,5 +1,5 @@
 var IntentExecution = require('./IntentExecutor');
-var Device = require('../models/Device')
+var Device = require('../models/DeviceProfile')
 
 var GoogleRequestParser = function(googleArgs, _res){
     //attach or create Device related to request
@@ -18,7 +18,7 @@ var GoogleRequestParser = function(googleArgs, _res){
 
 var GoogleAssistant = function(_res, _device){
     var res = _res;
-    this.device = _device;
+    this.deviceProfile = _device;
 
     var responseData = {
         speech: "",

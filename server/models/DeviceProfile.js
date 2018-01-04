@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 var guid = require('uuid/v4');
 
-var deviceSchema = new mongoose.Schema(
+var deviceProfileSchema = new mongoose.Schema(
 {
     platform: String,
     id: String,
     user: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
 });
 
-var Device = mongoose.model('Device', deviceSchema);
+var DeviceProfile = mongoose.model('Device', deviceProfileSchema);
 
-module.exports = Device;
+module.exports = DeviceProfile;

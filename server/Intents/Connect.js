@@ -1,10 +1,9 @@
 var User = require('../models/User');
-var Device = require('../models/Device');
 var SessionManager = require('../SessionManager');
 
 var execute = function(args, assistant){
     var user;
-    if(!assistant.device.user){
+    if(!assistant.deviceProfile.user){
         user = new User();        
         user.generateSessionCode();
         assistant.setUser(user)
@@ -18,8 +17,8 @@ var execute = function(args, assistant){
 }
 
 var validateInput = function(args, assistant){
-    if(!assistant.device)
-        return "I don't know this device"
+    if(!assistant.deviceProfile)
+        return "I don't know this device, are you sure that you've connected?"
     if(!args.connectCode)
         return "Missing connectCode"
     return null;
