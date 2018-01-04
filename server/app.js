@@ -15,6 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 var SessionManager = require('./SessionManager');
 SessionManager.initialize(io);
 
+var ExecuteRequest = require('./RequestHandlers');
+
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;
 var db_uri = process.env.DB_URI;

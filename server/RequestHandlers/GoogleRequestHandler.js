@@ -18,12 +18,14 @@ var GoogleRequestParser = function(googleArgs, _res){
 
 var GoogleAssistant = function(_res, _deviceProfile){
     var res = _res;
+    var useSSML = true;
+
     this.deviceProfile = _deviceProfile;
 
     var responseData = {
         speech: "",
         displayText: "",
-        data: {"google":{"is_ssml":true}},
+        data: {"google":{"is_ssml":useSSML}},
         contextOut: [],
         source: "",
         followupEvent: {}
@@ -47,6 +49,7 @@ var GoogleAssistant = function(_res, _deviceProfile){
     }
 
     this.finish = function(){
+
         res.status(resStatus).send(responseData);
     }
 

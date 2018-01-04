@@ -1,4 +1,3 @@
-var User = require('../models/User')
 var SessionManager = require('../SessionManager');
 const Game = require('../models/Game');
 
