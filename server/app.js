@@ -1,4 +1,3 @@
-
 var path = require('path');
 var express = require('express');
 var app = express();
@@ -15,19 +14,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 var SessionManager = require('./SessionManager');
 SessionManager.initialize(io);
-
-var Intents = require('./Intents');
-var ExecuteRequest = require('./RequestHandlers');
-
-var VoiceManager = require('./voiceManager');
-var voiceManager = new VoiceManager(io);
-
-var Connect = require('./Intents/Connect');
-var currentGame;
-
-// Sounds
-const correctURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/correct-chime.wav";
-const wrongURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/wrong.mp3";
 
 // Connection to MongoDB Altas via mongoose
 mongoose.Promise = Promise;

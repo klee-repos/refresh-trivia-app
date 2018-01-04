@@ -9,10 +9,8 @@ var execute = function(args, assistant){
         assistant.setUser(user)
         user.save();
     }
-
     var room = SessionManager.getSession(args.connectCode);
     SessionManager.sendData(room, 're-connect', user.sessionCode);
-
     assistant.say("Connected").finish();
 }
 

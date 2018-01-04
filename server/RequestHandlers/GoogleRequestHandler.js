@@ -1,24 +1,24 @@
 var IntentExecution = require('./IntentExecutor');
-var Device = require('../models/DeviceProfile')
+var DeviceProfile = require('../models/DeviceProfile')
 
 var GoogleRequestParser = function(googleArgs, _res){
     //attach or create Device related to request
     var context = googleArgs.result.parameters;
     context.intent = googleArgs.result.action
     var deviceData = {id: context.platformUserId, platform: 'google'}
-    Device.findOne(deviceData).populate('user') //We can probably make this cleaner; load device in GoogleAssistant constructor?
-        .then(function(device){
-            if (!device){
-                device = new Device(deviceData);
-                device.save();
+    DeviceProfile.findOne(deviceData).populate('user') //We can probably make this cleaner; load device in GoogleAssistant constructor?
+        .then(function(deviceProfile){
+            if (!deviceProfile){
+                deviceProfile = new DeviceProfile(deviceData);
+                deviceProfile.save();
             }
-            new IntentExecution(context, new GoogleAssistant(_res,device));            
+            new IntentExecution(context, new GoogleAssistant(_res,deviceProfile));            
         })
 }
 
-var GoogleAssistant = function(_res, _device){
+var GoogleAssistant = function(_res, _deviceProfile){
     var res = _res;
-    this.deviceProfile = _device;
+    this.deviceProfile = _deviceProfile;
 
     var responseData = {
         speech: "",
@@ -57,3 +57,7 @@ var GoogleAssistant = function(_res, _device){
 }
 
 module.exports = GoogleRequestParser;
+
+
+const correctURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/correct-chime.wav";
+const wrongURL = "https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/wrong.mp3";
