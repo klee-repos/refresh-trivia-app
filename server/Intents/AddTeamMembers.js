@@ -29,7 +29,8 @@ var validateInput = function(args, assistant){
 
 var AddTeamMembersIntent = {
     execute: execute,
-    validateInput: validateInput
+    validateInput: validateInput,
+    logInput: true
 }
 
 module.exports = AddTeamMembersIntent
