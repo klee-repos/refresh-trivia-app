@@ -21,7 +21,6 @@ var execute = function(args, assistant){
                 .finish();
         })
         .catch(function(err){
-            console.log
             assistant.say("Error").error(err.code).data(err).finish();
         })
 }
