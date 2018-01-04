@@ -29,7 +29,6 @@ var GoogleAssistant = function(googleArgs, _res){
     }
 
     this.finish = function(){
-        console.log(resStatus)
         res.status(resStatus || 200).send(responseData);
     }
 

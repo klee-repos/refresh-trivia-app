@@ -5,7 +5,8 @@ var userSchema = new mongoose.Schema(
 {
 	id: mongoose.Schema.Types.ObjectId,
 	began: {type:Date, default:Date.now},
-	sessionCode: String
+	sessionCode: String,
+	gAssistantId: String
 });
 
 var User = mongoose.model('User', userSchema);
