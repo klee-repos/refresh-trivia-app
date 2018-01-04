@@ -21,7 +21,8 @@ var validateInput = function(args,assistant){
 
 var NewGameIntent = {
     execute: execute,
-    validateInput: validateInput
+    validateInput: validateInput,
+    logInput: true
 }
 
 module.exports = NewGameIntent;

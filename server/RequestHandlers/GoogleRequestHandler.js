@@ -54,8 +54,8 @@ var GoogleAssistant = function(_res, _deviceProfile){
     }
 
     this.setUser = function(user){
-        this.device.user = user._id;
-        this.device.save();
+        this.deviceProfile.user = user._id;
+        this.deviceProfile.save();
     }
 }
 

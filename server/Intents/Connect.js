@@ -1,4 +1,5 @@
 var SessionManager = require('../SessionManager');
+var User = require('../models/User');
 
 var execute = function(args, assistant){
     var user = assistant.deviceProfile.user;

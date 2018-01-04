@@ -13,14 +13,13 @@ var IntentExecutor = function(args, assistantContext){
         })
 }
 
-var logInput = function(intent,args, assistantContext){
+var logInput = function(intent, args, assistantContext){
     if(!intent.logInput) return;
     
     console.log(args);
     console.log(assistantContext);
     return
 }
-
 
 var validateInput = function(intent, args, assistantContext){
     return new Promise(function(resolve, reject){
