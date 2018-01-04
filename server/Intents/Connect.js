@@ -2,8 +2,8 @@ var User = require('../models/User');
 var SessionManager = require('../SessionManager');
 
 var execute = function(args, assistant){
-    var user;
-    if(!assistant.deviceProfile.user){
+    var user = assistant.deviceProfile.user;
+    if(!user){
         user = new User();        
         user.generateSessionCode();
         assistant.setUser(user)
