@@ -1,23 +1,33 @@
-
 var User = require('../models/User');
+var Device = require('../models/Device');
+var SessionManager = require('../SessionManager');
 
-var Connect = function(res, result, uniqueUserId, connectCode, sessionManager) {
-    if(!uniqueUserId) {return res.status(400).send()}
-    console.log(uniqueUserId);
-    console.log(connectCode)
-    User.findOne({gAssistantId:uniqueUserId}, function(err, user) {
-        if (!user) {
-            var user = new User();
-            user.gAssistantId = uniqueUserId;
-            user.sessionCode = User.generateSessionCode();
-            user.save();
-        }
-        if(sessionManager.getSession(connectCode)){
-            sessionManager.io.to(sessionManager.getSession(connectCode)).emit('re-connect', user.sessionCode);
-            sessionManager.removeSession(connectCode);
-        }
-        res.send(result)
-    });
+var execute = function(args, assistant){
+    var user;
+    if(!assistant.device.user){
+        user = new User();        
+        user.generateSessionCode();
+        assistant.setUser(user)
+        user.save();
+    }
+
+    var room = SessionManager.getSession(args.connectCode);
+    SessionManager.sendData(room, 're-connect', user.sessionCode);
+
+    assistant.say("Connected").finish();
 }
 
-module.exports = Connect;
+var validateInput = function(args){
+    if(!args.device)
+        return "I don't know this device"
+    if(!args.connectCode)
+        return "Missing connectCode"
+    return null;
+}
+
+var ConnectIntent = {
+    execute: execute,
+    validateInput: validateInput
+}
+
+module.exports = ConnectIntent;

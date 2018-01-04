@@ -35,7 +35,7 @@ class SocketManagerContainer extends Component {
         socket.on('sessionCode', function(code){
             localStorage.setItem('sessionCode',code);
             this.props.setSessionCode(code);
-            this.props.statusUpdate("SETUP");
+            this.props.statusUpdate("mainMenu");
             axios.defaults.headers['sessionCode'] = code;
         }.bind(this));
 
@@ -43,9 +43,9 @@ class SocketManagerContainer extends Component {
             this.props.setConnectCode(code);
         }.bind(this));
 
-        // Voice
-        socket.on('voiceResponse', function(data) {
-            console.log(data)
+        // Set status
+        socket.on('setStatus', function(status) {
+            this.props.statusUpdate(status);
         }.bind(this))
 
         // Start game
