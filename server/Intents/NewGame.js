@@ -7,8 +7,10 @@ var execute = function(args, assistant){
     var game = new Game()
     game.save().then(function() {
         User.findOne({gAssistantId:args.uniqueUserId}).then(function(user) {
+            let sessionCode = user.sessionCode
             user.gameId = game._id
             user.save()
+            SessionManager.sendData(sessionCode,'setStatus', 'mainMenu');
             assistant.say("<speak>Ok. Who's on team one?</speak>").finish();
         })
     })

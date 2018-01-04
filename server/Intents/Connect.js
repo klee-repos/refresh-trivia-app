@@ -7,13 +7,12 @@ var execute = function(args, assistant){
             if (!user) {
                 var user = new User();
                 user.gAssistantId = args.uniqueUserId;
-                user.sessionCode = User.generateSessionCode();
+                user.sessionCode = SessionManager.getSession(args.connectCode);
                 user.save();
             }
-            if(SessionManager.getSession(args.connectCode)){
+            if (SessionManager.getSession(args.connectCode)){
                 var room = SessionManager.getSession(args.connectCode);
                 SessionManager.sendData(room, 're-connect', user.sessionCode);
-                SessionManager.removeSession(args.connectCode);
             }
 
             assistant

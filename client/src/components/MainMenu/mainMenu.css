@@ -1,7 +1,9 @@
  .mainMenu {
+    display: flex;
     width: 100%;
     height: 100em;
-    max-height: 90vh;
+    max-height: 100vh;
+    justify-content: center;
  }
 
 .mainMenu h1 {
@@ -12,34 +14,111 @@
     font-size: 150%;
 }
 
- .mainMenuContainer {
+.mainMenuContainer {
     display: flex;
     flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content: center;
-    width:100%;
+    width:90%;
     height: 100%;
 }
 
-.gameHeading {
+.mainLeft {
     display: flex;
     flex-wrap: nowrap;
-    width:100%;
+    flex-direction: column;
+    margin: 8em 0 0 0;
+    width:50%;
 }
 
-.gameList {
+.mainMenuBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 30% 0 0 0;
+
+}
+
+.adviceTitle {
+    flex: 1 1 100%;
+}
+
+.adviceTitle span {
+    font-size: 200%;
+}
+
+.newGame {
+    flex: 1 1 100%;
+    margin: 0 0 0 10%;
+}
+
+.newGame h1 {
+     font-size: 300%;
+     color: #FF4C6A;
+}
+
+.joinGame {
+    flex: 1 1 100%;
+    margin: 0 0 0 10%;
+}
+
+.joinGame h1 {
+    font-size: 300%;
+    color: #FF4C6A;
+}
+
+.mainRight {
     display: flex;
     flex-wrap: nowrap;
-    width:100%;
-    margin: 5% 0 0 0;
+    flex-direction: column;
+    margin: 8em 0 0 0;
+    width:50%;
 }
 
-.gameTitle {
-    flex: 1 1 100%;
-    text-align: center;
+.tipBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: 27% 0 0 10%;
 }
 
-.games {
+.tipTitle {
+    display: flex;
+    flex-wrap: nowrap;
+
+}
+
+.tipIcon {
+    flex: 0 0 3%;
+    align-self: center;
+
+}
+
+.infoIcon {
+    width: 30px;
+}
+
+.tipWords {
+    flex: 0 0 100%;
+    align-self: center;
+}
+
+.tipTitle span {
+    font-size: 200%;
+}
+
+.tipDetails {
     flex: 1 1 100%;
-    text-align: center;
+}
+
+.tipReg {
+    font-size: 150%;
+}
+
+.tipInfo {
+    font-size: 150%;
+    color: #007FFF;
+}
+
+.spoken {
+    color: #FF4C6A;
+    font-size: 150%;
 }

@@ -8,7 +8,7 @@ var SessionManager = (function(){
     var initialize = function(_io){
         io = _io;
         io.on('connection',function(socket){
-            console.log("connected")
+            console.log("Connected")
             socket.on('startSession',function(requestedCode){
                 if (requestedCode){
                     socket.join(requestedCode);
