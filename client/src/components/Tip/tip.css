@@ -1,0 +1,69 @@
+
+.tipBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    height:100%;
+    padding-left:20%;
+    width:80%;
+}
+
+.tipTitle {
+    display: flex;
+    flex-wrap: nowrap;
+    width:150%;
+
+}
+
+.tipIcon {
+    align-self: center;
+}
+
+.infoIcon {
+    /* width: 30px; */
+}
+
+.tipWords {
+    align-self: center;
+    padding-left: 1%;
+}
+
+.tipTitle span {
+    font-size: 250%;
+}
+
+.tipDetails {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding-top: 5%;
+    width:150%;
+}
+
+.tipFirstSecion {
+    padding-bottom: 5%;
+}
+
+.tipSecondSection {
+    padding-bottom: 5%;
+}
+
+.tipReg {
+    font-size: 200%;
+}
+
+.tipInfo {
+    font-size: 200%;
+    color: #007FFF;
+}
+
+.wakeWords {
+    color: #6B5AFF;
+    font-size: 200%;
+}
+
+.spoken {
+    color: #FF4C6A;
+    font-size: 200%;
+}

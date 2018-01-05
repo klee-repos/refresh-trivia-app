@@ -1,6 +1,5 @@
 import React from 'react';
-import {Dashboard} from '../../components/'
-import {TopBarContainer, WelcomeContainer, MainMenuContainer, StatesQuizContainer} from '../../containers/'
+import {TopBarContainer, WelcomeContainer, MainMenuContainer, RosterSetupContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -19,9 +18,9 @@ class DashboardContainer extends React.Component {
         )
     }
 
-    statesQuiz() {
+    rosterSetup() {
         return (
-            <StatesQuizContainer />
+            <RosterSetupContainer />
         )
     }
 
@@ -29,6 +28,7 @@ class DashboardContainer extends React.Component {
         switch(this.props.loadingStatus){
             case "INIT" : return this.landingPage();
             case "mainMenu": return this.mainMenu();
+            case "rosterSetup": return this.rosterSetup();
             default: return this.mainMenu(); 
         }
     }
