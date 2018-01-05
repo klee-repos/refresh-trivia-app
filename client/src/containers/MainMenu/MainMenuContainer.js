@@ -17,9 +17,7 @@ class MainMenuContainer extends Component {
 
     render() {
         return (
-            <div className='main'>
-                <MainMenu />
-            </div>
+            <MainMenu />
         )
     }
 }

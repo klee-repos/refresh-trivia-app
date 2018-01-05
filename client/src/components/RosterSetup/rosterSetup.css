@@ -13,7 +13,7 @@
 
 .rosterMenu {
     display: flex;
-    height: 60%;
+    height: 80%;
     width: 70%;
     border: 5px solid #4A4A4A ;
     border-radius: 20px ;
@@ -36,7 +36,7 @@
 
 .teamOneContainer {
     display: flex;
-    width:30%;
+    width:35%;
 }
 
 .teamOne {
@@ -44,7 +44,7 @@
     background-color: #1ED26F;
     border-radius: 10px ;
     width:100%;
-    height:10%;
+    height:15%;
     justify-content: center;
     align-items: center;
     font-size: 150%;
@@ -53,7 +53,7 @@
 
 .teamTwoContainer {
     display: flex;
-    width:30%;
+    width:35%;
 }
 
 .teamTwo {
@@ -61,7 +61,7 @@
     background-color: #EFD638;
     border-radius: 10px ;
     width:100%;
-    height:10%;
+    height:15%;
     justify-content: center;
     align-items: center;
     font-size: 150%;
@@ -73,7 +73,7 @@
 
 .rosterMenuConfirmText {
     flex: 1 1 100%;
-    font-size: 200%;
+    font-size: 180%;
     color: #FF4C6A;
     text-align: center;
 }

@@ -1,0 +1,70 @@
+.teamBar {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-bottom: auto;
+    width: 100%;
+    height:20%;
+}
+
+.teamBarContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    width:100%;
+}
+
+.teamBarTeamContainer {
+    display: flex;
+    width:50%;
+    justify-content: center;
+    align-items: center;
+}
+
+.teamBarTeamOneBox {
+    display: flex;
+    background-color: #1ED26F;
+    width: 40%;
+    height: 90px;
+    border-radius: 25px;
+}
+
+.teamBarTeamTwoBox {
+    display: flex;
+    background-color: #EFD638;
+    width: 40%;
+    height: 90px;
+    border-radius: 25px;
+}
+
+.teamBarTeamIcon {
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+}
+
+.teamIcon {
+    height:80px;
+    width:80px;
+}
+
+.teamBarTeamDetails {
+    display: flex;
+    justify-content: center;
+    flex-direction: column; 
+    padding-left: 10px;
+}
+
+.teamBarTeamName {
+    font-size: 180%;
+}
+
+.teamBarTeamScore {
+    font-size: 150%;
+}
+
+
+
+.teamIcon {
+    height:80px;
+    width:80px;
+}

@@ -20,7 +20,7 @@ class RosterMenu extends Component {
                     </div>
                     <div className='rosterMenuConfirmContainer'>
                         <div className='rosterMenuConfirmText'>
-                            <span>"Confirm Roster!"</span>
+                            <span>"Confirm roster!"</span>
                         </div>
                     </div>
                 </div>

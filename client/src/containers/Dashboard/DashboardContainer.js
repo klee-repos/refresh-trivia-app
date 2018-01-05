@@ -1,5 +1,9 @@
 import React from 'react';
-import {TopBarContainer, WelcomeContainer, MainMenuContainer, RosterSetupContainer} from '../../containers/'
+import {TopBarContainer, 
+        WelcomeContainer, 
+        MainMenuContainer, 
+        RosterSetupContainer,
+        TeamBarContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -14,13 +18,18 @@ class DashboardContainer extends React.Component {
 
     mainMenu() {
         return (
-            <MainMenuContainer />
+            <div className='main'>
+                <MainMenuContainer />
+            </div>
         )
     }
 
     rosterSetup() {
         return (
-            <RosterSetupContainer />
+            <div className='main'>
+                <RosterSetupContainer />
+                <TeamBarContainer />
+            </div>
         )
     }
 
