@@ -1,16 +1,16 @@
-var Game = require('../models/Game');
-var SessionManager = require('../SessionManager')
+var Game = require('../../models/Game');
+var SessionManager = require('../../SessionManager')
 
 var execute = function(args, assistant){
     Game.findById(assistant.deviceProfile.user.game)
     .then(function(game){
-        game.updateRoster(args.names, args.teamName)
+        game.addPlayersToTeam(args.names, args.teamName)
             .then(function(){
                 game.save();
-                if(game.status == "Roster Set")
-                    assistant.say("Ready to play").data(game.gameState).finish()
+                if(game.getStatus() == "Roster Set")
+                    assistant.say("Ready to play?").data().finish()
                 else
-                    assistant.say("Who's on team 2").data(game.gameState).finish();
+                    assistant.say("Ok").data().finish();
             })
             .catch(function(err){
                 assistant.error(500).data(err).finish();
@@ -27,9 +27,9 @@ var validateInput = function(args, assistant){
     return null;
 }
 
-var AddTeamMembersIntent = {
+var AddPlayersToTeam = {
     execute: execute,
     validateInput: validateInput
 }
 
-module.exports = AddTeamMembersIntent
+module.exports = AddPlayersToTeam
