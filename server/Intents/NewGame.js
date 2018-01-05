@@ -7,7 +7,7 @@ var execute = function(args, assistant){
     user.game = game._id
     user.save();
     game.save();
-    SessionManager.sendData(user.sessionCode, 'setStatus', 'mainMenu');
+    SessionManager.sendData(user.sessionCode, 'setStatus', 'rosterSetup');
     assistant.say("<speak>Ok. Who's on team one?</speak>").finish();
 }
 
