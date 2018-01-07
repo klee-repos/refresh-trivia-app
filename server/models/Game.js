@@ -63,7 +63,6 @@ gameStateSchema.methods.addPlayersToTeam = function(names, teamName)
             this.teams.team1.addPlayers(names)
             this.updateStatus()
             resolve();
-            return;
         }
         else if(teamName==team2Name){
             this.teams.team2.addPlayers(names)
@@ -75,11 +74,32 @@ gameStateSchema.methods.addPlayersToTeam = function(names, teamName)
     }.bind(this));
 }
 
+gameStateSchema.methods.removePlayersFromTeam = function(names, teamName)
+{
+    return new Promise(function(resolve,reject){
+        teamName = teamName.toUpperCase();
+        var team1Name = this.teams.team1.name.toUpperCase();
+        var team2Name = this.teams.team2.name.toUpperCase();
+        if(teamName == team1Name){
+            this.teams.team1.removePlayers(names)
+            this.updateStatus()
+            resolve();
+        }
+        else if(teamName==team2Name){
+            this.teams.team2.removePlayers(names)
+            this.updateStatus()
+            resolve();
+        }
+        else
+            return reject("No team found")
+    }.bind(this));
+}
+
 gameStateSchema.methods.updateStatus = function()
 {
-    // if (this.team1.isSet() && this.team2.isSet()){
-    //     this.status = "Roster Set"
-    // }
+    if (this.teams.team1.isSet() && this.teams.team2.isSet()){
+        this.status = "Roster Set"
+    }
 }
 
 /* /////////////////////////////////
@@ -90,8 +110,6 @@ var gameSchema = new mongoose.Schema(
 {
     began: {type:Date, default:Date.now},
     devices: [{type:String, ref:'Device'}],
-    numTeams: {type:Number, default:2},
-    numRounds: {type:Number, default: 8},
     gameState: {type:gameStateSchema, default: {status:"New"}}
 });
 
@@ -105,6 +123,10 @@ gameSchema.methods.removePlayersFromTeam = function(names, team){
 
 gameSchema.methods.getStatus = function(){
     return this.gameState.status;
+}
+
+gameSchema.methods.getRoster = function(){
+    return this.gameState.teams;
 }
 
 

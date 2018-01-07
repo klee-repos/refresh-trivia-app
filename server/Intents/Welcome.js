@@ -8,7 +8,7 @@ var execute = function(args, assistant){
         if (!user) {
             speech = "<speak>What session would you like to connect to?</speak>"
         } else {
-            speech = "<speak>Welcome<speak>"
+            speech = "<speak>Ok, we're back!<speak>"
         }
         assistant.say(speech).finish();
     })

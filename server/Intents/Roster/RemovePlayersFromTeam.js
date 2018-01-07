@@ -7,10 +7,10 @@ var execute = function(args, assistant){
         game.removePlayersFromTeam(args.names, args.teamName)
             .then(function(){
                 game.save();
-                if(game.status == "Roster Set")
-                    assistant.say("Ready to play").data(game.gameState).finish()
+                if(game.getStatus() == "Roster Set")
+                    assistant.say("Ready to play?").data(game.getRoster()).finish()
                 else
-                    assistant.say("Ok").data(game.gameState).finish();
+                    assistant.say("Ok").data(game.getRoster()).finish();
             })
             .catch(function(err){
                 assistant.error(500).data(err).finish();
@@ -29,8 +29,7 @@ var validateInput = function(args, assistant){
 
 var RemovePlayersFromTeam = {
     execute: execute,
-    validateInput: validateInput,
-    logInput: true
+    validateInput: validateInput
 }
 
 module.exports = RemovePlayersFromTeam
