@@ -6,11 +6,12 @@ var execute = function(args, assistant){
     .then(function(game){
         game.addPlayersToTeam(args.names, args.teamName)
             .then(function(){
+                console.log(game)
                 game.save();
                 if(game.getStatus() == "Roster Set")
-                    assistant.say("Ready to play?").data().finish()
+                    assistant.say("Ready to play?").data(game).finish()
                 else
-                    assistant.say("Ok").data().finish();
+                    assistant.say("Ok").data(game).finish();
             })
             .catch(function(err){
                 assistant.error(500).data(err).finish();
