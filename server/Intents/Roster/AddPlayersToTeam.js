@@ -29,18 +29,18 @@ var execute = function(args, assistant){
     });
 }
 
-var validateInput = function(args, assistant){
-    if(!args.names || args.names.length == 0)
-        return "Didn't get a list of players";
-    if(!args.teamName || args.teamName.length == 0)
-        return "Didn't get a teamName"
+// var validateInput = function(args, assistant){
+//     if(!args.names || args.names.length == 0)
+//         return "Didn't get a list of players";
+//     if(!args.teamName || args.teamName.length == 0)
+//         return "Didn't get a teamName"
 
-    return null;
-}
+//     return null;
+// }
 
 var AddPlayersToTeam = {
     execute: execute,
-    validateInput: validateInput
+    // validateInput: validateInput
 }
 
 module.exports = AddPlayersToTeam
