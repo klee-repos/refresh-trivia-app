@@ -1,19 +1,12 @@
 
-const SET_TEAM_ONE = 'SET_TEAM_ONE';
-const SET_TEAM_TWO = 'SET_TEAM_TWO';
+const SET_TEAMS = 'SET_TEAMS';
 
-
-export function setTeamOne(roster) {
+export function setTeams(roster) {
+    console.log(roster.team1)
     return {
-        type: SET_TEAM_ONE,
-        roster,
-    }
-}
-
-export function setTeamTwo(roster) {
-    return {
-        type: SET_TEAM_TWO,
-        roster,
+        type: SET_TEAMS,
+        team1:roster.team1,
+        team2:roster.team2
     }
 }
 
@@ -25,13 +18,10 @@ const initialState = {
 
 export default function apps (state = initialState, action) {
     switch(action.type) {
-        case SET_TEAM_ONE:
+        case SET_TEAMS:
             return Object.assign({},state , {
-                teamOne: action.roster
-            })
-        case SET_TEAM_TWO:
-            return Object.assign({},state , {
-                teamTwo: action.roster
+                teamOne: action.team1,
+                teamTwo: action.team2,
             })
         default:
             return state

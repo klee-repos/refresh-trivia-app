@@ -174,12 +174,11 @@ gameSchema.methods.getRoster = function(){
     return this.gameState.teams;
 }
 
-gameSchema.methods.getTeamOne = function(){
-    return this.gameState.teams.team1;
-}
-
-gameSchema.methods.getTeamTwo = function(){
-    return this.gameState.teams.team2;
+gameSchema.methods.getTeams = function(){
+    return {
+        team1: this.gameState.teams.team1.players,
+        team2: this.gameState.teams.team2.players
+    }
 }
 
 gameSchema.methods.createContext = function(name, lifespan) {

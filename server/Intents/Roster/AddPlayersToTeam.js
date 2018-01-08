@@ -11,8 +11,9 @@ var execute = function(args, assistant){
             if(found) {
                 game.addPlayersToTeam(args.names, args.teamName).then(function(){
                     game.save();
-                    var teamOne = game.getTeamOne();
-                    SessionManager.sendData(user.sessionCode, 'teamOneRoster', teamOne.players);
+                    var teams = game.getTeams();
+                    console.log(teams)
+                    SessionManager.sendData(user.sessionCode, 'teamRoster', teams);
                     if(game.getStatus() == "Roster Set")
                         assistant.say("Ready to play?").finish()
                     else

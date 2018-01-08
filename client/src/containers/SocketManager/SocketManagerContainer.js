@@ -63,12 +63,8 @@ class SocketManagerContainer extends Component {
         }.bind(this))
 
         // Team One
-        socket.on('teamOneRoster', function(roster) {
-            this.props.setTeamOne(roster);
-        }.bind(this))
-
-        socket.on('teamTwoRoster', function(roster) {
-            this.props.setTeamTwo(roster);
+        socket.on('teamRoster', function(roster) {
+            this.props.setTeams(roster);
         }.bind(this))
 
     }

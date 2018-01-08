@@ -12,14 +12,12 @@ routes.post('/getRoster', function(req, res) {
     let roster;
     User.findOne({sessionCode:sessionCode}).then(function(user) {
         Game.findById(user.game).then(function(game) {
-            teamOne = game.getTeamOne()
-            teamTwo = game.getTeamTwo()
+            teams = game.getTeams()
             roster = {
-                teamOne: teamOne.players,
-                teamTwo: teamTwo.players,
+                teamOne: teams.team1.players,
+                teamTwo: teams.team2.players,
             }
-            SessionManager.sendData(sessionCode, 'teamOneRoster', teamOne.players);
-            SessionManager.sendData(sessionCode, 'teamTwoRoster', teamTwo.players);
+            SessionManager.sendData(sessionCode, 'teamRoster', teams);
             res.send(roster);
         })
     })

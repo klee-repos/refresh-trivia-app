@@ -38,7 +38,6 @@ app.use(function (req, res, next) {
 
 
 app.post('/gAssistant', function(req, res) {
-    console.log(req.body.result.contexts)
 	ExecuteRequest.FromGoogle(req.body, res);
 })
 
