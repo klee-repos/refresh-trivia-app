@@ -131,15 +131,14 @@ gameStateSchema.methods.requireContext = function(contextNames) {
             for (let j = 0; j < this.contexts.length; j++) {
                 if (this.contexts[j].name === requiredContext[i]) {
                     requiredContext.splice(i,1)
+                    this.contexts[j].lifespan -= 1;
                 }
             }
             if (requiredContext.length === 0) {
                 found = true;
             }
         }
-        // Deducts from lifespan on every new request
         for (let k = 0; k < this.contexts.length; k++) {
-            this.contexts[k].lifespan -= 1;
             if (this.contexts[k].lifespan === 0 ) {
                 this.contexts.splice(k,1)
             }
@@ -173,6 +172,14 @@ gameSchema.methods.getStatus = function(){
 
 gameSchema.methods.getRoster = function(){
     return this.gameState.teams;
+}
+
+gameSchema.methods.getTeamOne = function(){
+    return this.gameState.teams.team1;
+}
+
+gameSchema.methods.getTeamTwo = function(){
+    return this.gameState.teams.team2;
 }
 
 gameSchema.methods.createContext = function(name, lifespan) {

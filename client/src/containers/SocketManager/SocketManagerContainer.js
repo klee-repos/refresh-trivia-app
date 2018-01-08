@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as dashboardActionCreators from '../../redux/modules/dashboard'
 import * as quizActionCreators from '../../redux/modules/quiz'
+import * as gameActionCreators from '../../redux/modules/game'
 
 import socket from '../../config/socket';
 import axios from 'axios'
@@ -61,6 +62,15 @@ class SocketManagerContainer extends Component {
             this.props.setAnswers(answers);
         }.bind(this))
 
+        // Team One
+        socket.on('teamOneRoster', function(roster) {
+            this.props.setTeamOne(roster);
+        }.bind(this))
+
+        socket.on('teamTwoRoster', function(roster) {
+            this.props.setTeamTwo(roster);
+        }.bind(this))
+
     }
 
     render() {
@@ -81,6 +91,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
             ...dashboardActionCreators,
             ...quizActionCreators,
+            ...gameActionCreators,
         }, dispatch)
 }
 

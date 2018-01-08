@@ -1,22 +1,16 @@
 
 import React, {Component} from 'react'
 
+import Team from './Team'
+
 class RosterMenu extends Component {
     render() {
         return (
             <div className='rosterMenu'>
                 <div className='rosterMenuContainer'>
                     <div className='rosterMenuTeamsContainer'>
-                        <div className='teamOneContainer'>
-                            <div className='teamOne'>
-                                Team 1
-                            </div>
-                        </div>
-                        <div className='teamTwoContainer'>
-                            <div className='teamTwo'>
-                                Team 2
-                            </div>
-                        </div>
+                        <Team teamMembers={this.props.teamOne} teamName='Team 1' teamId='team1'/>
+                        <Team teamMembers={this.props.teamTwo} teamName='Team 2' teamId='team2'/>
                     </div>
                     <div className='rosterMenuConfirmContainer'>
                         <div className='rosterMenuConfirmText'>

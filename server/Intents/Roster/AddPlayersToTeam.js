@@ -4,13 +4,15 @@ const SessionManager = require('../../SessionManager')
 const requiredContext = ['newGame']
 
 var execute = function(args, assistant){
+    let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game)
     .then(function(game){
-        let found = false;
         game.requireContext(requiredContext).then(function(found) {
             if(found) {
                 game.addPlayersToTeam(args.names, args.teamName).then(function(){
                     game.save();
+                    var teamOne = game.getTeamOne();
+                    SessionManager.sendData(user.sessionCode, 'teamOneRoster', teamOne.players);
                     if(game.getStatus() == "Roster Set")
                         assistant.say("Ready to play?").finish()
                     else
