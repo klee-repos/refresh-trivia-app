@@ -1,14 +1,23 @@
-var SessionManager = require('../SessionManager');
+const SessionManager = require('../SessionManager');
 const Game = require('../models/Game');
 
+const contextName = 'newGame';
+const lifespan = 5
+
 var execute = function(args, assistant){
-    var game = new Game();
-    var user = assistant.deviceProfile.user;
-    user.game = game._id
+    let game = new Game();
+
+    let user = assistant.deviceProfile.user;
+    user.game = game
+    let contexts = game.createContext(contextName, lifespan)
     user.save();
     game.save();
     SessionManager.sendData(user.sessionCode, 'setStatus', 'rosterSetup');
-    assistant.say("<speak>Ok. Who's on team one?</speak>").finish();
+
+    assistant
+        .say("<speak>New Game. Please set the players on each team.</speak>")
+        .setContext(contexts)
+        .finish();
 }
 
 var validateInput = function(args,assistant){

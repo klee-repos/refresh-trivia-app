@@ -34,6 +34,17 @@ var roundSchema = new mongoose.Schema({
 })
 
 /* /////////////////////////////////
+// Context
+*/ ///////////////////////////////
+
+var contextSchema = mongoose.Schema(
+    {
+        name: String,
+        lifespan: Number
+    }
+)
+
+/* /////////////////////////////////
 // GameState
 */ ///////////////////////////////
 
@@ -50,7 +61,8 @@ var gameStateSchema = new mongoose.Schema(
         type: String,
         enum: ["New", "Roster Set", "In Progress", "Finished"],
         required: true
-    }
+    },
+    contexts: [{type:contextSchema, default:null}]
 });
 
 gameStateSchema.methods.addPlayersToTeam = function(names, teamName)
@@ -102,6 +114,40 @@ gameStateSchema.methods.updateStatus = function()
     }
 }
 
+gameStateSchema.methods.createContext = function(name, lifespan) {
+    let context = {
+        name: name,
+        lifespan: lifespan
+    }
+    this.contexts.push(context)
+    return this.contexts 
+}
+
+gameStateSchema.methods.requireContext = function(contextNames) {
+    return new Promise(function(resolve,reject) {
+        let requiredContext=contextNames.slice();
+        let found = false;
+        for (let i = 0; i < requiredContext.length; i++) {
+            for (let j = 0; j < this.contexts.length; j++) {
+                if (this.contexts[j].name === requiredContext[i]) {
+                    requiredContext.splice(i,1)
+                }
+            }
+            if (requiredContext.length === 0) {
+                found = true;
+            }
+        }
+        // Deducts from lifespan on every new request
+        for (let k = 0; k < this.contexts.length; k++) {
+            this.contexts[k].lifespan -= 1;
+            if (this.contexts[k].lifespan === 0 ) {
+                this.contexts.splice(k,1)
+            }
+        }
+        resolve(found)
+    }.bind(this))
+}
+
 /* /////////////////////////////////
 // Game
 */ ////////////////////////////////
@@ -127,6 +173,14 @@ gameSchema.methods.getStatus = function(){
 
 gameSchema.methods.getRoster = function(){
     return this.gameState.teams;
+}
+
+gameSchema.methods.createContext = function(name, lifespan) {
+    return this.gameState.createContext(name, lifespan);
+}
+
+gameSchema.methods.requireContext = function(contextNames) {
+    return this.gameState.requireContext(contextNames);
 }
 
 

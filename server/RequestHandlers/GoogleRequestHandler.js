@@ -38,6 +38,18 @@ var GoogleAssistant = function(_res, _deviceProfile){
         return this;
     }
 
+    this.setContext = function(contexts) {
+        let context;
+        for (let i = 0; i < contexts.length; i++) {
+            context = {
+                name: contexts[i].name,
+                lifespan: contexts[i].lifespan,
+            }
+            responseData.contextOut.push(context)
+        }
+        return this;
+    }
+
     this.data = function(_data){
         responseData.data = _data;
         return this;

@@ -1,20 +1,29 @@
-var Game = require('../../models/Game');
-var SessionManager = require('../../SessionManager')
+const Game = require('../../models/Game');
+const SessionManager = require('../../SessionManager')
+
+const requiredContext = ['newGame']
 
 var execute = function(args, assistant){
     Game.findById(assistant.deviceProfile.user.game)
     .then(function(game){
-        game.addPlayersToTeam(args.names, args.teamName)
-            .then(function(){
+        let found = false;
+        game.requireContext(requiredContext).then(function(found) {
+            if(found) {
+                game.addPlayersToTeam(args.names, args.teamName).then(function(){
+                    game.save();
+                    if(game.getStatus() == "Roster Set")
+                        assistant.say("Ready to play?").finish()
+                    else
+                        assistant.say("Ok").finish();
+                })
+                .catch(function(err){
+                    assistant.error(500).data(err).finish();
+                })
+            } else {
+                assistant.say("Sorry this command isn't available.").finish();
                 game.save();
-                if(game.getStatus() == "Roster Set")
-                    assistant.say("Ready to play?").data(game.getRoster()).finish()
-                else
-                    assistant.say("Ok").data(game.getRoster()).finish();
-            })
-            .catch(function(err){
-                assistant.error(500).data(err).finish();
-            })
+            }
+        })
     });
 }
 
