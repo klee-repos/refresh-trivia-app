@@ -12,7 +12,6 @@ var execute = function(args, assistant){
                 game.removePlayersFromTeam(args.names, args.teamName)
                 .then(function(){
                     game.save();
-                    console.log(game.getTeamOne())
                     if(game.getStatus() == "Roster Set")
                         assistant.say("Ready to play?").data(game.getRoster()).finish()
                     else

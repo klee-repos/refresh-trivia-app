@@ -1,7 +1,9 @@
 const Game = require('../../models/Game');
 const SessionManager = require('../../SessionManager')
 
-const requiredContext = ['newGame']
+const forwardURL = 'https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/forward.wav';
+
+const requiredContext = ['rosterSetup']
 
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
@@ -11,13 +13,20 @@ var execute = function(args, assistant){
             if(found) {
                 game.addPlayersToTeam(args.names, args.teamName).then(function(){
                     game.save();
-                    var teams = game.getTeams();
-                    console.log(teams)
-                    SessionManager.sendData(user.sessionCode, 'teamRoster', teams);
+                    var teams = game.getRoster();
+                    let roster = {
+                        teamOne: teams.team1.players,
+                        teamTwo: teams.team2.players,
+                    }
+                    SessionManager.sendData(user.sessionCode, 'teamRoster', roster);
                     if(game.getStatus() == "Roster Set")
-                        assistant.say("Ready to play?").finish()
+                        assistant
+                        .say('<speak><audio src="' + forwardURL + '"></audio>Added to Team ' + args.teamName + '<desc>. Let me know when you are ready to begin!</desc></speak>')
+                        .finish()
                     else
-                        assistant.say("Ok").finish();
+                        assistant
+                        .say('<speak><audio src="' + forwardURL + '"></audio>Added to team ' + args.teamName + '<desc>. Just need one player on the opposing team to start.</desc></speak>')
+                        .finish()
                 })
                 .catch(function(err){
                     assistant.error(500).data(err).finish();

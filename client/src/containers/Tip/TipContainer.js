@@ -24,10 +24,10 @@ class TipContainer extends Component {
         return new Promise(function(resolve, reject) {
             let phrases;
             if (currentPage === 'RosterSetup') {
-                phrases = ['"add Gavin to team 1"', '"move Gavin to team 2"', '"change Gavin to Kevin"']
+                phrases = ['add Kevin and Gavin to team 1', 'move Gavin to team 2']
             }
             if (currentPage === 'MainMenu') {
-                phrases = ['"what are my stats?"', '"what is this game?"']
+                phrases = ['what are my stats?', 'what is this game?']
             }
             resolve(phrases)
         })
@@ -49,7 +49,7 @@ class TipContainer extends Component {
                 this.setState({
                     firstMessage:"Use your Google device to interact with this game",
                     tipReg: "You can ",
-                    wakePhrase: "Ask Trivia Flip to...",
+                    wakePhrase: "Ask Trivia Flip...",
                     examplePhrases:phrases
                 })
             }.bind(this))

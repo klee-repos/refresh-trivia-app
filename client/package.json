@@ -9,7 +9,7 @@
     "/voice": {
       "target": "http://localhost:8080"
     },
-    "/roster": {
+    "/info": {
       "target": "http://localhost:8080"
     }
   },

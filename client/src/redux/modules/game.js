@@ -2,14 +2,12 @@
 const SET_TEAMS = 'SET_TEAMS';
 
 export function setTeams(roster) {
-    console.log(roster.team1)
     return {
         type: SET_TEAMS,
-        team1:roster.team1,
-        team2:roster.team2
+        team1:roster.teamOne,
+        team2:roster.teamTwo
     }
 }
-
 
 const initialState = {
     teamOne: null,

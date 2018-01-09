@@ -22,14 +22,16 @@ class Tip extends Component {
                     <span className='tipReg'>{this.props.tipReg} </span><span className='wakeWords'>{this.props.wakePhrase}</span>
                     </div>
                     <div className='tipThirdSection'>
+                        <ul className='spoken'>
                         {this.props.examplePhrases
                             ? this.props.examplePhrases.map(function(item, idx ) {
                                 return (
-                                    <div className='spoken' key={idx}>{item}</div>
+                                    <li key={idx}>{item}</li>
                                 )
                             })
                             : null
                         }
+                        </ul>
                     </div>
                 </div>
             </div>

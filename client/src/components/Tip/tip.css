@@ -5,7 +5,7 @@
     flex-wrap: nowrap;
     justify-content: center;
     height:100%;
-    padding-left:15%;
+    padding-left:5%;
     width:80%;
 }
 
@@ -64,6 +64,8 @@
 }
 
 .spoken {
+    list-style-type: disc;
+    margin: 0;
     color: #FF4C6A;
     font-size: 180%;
 }

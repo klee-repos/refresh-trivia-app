@@ -4,12 +4,12 @@ import {connect} from 'react-redux';
 
 import {RosterSetup} from '../../components'
 
-import {Roster} from '../../requests'
+import {Info} from '../../requests'
 
 class RosterSetupContainer extends Component {
 
     componentDidMount() {
-        Roster.getRoster(this.props.sessionCode)
+        Info.getRoster(this.props.sessionCode)
     }
 
     render() {

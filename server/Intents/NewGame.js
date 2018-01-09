@@ -1,8 +1,10 @@
 const SessionManager = require('../SessionManager');
 const Game = require('../models/Game');
 
-const contextName = 'newGame';
+const contextName = 'rosterSetup';
 const lifespan = 5
+
+const forwardURL = 'https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/forward.wav';
 
 var execute = function(args, assistant){
     let game = new Game();
@@ -15,7 +17,7 @@ var execute = function(args, assistant){
     SessionManager.sendData(user.sessionCode, 'setStatus', 'rosterSetup');
 
     assistant
-        .say("<speak>New Game. Please set the players on each team.</speak>")
+        .say('<speak><audio src="' + forwardURL + '"></audio>Who are all the players you\'d like to add to Team 1?</speak>')
         .setContext(contexts)
         .finish();
 }

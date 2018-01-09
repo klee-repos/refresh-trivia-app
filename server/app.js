@@ -41,8 +41,8 @@ app.post('/gAssistant', function(req, res) {
 	ExecuteRequest.FromGoogle(req.body, res);
 })
 
-var rosterRoutes = require('./Roster/api');
-app.use('/roster', rosterRoutes);
+var Info = require('./info/api');
+app.use('/info', Info);
 
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
