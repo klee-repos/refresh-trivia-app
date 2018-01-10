@@ -16,7 +16,7 @@ var questionSchema = new mongoose.Schema(
         category: String,
         difficulty: Number,
         tags: Array,
-        MediaURL: String,
+        mediaURL: String,
     }
 )
 

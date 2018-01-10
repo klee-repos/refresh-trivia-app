@@ -20,12 +20,4 @@ routes.post('/getRoster', function(req, res) {
     })
 })
 
-routes.post('/getContext', function(req,res) {
-    let sessionCode =req.body.sessionCode;
-    User.findOne({sessionCode:sessionCode}).then(function(user) {
-        SessionManager.sendData(user.sessionCode, 'setStatus', user.context.name)
-        res.send(user);
-    })
-})
-
 module.exports = routes;
