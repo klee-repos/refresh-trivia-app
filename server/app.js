@@ -41,10 +41,10 @@ app.post('/gAssistant', function(req, res) {
 	ExecuteRequest.FromGoogle(req.body, res);
 })
 
-var Info = require('./info/api');
+var Info = require('./Info/api');
 app.use('/info', Info);
 
-var Admin = require('./admin/api');
+var Admin = require('./Admin/api');
 app.use('/admin', Admin);
 
 server.listen(process.env.PORT || 8080, function() {
