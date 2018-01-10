@@ -4,6 +4,7 @@ const SessionManager = require('../../SessionManager')
 const forwardURL = 'https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/forward.wav';
 
 var newContext = 'rosterSetup'
+var previousContext = 'mainMenu'
 
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
@@ -11,7 +12,6 @@ var execute = function(args, assistant){
     .then(function(game){
         game.addPlayersToTeam(args.names, args.teamName).then(function(){
             game.save();
-            
             var teams = game.getRoster();
             let roster = {
                 teamOne: teams.team1.players,
@@ -28,7 +28,8 @@ var execute = function(args, assistant){
                 .say('<speak><audio src="' + forwardURL + '"></audio>Added to team ' + args.teamName + '<desc>. Just need one player on the opposing team to start.</desc></speak>')
                 .finish()
             }
-            user.setContext(newContext);
+            ;
+            user.setContext(newContext, previousContext);
             user.save();
         })
         .catch(function(err){

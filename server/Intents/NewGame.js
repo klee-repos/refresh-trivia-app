@@ -4,12 +4,13 @@ const Game = require('../models/Game');
 const forwardURL = 'https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/forward.wav';
 
 var newContext = 'rosterSetup'
+var previousContext = 'mainMenu'
 
 var execute = function(args, assistant){
     let game = new Game();
     let user = assistant.deviceProfile.user;
     user.game = game
-    user.setContext(newContext);
+    user.setContext(newContext, previousContext);
     user.save();
     game.save();
     SessionManager.sendData(user.sessionCode, 'setStatus', newContext);

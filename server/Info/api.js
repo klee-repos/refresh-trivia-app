@@ -24,19 +24,8 @@ routes.post('/getRoster', function(req, res) {
 routes.post('/getContext', function(req,res) {
     let sessionCode =req.body.sessionCode;
     User.findOne({sessionCode:sessionCode}).then(function(user) {
-        Game.findById(user.game).then(function(game) {
-            let contexts = game.getContexts();
-            for (let i = 0; i < contexts.length; i++) {
-                switch(contexts[i].name) {
-                    case 'rosterSetup':
-                        SessionManager.sendData(user.sessionCode, 'setStatus', 'rosterSetup')
-                        break;
-                    default:
-                        SessionManager.sendData(user.sessionCode, 'setStatus', 'rosterSetup')
-                }
-            }
-            res.send(contexts);
-        })
+        SessionManager.sendData(user.sessionCode, 'setStatus', user.context.name)
+        res.send(user);
     })
 })
 

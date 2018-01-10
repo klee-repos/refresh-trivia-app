@@ -36,7 +36,6 @@ class SocketManagerContainer extends Component {
         socket.on('sessionCode', function(code){
             localStorage.setItem('sessionCode',code);
             this.props.setSessionCode(code);
-            this.props.statusUpdate("mainMenu");
             axios.defaults.headers['sessionCode'] = code;
         }.bind(this));
 
@@ -46,6 +45,7 @@ class SocketManagerContainer extends Component {
 
         // Set status
         socket.on('setStatus', function(status) {
+            console.log(status)
             this.props.statusUpdate(status);
         }.bind(this))
 

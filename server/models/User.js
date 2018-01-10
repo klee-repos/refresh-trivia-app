@@ -9,6 +9,7 @@ const ContextMap = require('../ContextMap')
 var contextSchema = mongoose.Schema(
 {
 	name: String,
+	previous: String,
 	activeIntents: Array,
 });
 
@@ -29,12 +30,17 @@ userSchema.methods.generateSessionCode = function(){
 	this.markModified('sessionCode');
 }
 
-userSchema.methods.setContext = function(context){	
+userSchema.methods.setContext = function(context, previous){	
 	this.context = {
 		name: context, 
+		previous: previous,
 		activeIntents: ContextMap[context].activeIntents,
 	}
 	this.markModified('context');
+}
+
+userSchema.methods.getPreviousContext = function() {
+	return this.context.previous;
 }
 
 var User = mongoose.model('User', userSchema);

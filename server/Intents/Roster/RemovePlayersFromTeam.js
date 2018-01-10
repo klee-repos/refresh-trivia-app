@@ -17,7 +17,7 @@ var execute = function(args, assistant){
                     .say("Ok")
                     .finish()
             }
-            user.setContext(newContext);
+            user.setContext(newContext, user.getPreviousContext());
             user.save();
         })
         .catch(function(err){

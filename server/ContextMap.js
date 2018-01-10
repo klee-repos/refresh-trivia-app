@@ -1,7 +1,8 @@
 var ContextMap = {
 
-    welcome: {
+    mainMenu: {
         activeIntents: [
+            'input.welcome',
             'connect',
             'newGame',
             'joinGame'
@@ -11,7 +12,7 @@ var ContextMap = {
     rosterSetup: {
         activeIntents: [
             'connect',
-            'newGame',
+            'goBack',
             'addPlayersToTeam',
             'removePlayersFromTeam'
         ]
@@ -21,7 +22,7 @@ var ContextMap = {
     readyToStart: {
         activeIntents: [
             'connect',
-            'newGame',
+            'goBack',
             'addPlayersToTeam',
             'removePlayersFromTeam',
             'startGame'
