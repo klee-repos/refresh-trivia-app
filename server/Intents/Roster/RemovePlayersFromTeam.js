@@ -1,7 +1,7 @@
 const Game = require('../../models/Game');
 const SessionManager = require('../../SessionManager')
 
-const forwardURL = 'https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/forward.wav';
+const Sounds = require('../../Sounds')
 
 var newContext = 'rosterSetup'
 var previousContext = 'mainMenu'
@@ -15,11 +15,11 @@ var execute = function(args, assistant){
             if(game.getStatus() == "Roster Set") {
                 newContext = 'readyToStart'
                 assistant
-                .say('<speak><audio src="' + forwardURL + '"></audio>Removed from team ' + args.teamName + '<desc>. Let me know when you are ready to begin!</desc></speak>')
+                .say('<speak><audio src="' + Sounds.backward + '"></audio>Removed<desc>. Let me know when you are ready to begin!</desc></speak>')
                 .finish()
             } else {
                 assistant
-                .say('<speak><audio src="' + forwardURL + '"></audio>Removed from team ' + args.teamName + '<desc>. Just need one player on the opposing team to start.</desc></speak>')
+                .say('<speak><audio src="' + Sounds.backward + '"></audio>Removed<desc>. Just need one player on the opposing team to start.</desc></speak>')
                 .finish()
             }
             user.setContext(newContext, previousContext);

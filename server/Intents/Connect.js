@@ -1,7 +1,7 @@
-var SessionManager = require('../SessionManager');
-var User = require('../models/User');
+const SessionManager = require('../SessionManager');
+const User = require('../models/User');
 
-const forwardURL = 'https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/forward.wav';
+const Sounds = require('../Sounds')
 
 var newContext = 'mainMenu'
 const previousContext = 'connect'
@@ -18,7 +18,7 @@ var execute = function(args, assistant){
     var room = SessionManager.getSession(args.connectCode);
     SessionManager.sendData(room, 're-connect', user.sessionCode);
     SessionManager.sendData(room, 'setStatus', newContext);
-    assistant.say('<speak><audio src="' + forwardURL + '"><desc>Connected</desc></audio></speak>').finish();
+    assistant.say('<speak><audio src="' + Sounds.forward + '"><desc>Connected</desc></audio></speak>').finish();
 }
 
 var validateInput = function(args, assistant){

@@ -1,7 +1,7 @@
 const SessionManager = require('../SessionManager');
 const Game = require('../models/Game');
 
-const forwardURL = 'https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/forward.wav';
+const Sounds = require('../Sounds')
 
 let newContext;
 
@@ -17,7 +17,7 @@ var execute = function(args, assistant){
         location = 'main menu';
     }
     assistant
-        .say('<speak><audio src="' + forwardURL + '"></audio>Going back to ' + location + '</speak>')
+        .say('<speak><audio src="' + Sounds.backward + '"></audio>Going back to ' + location + '</speak>')
         .finish()
 }
 
