@@ -44,7 +44,9 @@ app.post('/gAssistant', function(req, res) {
 var Info = require('./info/api');
 app.use('/info', Info);
 
+var Admin = require('./admin/api');
+app.use('/admin', Admin);
+
 server.listen(process.env.PORT || 8080, function() {
 	console.log("Node server started")
 });
-

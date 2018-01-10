@@ -9,13 +9,14 @@ var answerSchema = new mongoose.Schema(
 
 var questionSchema = new mongoose.Schema(
     {
+        _id: Number,
         text: String,
-        answers: [answerSchema],
+        picklist: Array,
+        answer: String,
         category: String,
-        difficulty: {
-            type: Number,
-            enum: [1,2,3,4,5]
-        }
+        difficulty: Number,
+        tags: Array,
+        MediaURL: String,
     }
 )
 
@@ -38,3 +39,7 @@ questionSchema.methods.isAnAnswer = function(guess){
         resolve(answer);
     })   
 }
+
+var Question = mongoose.model('Question', questionSchema);
+
+module.exports = Question;
