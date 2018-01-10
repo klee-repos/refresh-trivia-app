@@ -1,28 +1,28 @@
 const Game = require('../../models/Game');
 const SessionManager = require('../../SessionManager')
 
-const requiredContext = ['newGame']
+var newContext = 'rosterSetup'
 
 var execute = function(args, assistant){
-    Game.findById(assistant.deviceProfile.user.game)
-    .then(function(game){
-        game.requireContext(requiredContext)
-        .then(function(found) {
-            if (found) {
-                game.removePlayersFromTeam(args.names, args.teamName)
-                .then(function(){
-                    game.save();
-                    if(game.getStatus() == "Roster Set")
-                        assistant.say("Ready to play?").data(game.getRoster()).finish()
-                    else
-                        assistant.say("Ok").data(game.getRoster()).finish();
-                })
-                .catch(function(err){
-                    assistant.error(500).data(err).finish();
-                })
+    Game.findById(assistant.deviceProfile.user.game).then(function(game){
+        game.removePlayersFromTeam(args.names, args.teamName).then(function(){
+            game.save();
+            if(game.getStatus() == "Roster Set") {
+                newContext = 'readyToStart'
+                assistant
+                    .say("Ready to play?")
+                    .finish()
+            } else {
+                assistant
+                    .say("Ok")
+                    .finish()
             }
+            user.setContext(newContext);
+            user.save();
         })
-        
+        .catch(function(err){
+            assistant.error(500).data(err).finish();
+        })
     });
 }
 

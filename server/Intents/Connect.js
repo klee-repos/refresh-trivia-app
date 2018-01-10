@@ -3,11 +3,14 @@ var User = require('../models/User');
 
 const forwardURL = 'https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/forward.wav';
 
+var newContext = 'welcome'
+
 var execute = function(args, assistant){
     var user = assistant.deviceProfile.user;
     if(!user){
         user = new User();        
         user.generateSessionCode();
+        user.setContext(newContext);
         assistant.setUser(user)
         user.save();
     }
