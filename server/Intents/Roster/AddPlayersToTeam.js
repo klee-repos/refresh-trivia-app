@@ -12,12 +12,7 @@ var execute = function(args, assistant){
     .then(function(game){
         game.addPlayersToTeam(args.names, args.teamName).then(function(){
             game.save();
-            var teams = game.getRoster();
-            let roster = {
-                teamOne: teams.team1.players,
-                teamTwo: teams.team2.players,
-            }
-            SessionManager.sendData(user.sessionCode, 'teamRoster', roster);
+            SessionManager.sendData(user.sessionCode, 'teamRoster', game.formatRoster());
             if(game.getStatus() == "Roster Set") {
                 newContext = 'readyToStart'
                 assistant
@@ -28,7 +23,6 @@ var execute = function(args, assistant){
                 .say('<speak><audio src="' + forwardURL + '"></audio>Added to team ' + args.teamName + '<desc>. Just need one player on the opposing team to start.</desc></speak>')
                 .finish()
             }
-            ;
             user.setContext(newContext, previousContext);
             user.save();
         })

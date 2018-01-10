@@ -1,23 +1,28 @@
 const Game = require('../../models/Game');
 const SessionManager = require('../../SessionManager')
 
+const forwardURL = 'https://storage.googleapis.com/trivia-df1da.appspot.com/sounds/forward.wav';
+
 var newContext = 'rosterSetup'
+var previousContext = 'mainMenu'
 
 var execute = function(args, assistant){
+    let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game).then(function(game){
         game.removePlayersFromTeam(args.names, args.teamName).then(function(){
             game.save();
+            SessionManager.sendData(user.sessionCode, 'teamRoster', game.formatRoster());
             if(game.getStatus() == "Roster Set") {
                 newContext = 'readyToStart'
                 assistant
-                    .say("Ready to play?")
-                    .finish()
+                .say('<speak><audio src="' + forwardURL + '"></audio>Removed from team ' + args.teamName + '<desc>. Let me know when you are ready to begin!</desc></speak>')
+                .finish()
             } else {
                 assistant
-                    .say("Ok")
-                    .finish()
+                .say('<speak><audio src="' + forwardURL + '"></audio>Removed from team ' + args.teamName + '<desc>. Just need one player on the opposing team to start.</desc></speak>')
+                .finish()
             }
-            user.setContext(newContext, user.getPreviousContext());
+            user.setContext(newContext, previousContext);
             user.save();
         })
         .catch(function(err){

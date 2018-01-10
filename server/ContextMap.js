@@ -11,6 +11,7 @@ var ContextMap = {
 
     rosterSetup: {
         activeIntents: [
+            'input.welcome',
             'connect',
             'goBack',
             'addPlayersToTeam',
@@ -21,6 +22,7 @@ var ContextMap = {
 
     readyToStart: {
         activeIntents: [
+            'input.welcome',
             'connect',
             'goBack',
             'addPlayersToTeam',

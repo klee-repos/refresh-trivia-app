@@ -38,6 +38,7 @@ class DashboardContainer extends React.Component {
             case "INIT" : return this.landingPage();
             case "mainMenu": return this.mainMenu();
             case "rosterSetup": return this.rosterSetup();
+            case "readyToStart": return this.rosterSetup();
             default: return this.mainMenu(); 
         }
     }

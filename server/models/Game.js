@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var _ = require('lodash')
+
 /* ///////////////////////////////////
 // Team
 */ ////////////////////////////////
@@ -127,6 +128,15 @@ gameSchema.methods.getStatus = function(){
 
 gameSchema.methods.getRoster = function(){
     return this.gameState.teams;
+}
+
+gameSchema.methods.formatRoster = function(){
+    let teams = this.gameState.teams
+    let roster = {
+        teamOne: teams.team1.players,
+        teamTwo: teams.team2.players,
+    }
+    return roster;
 }
 
 var Game = mongoose.model('Game', gameSchema);
