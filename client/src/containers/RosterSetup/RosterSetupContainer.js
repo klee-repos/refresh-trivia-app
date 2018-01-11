@@ -14,7 +14,7 @@ class RosterSetupContainer extends Component {
 
     render() {
         return (
-            <RosterSetup {...this.props}/>
+            <RosterSetup {...this.props} />
         )
     }
 }

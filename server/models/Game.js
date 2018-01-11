@@ -100,6 +100,8 @@ gameStateSchema.methods.updateStatus = function()
 {
     if (this.teams.team1.isSet() && this.teams.team2.isSet()){
         this.status = "Roster Set"
+    } else {
+        this.status = "In Progress";
     }
 }
 

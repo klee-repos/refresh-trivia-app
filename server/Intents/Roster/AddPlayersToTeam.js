@@ -16,14 +16,15 @@ var execute = function(args, assistant){
             if(game.getStatus() == "Roster Set") {
                 newContext = 'readyToStart'
                 assistant
-                .say('<speak><audio src="' + Sounds.forward + '"></audio>Added<desc>. Let me know when you are ready to begin!</desc></speak>')
+                .say('<speak><audio src="' + Sounds.forward + '"></audio>Added<desc>. Confirm roster to start the game!</desc></speak>')
                 .finish()
             } else {
                 assistant
-                .say('<speak><audio src="' + Sounds.forward + '"></audio>Added<desc>. Just need one player on the opposing team to start.</desc></speak>')
+                .say('<speak><audio src="' + Sounds.forward + '"></audio>Added<desc>. One additional player required on the opposing team to start.</desc></speak>')
                 .finish()
             }
             user.setContext(newContext, previousContext);
+            SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
             user.save();
         })
         .catch(function(err){

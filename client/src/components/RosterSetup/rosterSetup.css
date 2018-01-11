@@ -54,7 +54,7 @@
     width:100%;
     height:15%;
     justify-content: center;
-    align-items: center;    
+    align-items: center;   
 }
 
 .team2 {
@@ -71,6 +71,7 @@
     display: flex;
     padding-top: 5%;
     justify-content: center;
+    text-align: center;
 }
 
 .rosterMenuConfirmContainer {
@@ -78,8 +79,13 @@
 }
 
 .rosterMenuConfirmText {
-    flex: 1 1 100%;
-    font-size: 180%;
-    color: #FF4C6A;
+    display: flex;
+    width: 100%;
+    justify-content: center;
     text-align: center;
+    
+}
+
+.settingRoster {
+    font-size: 180%;
 }

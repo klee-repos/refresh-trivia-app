@@ -1,6 +1,8 @@
 
 import React, {Component} from 'react'
 
+import {SpokenContainer} from '../../containers'
+
 import Team from './Team'
 
 class RosterMenu extends Component {
@@ -14,7 +16,12 @@ class RosterMenu extends Component {
                     </div>
                     <div className='rosterMenuConfirmContainer'>
                         <div className='rosterMenuConfirmText'>
-                            <span>"Confirm roster!"</span>
+                            {this.props.context === 'readyToStart'
+                                ? <SpokenContainer text='Confirm roster!' />
+                                : <div className='settingRoster'>
+                                    <span>Setting up roster....</span>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

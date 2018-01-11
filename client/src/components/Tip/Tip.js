@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 
+import {SpokenContainer} from '../../containers'
+
 import './tip.css'
 
 class Tip extends Component { 
@@ -22,16 +24,14 @@ class Tip extends Component {
                     <span className='tipReg'>{this.props.tipReg} </span><span className='wakeWords'>{this.props.wakePhrase}</span>
                     </div>
                     <div className='tipThirdSection'>
-                        <ul className='spoken'>
                         {this.props.examplePhrases
                             ? this.props.examplePhrases.map(function(item, idx ) {
                                 return (
-                                    <li key={idx}>{item}</li>
+                                    <SpokenContainer text={item} key={idx} />
                                 )
                             })
                             : null
                         }
-                        </ul>
                     </div>
                 </div>
             </div>

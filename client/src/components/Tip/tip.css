@@ -13,7 +13,6 @@
     display: flex;
     flex-wrap: nowrap;
     width:150%;
-
 }
 
 .tipIcon {
@@ -63,9 +62,8 @@
     font-size: 180%;
 }
 
-.spoken {
-    list-style-type: disc;
-    margin: 0;
-    color: #FF4C6A;
-    font-size: 180%;
+.tipThirdSection {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
 }

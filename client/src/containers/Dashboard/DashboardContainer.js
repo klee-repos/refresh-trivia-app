@@ -24,10 +24,10 @@ class DashboardContainer extends React.Component {
         )
     }
 
-    rosterSetup() {
+    rosterSetup(context) {
         return (
             <div className='main'>
-                <RosterSetupContainer />
+                <RosterSetupContainer context={context}/>
                 <TeamBarContainer />
             </div>
         )
@@ -37,8 +37,8 @@ class DashboardContainer extends React.Component {
         switch(this.props.loadingStatus){
             case "INIT" : return this.landingPage();
             case "mainMenu": return this.mainMenu();
-            case "rosterSetup": return this.rosterSetup();
-            case "readyToStart": return this.rosterSetup();
+            case "rosterSetup": return this.rosterSetup('rosterSetup');
+            case "readyToStart": return this.rosterSetup('readyToStart');
             default: return this.mainMenu(); 
         }
     }

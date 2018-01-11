@@ -17,7 +17,7 @@ var execute = function(args, assistant){
         location = 'main menu';
     }
     assistant
-        .say('<speak><audio src="' + Sounds.backward + '"></audio>Going back to ' + location + '</speak>')
+        .say('<speak><audio src="' + Sounds.backward + '"></audio>' + location + '</speak>')
         .finish()
 }
 

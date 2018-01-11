@@ -14,7 +14,7 @@ class RosterSetup extends Component {
                 <div className='mainLeft'>
                     <div className='rosterBox'>
                         <h1>Team Roster</h1>
-                        <RosterMenu teamOne={this.props.teamOne} teamTwo={this.props.teamTwo}/>
+                        <RosterMenu teamOne={this.props.teamOne} teamTwo={this.props.teamTwo} context={this.props.context}/>
                     </div>
                 </div>
                 <div className='mainRight'>
