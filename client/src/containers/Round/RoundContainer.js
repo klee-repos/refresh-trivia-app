@@ -20,7 +20,7 @@ class RoundContainer extends Component {
 
     question() {
         return (
-            <RoundQuestion />
+            <RoundQuestion round={this.props.round} activeTeam={this.props.activeTeam}/>
         )
     }
 

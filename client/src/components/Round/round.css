@@ -1,3 +1,8 @@
+/* ROUND 
+---------------------
+---------------------
+*/
+
 .roundBox {
     display: flex;
     flex-direction: column;
@@ -7,24 +12,6 @@
 
 .roundBox h1 {
     font-size: 300%;
-}
-
-.roundTitleBar_TeamOne{
-    display: flex;
-    background-color: #1ED26F;
-    width: 30%;
-    border-radius: 50px;
-    justify-content: center;
-    align-items: center;
-}
-
-.roundTitleBar_TeamTwo{
-    display: flex;
-    background-color: #EFD638;
-    width: 30%;
-    border-radius: 50px;
-    justify-content: center;
-    align-items: center;
 }
 
 .roundMessageBox {
@@ -45,3 +32,68 @@
     color: #6B5AFF;
 }
 
+/* RoundTitleBar 
+---------------------
+---------------------
+*/
+
+.roundTitleBar_TeamOne{
+    display: flex;
+    background-color: #1ED26F;
+    width: 30%;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.roundTitleBar_TeamTwo{
+    display: flex;
+    background-color: #EFD638;
+    width: 30%;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* RoundQuestion
+---------------------
+---------------------
+*/
+
+.roundPlayer {
+    display:flex;
+    width: 80%;
+    font-size: 200%;
+    color: #007FFF;
+    padding-bottom: 2%;
+}
+
+.roundQuestion {
+    display:flex;
+    justify-content: center;
+    font-size: 200%;
+    padding-bottom: 1%;
+}
+
+.roundAnswers {
+    display:flex;
+    width: 80%;
+    justify-content: center;
+    font-size: 180%;
+    color: #FF4C6A;
+}
+
+.answersRow {
+    display:flex;
+    width:20%;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.answersColumn {
+    display:flex;
+    height:60px;
+    width:100%;
+    align-items:center;
+    justify-content: center;
+}

@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react'
 
-import RoundTitleBar from './RoundTitleBar'
+import {RoundTitleBar} from '../../components'
 
 import './round.css'
 

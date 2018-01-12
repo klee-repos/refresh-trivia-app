@@ -9,7 +9,10 @@ export {default as Welcome} from './Welcome/Welcome';
 export {default as MainMenu} from './MainMenu/MainMenu';
 export {default as RosterSetup} from './RosterSetup/RosterSetup';
 
+export {default as RoundTitleBar} from './Round/RoundTitleBar';
 export {default as RoundStart} from './Round/RoundStart';
 export {default as RoundQuestion} from './Round/RoundQuestion';
+export {default as RoundAnswers} from './Round/RoundAnswers';
+
 
 export {default as StatesQuiz} from './StatesQuiz/StatesQuiz';
