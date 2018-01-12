@@ -1,0 +1,38 @@
+.roundBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.roundBox h1 {
+    font-size: 300%;
+}
+
+.roundTitleBar_TeamOne{
+    display: flex;
+    background-color: #1ED26F;
+    width: 30%;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.roundMessageBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    height:100%;
+    justify-content: center;
+}
+
+.roundMessageBox h1 {
+    font-size: 300%;
+    color: #007FFF;
+}
+
+.purpleText {
+    color: #6B5AFF;
+}
+

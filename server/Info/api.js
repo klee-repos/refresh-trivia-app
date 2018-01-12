@@ -20,4 +20,10 @@ routes.post('/getRoster', function(req, res) {
     })
 })
 
+routes.post('/getRound', function(req, res) {
+    let sessionCode = req.body.sessionCode;
+    User.findOne({sessionCode:sessionCode}).populate(game).then(function(user) {
+    })
+})
+
 module.exports = routes;

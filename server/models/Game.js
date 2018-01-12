@@ -30,8 +30,14 @@ teamSchema.methods.removePlayers = function(names){
     return this.players
 }
 
-var roundSchema = new mongoose.Schema({
+/* /////////////////////////////////
+// Round
+*/ ///////////////////////////////
 
+var roundSchema = new mongoose.Schema({
+    round: Number,
+    activeTeam: String,
+    playerIndex: Number,
 })
 
 /* /////////////////////////////////
@@ -42,7 +48,7 @@ var gameStateSchema = new mongoose.Schema(
 {
     previousQuestions: [{type:mongoose.Schema.Types.ObjectId, ref:'Question', default: []} ],
     nextQuestion: {type: mongoose.Schema.Types.ObjectId, ref:'Question', default:null},
-    round: roundSchema,
+    round: {type:roundSchema, default: null},
     teams: {
         team1: {type: teamSchema, default:{name:"one", players: []}},
         team2: {type: teamSchema, default:{name:"two", players: []}},
@@ -53,6 +59,16 @@ var gameStateSchema = new mongoose.Schema(
         required: true
     }
 });
+
+gameStateSchema.methods.setRound = function(round, activeTeam, playerIndex) {
+    this.round = {
+        round: round,
+        activeTeam: activeTeam,
+        playerIndex: playerIndex
+    }
+    this.markModified('round');
+    return this.round
+}
 
 gameStateSchema.methods.addPlayersToTeam = function(names, teamName)
 {
@@ -139,6 +155,10 @@ gameSchema.methods.formatRoster = function(){
         teamTwo: teams.team2.players,
     }
     return roster;
+}
+
+gameSchema.methods.setRound = function(round, activeTeam, activePlayer) {
+    return this.gameState.setRound(round, activeTeam, activePlayer)
 }
 
 var Game = mongoose.model('Game', gameSchema);

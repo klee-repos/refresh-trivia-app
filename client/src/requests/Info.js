@@ -6,15 +6,15 @@ var getRoster = function(sessionCode){
     })
 }
 
-var getContext = function(sessionCode) {
-    axios.post('/info/getContext', {
-        sessionCode: sessionCode,
+var getRound = function(sessionCode) {
+    axios.post('/info/getRound', {
+        sessionCode: sessionCode
     })
 }
 
 var Info = {
     getRoster:getRoster,
-    getContext: getContext
+    getRound: getRound
 }
 
 export default Info

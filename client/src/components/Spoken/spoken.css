@@ -1,0 +1,18 @@
+.spoken {
+    display: flex;
+    flex-wrap: nowrap;
+    color: #FF4C6A;
+    font-size: 180%;
+    align-items: center;
+    padding-left: 5%;
+}
+
+.spokenBox {
+    display: flex;
+}
+
+.spokenText {
+    display: flex;
+    padding-top: 4px;
+    padding-left: 5px;
+}

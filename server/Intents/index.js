@@ -10,5 +10,6 @@ Intents.GOBACK = require('./GoBack')
 //Roster
 Intents.ADDPLAYERSTOTEAM = require('./Roster/AddPlayersToTeam');
 Intents.REMOVEPLAYERSFROMTEAM = require('./Roster/RemovePlayersFromTeam');
+Intents.CONFIRMROSTER = require('./Roster/ConfirmRoster');
 
 module.exports = Intents;

@@ -37,3 +37,12 @@
     width:50%;
     height:80%;
 }
+
+.mainOne {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin: 8em 0 0 0;
+    width:100%;
+    height:80%;
+}

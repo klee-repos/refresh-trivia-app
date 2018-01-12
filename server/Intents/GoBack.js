@@ -2,20 +2,29 @@ const SessionManager = require('../SessionManager');
 const Game = require('../models/Game');
 
 const Sounds = require('../Sounds')
-
-let newContext;
+const ContextMap = require('../ContextMap')
 
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
     let location;
     newContext = user.getPreviousContext()
     SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
-    user.setContext(newContext, user.context.name);
+    user.setContext(newContext, ContextMap[newContext].goBack);
     user.save();
 
-    if (newContext === 'mainMenu') {
-        location = 'main menu';
+    console.log("execute " + newContext);
+
+    switch(newContext) {
+        case 'mainMenu':
+            location = 'Main menu';
+            break;
+        case 'readyToStart':
+            location = 'Team rosters';
+            break;
+        default:
+            location = 'Back';
     }
+
     assistant
         .say('<speak><audio src="' + Sounds.backward + '"></audio>' + location + '</speak>')
         .finish()

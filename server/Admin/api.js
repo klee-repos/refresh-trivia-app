@@ -1,10 +1,28 @@
 const routes = require('express').Router();
 const path = require('path');
 
+const User = require('../models/User')
 const Question = require('../models/Question')
+
+const SessionManager = require('../SessionManager');
 
 const csv=require('csvtojson')
 const file = path.join(__dirname,'../TriviaQuestions.csv')
+
+routes.post('/setContext', function(req, res) {
+    let context = req.body.context;
+    let sessionCode = req.body.sessionCode;
+    User.findOne({sessionCode:sessionCode}).then(function(user) {
+        if (user) {
+            user.context.name = context;
+            user.save()
+            SessionManager.sendData(sessionCode, 'setStatus', context);
+            res.send(user)
+        } else {
+            res.send("Did not find a user")
+        }
+    })
+})
 
 routes.post('/setQuestions', function(req,res) {
     csv({delimiter: '\t'})
