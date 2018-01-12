@@ -4,7 +4,7 @@ import {TopBarContainer,
         MainMenuContainer, 
         RosterSetupContainer,
         TeamBarContainer,
-        RoundStartContainer} from '../../containers/'
+        RoundContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -34,10 +34,10 @@ class DashboardContainer extends React.Component {
         )
     }
 
-    roundStart() {
+    round(context) {
         return (
             <div className='main'>
-                <RoundStartContainer />
+                <RoundContainer context={context} />
                 <TeamBarContainer />
             </div>
         )
@@ -49,7 +49,7 @@ class DashboardContainer extends React.Component {
             case "mainMenu": return this.mainMenu();
             case "rosterSetup": return this.rosterSetup('rosterSetup');
             case "readyToStart": return this.rosterSetup('readyToStart');
-            case "roundStart": return this.roundStart();
+            case "roundStart": return this.round('roundStart');
             default: return this.mainMenu(); 
         }
     }

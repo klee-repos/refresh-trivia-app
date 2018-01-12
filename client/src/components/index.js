@@ -8,6 +8,8 @@ export {default as Spoken} from './Spoken/Spoken';
 export {default as Welcome} from './Welcome/Welcome';
 export {default as MainMenu} from './MainMenu/MainMenu';
 export {default as RosterSetup} from './RosterSetup/RosterSetup';
-export {default as RoundStart} from './RoundStart/RoundStart';
+
+export {default as RoundStart} from './Round/RoundStart';
+export {default as RoundQuestion} from './Round/RoundQuestion';
 
 export {default as StatesQuiz} from './StatesQuiz/StatesQuiz';

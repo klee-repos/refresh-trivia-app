@@ -22,7 +22,10 @@ routes.post('/getRoster', function(req, res) {
 
 routes.post('/getRound', function(req, res) {
     let sessionCode = req.body.sessionCode;
-    User.findOne({sessionCode:sessionCode}).populate(game).then(function(user) {
+    User.findOne({sessionCode:sessionCode}).populate('game').then(function(user) {
+        let round = user.game.gameState.round
+        SessionManager.sendData(sessionCode, 'setRound', round);
+        res.send(round)
     })
 })
 

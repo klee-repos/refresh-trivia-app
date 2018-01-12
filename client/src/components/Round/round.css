@@ -18,6 +18,15 @@
     align-items: center;
 }
 
+.roundTitleBar_TeamTwo{
+    display: flex;
+    background-color: #EFD638;
+    width: 30%;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
 .roundMessageBox {
     display: flex;
     flex-direction: column;

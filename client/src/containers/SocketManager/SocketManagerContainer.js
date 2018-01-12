@@ -61,6 +61,11 @@ class SocketManagerContainer extends Component {
             this.props.setTeams(roster);
         }.bind(this))
 
+        // Round data
+        socket.on('setRound', function(round) {
+            this.props.setRound(round);
+        }.bind(this))
+
     }
 
     render() {

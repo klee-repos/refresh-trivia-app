@@ -10,7 +10,7 @@ export {default as SpokenContainer} from './Spoken/SpokenContainer';
 export {default as WelcomeContainer} from './Welcome/WelcomeContainer';
 export {default as MainMenuContainer} from './MainMenu/MainMenuContainer';
 export {default as RosterSetupContainer} from './RosterSetup/RosterSetupContainer';
-export {default as RoundStartContainer} from './RoundStart/RoundStartContainer';
+export {default as RoundContainer} from './Round/RoundContainer';
 
 export {default as StatesQuizContainer} from './StatesQuiz/StatesQuizContainer';
 
