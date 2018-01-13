@@ -28,7 +28,7 @@ routes.post('/setQuestions', function(req,res) {
     csv({delimiter: '\t'})
         .fromFile(file)
         .on('json',function(json) {
-            Question.findById(json.ID).then(function(question) {
+            Question.findOne({qId:json.ID}).then(function(question) {
                 let picklist = json.Picklist.split(',')
                 for (let i = 0; i < picklist.length; i++) {
                     picklist[i] = picklist[i].trimLeft().trimRight()
@@ -44,7 +44,7 @@ routes.post('/setQuestions', function(req,res) {
                     question.save()
                 } else {
                     question = Question({
-                        _id: json.ID,
+                        qId: json.ID,
                         text: json.Question,
                         picklist: picklist,
                         answer: json.Answer,

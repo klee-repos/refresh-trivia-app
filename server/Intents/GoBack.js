@@ -12,8 +12,6 @@ var execute = function(args, assistant){
     user.setContext(newContext, ContextMap[newContext].goBack);
     user.save();
 
-    console.log("execute " + newContext);
-
     switch(newContext) {
         case 'mainMenu':
             location = 'Main menu';

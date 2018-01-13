@@ -121,6 +121,15 @@ gameStateSchema.methods.updateStatus = function()
     }
 }
 
+gameStateSchema.methods.setQuestions = function(question) {
+    if (this.nextQuestion) {
+        this.previousQuestions.push(this.nextQuestion);
+    }
+    this.nextQuestion = question;
+    this.markModified('nextQuestion');
+    this.markModified('previousQuestions');
+}
+
 /* /////////////////////////////////
 // Game
 */ ////////////////////////////////
@@ -160,6 +169,11 @@ gameSchema.methods.formatRoster = function(){
 gameSchema.methods.setRound = function(round, activeTeam, activePlayer) {
     return this.gameState.setRound(round, activeTeam, activePlayer)
 }
+
+gameSchema.methods.setQuestions = function(question) {
+    return this.gameState.setQuestions(question)
+}
+
 
 var Game = mongoose.model('Game', gameSchema);
 

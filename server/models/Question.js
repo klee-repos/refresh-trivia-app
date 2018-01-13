@@ -9,7 +9,7 @@ var answerSchema = new mongoose.Schema(
 
 var questionSchema = new mongoose.Schema(
     {
-        _id: Number,
+        qId: Number,
         text: String,
         picklist: Array,
         answer: String,
