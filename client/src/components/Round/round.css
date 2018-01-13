@@ -70,7 +70,9 @@
 
 .roundQuestion {
     display:flex;
+    width:70%;
     justify-content: center;
+    text-align: center;
     font-size: 250%;
     padding-bottom: 3%;
 }
@@ -92,7 +94,7 @@
 .answersColumn {
     display:flex;
     height:30px;
-    width:100%;
+    width:80%;
     align-items:center;
     justify-content: center;
 }

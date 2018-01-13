@@ -51,6 +51,7 @@ var execute = function(args, assistant){
                 user.setContext(flashContext, ContextMap[newContext].previous);
                 SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
                 delayedContext(user);
+                user.save()
                 assistant
                     .say('<speak><audio src="' + Sounds.forward + '"></audio>Starting trivia! Good luck!</speak>')
                     .finish()

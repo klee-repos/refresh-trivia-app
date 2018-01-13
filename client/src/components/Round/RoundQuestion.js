@@ -12,13 +12,19 @@ class RoundQuestion extends Component {
                     : null
                 }
                 <div className='roundMessageBox'>
-                    <div className='roundPlayer'>
-                        <span>Gavin, for 2 points...</span>
-                    </div>
+                    {this.props.teamOne && this.props.teamTwo
+                        ? <div className='roundPlayer'>
+                            {this.props.activeTeam === 'Team 1'
+                                ? <span>{this.props.teamOne[this.props.playerIndex]}, for 2 points...</span>
+                                : <span>{this.props.teamTwo[this.props.playerIndex]}, for 2 points...</span>
+                            }
+                        </div>
+                        : null
+                    }
                     <div className='roundQuestion'>
-                        <span>What is the capital of Ohio?</span>
+                        <span>{this.props.question}</span>
                     </div>
-                    <RoundAnswers />
+                    <RoundAnswers picklist={this.props.picklist}/>
                 </div>
             </div>
         )

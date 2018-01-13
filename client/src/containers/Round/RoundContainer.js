@@ -10,6 +10,8 @@ class RoundContainer extends Component {
 
     componentDidMount() {
         Info.getRound(this.props.sessionCode)
+        Info.getQuestion(this.props.sessionCode)
+        Info.getRoster(this.props.sessionCode)
     }
 
     roundStart() {
@@ -20,7 +22,8 @@ class RoundContainer extends Component {
 
     question() {
         return (
-            <RoundQuestion round={this.props.round} activeTeam={this.props.activeTeam}/>
+            <RoundQuestion {...this.props}/>
+
         )
     }
 
@@ -45,9 +48,14 @@ class RoundContainer extends Component {
 function mapStateToProps({dashboard,game}) {
     return {
         sessionCode: dashboard.sessionCode,
+        teamOne: game.teamOne,
+        teamTwo: game.teamTwo,
         round: game.round,
         activeTeam: game.activeTeam,
-        playerIndex: game.playerIndex
+        playerIndex: game.playerIndex,
+        question: game.question,
+        picklist: game.picklist,
+        mediaURL: game.mediaURL,
     }
 }
 

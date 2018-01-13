@@ -1,6 +1,7 @@
 
 const SET_TEAMS = 'SET_TEAMS';
 const SET_ROUND = 'SET_ROUND';
+const SET_QUESTION = 'SET_QUESTION';
 
 export function setTeams(roster) {
     return {
@@ -25,12 +26,24 @@ export function setRound(round) {
     }
 }
 
+export function setQuestion(question) {
+    return {
+        type: SET_QUESTION,
+        question: question.text,
+        picklist: question.picklist,
+        mediaURL: question.mediaURL
+    }
+}
+
 const initialState = {
     teamOne: null,
     teamTwo:null,
     round: null,
     activeTeam: null,
-    playerIndex: null
+    playerIndex: null,
+    question: null,
+    picklist: null,
+    mediaURL: null,
 }
 
 export default function apps (state = initialState, action) {
@@ -45,6 +58,12 @@ export default function apps (state = initialState, action) {
                 round: action.round,
                 activeTeam: action.activeTeam,
                 playerIndex: action.playerIndex,
+            })
+        case SET_QUESTION:
+            return Object.assign({},state , {
+                question: action.question,
+                picklist: action.picklist,
+                mediaURL: action.mediaURL,
             })
         default:
             return state

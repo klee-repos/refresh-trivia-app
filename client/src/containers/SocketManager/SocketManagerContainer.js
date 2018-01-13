@@ -66,6 +66,11 @@ class SocketManagerContainer extends Component {
             this.props.setRound(round);
         }.bind(this))
 
+        // Question data
+        socket.on('setQuestion', function(question) {
+            this.props.setQuestion(question)
+        }.bind(this))
+
     }
 
     render() {
