@@ -11,7 +11,7 @@
 }
 
 .roundBox h1 {
-    font-size: 300%;
+    font-size: 250%;
 }
 
 .roundMessageBox {
@@ -40,7 +40,7 @@
 .roundTitleBar_TeamOne{
     display: flex;
     background-color: #1ED26F;
-    width: 30%;
+    width: 20%;
     border-radius: 50px;
     justify-content: center;
     align-items: center;
@@ -49,7 +49,7 @@
 .roundTitleBar_TeamTwo{
     display: flex;
     background-color: #EFD638;
-    width: 30%;
+    width: 20%;
     border-radius: 50px;
     justify-content: center;
     align-items: center;
@@ -71,28 +71,27 @@
 .roundQuestion {
     display:flex;
     justify-content: center;
-    font-size: 200%;
-    padding-bottom: 1%;
+    font-size: 250%;
+    padding-bottom: 3%;
 }
 
 .roundAnswers {
     display:flex;
     width: 80%;
     justify-content: center;
-    font-size: 180%;
+    font-size: 200%;
     color: #FF4C6A;
 }
 
 .answersRow {
     display:flex;
-    width:20%;
+    width:80%;
     flex-wrap: nowrap;
-    flex-direction: column;
 }
 
 .answersColumn {
     display:flex;
-    height:60px;
+    height:30px;
     width:100%;
     align-items:center;
     justify-content: center;

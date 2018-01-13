@@ -11,4 +11,4 @@ class SpokenContainer extends Component {
     }
 }
 
-export default Spoken;
+export default SpokenContainer;

@@ -1,5 +1,6 @@
 const SessionManager = require('../SessionManager');
 const User = require('../models/User');
+const Device = require('../models/DeviceProfile');
 
 const Sounds = require('../Sounds')
 
@@ -8,6 +9,7 @@ const previousContext = 'connect'
 
 var execute = function(args, assistant){
     var user = assistant.deviceProfile.user;
+    
     if(!user){
         user = new User();        
         user.generateSessionCode();

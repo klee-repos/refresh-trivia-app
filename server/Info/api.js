@@ -3,7 +3,6 @@ const routes = require('express').Router();
 const User = require('../models/User');
 const SessionManager = require('../SessionManager')
 
-// Get object of all quiz names
 routes.post('/getRoster', function(req, res) {
     let sessionCode = req.body.sessionCode;
     let teamOne;
@@ -26,6 +25,13 @@ routes.post('/getRound', function(req, res) {
         let round = user.game.gameState.round
         SessionManager.sendData(sessionCode, 'setRound', round);
         res.send(round)
+    })
+})
+
+routes.post('/getQuestion', function(req, res) {
+    let sessionCode = req.body.sessionCode;
+    User.findOne({sessionCode:sessionCode}).populate('game').then(function(user) {
+
     })
 })
 

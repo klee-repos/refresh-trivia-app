@@ -12,8 +12,6 @@ class RoundAnswers extends Component {
                     <div className='answersColumn'>
                     <span>answer 2</span>
                     </div>
-                </div>
-                <div className='answersRow'>
                     <div className='answersColumn'>
                     <span>answer 3</span>
                     </div>
