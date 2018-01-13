@@ -9,7 +9,7 @@ var execute = function(args, assistant){
     let location;
     newContext = user.getPreviousContext()
     SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
-    user.setContext(newContext, ContextMap[newContext].goBack);
+    user.setContext(newContext, ContextMap[newContext].previous);
     user.save();
 
     switch(newContext) {

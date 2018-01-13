@@ -4,13 +4,13 @@ const Game = require('../models/Game');
 const Sounds = require('../Sounds')
 
 var newContext = 'rosterSetup'
-var previousContext = 'mainMenu'
+const ContextMap = require('../ContextMap')
 
 var execute = function(args, assistant){
     let game = new Game();
     let user = assistant.deviceProfile.user;
     user.game = game
-    user.setContext(newContext, previousContext);
+    user.setContext(newContext, ContextMap[newContext].previous);
     user.save();
     game.save();
     SessionManager.sendData(user.sessionCode, 'setStatus', newContext);

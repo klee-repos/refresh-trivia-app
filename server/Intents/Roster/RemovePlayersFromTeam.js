@@ -4,7 +4,7 @@ const SessionManager = require('../../SessionManager')
 const Sounds = require('../../Sounds')
 
 var newContext = 'rosterSetup'
-var previousContext = 'mainMenu'
+const ContextMap = require('../../ContextMap')
 
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
@@ -22,7 +22,7 @@ var execute = function(args, assistant){
                 .say('<speak><audio src="' + Sounds.backward + '"></audio>Removed<desc>. One additional player required on the opposing team to start.</desc></speak>')
                 .finish()
             }
-            user.setContext(newContext, previousContext);
+            user.setContext(newContext, ContextMap[newContext].previous);
             SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
             user.save();
         })

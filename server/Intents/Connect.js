@@ -4,8 +4,8 @@ const Device = require('../models/DeviceProfile');
 
 const Sounds = require('../Sounds')
 
+const ContextMap = require('../ContextMap')
 var newContext = 'mainMenu'
-const previousContext = 'connect'
 
 var execute = function(args, assistant){
     var user = assistant.deviceProfile.user;
@@ -13,7 +13,7 @@ var execute = function(args, assistant){
     if(!user){
         user = new User();        
         user.generateSessionCode();
-        user.setContext(newContext, previousContext);
+        user.setContext(newContext, ContextMap[newContext].previous);
         assistant.setUser(user)
         user.save();
     }

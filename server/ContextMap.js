@@ -7,7 +7,7 @@ var ContextMap = {
             'newGame',
             'joinGame'
         ],
-        goBack: null
+        previous: null
     },
 
     rosterSetup: {
@@ -18,7 +18,7 @@ var ContextMap = {
             'addPlayersToTeam',
             'removePlayersFromTeam'
         ],
-        goBack: 'mainMenu'
+        previous: 'mainMenu'
 
     },
 
@@ -30,8 +30,8 @@ var ContextMap = {
             'addPlayersToTeam',
             'removePlayersFromTeam',
             'confirmRoster'
-        ]
-        ,goBack: 'mainMenu'
+        ],
+        previous: 'mainMenu'
     },
 
     roundStart: {
@@ -39,9 +39,19 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
-        ]
+        ],
+        previous: 'readyToStart'
     },
-    goBack: 'readyToStart'
+
+    question: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+        ],
+        previous:'readyToStart'
+    }
+    
 }
 
 module.exports = ContextMap;

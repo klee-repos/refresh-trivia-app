@@ -3,9 +3,10 @@ const Question = require('../../models/Question');
 const SessionManager = require('../../SessionManager')
 
 const Sounds = require('../../Sounds')
+const ContextMap = require('../../ContextMap')
 
-var newContext = 'roundStart'
-var previousContext = 'readyToStart'
+var newContext = 'question'
+var flashContext = 'roundStart'
 
 var getUniqueQuestion = function(previousQuestions) {
     return new Promise(function(resolve, reject) {
@@ -30,6 +31,14 @@ var getUniqueQuestion = function(previousQuestions) {
     })
 }
 
+var delayedContext = function(user) {
+    setTimeout(function() {
+        user.setContext(newContext, ContextMap[newContext].previous);
+        SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
+        user.save()
+    }, 3000)
+}
+
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game).populate('gameState.previousQuestions').then(function(game){
@@ -39,12 +48,13 @@ var execute = function(args, assistant){
                 game.setQuestions(question)
                 game.setRound(1, 'team1', 0)
                 game.save()
-                user.setContext(newContext, previousContext);
-                SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
-                user.save()
+                user.setContext(flashContext, ContextMap[newContext].previous);
+                SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
+                delayedContext(user);
                 assistant
                     .say('<speak><audio src="' + Sounds.forward + '"></audio>Starting trivia! Good luck!</speak>')
                     .finish()
+                
             })
         })
     });
