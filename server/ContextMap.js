@@ -48,6 +48,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'guess',
         ],
         previous:'readyToStart'
     }

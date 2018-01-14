@@ -38,9 +38,10 @@ var GoogleAssistant = function(_res, _deviceProfile){
         return this;
     }
 
-    this.setContext = function(contextName) {
+    this.setContext = function(contextName, lifespan) {
         let context = {
             name: contextName,
+            lifespan: lifespan
         }
         responseData.contextOut.push(context)
         return this;

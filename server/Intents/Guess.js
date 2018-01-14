@@ -1,42 +1,50 @@
-// var SessionManager = require('../SessionManager');
+const SessionManager = require('../SessionManager');
+const Game = require('../models/Game');
+const Question = require('../models/Question');
 
-// var execute = function(args, assistant){
-//     User.findOne({gAssistantId: args.uniqueUserId})
-//         .then(function(user){
-//             var currentGame = user.currentGame;
-//             GameState.findOne({gameStateId:currentGame})
-//                 .then(function(gameState) {
-//                     let theQuestion = gameState.questions[parseInt(questionIndex)];
-//                     let newAnswers = theQuestion.answersGiven.slice();
-//                     let answerKey = theQuestion.answerKey.slice();
-//                     let answerIndex;
-//                     isAnAnswer(guess, theQuestion.answersFull).then(function(answer) {
-//                         if (answer) {
-//                             for (let i = 0; i < answerKey.length; i++) {
-//                                 if (answerKey[i] === answer.key) {
-//                                     answerIndex = i;
-//                                     break;
-//                                 }
-//                             }
-//                             newAnswers[answerIndex] = answer.key
-//                             gameState.questions[parseInt(questionIndex)].answersGiven = newAnswers;
-//                             gameState.markModified('questions');
-//                             gameState.save();
-//                             result.speech = '<speak><audio src="' + correctURL + '"><desc>' + answer.key + ' is correct!</desc></audio></speak>';
-//                             game.formatAnswers(newAnswers).then(function(preparedAnswers) {
-//                                 sessionManager.io.emit('correctAnswer', preparedAnswers)
-//                             })
-//                         } else {
-//                             result.speech = '<speak><audio src="' + wrongURL + '"><desc>Incorrect!</desc></audio></speak>'
-//                         }
-//                         res.send(result);
-//                 }).catch(function(err){
-//                     assistant.say("There was a problem. Please try your guess again.").finish();
-//                 });
-                
-//             })		
-//         })
-// }
+const Sounds = require('../Sounds')
+
+var newContext = 'question'
+const ContextMap = require('../ContextMap')
+
+var execute = function(args, assistant){
+    let guess = args.guess
+    let user = assistant.deviceProfile.user;
+    Game.findById(assistant.deviceProfile.user.game).populate('gameState.nextQuestion').populate('gameState.previousQuestions').then(function(game) {
+        console.log(game)
+        let answer = game.gameState.nextQuestion.answer
+        let round = game.gameState.round
+        let currentTeam = game.gameState.teams[game.gameState.round.activeTeam].players
+        if (guess.toLowerCase() === answer.toLowerCase()) {
+            if (round.playerIndex < currentTeam.length - 1) {
+                round.playerIndex++
+            } else {
+                round.playerIndex = 0;
+            }
+            assistant
+                .say('<speak><audio src="' + Sounds.forward + '"></audio>Correct!</speak>')
+                .setContext('guess', 1)
+                .finish();
+        } else {
+            if (round.activeTeam === 'team1') {
+                game.setRound(1, 'team2', 0)
+            } else {
+                game.setRound(1, 'team1', 0)
+            }
+            assistant
+                .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')
+                .setContext('guess', 1)
+                .finish();
+        }
+        let random = parseInt(Math.random() * (10 - 1) + 1)
+        Question.findOne({qId:random}).then(function(question) {
+            game.setQuestions(question)
+            SessionManager.sendData(user.sessionCode, 'setQuestion', question);
+            SessionManager.sendData(user.sessionCode, 'setRound', round);
+            game.save()
+        })
+    })
+}
 
 // var isAnAnswer = function(guess,answers){
 //     var answer = null;
@@ -55,8 +63,13 @@
 //     return answer;
 // }
 
-// var GuessIntent = {
-//     execute: execute
-// }
+var validateInput = function(args,assistant){
+    return null;
+}
 
-// module.exports = GuessIntent
+var GuessIntent = {
+    execute: execute,
+    validateInput: validateInput
+}
+
+module.exports = GuessIntent;

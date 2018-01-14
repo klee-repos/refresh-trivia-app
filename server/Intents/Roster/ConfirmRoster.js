@@ -54,8 +54,8 @@ var execute = function(args, assistant){
                 user.save()
                 assistant
                     .say('<speak><audio src="' + Sounds.forward + '"></audio>Starting trivia! Good luck!</speak>')
+                    .setContext('guess', 1)
                     .finish()
-                
             })
         })
     });
