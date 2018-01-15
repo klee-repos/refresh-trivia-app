@@ -35,7 +35,9 @@ var requireContext = function(args, assistant) {
             resolve(true)
         }
         let requestedIntent = args.intent;
-        let activeIntents = assistant.deviceProfile.user.context.activeIntents
+        let activeIntents = assistant.deviceProfile.user.context.activeIntents;
+        console.log(requestedIntent);
+        console.log(activeIntents)
         for (let i = 0; i < activeIntents.length; i++) {
             if (requestedIntent === activeIntents[i]) {
                 found = true;

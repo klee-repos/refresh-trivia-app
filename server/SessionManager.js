@@ -8,14 +8,12 @@ var SessionManager = (function(){
     var initialize = function(_io){
         io = _io;
         io.on('connection',function(socket){
-            console.log("Connected")
             socket.on('startSession',function(requestedCode){
                 if (requestedCode){
                     socket.join(requestedCode);
                     socket.emit('sessionCode', requestedCode);
                     User.findOne({sessionCode:requestedCode}, function(err, user) {
                         if(user) {
-                            console.log(user.context.name)
                             socket.emit('setStatus', user.context.name)
                             for (var key in user.preferences) {
                                 socket.emit(key, user.preferences[key]);

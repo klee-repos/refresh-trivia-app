@@ -11,7 +11,6 @@ var execute = function(args, assistant){
     let guess = args.guess
     let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game).populate('gameState.nextQuestion').populate('gameState.previousQuestions').then(function(game) {
-        console.log(game)
         let answer = game.gameState.nextQuestion.answer
         let round = game.gameState.round
         let currentTeam = game.gameState.teams[game.gameState.round.activeTeam].players

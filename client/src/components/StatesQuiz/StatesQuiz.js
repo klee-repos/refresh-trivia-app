@@ -17,7 +17,6 @@ class StatesQuiz extends Component {
                     <div className='answerBox'>
                         {this.props.quizAnswers
                             ? this.props.quizAnswers.map(function(answer,rowIdx) {
-                                console.log(answer)
                                 return (
                                     <div className='answerRow' key={rowIdx}>
                                         {answer.map(function(item, columnIdx) {

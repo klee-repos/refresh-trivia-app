@@ -40,6 +40,24 @@ questionSchema.methods.isAnAnswer = function(guess){
     })   
 }
 
+questionSchema.statics.getQuestion = function(opts){
+    // opts.excludedQuestions
+    // opts.category
+    // opts.difficulty
+    var query = this.find();
+
+    if(opts.category)
+        query = query.where('category').equals(opts.category);
+
+    if(opts.difficulty)
+        query = query.where('difficulty').equals(opts.difficulty)
+
+    if(opts.excludedQuestions)
+        query = query.where('id').nin(opts.excludedQuestions)
+
+    return query.execute();
+}
+
 var Question = mongoose.model('Question', questionSchema);
 
 module.exports = Question;
