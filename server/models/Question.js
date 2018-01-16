@@ -46,7 +46,6 @@ questionSchema.statics.getRandomQuestion = function(opts){
     // opts.difficulty
     // opts.limit
 
-    
     return new Promise (function(resolve, reject){
         var query = this.find()
         if(opts){
