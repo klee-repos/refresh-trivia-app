@@ -4,14 +4,13 @@ const Question = require('../models/Question');
 
 const Sounds = require('../Sounds')
 
-var newContext = 'question'
+var correctContext = 'correctAnswer'
 const ContextMap = require('../ContextMap')
 
 var execute = function(args, assistant){
     let guess = args.guess
     let user = assistant.deviceProfile.user;
-    Game.findById(assistant.deviceProfile.user.game).populate('gameState.nextQuestion').populate('gameState.previousQuestions').then(function(game) {
-        console.log(game)
+    Game.findById(assistant.deviceProfile.user.game).populate('gameState.nextQuestion').then(function(game) {
         let answer = game.gameState.nextQuestion.answer
         let round = game.gameState.round
         let currentTeam = game.gameState.teams[game.gameState.round.activeTeam].players
@@ -23,8 +22,10 @@ var execute = function(args, assistant){
             }
             assistant
                 .say('<speak><audio src="' + Sounds.forward + '"></audio>Correct!</speak>')
-                .setContext('guess', 1)
+                .setContext('guess', 0)
                 .finish();
+            user.setContext(correctContext, ContextMap[correctContext].previous);
+            SessionManager.sendData(user.sessionCode, 'setStatus', correctContext);
         } else {
             if (round.activeTeam === 'team1') {
                 game.setRound(1, 'team2', 0)
@@ -36,13 +37,9 @@ var execute = function(args, assistant){
                 .setContext('guess', 1)
                 .finish();
         }
-        let random = parseInt(Math.random() * (10 - 1) + 1)
-        Question.findOne({qId:random}).then(function(question) {
-            game.setQuestions(question)
-            SessionManager.sendData(user.sessionCode, 'setQuestion', question);
-            SessionManager.sendData(user.sessionCode, 'setRound', round);
-            game.save()
-        })
+        SessionManager.sendData(user.sessionCode, 'setRound', round);
+        game.save()
+        user.save()
     })
 }
 

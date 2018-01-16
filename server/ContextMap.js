@@ -51,7 +51,18 @@ var ContextMap = {
             'guess',
         ],
         previous:'readyToStart'
-    }
+    },
+
+    correctAnswer: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'play',
+            'bank'
+        ],
+        previous:'readyToStart'
+    },
     
 }
 

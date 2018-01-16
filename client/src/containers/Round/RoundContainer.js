@@ -2,9 +2,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {RoundStart, RoundQuestion} from '../../components'
+import {RoundStart, RoundQuestion, RoundCorrectAnswer} from '../../components'
 
 import {Info} from '../../requests'
+
+import '../../components/Round/round.css'
 
 class RoundContainer extends Component {
 
@@ -27,10 +29,17 @@ class RoundContainer extends Component {
         )
     }
 
+    correctAnswer() {
+        return (
+            <RoundCorrectAnswer {...this.props}/>
+        )
+    }
+
     currentPage(){
         switch(this.props.context){
             case "roundStart": return this.roundStart();
             case "question": return this.question();
+            case "correctAnswer": return this.correctAnswer();
             default: return this.mainMenu(); 
         }
     }

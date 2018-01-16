@@ -43,6 +43,8 @@ class DashboardContainer extends React.Component {
         )
     }
 
+
+
     currentPage(status){
         switch(this.props.loadingStatus){
             case "INIT" : return this.landingPage();
@@ -51,6 +53,7 @@ class DashboardContainer extends React.Component {
             case "readyToStart": return this.rosterSetup('readyToStart');
             case "roundStart": return this.round('roundStart');
             case "question": return this.round('question');
+            case "correctAnswer": return this.round('correctAnswer');
             default: return this.mainMenu(); 
         }
     }
