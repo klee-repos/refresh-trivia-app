@@ -38,6 +38,7 @@ var roundSchema = new mongoose.Schema({
     round: Number,
     activeTeam: String,
     playerIndex: Number,
+    questionIndex: Number,
 })
 
 /* /////////////////////////////////
@@ -60,11 +61,12 @@ var gameStateSchema = new mongoose.Schema(
     }
 });
 
-gameStateSchema.methods.setRound = function(round, activeTeam, playerIndex) {
+gameStateSchema.methods.setRound = function(round, activeTeam, playerIndex, questionIndex) {
     this.round = {
         round: round,
         activeTeam: activeTeam,
-        playerIndex: playerIndex
+        playerIndex: playerIndex,
+        questionIndex: questionIndex
     }
     this.markModified('round');
     return this.round
@@ -166,8 +168,8 @@ gameSchema.methods.formatRoster = function(){
     return roster;
 }
 
-gameSchema.methods.setRound = function(round, activeTeam, activePlayer) {
-    return this.gameState.setRound(round, activeTeam, activePlayer)
+gameSchema.methods.setRound = function(round, activeTeam, playerIndex, questionIndex) {
+    return this.gameState.setRound(round, activeTeam, playerIndex, questionIndex)
 }
 
 gameSchema.methods.setQuestions = function(question) {

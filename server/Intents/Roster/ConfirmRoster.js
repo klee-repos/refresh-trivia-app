@@ -46,11 +46,12 @@ var execute = function(args, assistant){
         getUniqueQuestion(previousQuestions).then(function(random) {
             Question.findOne({qId:random}).then(function(question) {
                 game.setQuestions(question)
-                game.setRound(1, 'team1', 0)
-                game.save()
+                game.setRound(1, 'team1', 0, 1)
                 user.setContext(flashContext, ContextMap[newContext].previous);
                 SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
+                SessionManager.sendData(user.sessionCode, 'setQuestion', question);
                 delayedContext(user);
+                game.save()
                 user.save()
                 assistant
                     .say('<speak><audio src="' + Sounds.forward + '"></audio>Starting trivia! Good luck!</speak>')

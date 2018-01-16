@@ -38,7 +38,7 @@ routes.post('/setQuestions', function(req,res) {
                     question.picklist = picklist
                     question.answer = json.Answer
                     question.categorgy = json.Category
-                    question.difficult = json.Difficulty
+                    question.difficult = parseInt(json.Difficulty)
                     question.tags = json.Tags.split(',')
                     question.mediaURL = json.MediaURL
                     question.save()
@@ -49,7 +49,7 @@ routes.post('/setQuestions', function(req,res) {
                         picklist: picklist,
                         answer: json.Answer,
                         category: json.Category,
-                        difficulty: json.Difficult,
+                        difficulty: parseInt(json.Difficulty),
                         tags: json.Tags.split(','),
                         mediaURL: json.MediaURL
                     })

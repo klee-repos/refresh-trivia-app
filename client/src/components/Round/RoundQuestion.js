@@ -15,8 +15,8 @@ class RoundQuestion extends Component {
                     {this.props.teamOne && this.props.teamTwo
                         ? <div className='roundPlayer'>
                             {this.props.activeTeam === 'Team 1'
-                                ? <span>{this.props.teamOne[this.props.playerIndex]}, for 2 points...</span>
-                                : <span>{this.props.teamTwo[this.props.playerIndex]}, for 2 points...</span>
+                                ? <span>{this.props.teamOne[this.props.playerIndex]}, for {this.props.coinTotal} coins...</span>
+                                : <span>{this.props.teamTwo[this.props.playerIndex]}, for {this.props.coinTotal} coins...</span>
                             }
                         </div>
                         : null
