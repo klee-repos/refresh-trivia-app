@@ -56,6 +56,7 @@ var execute = function(args, assistant){
                 assistant
                     .say('<speak><audio src="' + Sounds.forward + '"></audio>Starting trivia! Good luck!</speak>')
                     .setContext('guess', 1)
+                    .reprompt('<speak>Only a few seconds remaining to answer...</speak>')
                     .finish()
             })
         })

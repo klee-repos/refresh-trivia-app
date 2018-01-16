@@ -20,6 +20,7 @@ var execute = function(args, assistant){
             } else {
                 round.playerIndex = 0;
             }
+            round.questionIndex++
             assistant
                 .say('<speak><audio src="' + Sounds.forward + '"></audio>Correct!</speak>')
                 .setContext('guess', 0)
@@ -28,9 +29,9 @@ var execute = function(args, assistant){
             SessionManager.sendData(user.sessionCode, 'setStatus', correctContext);
         } else {
             if (round.activeTeam === 'team1') {
-                game.setRound(1, 'team2', 0)
+                game.setRound(1, 'team2', 0, 1)
             } else {
-                game.setRound(1, 'team1', 0)
+                game.setRound(1, 'team1', 0, 1)
             }
             assistant
                 .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')
