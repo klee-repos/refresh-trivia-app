@@ -13,7 +13,7 @@ var execute = function(args, assistant){
     if(!user){
         user = new User();        
         user.generateSessionCode();
-        user.setContext(newContext, ContextMap[newContext].previous);
+        user.setContext(newContext);
         assistant.setUser(user)
         user.save();
     }

@@ -22,7 +22,7 @@ var userSchema = new mongoose.Schema(
 	began: {type:Date, default:Date.now},
 	sessionCode: String,
 	game: {type:mongoose.Schema.Types.ObjectId, ref:"Game"},
-	context: {type:contextSchema, default: null}
+	context: String
 });
 
 userSchema.methods.generateSessionCode = function(){
@@ -30,12 +30,8 @@ userSchema.methods.generateSessionCode = function(){
 	this.markModified('sessionCode');
 }
 
-userSchema.methods.setContext = function(context, previous){	
-	this.context = {
-		name: context, 
-		previous: previous,
-		activeIntents: ContextMap[context].activeIntents,
-	}
+userSchema.methods.setContext = function(_context){	
+	this.context = _context
 	this.markModified('context');
 }
 

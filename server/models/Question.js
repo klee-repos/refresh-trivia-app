@@ -14,7 +14,7 @@ var questionSchema = new mongoose.Schema(
         picklist: Array,
         answer: String,
         category: String,
-        difficulty: Number,
+        difficulty: String,
         tags: Array,
         mediaURL: String,
     }
@@ -40,24 +40,41 @@ questionSchema.methods.isAnAnswer = function(guess){
     })   
 }
 
-questionSchema.statics.getQuestion = function(opts){
+questionSchema.statics.getRandomQuestion = function(opts){
     // opts.excludedQuestions
     // opts.category
     // opts.difficulty
-    var query = this.find();
+    // opts.limit
 
-    if(opts.category)
-        query = query.where('category').equals(opts.category);
-
-    if(opts.difficulty)
-        query = query.where('difficulty').equals(opts.difficulty)
-
-    if(opts.excludedQuestions)
-        query = query.where('id').nin(opts.excludedQuestions)
-
-    return query.execute();
+    
+    return new Promise (function(resolve, reject){
+        var query = this.find()
+        if(opts){
+            if(opts.category)
+                query = query.where('category').equals(opts.category);
+    
+            if(opts.difficulty)
+                query = query.where('difficulty').equals(opts.difficulty)
+    
+            if(opts.excludedQuestions)
+                query = query.where('id').nin(opts.excludedQuestions) 
+    
+            query.exec()
+                .then(returnRandomFromQuestionList)
+        }
+    }.bind(this))
 }
 
+var returnRandomFromQuestionList = function(questions){
+        if(!questions || questions.length == 0) {reject("No questions found")}
+        else{
+            var numResults = questions.length;
+            var rand = Math.floor(Math.random() * (numResults+1))
+            resolve(questions[rand])
+        }
+}
+
+//Randomizer
 var Question = mongoose.model('Question', questionSchema);
 
 module.exports = Question;

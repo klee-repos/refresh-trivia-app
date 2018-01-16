@@ -1,6 +1,6 @@
 var Intents = require('../Intents');
 var Promise = require('bluebird')
-
+var ContextMap = require('../ContextMap')
 const User = require('../models/User');
 
 var IntentExecutor = function(args, assistantContext){
@@ -35,7 +35,7 @@ var requireContext = function(args, assistant) {
             resolve(true)
         }
         let requestedIntent = args.intent;
-        let activeIntents = assistant.deviceProfile.user.context.activeIntents;
+        let activeIntents = ContextMap[assistant.deviceProfile.user.context].activeIntents;
         console.log(requestedIntent);
         console.log(activeIntents)
         for (let i = 0; i < activeIntents.length; i++) {
