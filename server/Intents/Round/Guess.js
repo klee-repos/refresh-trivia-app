@@ -1,11 +1,11 @@
-const SessionManager = require('../SessionManager');
-const Game = require('../models/Game');
-const Question = require('../models/Question');
+const SessionManager = require('../../SessionManager');
+const Game = require('../../models/Game');
+const Question = require('../../models/Question');
 
-const Sounds = require('../Sounds')
+const Sounds = require('../../Sounds')
 
 var correctContext = 'correctAnswer'
-const ContextMap = require('../ContextMap')
+const ContextMap = require('../../ContextMap')
 
 var execute = function(args, assistant){
     let guess = args.guess

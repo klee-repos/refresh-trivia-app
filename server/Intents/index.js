@@ -7,18 +7,14 @@ Intents.CONNECT = require('./Connect');
 Intents.NEWGAME = require('./NewGame');
 Intents.GOBACK = require('./GoBack')
 
-//Guess
-Intents.GUESS = require('./Guess')
-
 // Correct guess
-Intents.PLAY = require('./Play')
-Intents.BANK = require('./Bank')
+Intents.GUESS = require('./Round/Guess')
+Intents.PLAY = require('./Round/Play')
+Intents.BANK = require('./Round/Bank')
 
 //Roster
 Intents.ADDPLAYERSTOTEAM = require('./Roster/AddPlayersToTeam');
 Intents.REMOVEPLAYERSFROMTEAM = require('./Roster/RemovePlayersFromTeam');
 Intents.CONFIRMROSTER = require('./Roster/ConfirmRoster');
-
-
 
 module.exports = Intents;

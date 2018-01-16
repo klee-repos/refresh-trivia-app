@@ -1,15 +1,14 @@
-const SessionManager = require('../SessionManager');
-const Game = require('../models/Game');
-const Question = require('../models/Question');
+const SessionManager = require('../../SessionManager');
+const Game = require('../../models/Game');
 
-const Sounds = require('../Sounds')
+const Sounds = require('../../Sounds')
 
 var newContext = 'question'
-const ContextMap = require('../ContextMap')
+const ContextMap = require('../../ContextMap')
 
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
-    Game.findById(assistant.deviceProfile.user.game).populate('gameState.nextQuestion').then(function(game) {
+    Game.findById(assistant.deviceProfile.user.game).then(function(game) {
         let random = parseInt(Math.random() * (10 - 1) + 1)
         Question.findOne({qId:random}).then(function(question) {
             game.setQuestions(question)
@@ -20,7 +19,7 @@ var execute = function(args, assistant){
             user.save();
             assistant
                 .say('<speak><audio src="' + Sounds.forward + '"></audio>Next question</speak>')
-                .setContext('guess', 1)
+                .setContext(newContext)
                 .finish();
         })
     })
@@ -30,9 +29,9 @@ var validateInput = function(args,assistant){
     return null;
 }
 
-var PlayIntent = {
+var BankIntent = {
     execute: execute,
     validateInput: validateInput
 }
 
-module.exports = PlayIntent;
+module.exports = BankIntent;
