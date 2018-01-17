@@ -41,6 +41,11 @@ app.post('/gAssistant', function(req, res) {
 	ExecuteRequest.FromGoogle(req.body, res);
 })
 
+app.get('/test', function(req,res){
+    console.log('here');
+    res.send();
+})
+
 var Info = require('./Info/api');
 app.use('/info', Info);
 

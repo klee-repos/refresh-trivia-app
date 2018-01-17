@@ -65,7 +65,6 @@ var GoogleAssistant = function(_res, _deviceProfile){
     }
 
     this.finish = function(){
-
         res.status(resStatus).send(responseData);
     }
 

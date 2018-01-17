@@ -1,42 +1,71 @@
 var Playback = function(){
+
+    // var format = {
+    //     content: "",
+    //     modifiers: {
+    //         prosody: {
+    //             pitch: "",
+    //             contour: "",
+    //             duration: "",
+    //             volume: ""
+    //         }
+    //     }
+    // }
+
     var ssmlOutput = ["<speak>"];
-    var estimatedOutputTime = 0; 
+    var estimatedOutputTime = 0;
+
+    var setupProsodyTag = function(){
+        var currentPlaybackItem = ssmlOutput[ssmlOutput.length -1]
+        if(typeof(currentPlaybackItem) === "string" || !currentPlaybackItem.modifiers)
+            currentPlaybackItem = {
+                content: currentPlaybackItem,
+                modifiers: {
+                    prosody: {}
+                }
+            }
+    }
 
     this.say = function(phrase){
         ssmlOutput.push(phrase);
         return this;
     }
 
-    this.pause = function(time, unit){
-        //Assume milliseconds unless overridden
-        if(!unit || (unit != 'ms' && unit != 's')) unit = 'ms' 
-
-        ssmlOutput.push('<break time="'+ time+unit +'"/>')
+    this.pause = function(duration){
+        ssmlOutput.push('<break time="'+ duration +'"/>')
         return this;
     }
 
     this.pitch = function(){
-
+        return this;
     }
 
     this.rate = function(){
         //Audio vs speech
+
+        return this;
     }
 
     this.emphasis = function(){
         
-    }
-
-    this.play = function(url, altSpeech){
-        ssmlOutput.push('<audio src="'+url+'">'+ altSpeech || '' + '</audio>')
+        
         return this;
     }
 
-    this.getSpeech = function(){
-        return ssmlOutput.reduce(function(total, nextBlock){
+    this.play = function(url, altSpeech){
+        altSpeech = altSpeech || ""
+        ssmlOutput.push('<audio src="'+url+'">'+ altSpeech + '</audio>')
+        return this;
+    }
+
+    this.getSSML = function(){
+        var output = ssmlOutput.reduce(function(total, nextBlock){
             return total.concat(nextBlock);
         })
+        return output.concat('</speak>')
     }
 }
+
+module.exports = Playback;
 
 //SSML reference: https://developers.google.com/actions/reference/ssml
