@@ -6,26 +6,38 @@ const Sounds = require('../../Sounds')
 var newContext = 'rosterSetup'
 const ContextMap = require('../../ContextMap')
 
+/* /////////////////////////////////
+// Private Methods
+*/ ///////////////////////////////
+var updateContext = function(game, assistant){
+    var reply;
+    if(game.getStatus() == "Roster Set") {
+        newContext = 'readyToStart';
+        reply = "Added. Confirm roster to start the game!"
+    } else 
+        reply = "Added. One additional player required on the opposing team to start."
+    
+    user.setContext(newContext);
+    SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
+    user.save();
+
+    assistant
+        .say('<speak><audio src="' + Sounds.forward + '"></audio>"'+ reply + '</speak>')
+        .finish()   
+}
+
+/* /////////////////////////////////
+// Intent Methods
+*/ ///////////////////////////////
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game)
-    .then(function(game){
-        game.addPlayersToTeam(args.names, args.teamName).then(function(){
-            game.save();
-            SessionManager.sendData(user.sessionCode, 'teamRoster', game.formatRoster());
-            if(game.getStatus() == "Roster Set") {
-                newContext = 'readyToStart'
-                assistant
-                .say('<speak><audio src="' + Sounds.forward + '"></audio>Added<desc>. Confirm roster to start the game!</desc></speak>')
-                .finish()
-            } else {
-                assistant
-                .say('<speak><audio src="' + Sounds.forward + '"></audio>Added<desc>. One additional player required on the opposing team to start.</desc></speak>')
-                .finish()
-            }
-            user.setContext(newContext, ContextMap[newContext].previous);
-            SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
-            user.save();
+        .then(function(game){
+            game.addPlayersToTeam(args.names, args.teamName)
+            .then(function(){
+                game.save();
+                SessionManager.sendData(user.sessionCode, 'teamRoster', game.formatRoster());
+                updateContext(game,assistant);
         })
         .catch(function(err){
             assistant.error(500).data(err).finish();

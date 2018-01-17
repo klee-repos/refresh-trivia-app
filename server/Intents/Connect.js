@@ -7,19 +7,32 @@ const Sounds = require('../Sounds')
 const ContextMap = require('../ContextMap')
 var newContext = 'mainMenu'
 
-var execute = function(args, assistant){
-    var user = assistant.deviceProfile.user;
-    
-    if(!user){
-        user = new User();        
-        user.generateSessionCode();
-        user.setContext(newContext);
-        assistant.setUser(user)
-        user.save();
-    }
+/* /////////////////////////////////
+// Private Methods
+*/ ///////////////////////////////
+
+var setupNewUser = function(args, assistant){
+    user = new User();        
+    user.generateSessionCode();
+    user.setContext(newContext);
+    assistant.setUser(user)
+    user.save();
+}
+
+var connectBrowswerToUserSession = function(){
     var room = SessionManager.getSession(args.connectCode);
     SessionManager.sendData(room, 're-connect', user.sessionCode);
     SessionManager.sendData(room, 'setStatus', newContext);
+}
+
+/* /////////////////////////////////
+// Intent Methods
+*/ ///////////////////////////////
+
+var execute = function(args, assistant){
+    var user = assistant.deviceProfile.user
+    if(!user) {setupNewUser(args, assistant)}
+    connectBrowswerToUserSession(args, assistant)
     assistant.say('<speak><audio src="' + Sounds.forward + '"><desc>Connected</desc></audio></speak>').finish();
 }
 
