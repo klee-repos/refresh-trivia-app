@@ -22,7 +22,8 @@ export function setRound(round) {
         type: SET_ROUND,
         round: round.round,
         activeTeam: activeTeam,
-        playerIndex: round.playerIndex
+        playerIndex: round.playerIndex,
+        questionIndex: round.questionIndex
     }
 }
 
@@ -41,6 +42,7 @@ const initialState = {
     round: null,
     activeTeam: null,
     playerIndex: null,
+    questionIndex: null,
     question: null,
     picklist: null,
     mediaURL: null,
@@ -58,6 +60,7 @@ export default function apps (state = initialState, action) {
                 round: action.round,
                 activeTeam: action.activeTeam,
                 playerIndex: action.playerIndex,
+                questionIndex: action.questionIndex
             })
         case SET_QUESTION:
             return Object.assign({},state , {

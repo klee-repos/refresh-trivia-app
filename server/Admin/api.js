@@ -40,7 +40,7 @@ routes.post('/setQuestions', function(req,res) {
                 picklist: picklist,
                 answer: json.Answer,
                 category: json.Category,
-                difficulty: json.Difficulty,
+                difficulty: parseInt(json.Difficulty),
                 tags: json.Tags.split(','),
                 mediaURL: json.MediaURL
             })

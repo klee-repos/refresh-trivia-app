@@ -25,7 +25,7 @@ var GoogleAssistant = function(_res, _deviceProfile){
     var responseData = {
         speech: "",
         displayText: "",
-        data: {"google":{"is_ssml":useSSML}},
+        data: {"google":{"is_ssml":useSSML,"no_input_prompts":[]}},
         contextOut: [],
         source: "",
         followupEvent: {}
@@ -35,6 +35,13 @@ var GoogleAssistant = function(_res, _deviceProfile){
 
     this.say = function(speech){
         responseData.speech += speech;
+        return this;
+    }
+
+    this.reprompt = function(speech) {
+        responseData.data.google.no_input_prompts.push({
+            ssml: speech
+        })
         return this;
     }
 

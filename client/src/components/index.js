@@ -13,6 +13,7 @@ export {default as RoundTitleBar} from './Round/RoundTitleBar';
 export {default as RoundStart} from './Round/RoundStart';
 export {default as RoundQuestion} from './Round/RoundQuestion';
 export {default as RoundAnswers} from './Round/RoundAnswers';
+export {default as RoundCorrectAnswer} from './Round/RoundCorrectAnswer';
 
 
 export {default as StatesQuiz} from './StatesQuiz/StatesQuiz';

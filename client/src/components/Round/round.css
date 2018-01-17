@@ -98,3 +98,76 @@
     align-items:center;
     justify-content: center;
 }
+
+/* RoundCorrectAnswer
+---------------------
+---------------------
+*/
+
+.correctContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width:100%;
+    height: 100%;
+
+}
+
+.correctTitleBox {
+    display: flex;
+    align-self: center;
+}
+
+.correctTitleBox h1 {
+    font-size: 300%;
+    color: #007FFF;
+}
+
+.pointsBox {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 80%;
+    padding-top: 5%;
+}
+
+.playNext {
+    display: flex;
+    align-self: flex-end;
+    justify-content: flex-end;
+    align-self: center;
+    width:809px;
+}
+
+.alignWithBar {
+    display: flex;
+    width:35%;
+}
+
+.pointBar {
+    display: flex;
+    
+    align-self: center;
+    justify-content: center;
+}
+
+.pointBarImg {
+    height:55px;
+    width:809px;
+}
+
+
+.bankPoints {
+    display: flex;
+    align-self: flex-start;
+    width:809px;
+    align-self: center;
+}
+
+.remaining {
+    display:flex;
+    align-items: center;
+    font-size: 150%;
+}
+
