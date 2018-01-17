@@ -21,7 +21,7 @@ var execute = function(args, assistant){
     Game.findById(user.game).then(function(game){
         Question.getRandomQuestion({
             category: game.currentCategory,  //ToDo: get random category            
-            difficulty: '1' 
+            difficulty: 1 
         }).then(function(question){
             game.setQuestions(question)
             game.setRound(1, 'team1', 0, 1)

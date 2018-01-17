@@ -7,7 +7,7 @@ const ContextMap = require('../ContextMap')
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
     let location;
-    newContext = user.getPreviousContext()
+    var newContext = ContextMap[user.context].previous
     SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
     user.setContext(newContext, ContextMap[newContext].previous);
     user.save();

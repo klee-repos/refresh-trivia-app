@@ -14,7 +14,7 @@ var SessionManager = (function(){
                     socket.emit('sessionCode', requestedCode);
                     User.findOne({sessionCode:requestedCode}, function(err, user) {
                         if(user) {
-                            socket.emit('setStatus', user.context.name)
+                            socket.emit('setStatus', user.context)
                             for (var key in user.preferences) {
                                 socket.emit(key, user.preferences[key]);
                             }

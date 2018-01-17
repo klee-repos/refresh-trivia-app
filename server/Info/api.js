@@ -41,6 +41,9 @@ routes.post('/getQuestion', function(req, res) {
             SessionManager.sendData(sessionCode, 'setQuestion', questionData);
             res.send(questionData)
         })
+        .catch(function(err){
+            console.log(err)
+        })
     })
 })
 

@@ -14,7 +14,7 @@ var questionSchema = new mongoose.Schema(
         picklist: Array,
         answer: String,
         category: String,
-        difficulty: String,
+        difficulty: Number,
         tags: Array,
         mediaURL: String,
     }
@@ -59,19 +59,18 @@ questionSchema.statics.getRandomQuestion = function(opts){
                 query = query.where('id').nin(opts.excludedQuestions) 
     
             query.exec()
-                .then(returnRandomFromQuestionList)
+                .then(function(questions){
+                    if(!questions || questions.length == 0) {reject("No questions found")}
+                    else{
+                        var numResults = questions.length;
+                        var rand = Math.floor(Math.random() * (numResults+1))
+                        resolve(questions[rand])
+                    }
+            })
         }
     }.bind(this))
 }
 
-var returnRandomFromQuestionList = function(questions){
-        if(!questions || questions.length == 0) {reject("No questions found")}
-        else{
-            var numResults = questions.length;
-            var rand = Math.floor(Math.random() * (numResults+1))
-            resolve(questions[rand])
-        }
-}
 
 //Randomizer
 var Question = mongoose.model('Question', questionSchema);

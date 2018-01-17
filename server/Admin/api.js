@@ -7,14 +7,14 @@ const Question = require('../models/Question')
 const SessionManager = require('../SessionManager');
 
 const csv=require('csvtojson')
-const file = path.join(__dirname,'../TestTrivia.csv')
+const file = path.join(__dirname,'../TriviaQuestions.csv')
 
 routes.post('/setContext', function(req, res) {
     let context = req.body.context;
     let sessionCode = req.body.sessionCode;
     User.findOne({sessionCode:sessionCode}).then(function(user) {
         if (user) {
-            user.context.name = context;
+            user.context = context;
             user.save()
             SessionManager.sendData(sessionCode, 'setStatus', context);
             res.send(user)
