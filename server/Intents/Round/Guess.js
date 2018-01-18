@@ -29,9 +29,9 @@ var execute = function(args, assistant){
             SessionManager.sendData(user.sessionCode, 'setStatus', correctContext);
         } else {
             if (round.activeTeam === 'team1') {
-                game.setRound(1, 'team2', 0, 1)
+                game.setRound(round.round, 'team2', 0, 1)
             } else {
-                game.setRound(1, 'team1', 0, 1)
+                game.setRound(round.round + 1, 'team1', 0, 1)
             }
             assistant
                 .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')

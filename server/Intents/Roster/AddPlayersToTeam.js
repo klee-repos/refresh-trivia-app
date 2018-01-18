@@ -22,7 +22,7 @@ var execute = function(args, assistant){
                 } else {
                     assistant
                         .play(Sounds.forward)
-                        .say("One additional player required on the opposing team to start.")
+                        .say("Added")
                         .finish()
                 }
                 user.setContext(newContext, ContextMap[newContext].previous);

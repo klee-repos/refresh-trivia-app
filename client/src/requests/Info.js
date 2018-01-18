@@ -21,7 +21,7 @@ var getQuestion = function(sessionCode) {
 var Info = {
     getRoster:getRoster,
     getRound: getRound,
-    getQuestion: getQuestion
+    // getQuestion: getQuestion
 }
 
 export default Info

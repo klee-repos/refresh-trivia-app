@@ -22,23 +22,22 @@ var execute = function(args, assistant){
         Question.getRandomQuestion({
             category: game.currentCategory,  //ToDo: get random category            
             difficulty: 1 
-        }).then(function(question){
-            game.setQuestions(question)
-            game.setRound(1, 'team1', 0, 1)
-            user.setContext(flashContext, ContextMap[newContext].previous);
-            SessionManager.sendData(user.sessionCode, 'setQuestion', question);
-            SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
-            delayedContext(user);
-            game.save()
-            user.save()
-            assistant
-                .play(Sounds.forward)
-                .say("Starting trivia! Good luck!")
-                .setContext('guess', 1)
-                .reprompt('<speak>Only a few seconds remaining to answer...</speak>')
-                .finish()
-            
-            
+        }).then(function(newQuestion){
+            game.setQuestions(newQuestion).then(function(question) {
+                game.setRound(1, 'team1', 0, 1)
+                user.setContext(flashContext, ContextMap[newContext].previous);
+                SessionManager.sendData(user.sessionCode, 'setQuestion', question);
+                SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
+                delayedContext(user);
+                game.save()
+                user.save()
+                assistant
+                    .play(Sounds.forward)
+                    .say("Starting trivia! Good luck!")
+                    .setContext('guess', 1)
+                    .reprompt('<speak>Only a few seconds remaining to answer...</speak>')
+                    .finish()
+            })
         })
     })
 }

@@ -124,12 +124,15 @@ gameStateSchema.methods.updateStatus = function()
 }
 
 gameStateSchema.methods.setQuestions = function(question) {
-    if (this.nextQuestion) {
-        this.previousQuestions.push(this.nextQuestion);
-    }
-    this.nextQuestion = question;
-    this.markModified('nextQuestion');
-    this.markModified('previousQuestions');
+    return new Promise(function(resolve, reject) {
+        if (this.nextQuestion) {
+            this.previousQuestions.push(this.nextQuestion);
+        }
+        this.nextQuestion = question;
+        this.markModified('nextQuestion');
+        this.markModified('previousQuestions');
+        resolve(question)
+    }.bind(this))
 }
 
 /* /////////////////////////////////
