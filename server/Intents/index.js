@@ -17,8 +17,6 @@ Intents.ADDPLAYERSTOTEAM = require('./Roster/AddPlayersToTeam');
 Intents.REMOVEPLAYERSFROMTEAM = require('./Roster/RemovePlayersFromTeam');
 Intents.CONFIRMROSTER = require('./Roster/ConfirmRoster');
 
-Intents.TEST = require('./Test');
-
 // exit
 Intents.EXIT = require('./Exit')
 

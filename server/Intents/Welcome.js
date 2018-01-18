@@ -2,7 +2,6 @@
 var User = require('../models/User')
 
 var execute = function(args, assistant){
-
     User.findOne({gAssistantId:args.platformUserId}, function(err, user) {
         let speech;
         if (!user) {

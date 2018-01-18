@@ -24,7 +24,8 @@ var execute = function(args, assistant){
     }
 
     assistant
-        .say('<speak><audio src="' + Sounds.backward + '"></audio>' + location + '</speak>')
+        .play(Sounds.backward)
+        .say(location)
         .finish()
 }
 
