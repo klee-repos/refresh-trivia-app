@@ -41,6 +41,10 @@ app.post('/gAssistant', function(req, res) {
 	ExecuteRequest.FromGoogle(req.body, res);
 })
 
+app.post('/alexa', function(req, res) {
+    ExecuteRequest.FromAlexa(req.body, res);
+})
+
 var Info = require('./Info/api');
 app.use('/info', Info);
 

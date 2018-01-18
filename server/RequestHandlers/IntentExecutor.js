@@ -4,7 +4,7 @@ var ContextMap = require('../ContextMap')
 const User = require('../models/User');
 
 var IntentExecutor = function(args, assistantContext){
-    var intent = Intents[args.intent.toUpperCase()];
+    var intent = Intents[args.intentName.toUpperCase()];
     validateInput(intent, args, assistantContext).then(function(){
         requireContext(args, assistantContext).then(function(found) {
             if (found) {
@@ -34,7 +34,7 @@ var requireContext = function(args, assistant) {
         if (!assistant.deviceProfile.user) {
             resolve(true)
         }
-        let requestedIntent = args.intent;
+        let requestedIntent = args.intentName;
         let activeIntents = ContextMap[assistant.deviceProfile.user.context].activeIntents;
         console.log(requestedIntent);
         console.log(activeIntents)

@@ -19,5 +19,8 @@ Intents.CONFIRMROSTER = require('./Roster/ConfirmRoster');
 
 Intents.TEST = require('./Test');
 
+// exit
+Intents.EXIT = require('./Exit')
+
 module.exports = Intents;
 

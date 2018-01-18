@@ -26,8 +26,8 @@ var execute = function(args, assistant){
             game.setQuestions(question)
             game.setRound(1, 'team1', 0, 1)
             user.setContext(flashContext, ContextMap[newContext].previous);
-            SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
             SessionManager.sendData(user.sessionCode, 'setQuestion', question);
+            SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
             delayedContext(user);
             game.save()
             user.save()
@@ -36,6 +36,8 @@ var execute = function(args, assistant){
                 .setContext('guess', 1)
                 .reprompt('<speak>Only a few seconds remaining to answer...</speak>')
                 .finish()
+            
+            
         })
     })
 }
