@@ -1,5 +1,7 @@
 var IntentExecution = require('./IntentExecutor');
 var DeviceProfile = require('../models/DeviceProfile')
+var SSMLBuilder = require('../Playback')
+
 
 var GoogleRequestParser = function(googleArgs, _res){
     //attach or create Device related to request
@@ -18,14 +20,14 @@ var GoogleRequestParser = function(googleArgs, _res){
 
 var GoogleAssistant = function(_res, _deviceProfile){
     var res = _res;
-    var useSSML = true;
-
     this.deviceProfile = _deviceProfile;
+
+    this.speechBuilder = new SSMLBuilder();
 
     var responseData = {
         speech: "",
         displayText: "",
-        data: {"google":{"is_ssml":useSSML,"no_input_prompts":[]}},
+        data: {"google":{"is_ssml":true,"no_input_prompts":[]}},
         contextOut: [],
         source: "",
         followupEvent: {}
@@ -33,10 +35,12 @@ var GoogleAssistant = function(_res, _deviceProfile){
 
     var resStatus = 200;
 
-    this.say = function(speech){
-        responseData.speech += speech;
-        return this;
-    }
+    /* /////////////////////////////////
+    // Speech Builder Functions
+    */ ///////////////////////////////
+    this.say = this.speechBuilder.say;
+    this.play = this.speechBuilder.play;
+    this.pause = this.speechBuilder.pause;
 
     this.reprompt = function(speech) {
         responseData.data.google.no_input_prompts.push({
@@ -65,7 +69,7 @@ var GoogleAssistant = function(_res, _deviceProfile){
     }
 
     this.finish = function(){
-
+        responseData.speech = this.speechBuilder.getSSML();;
         res.status(resStatus).send(responseData);
     }
 

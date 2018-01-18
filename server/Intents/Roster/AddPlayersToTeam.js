@@ -9,24 +9,26 @@ const ContextMap = require('../../ContextMap')
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game)
-    .then(function(game){
-        game.addPlayersToTeam(args.names, args.teamName).then(function(){
-            game.save();
-            SessionManager.sendData(user.sessionCode, 'teamRoster', game.formatRoster());
-            if(game.getStatus() == "Roster Set") {
-                newContext = 'readyToStart'
-                assistant
-                .say('<speak><audio src="' + Sounds.forward + '"></audio>Added<desc>. Confirm roster to start the game!</desc></speak>')
-                .finish()
-            } else {
-                assistant
-                .say('<speak><audio src="' + Sounds.forward + '"></audio>Added<desc>. One additional player required on the opposing team to start.</desc></speak>')
-                .finish()
-            }
-            user.setContext(newContext, ContextMap[newContext].previous);
-            SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
-            user.save();
-        })
+        .then(function(game){
+            game.addPlayersToTeam(args.names, args.teamName).then(function(){
+                game.save();
+                SessionManager.sendData(user.sessionCode, 'teamRoster', game.formatRoster());
+                if(game.getStatus() == "Roster Set") {
+                    newContext = 'readyToStart'
+                    assistant
+                        .play(Sounds.forward)
+                        .say("Confirm roster to start the game!")
+                        .finish()
+                } else {
+                    assistant
+                        .play(Sounds.forward)
+                        .say("One additional player required on the opposing team to start.")
+                        .finish()
+                }
+                user.setContext(newContext, ContextMap[newContext].previous);
+                SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
+                user.save();
+            })
         .catch(function(err){
             assistant.error(500).data(err).finish();
         })

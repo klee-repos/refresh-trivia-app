@@ -20,7 +20,10 @@ var execute = function(args, assistant){
     var room = SessionManager.getSession(args.connectCode);
     SessionManager.sendData(room, 're-connect', user.sessionCode);
     SessionManager.sendData(room, 'setStatus', newContext);
-    assistant.say('<speak><audio src="' + Sounds.forward + '"><desc>Connected</desc></audio></speak>').finish();
+    assistant
+        .play(Sounds.forward)
+        .say("Connected")
+        .finish()
 }
 
 var validateInput = function(args, assistant){

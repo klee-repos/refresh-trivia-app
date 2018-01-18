@@ -32,7 +32,8 @@ var execute = function(args, assistant){
             game.save()
             user.save()
             assistant
-                .say('<speak><audio src="' + Sounds.forward + '"></audio>Starting trivia! Good luck!</speak>')
+                .play(Sounds.forward)
+                .say("Starting trivia! Good luck!")
                 .setContext('guess', 1)
                 .reprompt('<speak>Only a few seconds remaining to answer...</speak>')
                 .finish()

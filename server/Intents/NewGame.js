@@ -16,7 +16,8 @@ var execute = function(args, assistant){
     SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
 
     assistant
-        .say('<speak><audio src="' + Sounds.forward + '"></audio>Game created. Please tell me who to add to each team.</speak>')
+        .play(Sounds.forward)
+        .say("Game created. Please tell me who to add to each team.")
         .setContext(newContext)
         .reprompt('<speak>Who would you like to add to team 1?</speak>')
         .finish();
