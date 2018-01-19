@@ -15,7 +15,7 @@ class RoundCorrectAnswer extends Component {
                 }
                 <div className='correctContainer'>
                     <div className='correctTitleBox'>
-                        <h1>Correct! Team 1 would you like to...</h1>
+                        <h1>Correct! {this.props.activeTeam} would you like to...</h1>
                     </div>
                     <div className='pointsBox'>
                         <div className='playNext'>

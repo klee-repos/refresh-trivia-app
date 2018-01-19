@@ -82,10 +82,17 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    text-align: center;
+    flex-wrap: nowrap;
     
 }
 
 .settingRoster {
+    display: flex;
     font-size: 180%;
+}
+
+.confirmRoster {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

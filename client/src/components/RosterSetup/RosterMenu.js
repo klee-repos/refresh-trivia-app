@@ -17,7 +17,7 @@ class RosterMenu extends Component {
                     <div className='rosterMenuConfirmContainer'>
                         <div className='rosterMenuConfirmText'>
                             {this.props.context === 'readyToStart'
-                                ? <SpokenContainer text='Confirm roster!' />
+                                ? <div className='confirmRoster'><SpokenContainer text='Confirm roster!' /></div>
                                 : <div className='settingRoster'>
                                     <span>Setting up roster....</span>
                                 </div>

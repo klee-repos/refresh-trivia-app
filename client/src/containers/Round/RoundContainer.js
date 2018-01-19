@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 
 import {RoundStart, RoundQuestion, RoundCorrectAnswer} from '../../components'
 
-// import {Info} from '../../requests'
+import {Info} from '../../requests'
 
 import '../../components/Round/round.css'
 
@@ -19,11 +19,11 @@ class RoundContainer extends Component {
 
     }
 
-    // componentDidMount() {
-    //     Info.getRound(this.props.sessionCode)
-    //     Info.getQuestion(this.props.sessionCode)
-    //     Info.getRoster(this.props.sessionCode)
-    // }
+    componentDidMount() {
+        Info.getRound(this.props.sessionCode)
+        Info.getQuestion(this.props.sessionCode)
+        Info.getRoster(this.props.sessionCode)
+    }
 
     setCoins(questionIndex) {
         switch(parseInt(questionIndex, 10)) {
@@ -77,8 +77,8 @@ class RoundContainer extends Component {
 function mapStateToProps({dashboard,game}) {
     return {
         sessionCode: dashboard.sessionCode,
-        teamOne: game.teamOne,
-        teamTwo: game.teamTwo,
+        teamOne: game.teamOnePlayers,
+        teamTwo: game.teamTwoPlayers,
         round: game.round,
         activeTeam: game.activeTeam,
         playerIndex: game.playerIndex,

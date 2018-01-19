@@ -4,8 +4,7 @@
     color: #FF4C6A;
     font-size: 180%;
     align-items: center;
-    padding-left: 5%;
-    width:100%;
+    padding-left: 5%;   
 }
 
 .spokenBox {
@@ -13,9 +12,8 @@
 }
 
 .spokenText {
-    display: flex;
-    flex-wrap: nowrap;
+    flex: 1 1 100%;
     padding-top: 4px;
     padding-left: 5px;
-    
+    width: 100%;
 }

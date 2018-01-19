@@ -21,8 +21,8 @@ class RosterSetupContainer extends Component {
 
 function mapStateToProps({dashboard, game}) {
     return {
-        teamOne: game.teamOne,
-        teamTwo: game.teamTwo,
+        teamOne: game.teamOnePlayers,
+        teamTwo: game.teamTwoPlayers,
         sessionCode: dashboard.sessionCode
     }
 }

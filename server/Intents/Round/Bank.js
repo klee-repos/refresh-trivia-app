@@ -22,18 +22,19 @@ var execute = function(args, assistant){
         let nextTeam;
         let round = game.gameState.round
         let applyScore;
-        switch(round.questionIndex) {
-            case 1: applyScore = 100
-            case 2: applyScore = 200
-            case 3: applyScore = 300
-            case 4: applyScore = 400
-            case 5: applyScore = 500
+        switch(round.questionIndex - 1) {
+            case 1: applyScore = 100; break;
+            case 2: applyScore = 300; break;
+            case 3: applyScore = 700; break;
+            case 4: applyScore = 1500; break;
+            case 5: applyScore = 3100; break;
         }
+        let newScore = game.gameState.teams[round.activeTeam].score + applyScore
         game.gameState.teams[round.activeTeam].score += applyScore
+        SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:round.activeTeam, score: newScore});
         if (round.activeTeam === 'team1') {
             nextTeam = 'Team 2'
             round = game.setRound(round.round, 'team2', 0, 1)
-            console.log(round)
             SessionManager.sendData(user.sessionCode, 'setRound', round);
         } else {
             nextTeam = 'Team 1'

@@ -30,6 +30,17 @@ teamSchema.methods.removePlayers = function(names){
     return this.players
 }
 
+teamSchema.methods.resetTeamOneScore = function() {
+    this.score = 0;
+    this.markModified('score')
+}
+
+teamSchema.methods.resetTeamTwoScore = function() {
+    this.score = 0;
+    this.markModified('score')
+}
+
+
 /* /////////////////////////////////
 // Round
 */ ///////////////////////////////
@@ -131,8 +142,13 @@ gameStateSchema.methods.setQuestions = function(question) {
         this.nextQuestion = question;
         this.markModified('nextQuestion');
         this.markModified('previousQuestions');
-        resolve(question)
+        resolve(question) 
     }.bind(this))
+}
+
+gameStateSchema.methods.resetScores = function() {
+    this.resetTeamOneScore()
+    this.resetTeamTwoScore()
 }
 
 /* /////////////////////////////////
@@ -175,8 +191,16 @@ gameSchema.methods.setRound = function(round, activeTeam, playerIndex, questionI
     return this.gameState.setRound(round, activeTeam, playerIndex, questionIndex)
 }
 
-gameSchema.methods.setQuestions = function(question) {
-    return this.gameState.setQuestions(question)
+gameSchema.methods.setQuestions = function(originalQuestion) {
+    return new Promise(function(resolve, reject) {
+        this.gameState.setQuestions(originalQuestion).then(function(question) {
+            resolve(question)
+        })
+    }.bind(this))
+}
+
+gameSchema.methods.resetScores = function() {
+    return this.gameState.resetScores()
 }
 
 

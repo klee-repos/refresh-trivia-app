@@ -26,6 +26,7 @@ var execute = function(args, assistant){
             game.setQuestions(newQuestion).then(function(question) {
                 game.setRound(1, 'team1', 0, 1)
                 user.setContext(flashContext, ContextMap[newContext].previous);
+                console.log(question)
                 SessionManager.sendData(user.sessionCode, 'setQuestion', question);
                 SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
                 delayedContext(user);

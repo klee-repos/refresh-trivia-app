@@ -2,6 +2,8 @@
 const SET_TEAMS = 'SET_TEAMS';
 const SET_ROUND = 'SET_ROUND';
 const SET_QUESTION = 'SET_QUESTION';
+const SET_TEAM_ONE_SCORE = 'SET_TEAM_ONE_SCORE'
+const SET_TEAM_TWO_SCORE = 'SET_TEAM_TWO_SCORE'
 
 export function setTeams(roster) {
     return {
@@ -36,9 +38,25 @@ export function setQuestion(question) {
     }
 }
 
+export function setScore(score) {
+    if (score.activeTeam === 'team1') {
+        return {
+            type: SET_TEAM_ONE_SCORE,
+            score: score.score
+        }
+    } else {
+        return {
+            type:SET_TEAM_TWO_SCORE,
+            score: score.score
+        }
+    }
+}
+
 const initialState = {
-    teamOne: null,
-    teamTwo:null,
+    teamOnePlayers: null,
+    teamTwoScore: 0,
+    teamTwoPlayers: null,
+    teamOneScore: 0,
     round: null,
     activeTeam: null,
     playerIndex: null,
@@ -52,8 +70,8 @@ export default function apps (state = initialState, action) {
     switch(action.type) {
         case SET_TEAMS:
             return Object.assign({},state , {
-                teamOne: action.team1,
-                teamTwo: action.team2,
+                teamOnePlayers: action.team1,
+                teamTwoPlayers: action.team2,
             })
         case SET_ROUND:
             return Object.assign({},state , {
@@ -61,6 +79,14 @@ export default function apps (state = initialState, action) {
                 activeTeam: action.activeTeam,
                 playerIndex: action.playerIndex,
                 questionIndex: action.questionIndex
+            })
+        case SET_TEAM_ONE_SCORE:
+            return Object.assign({},state , {
+                teamOneScore: action.score
+            })
+        case SET_TEAM_TWO_SCORE:
+            return Object.assign({},state , {
+                teamTwoScore: action.score
             })
         case SET_QUESTION:
             return Object.assign({},state , {
