@@ -12,12 +12,13 @@ var execute = function(args, assistant){
     Game.findById(user.game).then(function(game) {
         Question.getRandomQuestion({
             category: game.currentCategory,  //ToDo: get random category            
-            difficulty: game.questionIndex
-        }).then(function(question){
-            game.setQuestions(question);
+            difficulty: 1
+        }).then(function(newQuestion){
+            console.log(newQuestion)
+            game.setQuestions(newQuestion)
             user.setContext(newContext, ContextMap[newContext].previous);
             SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
-            SessionManager.sendData(user.sessionCode, 'setQuestion', question);
+            SessionManager.sendData(user.sessionCode, 'setQuestion', newQuestion);
             game.save();
             user.save();
             assistant

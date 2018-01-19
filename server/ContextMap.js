@@ -67,6 +67,28 @@ var ContextMap = {
         ],
         previous:'readyToStart'
     },
+
+    correct: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'play',
+            'bank'
+        ],
+        previous:'readyToStart'
+    },
+
+    incorrect: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'play',
+            'bank'
+        ],
+        previous:'readyToStart'
+    }
     
 }
 

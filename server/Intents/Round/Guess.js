@@ -5,7 +5,19 @@ const Question = require('../../models/Question');
 const Sounds = require('../../Sounds')
 
 var correctContext = 'correctAnswer'
+var correctFlashContext = 'correct'
+var incorrectContext = 'incorrectAnswer'
+var incorrectFlashContext = 'incorrect'
+var flashContext = 'roundStart'
 const ContextMap = require('../../ContextMap')
+
+var delayedContext = function(user, context) {
+    setTimeout(function() {
+        user.setContext(context, ContextMap[context].previous);
+        SessionManager.sendData(user.sessionCode, 'setStatus', context);
+        user.save()
+    }, 2000)
+}
 
 var execute = function(args, assistant){
     let guess = args.guess
@@ -25,8 +37,9 @@ var execute = function(args, assistant){
                 .say('<speak><audio src="' + Sounds.forward + '"></audio>Correct!</speak>')
                 .setContext('guess', 0)
                 .finish();
-            user.setContext(correctContext, ContextMap[correctContext].previous);
-            SessionManager.sendData(user.sessionCode, 'setStatus', correctContext);
+            user.setContext(correctFlashContext, ContextMap[correctFlashContext].previous);
+            SessionManager.sendData(user.sessionCode, 'setStatus', correctFlashContext);
+            delayedContext(user, correctContext);
         } else {
             if (round.activeTeam === 'team1') {
                 game.setRound(round.round, 'team2', 0, 1)
@@ -37,6 +50,9 @@ var execute = function(args, assistant){
                 .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')
                 .setContext('guess', 1)
                 .finish();
+            user.setContext(incorrectFlashContext, ContextMap[incorrectFlashContext].previous);
+            SessionManager.sendData(user.sessionCode, 'setStatus', incorrectFlashContext);
+            delayedContext(user, incorrectContext);
         }
         SessionManager.sendData(user.sessionCode, 'setRound', round);
         game.save()

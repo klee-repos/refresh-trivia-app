@@ -14,6 +14,11 @@
     font-size: 250%;
 }
 
+/* RoundStart 
+---------------------
+---------------------
+*/
+
 .roundMessageBox {
     display: flex;
     flex-direction: column;
@@ -31,6 +36,26 @@
 .purpleText {
     color: #6B5AFF;
 }
+
+/* RoundResult 
+---------------------
+---------------------
+*/
+
+.roundResultBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    height:100%;
+    justify-content: center;
+}
+
+.roundResultBox h1 {
+    font-size: 400%;
+    color: #007FFF;
+}
+
 
 /* RoundTitleBar 
 ---------------------

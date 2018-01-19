@@ -41,20 +41,23 @@ var execute = function(args, assistant){
             round = game.setRound(round.round + 1, 'team1', 0, 1)
             SessionManager.sendData(user.sessionCode, 'setRound', round);
         }
-        let random = parseInt(Math.random() * (10 - 1) + 1)
-        Question.findOne({qId:random}).then(function(newQuestion) {
-            game.setQuestions(newQuestion).then(function(question) {
-                user.setContext(newContext, ContextMap[newContext].previous);
-                SessionManager.sendData(user.sessionCode, 'setQuestion', question);
-                SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
-                delayedContext(user);
-                game.save();
-                user.save();
-                assistant
-                    .say('<speak><audio src="' + Sounds.forward + '"></audio>Coins banked! ' + nextTeam + ' you\'re up!</speak>')
-                    .setContext('guess', 1)
-                    .finish();
-            })
+        
+        Question.getRandomQuestion({
+            category: game.currentCategory,  //ToDo: get random category            
+            difficulty: 1
+        }).then(function(newQuestion){
+            console.log(newQuestion)
+            game.setQuestions(newQuestion)
+            user.setContext(newContext, ContextMap[newContext].previous);
+            SessionManager.sendData(user.sessionCode, 'setQuestion', newQuestion);
+            SessionManager.sendData(user.sessionCode, 'setStatus', flashContext);
+            delayedContext(user);
+            game.save();
+            user.save();
+            assistant
+                .say('<speak><audio src="' + Sounds.forward + '"></audio>Coins banked! ' + nextTeam + ' you\'re up!</speak>')
+                .setContext('guess', 1)
+                .finish();
         })
     })
 }

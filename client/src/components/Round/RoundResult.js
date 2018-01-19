@@ -3,9 +3,7 @@ import React, {Component} from 'react'
 
 import {RoundTitleBar} from '../../components'
 
-import './round.css'
-
-class RoundStart extends Component {
+class RoundResult extends Component {
 
     render() {
         return (
@@ -14,10 +12,10 @@ class RoundStart extends Component {
                     ? <RoundTitleBar round={this.props.round} activeTeam={this.props.activeTeam}/>
                     : null
                 }
-                <div className='roundMessageBox'>
-                    {this.props.activeTeam 
-                        ? <h1>{this.props.activeTeam} you're up! Good luck! &#x1f60e;</h1>
-                        : null
+                <div className='roundResultBox'>
+                    {this.props.result === 'Correct!'
+                        ? <h1>{this.props.result} &#x1f609;</h1>
+                        : <h1>{this.props.result} &#x1f613;</h1>
                     }
                 </div>
             </div>
@@ -25,4 +23,4 @@ class RoundStart extends Component {
     }
 }
 
-export default RoundStart
+export default RoundResult

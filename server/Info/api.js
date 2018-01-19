@@ -29,22 +29,22 @@ routes.post('/getRound', function(req, res) {
     })
 })
 
-routes.post('/getQuestion', function(req, res) {
-    let sessionCode = req.body.sessionCode;
-    User.findOne({sessionCode:sessionCode}).populate('game').then(function(user) {
-        Question.findById(user.game.gameState.nextQuestion).then(function(question) {
-            let questionData = {
-                text: question.text,
-                picklist: question.picklist,
-                mediaURL: question.mediaURL
-            }
-            SessionManager.sendData(sessionCode, 'setQuestion', questionData);
-            res.send(questionData)
-        })
-        .catch(function(err){
-            console.log(err)
-        })
-    })
-})
+// routes.post('/getQuestion', function(req, res) {
+//     let sessionCode = req.body.sessionCode;
+//     User.findOne({sessionCode:sessionCode}).populate('game').then(function(user) {
+//         Question.findById(user.game.gameState.nextQuestion).then(function(question) {
+//             let questionData = {
+//                 text: question.text,
+//                 picklist: question.picklist,
+//                 mediaURL: question.mediaURL
+//             }
+//             SessionManager.sendData(sessionCode, 'setQuestion', questionData);
+//             res.send(questionData)
+//         })
+//         .catch(function(err){
+//             console.log(err)
+//         })
+//     })
+// })
 
 module.exports = routes;

@@ -2,7 +2,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {RoundStart, RoundQuestion, RoundCorrectAnswer} from '../../components'
+import {RoundStart, 
+        RoundQuestion, 
+        RoundCorrectAnswer,
+        RoundResult} from '../../components'
 
 import {Info} from '../../requests'
 
@@ -17,11 +20,13 @@ class RoundContainer extends Component {
 
         this.setCoins = this.setCoins.bind(this)
 
+        this.setResults = this.setResults.bind(this)
+
     }
 
     componentDidMount() {
         Info.getRound(this.props.sessionCode)
-        Info.getQuestion(this.props.sessionCode)
+        // Info.getQuestion(this.props.sessionCode)
         Info.getRoster(this.props.sessionCode)
     }
 
@@ -36,6 +41,15 @@ class RoundContainer extends Component {
         }
     }
 
+    setResults(result) {
+        if (result === 'correct') {
+            return 'Correct!'
+        } else {
+            return 'Incorrect!'
+        }
+    }
+
+
     roundStart() {
         return (
             <RoundStart round={this.props.round} activeTeam={this.props.activeTeam} />
@@ -49,9 +63,15 @@ class RoundContainer extends Component {
         )
     }
 
+    result(result) {
+        return (
+            <RoundResult {...this.props} result={this.setResults(result)} />
+        )
+    }
+
     correctAnswer() {
         return (
-            <RoundCorrectAnswer {...this.props} coinTotal={this.setCoins(this.props.questionIndex)}/>
+            <RoundCorrectAnswer {...this.props}/>
         )
     }
 
@@ -59,8 +79,10 @@ class RoundContainer extends Component {
         switch(this.props.context){
             case "roundStart": return this.roundStart();
             case "question": return this.question();
+            case "correct" : return this.result('correct');
+            case "incorrect": return this.result('incorrect');
             case "correctAnswer": return this.correctAnswer();
-            default: return this.mainMenu(); 
+            default: return this.roundStart(); 
         }
     }
 

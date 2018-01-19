@@ -53,6 +53,8 @@ class DashboardContainer extends React.Component {
             case "readyToStart": return this.rosterSetup('readyToStart');
             case "roundStart": return this.round('roundStart');
             case "question": return this.round('question');
+            case "correct": return this.round('correct');
+            case "incorrect": return this.round('incorrect');
             case "correctAnswer": return this.round('correctAnswer');
             default: return this.mainMenu(); 
         }

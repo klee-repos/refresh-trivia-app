@@ -64,6 +64,7 @@ questionSchema.statics.getRandomQuestion = function(opts){
                     else{
                         var numResults = questions.length;
                         var rand = Math.floor(Math.random() * (numResults+1))
+                        console.log('hit')
                         resolve(questions[rand])
                     }
             })
