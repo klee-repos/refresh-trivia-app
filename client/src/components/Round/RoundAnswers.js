@@ -1,6 +1,8 @@
 
 import React, {Component} from 'react'
 
+import {SpokenContainer} from '../../containers'
+
 class RoundAnswers extends Component {
     render() {
         return(
@@ -10,7 +12,7 @@ class RoundAnswers extends Component {
                             {this.props.picklist.map(function(answer, idx) {
                                 return (
                                     <div className='answersColumn' key={idx}>
-                                        <span>{answer}</span>
+                                        <SpokenContainer text={answer} />
                                     </div>
                                 )
                             })}

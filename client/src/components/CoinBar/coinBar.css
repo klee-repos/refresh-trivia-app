@@ -1,0 +1,17 @@
+.coinBarContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    min-height: 55px;
+    min-width: 809px;
+}
+
+.coinBar {
+    flex: 1 1 100%;
+    align-self: center;
+}
+
+.pointBarImg {
+    height:55px;
+    width:809px;
+}

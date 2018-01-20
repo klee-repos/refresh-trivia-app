@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 
 import {RoundTitleBar} from '../../components'
 
-import {SpokenContainer} from '../../containers'
+import {SpokenContainer, CoinBarContainer} from '../../containers'
 
 class RoundCorrectAnswer extends Component {
     render() {
@@ -23,9 +23,7 @@ class RoundCorrectAnswer extends Component {
                             <SpokenContainer text='Play next question'/>
                             </div>
                         </div>
-                        <div className='pointBar'>
-                            <img className='pointBarImg' src={require(`../../img/pointBar100.png`)} alt='pointBar'/>
-                        </div>
+                        <CoinBarContainer activeTeam={this.props.activeTeam} questionIndex={this.props.questionIndex}/>
                         <div className='bankPoints'>
                             <div className='alignWithBar'>
                                 <SpokenContainer text='Bank coins' />

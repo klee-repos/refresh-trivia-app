@@ -5,8 +5,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'newGame',
-            'joinGame',
-            'test'
+            'joinGame'
         ],
         previous: null
     },
@@ -30,8 +29,7 @@ var ContextMap = {
             'goBack',
             'addPlayersToTeam',
             'removePlayersFromTeam',
-            'confirmRoster',
-            'test'
+            'confirmRoster'
         ],
         previous: 'mainMenu'
     },
@@ -40,8 +38,7 @@ var ContextMap = {
         activeIntents: [
             'input.welcome',
             'connect',
-            'goBack',
-            'test'
+            'goBack'
         ],
         previous: 'readyToStart'
     },
@@ -51,8 +48,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
-            'guess',
-            'test'
+            'guess'
         ],
         previous:'readyToStart'
     },
@@ -86,6 +82,16 @@ var ContextMap = {
             'goBack',
             'play',
             'bank'
+        ],
+        previous:'readyToStart'
+    },
+
+    steal: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'guess'
         ],
         previous:'readyToStart'
     }

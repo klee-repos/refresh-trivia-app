@@ -4,6 +4,7 @@ export {default as TopBar} from './TopBar/TopBar';
 export {default as Tip} from './Tip/Tip';
 export {default as TeamBar} from './TeamBar/TeamBar';
 export {default as Spoken} from './Spoken/Spoken';
+export {default as CoinBar} from './CoinBar/CoinBar';
 
 export {default as Welcome} from './Welcome/Welcome';
 export {default as MainMenu} from './MainMenu/MainMenu';
@@ -14,6 +15,7 @@ export {default as RoundStart} from './Round/RoundStart';
 export {default as RoundQuestion} from './Round/RoundQuestion';
 export {default as RoundAnswers} from './Round/RoundAnswers';
 export {default as RoundCorrectAnswer} from './Round/RoundCorrectAnswer';
+export {default as RoundSteal} from './Round/RoundSteal';
 export {default as RoundResult} from './Round/RoundResult';
 
 

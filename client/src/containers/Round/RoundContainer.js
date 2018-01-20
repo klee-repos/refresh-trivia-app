@@ -5,7 +5,8 @@ import {connect} from 'react-redux'
 import {RoundStart, 
         RoundQuestion, 
         RoundCorrectAnswer,
-        RoundResult} from '../../components'
+        RoundResult,
+        RoundSteal} from '../../components'
 
 import {Info} from '../../requests'
 
@@ -15,8 +16,6 @@ class RoundContainer extends Component {
 
     constructor(props) {
         super(props)
-
-        this.state = {}
 
         this.setCoins = this.setCoins.bind(this)
 
@@ -75,6 +74,12 @@ class RoundContainer extends Component {
         )
     }
 
+    steal() {
+        return (
+            <RoundSteal {...this.props}/>
+        )
+    }
+
     currentPage(){
         switch(this.props.context){
             case "roundStart": return this.roundStart();
@@ -82,6 +87,7 @@ class RoundContainer extends Component {
             case "correct" : return this.result('correct');
             case "incorrect": return this.result('incorrect');
             case "correctAnswer": return this.correctAnswer();
+            case "steal": return this.steal()
             default: return this.roundStart(); 
         }
     }

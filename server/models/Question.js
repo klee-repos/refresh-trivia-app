@@ -63,8 +63,10 @@ questionSchema.statics.getRandomQuestion = function(opts){
                     if(!questions || questions.length == 0) {reject("No questions found")}
                     else{
                         var numResults = questions.length;
-                        var rand = Math.floor(Math.random() * (numResults+1))
+                        var rand = Math.floor(Math.random() * (numResults))
                         console.log('hit')
+                        console.log('rand: ' + rand)
+                        console.log('question: ' + questions[rand])
                         resolve(questions[rand])
                     }
             })

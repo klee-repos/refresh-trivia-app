@@ -6,7 +6,7 @@ const Sounds = require('../../Sounds')
 
 var correctContext = 'correctAnswer'
 var correctFlashContext = 'correct'
-var incorrectContext = 'incorrectAnswer'
+var incorrectContext = 'steal'
 var incorrectFlashContext = 'incorrect'
 var flashContext = 'roundStart'
 const ContextMap = require('../../ContextMap')

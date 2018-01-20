@@ -104,24 +104,20 @@
 
 .roundAnswers {
     display:flex;
-    width: 80%;
+    width: 70%;
     justify-content: center;
-    font-size: 200%;
     color: #FF4C6A;
 }
 
 .answersRow {
     display:flex;
-    width:80%;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap;  
 }
 
 .answersColumn {
     display:flex;
     height:30px;
-    width:80%;
-    align-items:center;
-    justify-content: center;
+    padding: 0 10px 0 10px;
 }
 
 /* RoundCorrectAnswer
@@ -169,19 +165,6 @@
     display: flex;
     width:35%;
 }
-
-.pointBar {
-    display: flex;
-    
-    align-self: center;
-    justify-content: center;
-}
-
-.pointBarImg {
-    height:55px;
-    width:809px;
-}
-
 
 .bankPoints {
     display: flex;

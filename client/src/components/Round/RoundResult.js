@@ -15,7 +15,7 @@ class RoundResult extends Component {
                 <div className='roundResultBox'>
                     {this.props.result === 'Correct!'
                         ? <h1>{this.props.result} &#x1f609;</h1>
-                        : <h1>{this.props.result} &#x1f613;</h1>
+                        : <h1>{this.props.result} &#x1f4A9;</h1>
                     }
                 </div>
             </div>
