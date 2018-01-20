@@ -12,16 +12,23 @@ var getRound = function(sessionCode) {
     })
 }
 
-// var getQuestion = function(sessionCode) {
-//     axios.post('/info/getQuestion', {
-//         sessionCode: sessionCode
-//     })
-// }
+var getQuestion = function(sessionCode) {
+    axios.post('/info/getQuestion', {
+        sessionCode: sessionCode
+    })
+}
+
+var getScore = function(sessionCode) {
+    axios.post('/info/getScore', {
+        sessionCode: sessionCode
+    })
+}
 
 var Info = {
     getRoster:getRoster,
     getRound: getRound,
-    // getQuestion: getQuestion
+    getQuestion: getQuestion,
+    getScore: getScore
 }
 
 export default Info

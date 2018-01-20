@@ -16,7 +16,7 @@ class RoundSteal extends Component {
                 <div className='roundMessageBox'>
                         <div className='roundPlayer'>
                             {this.props.activeTeam
-                                ? <span>{this.props.activeTeam}, for the steal! &#x1f47b;</span>
+                                ? <span>{this.props.activeTeam}, for the steal! <span role='img' aria-label='steal'>&#x1f47b;</span></span>
                                 : null
                             }
                         </div>

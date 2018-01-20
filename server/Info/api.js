@@ -29,22 +29,36 @@ routes.post('/getRound', function(req, res) {
     })
 })
 
-// routes.post('/getQuestion', function(req, res) {
-//     let sessionCode = req.body.sessionCode;
-//     User.findOne({sessionCode:sessionCode}).populate('game').then(function(user) {
-//         Question.findById(user.game.gameState.nextQuestion).then(function(question) {
-//             let questionData = {
-//                 text: question.text,
-//                 picklist: question.picklist,
-//                 mediaURL: question.mediaURL
-//             }
-//             SessionManager.sendData(sessionCode, 'setQuestion', questionData);
-//             res.send(questionData)
-//         })
-//         .catch(function(err){
-//             console.log(err)
-//         })
-//     })
-// })
+routes.post('/getQuestion', function(req, res) {
+    let sessionCode = req.body.sessionCode;
+    User.findOne({sessionCode:sessionCode}).populate('game').then(function(user) {
+        Question.findById(user.game.gameState.nextQuestion).then(function(question) {
+            let questionData = {
+                text: question.text,
+                picklist: question.picklist,
+                mediaURL: question.mediaURL
+            }
+            SessionManager.sendData(sessionCode, 'setQuestion', questionData);
+            res.send(questionData)
+        })
+        .catch(function(err) {
+            console.log(err)
+        })
+    })
+})
+
+routes.post('/getScore', function(req, res) {
+    let sessionCode = req.body.sessionCode;
+    User.findOne({sessionCode:sessionCode}).populate('game').then(function(user) {
+        let teamOneScore = user.game.gameState.teams.team1.score
+        let teamTwoScore = user.game.gameState.teams.team2.score
+        SessionManager.sendData(sessionCode, 'setScore', {activeTeam:'team1', score: teamOneScore});
+        SessionManager.sendData(sessionCode, 'setScore', {activeTeam:'team2', score: teamTwoScore});
+        res.send({teamOneScore, teamTwoScore})
+    })
+    .catch(function(err) {
+        console.log(err)
+    })
+})
 
 module.exports = routes;

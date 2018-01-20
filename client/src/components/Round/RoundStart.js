@@ -16,7 +16,7 @@ class RoundStart extends Component {
                 }
                 <div className='roundMessageBox'>
                     {this.props.activeTeam 
-                        ? <h1>{this.props.activeTeam} you're up! Good luck! &#x1f60e;</h1>
+                        ? <h1>{this.props.activeTeam} you're up! Good luck! <span role="img" aria-label="sunglasses">&#x1f60e;</span></h1>
                         : null
                     }
                 </div>

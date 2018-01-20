@@ -25,8 +25,9 @@ class RoundContainer extends Component {
 
     componentDidMount() {
         Info.getRound(this.props.sessionCode)
-        // Info.getQuestion(this.props.sessionCode)
+        Info.getQuestion(this.props.sessionCode)
         Info.getRoster(this.props.sessionCode)
+        Info.getScore(this.props.sessionCode)
     }
 
     setCoins(questionIndex) {
