@@ -104,9 +104,10 @@
 
 .roundAnswers {
     display:flex;
-    width: 70%;
+    width: 80%;
     justify-content: center;
     color: #FF4C6A;
+
 }
 
 .answersRow {
@@ -116,7 +117,6 @@
 
 .answersColumn {
     display:flex;
-    height:30px;
     padding: 0 10px 0 10px;
 }
 

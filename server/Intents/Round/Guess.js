@@ -38,19 +38,21 @@ var execute = function(args, assistant){
                 .setContext('guess', 0)
                 .finish();
             user.setContext(correctFlashContext, ContextMap[correctFlashContext].previous);
+            SessionManager.sendData(user.sessionCode, 'setRound', round);
             SessionManager.sendData(user.sessionCode, 'setStatus', correctFlashContext);
             delayedContext(user, correctContext);
         } else {
             if (round.activeTeam === 'team1') {
-                game.setRound(round.round, 'team2', 0, 1)
+                round = game.setRound(round.round, 'team2', 0, 1)
             } else {
-                game.setRound(round.round + 1, 'team1', 0, 1)
+                round = game.setRound(round.round + 1, 'team1', 0, 1)
             }
             assistant
                 .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')
                 .setContext('guess', 1)
                 .finish();
             user.setContext(incorrectFlashContext, ContextMap[incorrectFlashContext].previous);
+            SessionManager.sendData(user.sessionCode, 'setRound', round);
             SessionManager.sendData(user.sessionCode, 'setStatus', incorrectFlashContext);
             delayedContext(user, incorrectContext);
         }
