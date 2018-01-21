@@ -9,7 +9,6 @@ var newContext = 'mainMenu'
 
 var execute = function(args, assistant){
     var user = assistant.deviceProfile.user;
-    
     if(!user){
         user = new User();        
         user.generateSessionCode();
@@ -18,6 +17,7 @@ var execute = function(args, assistant){
         user.save();
     }
     var room = SessionManager.getSession(args.connectCode);
+    console.log(user)
     SessionManager.sendData(room, 're-connect', user.sessionCode);
     SessionManager.sendData(room, 'setStatus', newContext);
     assistant
@@ -36,7 +36,8 @@ var validateInput = function(args, assistant){
 
 var ConnectIntent = {
     execute: execute,
-    validateInput: validateInput
+    validateInput: validateInput,
+    logInput: false
 }
 
 module.exports = ConnectIntent;

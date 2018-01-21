@@ -1,5 +1,6 @@
 var IntentExecution = require('./IntentExecutor');
 var DeviceProfile = require('../models/DeviceProfile')
+var SSMLBuilder = require('../Playback')
 
 var AlexaRequestParser = function(alexaArgs, _res){
     //attach or create Device related to request
@@ -12,9 +13,8 @@ var AlexaRequestParser = function(alexaArgs, _res){
                 args[slotNames[i]] = slots[slotNames[i]].value;
             }
         }
-        args.intentName = (alexaArgs.request.intent.name).toLowerCase()
+        args.intentName = alexaArgs.request.intent.name
     }
-    console.log(args)
     if (alexaArgs.request.type === 'LaunchRequest') {
         args.intentName = 'input.welcome';
     }
@@ -22,7 +22,7 @@ var AlexaRequestParser = function(alexaArgs, _res){
         args.intentName = 'exit';
     }
     var deviceData = {id: alexaArgs.session.user.userId, platform: 'alexa'}
-    DeviceProfile.findOne(deviceData).populate('user') //We can probably make this cleaner; load device in GoogleAssistant constructor?
+    DeviceProfile.findOne(deviceData).populate('user')
         .then(function(deviceProfile){
             if (!deviceProfile){
                 deviceProfile = new DeviceProfile(deviceData);
@@ -37,6 +37,11 @@ var Alexa = function(_res, _deviceProfile){
     var useSSML = true;
 
     this.deviceProfile = _deviceProfile;
+    this.speechBuilder = new SSMLBuilder();
+
+    this.say = this.speechBuilder.say;
+    this.pause = this.speechBuilder.pause;
+    this.play = function(){return this};
 
     var responseData = {
         response: {
@@ -56,19 +61,16 @@ var Alexa = function(_res, _deviceProfile){
 
     var resStatus = 200;
 
-    this.say = function(speech){
-        responseData.response.outputSpeech.ssml += speech;
-        console.log(speech)
+    this.reprompt = function(speech) {
+        responseData.response.reprompt.outputSpeech.ssml += speech
         return this;
     }
 
-    this.reprompt = function(speech) {
-        responseData.reprompt.outputSpeech.ssml += speech
+    this.setContext = function(context){
         return this;
     }
 
     this.data = function(_data){
-        responseData.response = _data;
         return this;
     }
 
@@ -78,7 +80,7 @@ var Alexa = function(_res, _deviceProfile){
     }
 
     this.finish = function(){
-
+        responseData.response.outputSpeech.ssml = this.speechBuilder.getSSML()
         res.status(resStatus).send(responseData);
     }
 

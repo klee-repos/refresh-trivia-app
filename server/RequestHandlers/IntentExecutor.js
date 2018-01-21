@@ -36,10 +36,8 @@ var requireContext = function(args, assistant) {
         }
         let requestedIntent = args.intentName;
         let activeIntents = ContextMap[assistant.deviceProfile.user.context].activeIntents;
-        console.log(requestedIntent);
-        console.log(activeIntents)
         for (let i = 0; i < activeIntents.length; i++) {
-            if (requestedIntent === activeIntents[i]) {
+            if (requestedIntent.toUpperCase() === activeIntents[i].toUpperCase()) {
                 found = true;
                 break;
             }

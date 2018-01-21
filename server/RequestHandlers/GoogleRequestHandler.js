@@ -69,7 +69,7 @@ var GoogleAssistant = function(_res, _deviceProfile){
     }
 
     this.finish = function(){
-        responseData.speech = this.speechBuilder.getSSML();;
+        responseData.speech = this.speechBuilder.getSSML();
         res.status(resStatus).send(responseData);
     }
 
