@@ -5,12 +5,14 @@ var AlexaRequestParser = function(alexaArgs, _res){
     //attach or create Device related to request
     let args = {}
     if (alexaArgs.request.type === 'IntentRequest') {
-        let slots = alexaArgs.request.intent.slots
-        var slotNames = Object.keys(slots)
-        for (let i = 0; i < slotNames.length; i++) {
-            args[slotNames[i]] = slots[slotNames[i]].value;
+        if (alexaArgs.request.intent.slots) {
+            let slots = alexaArgs.request.intent.slots
+            var slotNames = Object.keys(slots)
+            for (let i = 0; i < slotNames.length; i++) {
+                args[slotNames[i]] = slots[slotNames[i]].value;
+            }
         }
-        args.intentName = alexaArgs.request.intent.name
+        args.intentName = (alexaArgs.request.intent.name).toLowerCase()
     }
     console.log(args)
     if (alexaArgs.request.type === 'LaunchRequest') {

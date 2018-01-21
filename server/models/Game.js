@@ -10,7 +10,8 @@ var teamSchema = mongoose.Schema(
         name: String,
         score: {type:Number, default:0},
         bonuses: {type:Number, default:0},
-        players: [String]
+        players: [String],
+        playerIndex: {type:Number, default:0},
     }
 )
 
@@ -51,6 +52,8 @@ var roundSchema = new mongoose.Schema({
     playerIndex: Number,
     questionIndex: Number,
 })
+
+
 
 /* /////////////////////////////////
 // GameState
@@ -151,6 +154,50 @@ gameStateSchema.methods.resetScores = function() {
     this.resetTeamTwoScore()
 }
 
+gameStateSchema.methods.guessRight = function(context) {
+    return new Promise(function(resolve, reject) {
+        let numPlayers = this.teams[this.round.activeTeam].players.length
+        if (context !== 'steal') {
+            let playerIndex = (this.round.playerIndex + 1) % numPlayers
+            this.teams[this.round.activeTeam].playerIndex = playerIndex
+            this.round.playerIndex = playerIndex
+            this.round.questionIndex++ 
+            if (this.round.questionIndex > 5) {
+                this.round.questionIndex = 1
+                resolve({win: true, guess: true, steal:false})
+            } else {
+                resolve({win: false, guess: true, steal:false})
+            }
+        } else {
+            if (this.round.activeTeam === 'team1') {
+                this.round.round++
+            }
+            this.round.playerIndex = this.teams[this.round.activeTeam].playerIndex
+            resolve({win: true, guess: true, steal:true})
+        }
+    }.bind(this))
+}
+
+gameStateSchema.methods.guessWrong = function(context) {
+    return new Promise(function(resolve, reject) {
+        if (context !== 'steal') {
+            if (this.round.activeTeam === 'team1') {
+                this.round.activeTeam = 'team2'
+            } else {
+                this.round.activeTeam = 'team1'
+            }
+            this.round.playerIndex = this.teams[this.round.activeTeam].playerIndex
+            resolve({win: false, guess: false, steal:false})
+        } else {
+            if (this.round.activeTeam === 'team2') {
+                this.round.round++
+            }
+            resolve({win: false, guess: false, steal:true})
+        }
+        
+    }.bind(this))
+}
+
 /* /////////////////////////////////
 // Game
 */ ////////////////////////////////
@@ -201,6 +248,15 @@ gameSchema.methods.setQuestions = function(originalQuestion) {
 
 gameSchema.methods.resetScores = function() {
     return this.gameState.resetScores()
+}
+
+gameSchema.methods.guess = function(guess, context) {
+    let answer = this.gameState.nextQuestion.answer
+    if (guess.toLowerCase() === answer.toLowerCase()) {
+        return this.gameState.guessRight(context)
+    } else {
+        return this.gameState.guessWrong(context)
+    }
 }
 
 
