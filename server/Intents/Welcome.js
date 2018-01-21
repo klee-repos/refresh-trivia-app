@@ -5,9 +5,9 @@ var execute = function(args, assistant){
     User.findOne({gAssistantId:args.platformUserId}, function(err, user) {
         let speech;
         if (!user) {
-            speech = "<speak>What session would you like to connect to?</speak>"
+            speech = "What session would you like to connect to?"
         } else {
-            speech = "<speak>Welcome back</speak>"
+            speech = "Welcome back"
         }
         assistant.say(speech).finish();
     })
