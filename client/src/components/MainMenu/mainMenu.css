@@ -21,23 +21,15 @@
 
 .newGame {
     display: flex;
-    padding-left: 10%;
+    padding-left: 5%;
     padding-top: 5%;
-}
-
-.newGame h1 {
-     font-size: 400%;
-     color: #FF4C6A;
+    font-size: 200%;
 }
 
 .joinGame {
     display: flex;
-    padding-left: 10%;
+    padding-left: 5%;
     padding-top: 3%;
-}
-
-.joinGame h1 {
-    font-size: 400%;
-    color: #FF4C6A;
+    font-size: 200%;
 }
 

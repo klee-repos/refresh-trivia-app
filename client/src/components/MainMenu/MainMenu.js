@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react'
 
-import {TipContainer} from '../../containers'
+import {TipContainer, SpokenContainer} from '../../containers'
 
 import './mainMenu.css'
 
@@ -16,10 +16,10 @@ class MainMenu extends Component {
                             <span>Would you like to...</span>
                         </div>
                         <div className='newGame'>
-                            <h1>Start a new game</h1>
+                            <SpokenContainer text='Start a new game' />
                         </div>
                         <div className='joinGame'>
-                            <h1>Join a game</h1>
+                            <SpokenContainer text='Join a game' />
                         </div>
                     </div>
                 </div>

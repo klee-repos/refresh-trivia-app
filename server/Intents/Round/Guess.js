@@ -16,7 +16,7 @@ var firstDelayedContext = function(user, context) {
         user.setContext(context, ContextMap[context].previous);
         SessionManager.sendData(user.sessionCode, 'setStatus', context);
         user.save()
-    }, 2000)
+    }, 3000)
 }
 
 var secondDelayedContext = function(user, context) {
@@ -24,7 +24,7 @@ var secondDelayedContext = function(user, context) {
         user.setContext(context, ContextMap[context].previous);
         SessionManager.sendData(user.sessionCode, 'setStatus', context);
         user.save()
-    }, 4000)
+    }, 6000)
 }
 
 var updateGameOnBrowser = function(user, round, context) {
