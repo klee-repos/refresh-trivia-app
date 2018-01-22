@@ -43,8 +43,6 @@ var execute = function(args, assistant){
         }
         
         Question.getRandomQuestion({
-            category: game.currentCategory,  //ToDo: get random category            
-            difficulty: 1
         }).then(function(newQuestion){
             console.log(newQuestion)
             game.setQuestions(newQuestion)
@@ -55,7 +53,8 @@ var execute = function(args, assistant){
             game.save();
             user.save();
             assistant
-                .say('<speak><audio src="' + Sounds.forward + '"></audio>Coins banked! ' + nextTeam + ' you\'re up!</speak>')
+                .play(Sounds.forward)
+                .say('Banked! ' + nextTeam + ' you\'re up!')
                 .setContext('guess', 1)
                 .finish();
         })

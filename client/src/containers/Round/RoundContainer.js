@@ -22,6 +22,7 @@ class RoundContainer extends Component {
 
         this.setResults = this.setResults.bind(this)
 
+        this.setCoinsSteal = this.setCoinsSteal.bind(this)
     }
 
     componentDidMount() {
@@ -32,6 +33,17 @@ class RoundContainer extends Component {
     }
 
     setCoins(questionIndex) {
+        switch(parseInt(questionIndex, 10)) {
+            case 1: return 100;
+            case 2: return 200;
+            case 3: return 400;
+            case 4: return 800;
+            case 5: return 1600;
+            default: return 100;
+        }
+    }
+
+    setCoinsSteal(questionIndex) {
         switch(parseInt(questionIndex, 10)) {
             case 1: return 100;
             case 2: return 200;

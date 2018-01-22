@@ -37,14 +37,16 @@ var updateGameOnBrowser = function(user, round, context) {
 var updateAssistant = function(result, assistant, steal) {
     if (result === true) {
         assistant
-            .say('<speak><audio src="' + Sounds.forward + '"></audio>Correct!</speak>')
+            .play(Sounds.forward)
+            .say('Correct!')
         if (steal) {
             assistant
                 .setContext('guess', 1)
         }
     } else {
         assistant
-            .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')
+            .play(Sounds.backward)
+            .say('Incorrect!')
             .setContext('guess', 1)
     }
     assistant.finish()
@@ -93,7 +95,7 @@ var execute = function(args, assistant){
                 firstDelayedContext(user, 'roundStart');
                 secondDelayedContext(user, 'question')
             }
-
+            SessionManager.sendData(user.sessionCode, 'setQuestion', result.question);
             game.save()
             user.save()
         })

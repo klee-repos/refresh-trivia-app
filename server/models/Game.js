@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var _ = require('lodash')
+var Questions = require('./Question')
 
 /* ///////////////////////////////////
 // Team
@@ -52,7 +53,6 @@ var roundSchema = new mongoose.Schema({
     playerIndex: Number,
     questionIndex: Number,
 })
-
 
 
 /* /////////////////////////////////
@@ -156,72 +156,112 @@ gameStateSchema.methods.resetScores = function() {
 
 gameStateSchema.methods.guessRight = function(context) {
     return new Promise(function(resolve, reject) {
-        let numPlayers = this.teams[this.round.activeTeam].players.length
+        var activeTeam = this.teams[this.round.activeTeam];
+        let numPlayers = activeTeam.players.length
+        var result = {win:false, guess: true, steal: false, coins: 0}
+
         if (context !== 'steal') {
+        /* Question Correct */
+            //Cycle Roster
             let playerIndex = (this.round.playerIndex + 1) % numPlayers
-            this.teams[this.round.activeTeam].playerIndex = playerIndex
+            activeTeam.playerIndex = playerIndex
             this.round.playerIndex = playerIndex
-            this.round.questionIndex++ 
+            
+            //Increase difficulty and check win
+            this.round.questionIndex++
             if (this.round.questionIndex > 5) {
                 this.round.questionIndex = 1
-                resolve({win: true, guess: true, steal:false, coins: 0})
-            } else {
-                resolve({win: false, guess: true, steal:false, coins: 0})
+                result.win = true;
             }
         } else {
-            let applyCoins;
-            switch(this.round.questionIndex - 1) {
-                case 1: applyCoins = 100; break;
-                case 2: applyCoins = 300; break;
-                case 3: applyCoins = 700; break;
-                case 4: applyCoins = 1500; break;
-                case 5: applyCoins = 3100; break;
-                default: applyCoins = 100; break;
-            }
+        /* Successful Steal */
+            //Update Score
+            console.log()
+            activeTeam.score += pointValue(this.round.questionIndex)
+            result.coins = activeTeam.score
+            result.win = true
+            result.steal = true;
+
+            //Next Turn Start
+            this.round.playerIndex = activeTeam.playerIndex
+            this.round.questionIndex = 1;
+
+            //Update round if end of 2nd turn
             if (this.round.activeTeam === 'team1') {
                 this.round.round++
             }
-            this.teams[this.round.activeTeam].score += applyCoins
-            let coinTotal = this.teams[this.round.activeTeam].score
-            this.round.playerIndex = this.teams[this.round.activeTeam].playerIndex
-            resolve({win: true, guess: true, steal:true, coins: coinTotal})
         }
+        this.getNextQuestion().then(function(question){
+            result.question = question;
+            resolve(result)
+        }).catch(function(err){
+            console.log(err)
+        })
     }.bind(this))
 }
 
 gameStateSchema.methods.guessWrong = function(context) {
     return new Promise(function(resolve, reject) {
+        var result = {win:false, guess:false, coins: 0, steal: false};
+
         if (context !== 'steal') {
+        /* Question Wrong */
+            //Move to steal
             if (this.round.activeTeam === 'team1') {
                 this.round.activeTeam = 'team2'
             } else {
                 this.round.activeTeam = 'team1'
             }
             this.round.playerIndex = this.teams[this.round.activeTeam].playerIndex
-            resolve({win: false, guess: false, steal:false, coins: 0})
         } else {
-            let applyCoins;
-            switch(this.round.questionIndex - 1) {
-                case 1: applyCoins = 100; break;
-                case 2: applyCoins = 300; break;
-                case 3: applyCoins = 700; break;
-                case 4: applyCoins = 1500; break;
-                case 5: applyCoins = 3100; break;
-                default: applyCoins = 100; break;
-            }
-            let coinTotal;
+            result.steal = true;
+            //Give coins to original team
+            console.log(this.round.questionIndex);
+            
             if (this.round.activeTeam === 'team2') {
                 this.round.round++
-                this.teams['team1'].score += applyCoins
-                coinTotal = this.teams['team1'].score 
+                this.teams['team1'].score += pointValue(this.round.questionIndex)
+                result.coins = this.teams['team1'].score 
             } else {
-                this.teams['team2'].score += applyCoins
-                coinTotal = this.teams['team2'].score
+                this.teams['team2'].score += pointValue(this.round.questionIndex)
+                result.coins = this.teams['team2'].score
             }
-            resolve({win: false, guess: false, steal:true, coins: coinTotal})
+            this.round.questionIndex = 1;
         }
-        
+        this.getNextQuestion().then(function(question){
+            result.question = question;
+            resolve(result)
+        }).catch(function(err){
+            console.log(err)
+        })
     }.bind(this))
+}
+
+var pointValue = function(questionIndex){
+    switch(questionIndex - 1) {
+        case 1: return 100;
+        case 2: return 300;
+        case 3: return 700;
+        case 4: return 1500;
+        case 5: return 3100;
+        default: return 100;
+    }
+}
+
+gameStateSchema.methods.getNextQuestion = function(){
+    return new Promise(function(resolve,reject){
+        var difficulty = this.round.questionIndex;
+        var category = this.round.category;
+        var excludedQuestions = this.previousQuestions;
+        // var opts = {difficulty: difficulty, category: category, excludedQuestions: excludedQuestions};
+        Questions.getRandomQuestion()
+            .then(function(question){
+                this.previousQuestions.push(this.nextQuestion);
+                this.nextQuestion = question._id;
+                resolve(question);
+            }.bind(this))
+    }.bind(this))
+    
 }
 
 /* /////////////////////////////////
@@ -284,6 +324,7 @@ gameSchema.methods.guess = function(guess, context) {
         return this.gameState.guessWrong(context)
     }
 }
+
 
 
 var Game = mongoose.model('Game', gameSchema);

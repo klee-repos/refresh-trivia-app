@@ -1,32 +1,18 @@
 const SessionManager = require('../../SessionManager');
-const Game = require('../../models/Game');
-const Question = require('../../models/Question');
-
 const Sounds = require('../../Sounds')
-
 var newContext = 'question'
 const ContextMap = require('../../ContextMap')
 
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
-    Game.findById(user.game).then(function(game) {
-        Question.getRandomQuestion({
-            category: game.currentCategory,  //ToDo: get random category            
-            difficulty: 1
-        }).then(function(newQuestion){
-            console.log(newQuestion)
-            game.setQuestions(newQuestion)
-            user.setContext(newContext, ContextMap[newContext].previous);
-            SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
-            SessionManager.sendData(user.sessionCode, 'setQuestion', newQuestion);
-            game.save();
-            user.save();
-            assistant
-                .say('<speak><audio src="' + Sounds.forward + '"></audio>Next question</speak>')
-                .setContext('guess', 1)
-                .finish();
-        })
-    })
+    user.setContext(newContext, ContextMap[newContext].previous);
+    SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
+    user.save();
+    assistant
+        .play(Sounds.forward)
+        .say("Next question")
+        .setContext('guess', 1)
+        .finish();
 }
 
 var validateInput = function(args,assistant){

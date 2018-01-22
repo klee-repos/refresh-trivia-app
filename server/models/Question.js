@@ -48,29 +48,25 @@ questionSchema.statics.getRandomQuestion = function(opts){
 
     return new Promise (function(resolve, reject){
         var query = this.find()
-        if(opts){
-            if(opts.category)
-                query = query.where('category').equals(opts.category);
-    
-            if(opts.difficulty)
-                query = query.where('difficulty').equals(opts.difficulty)
-    
-            if(opts.excludedQuestions)
-                query = query.where('id').nin(opts.excludedQuestions) 
-    
-            query.exec()
-                .then(function(questions){
-                    if(!questions || questions.length == 0) {reject("No questions found")}
-                    else{
-                        var numResults = questions.length;
-                        var rand = Math.floor(Math.random() * (numResults))
-                        console.log('hit')
-                        console.log('rand: ' + rand)
-                        console.log('question: ' + questions[rand])
-                        resolve(questions[rand])
-                    }
-            })
-        }
+        opts = opts || {}
+        if(opts.category)
+            query = query.where('category').equals(opts.category);
+
+        if(opts.difficulty)
+            query = query.where('difficulty').equals(opts.difficulty)
+
+        if(opts.excludedQuestions)
+            query = query.where('id').nin(opts.excludedQuestions) 
+
+        query.exec()
+            .then(function(questions){
+                if(!questions || questions.length == 0) {reject("No questions found")}
+                else{
+                    var numResults = questions.length;
+                    var rand = Math.floor(Math.random() * (numResults))
+                    resolve(questions[rand])
+                }
+        })
     }.bind(this))
 }
 

@@ -7,7 +7,7 @@ var ContextMap = {
             'newGame',
             'joinGame'
         ],
-        previous: null
+        previous: 'mainMenu'
     },
 
     rosterSetup: {
