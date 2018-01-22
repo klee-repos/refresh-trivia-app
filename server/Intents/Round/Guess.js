@@ -23,17 +23,22 @@ var updateGameOnBrowser = function(user, round, context) {
     user.setContext(context, ContextMap[context].previous);
     SessionManager.sendData(user.sessionCode, 'setRound', round);
     SessionManager.sendData(user.sessionCode, 'setStatus', context);
+    
 }
 
-var updateAssistant = function(result, assistant) {
-    if (result.guess === 'true') {
+var updateAssistant = function(result, assistant, steal) {
+    if (result === true) {
         assistant
-        .say('<speak><audio src="' + Sounds.forward + '"></audio>Correct!</speak>')
+            .say('<speak><audio src="' + Sounds.forward + '"></audio>Correct!</speak>')
+        if (steal) {
+            assistant
+                .setContext('guess', 1)
+        }
 
     } else {
         assistant
-        .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')
-        .setContext('guess', 1)
+            .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')
+            .setContext('guess', 1)
     }
     assistant.finish()
 }
@@ -45,26 +50,23 @@ var execute = function(args, assistant){
         var round = game.gameState.round
         let currentTeam = game.gameState.teams[game.gameState.round.activeTeam].players
         game.guess(guess, user.context).then(function(result) {
-            console.log(result)
-            updateAssistant(result, assistant)
-
-            // Guess = true
+            let score = game.gameState.teams[round.activeTeam].score
+            updateAssistant(result.guess, assistant, result.steal)
 
             if (result.guess === true && result.steal === false) {
                 if (result.win === true) {
-                    // win logic
+                    // win logic needed
                 } else {
-                    updateGameOnBrowser(user, round, correctFlashContext)
+                    updateGameOnBrowser(user, round, correctFlashContext, game)
                     delayedContext(user, correctContext);
                 }
             }
 
             if (result.guess === true && result.steal === true) {
                 updateGameOnBrowser(user, round, 'roundStart')
+                SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:round.activeTeam, score: result.coins});
                 delayedContext(user, 'question');
             }
-
-            // Guess = false
 
             if (result.guess === false && result.steal === false) {
                 updateGameOnBrowser(user, round, incorrectFlashContext)
@@ -72,7 +74,14 @@ var execute = function(args, assistant){
             }
 
             if (result.guess === false && result.steal === true) {
+                let team;
+                if (round.activeTeam === 'team1') {
+                    team = 'team2'
+                } else {
+                    team = 'team1'
+                }
                 updateGameOnBrowser(user, round, 'roundStart')
+                SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:team, score: result.coins});
                 delayedContext(user, 'question');
             }
 
@@ -81,48 +90,6 @@ var execute = function(args, assistant){
         })
     })
 }
-
-// var execute = function(args, assistant){
-//     let guess = args.guess
-//     let user = assistant.deviceProfile.user;
-//     Game.findById(assistant.deviceProfile.user.game).populate('gameState.nextQuestion').then(function(game) {
-//         let answer = game.gameState.nextQuestion.answer
-//         var round = game.gameState.round
-//         let currentTeam = game.gameState.teams[game.gameState.round.activeTeam].players
-//         if (guess.toLowerCase() === answer.toLowerCase()) {
-//             if (round.playerIndex < currentTeam.length - 1) {
-//                 round.playerIndex++
-//             } else {
-//                 round.playerIndex = 0;
-//             }
-//             round.questionIndex++
-//             assistant
-//                 .say('<speak><audio src="' + Sounds.forward + '"></audio>Correct!</speak>')
-//                 .setContext('guess', 0)
-//                 .finish();
-//             updateGameOnBrowser(user, round, correctFlashContext)
-//             delayedContext(user, correctContext);
-//         } else {
-//             if (round.activeTeam === 'team1') {
-//                 round.activeTeam = 'team2'
-//                 round.playerIndex = 0
-//             } else {
-//                 round.activeTeam = 'team1'
-//                 round.round++
-//                 round.playerIndex = 0
-//             }
-//             assistant
-//                 .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')
-//                 .setContext('guess', 1)
-//                 .finish();
-//             updateGameOnBrowser(user, round, incorrectFlashContext)
-//             delayedContext(user, incorrectContext);
-//         }
-//         SessionManager.sendData(user.sessionCode, 'setRound', round);
-//         game.save()
-//         user.save()
-//     })
-// }
 
 var validateInput = function(args,assistant){
     return null;

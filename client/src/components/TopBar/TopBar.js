@@ -15,10 +15,10 @@ class TopBar extends Component {
                     </div>
                     <div className='rightContainer'>
                         <div className='info'>
-                            <span>Username</span>
+                            <span>Home</span>
                         </div>
-                        <div className='tokens'>
-                            <span>0 Tokens</span>
+                        <div className='info'>
+                            <span>About</span>
                         </div>
                     </div>
                 </div>

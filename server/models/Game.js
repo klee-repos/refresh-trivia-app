@@ -164,16 +164,27 @@ gameStateSchema.methods.guessRight = function(context) {
             this.round.questionIndex++ 
             if (this.round.questionIndex > 5) {
                 this.round.questionIndex = 1
-                resolve({win: true, guess: true, steal:false})
+                resolve({win: true, guess: true, steal:false, coins: 0})
             } else {
-                resolve({win: false, guess: true, steal:false})
+                resolve({win: false, guess: true, steal:false, coins: 0})
             }
         } else {
+            let applyCoins;
+            switch(this.round.questionIndex - 1) {
+                case 1: applyCoins = 100; break;
+                case 2: applyCoins = 300; break;
+                case 3: applyCoins = 700; break;
+                case 4: applyCoins = 1500; break;
+                case 5: applyCoins = 3100; break;
+                default: applyCoins = 100; break;
+            }
             if (this.round.activeTeam === 'team1') {
                 this.round.round++
             }
+            this.teams[this.round.activeTeam].score += applyCoins
+            let coinTotal = this.teams[this.round.activeTeam].score
             this.round.playerIndex = this.teams[this.round.activeTeam].playerIndex
-            resolve({win: true, guess: true, steal:true})
+            resolve({win: true, guess: true, steal:true, coins: coinTotal})
         }
     }.bind(this))
 }
@@ -187,12 +198,27 @@ gameStateSchema.methods.guessWrong = function(context) {
                 this.round.activeTeam = 'team1'
             }
             this.round.playerIndex = this.teams[this.round.activeTeam].playerIndex
-            resolve({win: false, guess: false, steal:false})
+            resolve({win: false, guess: false, steal:false, coins: 0})
         } else {
+            let applyCoins;
+            switch(this.round.questionIndex - 1) {
+                case 1: applyCoins = 100; break;
+                case 2: applyCoins = 300; break;
+                case 3: applyCoins = 700; break;
+                case 4: applyCoins = 1500; break;
+                case 5: applyCoins = 3100; break;
+                default: applyCoins = 100; break;
+            }
+            let coinTotal;
             if (this.round.activeTeam === 'team2') {
                 this.round.round++
+                this.teams['team1'].score += applyCoins
+                coinTotal = this.teams['team1'].score 
+            } else {
+                this.teams['team2'].score += applyCoins
+                coinTotal = this.teams['team2'].score
             }
-            resolve({win: false, guess: false, steal:true})
+            resolve({win: false, guess: false, steal:true, coins: coinTotal})
         }
         
     }.bind(this))

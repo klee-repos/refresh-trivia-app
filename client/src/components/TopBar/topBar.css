@@ -38,6 +38,7 @@
 
 .rightContainer span {
     font-size: 150%;
+    
 }
 
 .info {
@@ -45,10 +46,6 @@
     flex-wrap: nowrap;
     justify-content: flex-end;
     margin: 0 10% 0 0;
-}
-
-.tokens {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
+    align-items: center;
+    height:100%;
 }

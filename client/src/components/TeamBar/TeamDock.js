@@ -34,7 +34,7 @@ class TeamDock extends Component {
                         <span>{this.props.teamName}</span>
                     </div>
                     <div className='teamBarTeamScore'>
-                        <span>{this.props.teamPoints}  points</span>
+                        <span>{this.props.teamPoints} coins</span>
                     </div>
                     
                 </div>
