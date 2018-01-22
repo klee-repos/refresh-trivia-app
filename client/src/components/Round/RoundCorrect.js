@@ -5,7 +5,7 @@ import {RoundTitleBar} from '../../components'
 
 import {SpokenContainer, CoinBarContainer} from '../../containers'
 
-class RoundCorrectAnswer extends Component {
+class RoundCorrect extends Component {
     render() {
         return (
             <div className='mainOne'>
@@ -37,4 +37,4 @@ class RoundCorrectAnswer extends Component {
     }
 }
 
-export default RoundCorrectAnswer
+export default RoundCorrect

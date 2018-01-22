@@ -13,9 +13,10 @@ export {default as RoundTitleBar} from './Round/RoundTitleBar';
 export {default as RoundStart} from './Round/RoundStart';
 export {default as RoundQuestion} from './Round/RoundQuestion';
 export {default as RoundAnswers} from './Round/RoundAnswers';
-export {default as RoundCorrectAnswer} from './Round/RoundCorrectAnswer';
-export {default as RoundSteal} from './Round/RoundSteal';
+export {default as RoundCorrect} from './Round/RoundCorrect';
 export {default as RoundResult} from './Round/RoundResult';
+export {default as Steal} from './Steal/Steal';
+export {default as StealResult} from './Steal/StealResult';
 
 
 export {default as StatesQuiz} from './StatesQuiz/StatesQuiz';

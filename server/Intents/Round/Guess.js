@@ -11,12 +11,20 @@ var incorrectFlashContext = 'incorrect'
 var flashContext = 'roundStart'
 const ContextMap = require('../../ContextMap')
 
-var delayedContext = function(user, context) {
+var firstDelayedContext = function(user, context) {
     setTimeout(function() {
         user.setContext(context, ContextMap[context].previous);
         SessionManager.sendData(user.sessionCode, 'setStatus', context);
         user.save()
     }, 2000)
+}
+
+var secondDelayedContext = function(user, context) {
+    setTimeout(function() {
+        user.setContext(context, ContextMap[context].previous);
+        SessionManager.sendData(user.sessionCode, 'setStatus', context);
+        user.save()
+    }, 4000)
 }
 
 var updateGameOnBrowser = function(user, round, context) {
@@ -34,7 +42,6 @@ var updateAssistant = function(result, assistant, steal) {
             assistant
                 .setContext('guess', 1)
         }
-
     } else {
         assistant
             .say('<speak><audio src="' + Sounds.backward + '"></audio>Incorrect!</speak>')
@@ -58,19 +65,20 @@ var execute = function(args, assistant){
                     // win logic needed
                 } else {
                     updateGameOnBrowser(user, round, correctFlashContext, game)
-                    delayedContext(user, correctContext);
+                    firstDelayedContext(user, correctContext);
                 }
             }
 
             if (result.guess === true && result.steal === true) {
-                updateGameOnBrowser(user, round, 'roundStart')
+                updateGameOnBrowser(user, round, 'correctSteal')
                 SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:round.activeTeam, score: result.coins});
-                delayedContext(user, 'question');
+                firstDelayedContext(user, 'roundStart');
+                secondDelayedContext(user, 'question')
             }
 
             if (result.guess === false && result.steal === false) {
                 updateGameOnBrowser(user, round, incorrectFlashContext)
-                delayedContext(user, incorrectContext);
+                firstDelayedContext(user, incorrectContext);
             }
 
             if (result.guess === false && result.steal === true) {
@@ -80,9 +88,10 @@ var execute = function(args, assistant){
                 } else {
                     team = 'team1'
                 }
-                updateGameOnBrowser(user, round, 'roundStart')
+                updateGameOnBrowser(user, round, 'incorrectSteal')
                 SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:team, score: result.coins});
-                delayedContext(user, 'question');
+                firstDelayedContext(user, 'roundStart');
+                secondDelayedContext(user, 'question')
             }
 
             game.save()

@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 import {RoundTitleBar, RoundAnswers} from '../../components'
 import {CoinBarContainer} from '../../containers'
 
-class RoundSteal extends Component {
+class Steal extends Component {
     
     render() {
         return (
@@ -31,4 +31,4 @@ class RoundSteal extends Component {
     }
 }
 
-export default RoundSteal
+export default Steal

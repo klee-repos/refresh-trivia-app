@@ -1,0 +1,19 @@
+.stealMessageBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stealResult {
+    display: flex;
+}
+
+.stealMessage {
+    display:flex;
+    padding-top: 10%;
+}
+
+.stealMessage h1 {
+    color: #6B5AFF;
+    font-size: 500%;
+}

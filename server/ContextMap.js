@@ -86,6 +86,28 @@ var ContextMap = {
         previous:'readyToStart'
     },
 
+    correctSteal: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'play',
+            'bank'
+        ],
+        previous:'readyToStart'
+    },
+
+    incorrectSteal: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'play',
+            'bank'
+        ],
+        previous:'readyToStart'
+    },
+
     steal: {
         activeIntents: [
             'input.welcome',

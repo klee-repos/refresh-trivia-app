@@ -4,9 +4,10 @@ import {connect} from 'react-redux'
 
 import {RoundStart, 
         RoundQuestion, 
-        RoundCorrectAnswer,
+        RoundCorrect,
         RoundResult,
-        RoundSteal} from '../../components'
+        Steal,
+        StealResult} from '../../components'
 
 import {Info} from '../../requests'
 
@@ -44,8 +45,18 @@ class RoundContainer extends Component {
     setResults(result) {
         if (result === 'correct') {
             return 'Correct!'
-        } else {
-            return 'Incorrect!'
+        } 
+        
+        if (result === 'incorrect') {
+            return 'Incorrect'
+        }
+
+        if (result === 'stolen') {
+            return 'Coins stolen!'
+        }
+
+        if (result === 'saved') {
+            return 'Steal Unsuccessful'
         }
     }
 
@@ -59,7 +70,6 @@ class RoundContainer extends Component {
     question() {
         return (
             <RoundQuestion {...this.props} coinTotal={this.setCoins(this.props.questionIndex)}/>
-
         )
     }
 
@@ -69,15 +79,21 @@ class RoundContainer extends Component {
         )
     }
 
-    correctAnswer() {
+    roundCorrect() {
         return (
-            <RoundCorrectAnswer {...this.props}/>
+            <RoundCorrect {...this.props}/>
         )
     }
 
     steal() {
         return (
-            <RoundSteal {...this.props}/>
+            <Steal {...this.props}/>
+        )
+    }
+
+    stealResult(result) {
+        return (
+            <StealResult {...this.props} result={this.setResults(result)} coinTotal={this.setCoins(this.props.questionIndex)}/>
         )
     }
 
@@ -87,7 +103,9 @@ class RoundContainer extends Component {
             case "question": return this.question();
             case "correct" : return this.result('correct');
             case "incorrect": return this.result('incorrect');
-            case "correctAnswer": return this.correctAnswer();
+            case "correctSteal" : return this.stealResult('stolen');
+            case "incorrectSteal": return this.stealResult('saved');
+            case "correctAnswer": return this.roundCorrect();
             case "steal": return this.steal()
             default: return this.roundStart(); 
         }
