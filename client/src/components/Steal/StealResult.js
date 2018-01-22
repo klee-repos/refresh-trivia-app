@@ -11,7 +11,7 @@ class StealResult extends Component {
         if (result === 'Coins stolen!') {
             return activeTeam
         } else {
-            if (activeTeam == 'Team 1') {
+            if (activeTeam === 'Team 1') {
                 return 'Team 2'
             } else {
                 return 'Team 1'
