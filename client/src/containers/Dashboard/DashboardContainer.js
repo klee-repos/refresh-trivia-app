@@ -4,7 +4,8 @@ import {TopBarContainer,
         MainMenuContainer, 
         RosterSetupContainer,
         TeamBarContainer,
-        RoundContainer} from '../../containers/'
+        RoundContainer,
+        InformationFooterContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -13,7 +14,10 @@ class DashboardContainer extends React.Component {
 
     landingPage(){
         return (
-            <WelcomeContainer />
+            <div className='main'>
+                <WelcomeContainer />
+                <InformationFooterContainer />
+            </div>
         )
     }
 
