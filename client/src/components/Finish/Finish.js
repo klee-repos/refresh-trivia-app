@@ -8,6 +8,7 @@ import {SpokenContainer} from '../../containers'
 import './finish.css'
 
 class Finish extends Component { 
+
     render() {
         return (
             <div className='mainOne'>
@@ -18,7 +19,7 @@ class Finish extends Component {
                 <div className='finishBox'>
                     {this.props.winner
                         ? <div className='winner'>
-                            <h1>{this.props.winner} you win!<span role='img' aria-label='steal'>&#x1f947;</span></h1>
+                            <h1>{this.props.winner}<span role='img' aria-label='steal'>&#x1f947;</span></h1>
                         </div>
                         : null
                     }

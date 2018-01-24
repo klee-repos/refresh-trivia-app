@@ -70,8 +70,8 @@ var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game).populate('gameState.nextQuestion').then(function(game) {
         var round = game.gameState.round
-        let currentTeam = game.gameState.teams[game.gameState.round.activeTeam].players
         game.guess(guess, user.context).then(function(result) {
+
             if (round.round === 6) {
                 if (result.guess === true) {
                     SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:round.activeTeam, score: result.coins});
@@ -91,6 +91,9 @@ var execute = function(args, assistant){
                 } else {
                     winner = 'Team 2'
                 }
+                if (teamOneScore === teamTwoScore) {
+                    winner = 'Everyone'
+                }
                 SessionManager.sendData(user.sessionCode, 'setWinner', winner);
                 updateGameOnBrowser(user, round, 'finish')
                 finishAssistant(assistant, winner)
@@ -99,6 +102,7 @@ var execute = function(args, assistant){
                 return;
             }
             
+            let currentTeam = game.gameState.teams[game.gameState.round.activeTeam].players
             let score = game.gameState.teams[round.activeTeam].score
             updateAssistant(result.guess, assistant, result.steal)
 

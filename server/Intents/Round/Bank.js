@@ -16,11 +16,30 @@ var delayedContext = function(user) {
     }, 3000)
 }
 
+var updateGameOnBrowser = function(user, round, context) {
+    
+}
+
+var finishAssistant = function(assistant, winner) {
+    if (winner === 'Team 1') {
+        assistant
+            .say('Game over. Team 1 you win!')
+    } else {
+        assistant
+            .say('Game over. Team 2 you win!')
+    }
+    assistant
+        .play(Sounds.forward)
+        .finish()
+}
+
 var execute = function(args, assistant){
+    
     let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game).then(function(game) {
+        var round = game.gameState.round
+
         let nextTeam;
-        let round = game.gameState.round
         let applyScore;
         switch(round.questionIndex - 1) {
             case 1: applyScore = 100; break;
@@ -40,6 +59,27 @@ var execute = function(args, assistant){
             nextTeam = 'Team 1'
             round = game.setRound(round.round + 1, 'team1', 0, 1)
             SessionManager.sendData(user.sessionCode, 'setRound', round);
+        }
+
+        if (round.round === 6) {
+            let teamOneScore = game.gameState.teams.team1.score
+            let teamTwoScore = game.gameState.teams.team2.score
+            let winner;
+            if (teamOneScore > teamTwoScore) {
+                winner = 'Team 1'
+            } else {
+                winner = 'Team 2'
+            }
+            if (teamOneScore === teamTwoScore) {
+                winner = 'Everyone'
+            }
+            user.setContext('finish', ContextMap['finish'].previous);
+            SessionManager.sendData(user.sessionCode, 'setWinner', winner);
+            SessionManager.sendData(user.sessionCode, 'setStatus', 'finish');
+            finishAssistant(assistant, winner)
+            game.save()
+            user.save()
+            return;
         }
         
         Question.getRandomQuestion({

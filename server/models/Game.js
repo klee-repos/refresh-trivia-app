@@ -216,13 +216,11 @@ gameStateSchema.methods.guessWrong = function(context) {
         } else {
             result.steal = true;
             //Give coins to original team
-            console.log(this.round.questionIndex);
-            
             if (this.round.activeTeam === 'team2') {
-                this.round.round++
                 this.teams['team1'].score += pointValue(this.round.questionIndex)
                 result.coins = this.teams['team1'].score 
             } else {
+                this.round.round++
                 this.teams['team2'].score += pointValue(this.round.questionIndex)
                 result.coins = this.teams['team2'].score
             }

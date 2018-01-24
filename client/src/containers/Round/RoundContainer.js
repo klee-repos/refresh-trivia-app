@@ -24,6 +24,8 @@ class RoundContainer extends Component {
         this.setResults = this.setResults.bind(this)
 
         this.setCoinsSteal = this.setCoinsSteal.bind(this)
+
+        this.setWinner = this.setWinner.bind(this)
     }
 
     componentDidMount() {
@@ -41,6 +43,17 @@ class RoundContainer extends Component {
             case 4: return 800;
             case 5: return 1600;
             default: return 100;
+        }
+    }
+
+    setWinner(winner) {
+        if (winner === 'Everyone') {
+            return 'Tie game!'
+        }
+        if (winner === 'Team 1') {
+            return 'Team 1 you win!'
+        } else {
+            return 'Team 2 you win!'
         }
     }
 
@@ -112,7 +125,7 @@ class RoundContainer extends Component {
 
     finish() {
         return (
-            <Finish {...this.props}/>
+            <Finish {...this.props} winner={this.setWinner(this.props.winner)}/>
         )
     }
 
