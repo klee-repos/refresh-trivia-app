@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react'
 
-import {TipContainer, SpokenContainer} from '../../containers'
+import {TipContainer, SpokenContainer, RulesContainer} from '../../containers'
 
 import './mainMenu.css'
 
@@ -24,8 +24,8 @@ class MainMenu extends Component {
                     </div>
                 </div>
                 <div className='mainRight'>
-                    <div className='tipBox'>
-                        <TipContainer currentPage='MainMenu' />
+                    <div className='rulesContainer'>
+                        <RulesContainer />
                     </div>
                 </div>
             </div>

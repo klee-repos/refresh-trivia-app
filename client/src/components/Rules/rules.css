@@ -1,0 +1,61 @@
+
+.rulesContainer {
+    display:flex;
+    height:100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.rulesBox {
+    display:flex;
+    flex-direction: column;
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+}
+
+.theRules {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.theRulesTitle {
+    display: flex;
+    margin-bottom: 1%; 
+}
+
+.theRulesTitle h1 {
+    font-size:200%;
+    color: #6B5AFF;
+    text-decoration: underline;
+}
+
+.rulesDescription {
+    display: flex;
+    flex-direction: column;
+    font-family: 'QuickSand', sans-serif;
+    font-size: 135%;
+    font-weight: bolder;
+}
+
+.rulesDescription p {
+    margin-bottom: 5%;
+}
+
+.passPlayDescription {
+    display:flex;
+    flex-direction: column;
+    font-family: 'QuickSand', sans-serif;
+    font-size: 125%;
+
+}
+
+.descriptionTitle {
+    font-weight: bolder;
+    color: #007FFF;
+}
+
+.spokenDescription {
+    color: #FF4C6A;
+}

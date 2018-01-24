@@ -7,6 +7,8 @@ export {default as SpokenContainer} from './Spoken/SpokenContainer';
 export {default as InformationFooterContainer} from './InformationFooter/InformationFooterContainer';
 
 export {default as TipContainer} from './Tip/TipContainer';
+export {default as InstructionContainer} from './Instruction/InstructionContainer';
+export {default as RulesContainer} from './Rules/RulesContainer';
 
 export {default as TeamBarContainer} from './TeamBar/TeamBarContainer';
 export {default as CoinBarContainer} from './CoinBar/CoinBarContainer';
