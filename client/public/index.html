@@ -6,8 +6,10 @@
     <meta name="theme-color" content="#000000">
 
     <script type='text/javascript'>
-        if (window.location.protocol != "https:")
+        if (window.location.hostname !== 'localhost') {
+          if (window.location.protocol !== "https:")
           window.location.protocol = "https:"
+        }
     </script>
 
     <!--

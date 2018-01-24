@@ -127,6 +127,16 @@ var ContextMap = {
             'goBack',
         ],
         previous:'mainMenu'
+    },
+
+    bonus: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'guess'
+        ],
+        previous:'readyToStart'
     }
     
 }

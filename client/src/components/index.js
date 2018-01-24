@@ -23,7 +23,7 @@ export {default as Steal} from './Steal/Steal';
 export {default as StealResult} from './Steal/StealResult';
 
 export {default as Finish} from './Finish/Finish';
-
+export {default as Bonus} from './Bonus/Bonus';
 
 export {default as PrivacyPolicy} from './PrivacyPolicy/PrivacyPolicy';
 

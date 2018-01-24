@@ -76,4 +76,23 @@ routes.post('/setRound', function(req, res) {
     })
 })
 
+routes.post('/setTurn', function(req, res) {
+    let turn = req.body.turn;
+    let sessionCode = req.body.sessionCode;
+    User.findOne({sessionCode:sessionCode}).populate('game').then(function(user) {
+        if (user) {
+            let round = user.game.gameState.round.round
+            let activeTeam = user.game.gameState.round.activeTeam
+            let playerIndex = user.game.gameState.round.playerIndex
+            let newRound = user.game.setRound(round, activeTeam, playerIndex, turn)
+            SessionManager.sendData(user.sessionCode, 'setRound', newRound);
+            user.save()
+            user.game.save()
+            res.send(user)
+        } else {
+            res.send("Did not find a user")
+        }
+    })
+})
+
 module.exports = routes;

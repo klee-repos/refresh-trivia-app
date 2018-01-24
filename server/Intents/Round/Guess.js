@@ -71,6 +71,18 @@ var execute = function(args, assistant){
     Game.findById(assistant.deviceProfile.user.game).populate('gameState.nextQuestion').then(function(game) {
         var round = game.gameState.round
         game.guess(guess, user.context).then(function(result) {
+            if (result.bonus === true) {
+                console.log('bonus hit')
+                SessionManager.sendData(user.sessionCode, 'setQuestion', result.question);
+                updateAssistant(result.guess, assistant, true)
+                updateGameOnBrowser(user, round, 'bonus')
+                firstDelayedContext(user, 'roundStart')
+                secondDelayedContext(user, 'question');
+                game.save()
+                user.save()
+                
+                return;
+            }
 
             if (round.round === 6) {
                 if (result.guess === true) {
@@ -107,12 +119,8 @@ var execute = function(args, assistant){
             updateAssistant(result.guess, assistant, result.steal)
 
             if (result.guess === true && result.steal === false) {
-                if (result.win === true) {
-                    // win logic needed
-                } else {
-                    updateGameOnBrowser(user, round, correctFlashContext, game)
-                    firstDelayedContext(user, correctContext);
-                }
+                updateGameOnBrowser(user, round, correctFlashContext)
+                firstDelayedContext(user, correctContext);
             }
 
             if (result.guess === true && result.steal === true) {

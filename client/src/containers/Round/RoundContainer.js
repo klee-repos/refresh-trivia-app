@@ -8,7 +8,8 @@ import {RoundStart,
         RoundResult,
         Steal,
         StealResult,
-        Finish} from '../../components'
+        Finish,
+        Bonus} from '../../components'
 
 import {Info} from '../../requests'
 
@@ -26,6 +27,8 @@ class RoundContainer extends Component {
         this.setCoinsSteal = this.setCoinsSteal.bind(this)
 
         this.setWinner = this.setWinner.bind(this)
+
+        this.setBonusWinner = this.setBonusWinner.bind(this)
     }
 
     componentDidMount() {
@@ -38,10 +41,10 @@ class RoundContainer extends Component {
     setCoins(questionIndex) {
         switch(parseInt(questionIndex, 10)) {
             case 1: return 100;
-            case 2: return 200;
-            case 3: return 400;
-            case 4: return 800;
-            case 5: return 1600;
+            case 2: return 300;
+            case 3: return 700;
+            case 4: return 1500;
+            case 5: return 3100;
             default: return 100;
         }
     }
@@ -60,10 +63,10 @@ class RoundContainer extends Component {
     setCoinsSteal(questionIndex) {
         switch(parseInt(questionIndex, 10)) {
             case 1: return 100;
-            case 2: return 200;
-            case 3: return 400;
-            case 4: return 800;
-            case 5: return 1600;
+            case 2: return 300;
+            case 3: return 700;
+            case 4: return 1500;
+            case 5: return 3100;
             default: return 100;
         }
     }
@@ -83,6 +86,14 @@ class RoundContainer extends Component {
 
         if (result === 'saved') {
             return 'Steal Unsuccessful'
+        }
+    }
+
+    setBonusWinner(activeTeam) {
+        if (activeTeam === 'team1') {
+            return 'Team 2'
+        } else {
+            return 'Team 1'
         }
     }
 
@@ -129,6 +140,12 @@ class RoundContainer extends Component {
         )
     }
 
+    bonus() {
+        return (
+            <Bonus {...this.props} bonusWinner={this.setBonusWinner(this.props.activeTeam)}/>
+        )
+    }
+
     currentPage(){
         switch(this.props.context){
             case "roundStart": return this.roundStart();
@@ -140,7 +157,8 @@ class RoundContainer extends Component {
             case "correctAnswer": return this.roundCorrect();
             case "steal": return this.steal()
             case "finish": return this.finish()
-            default: return this.roundStart(); 
+            case "bonus": return this.bonus()
+            default: return this.roundStart() 
         }
     }
 

@@ -158,10 +158,11 @@ gameStateSchema.methods.guessRight = function(context) {
     return new Promise(function(resolve, reject) {
         var activeTeam = this.teams[this.round.activeTeam];
         let numPlayers = activeTeam.players.length
-        var result = {win:false, guess: true, steal: false, coins: 0}
+        var result = {guess: true, steal: false, coins: 0, bonus: false}
 
         if (context !== 'steal') {
         /* Question Correct */
+
             //Cycle Roster
             let playerIndex = (this.round.playerIndex + 1) % numPlayers
             activeTeam.playerIndex = playerIndex
@@ -169,17 +170,27 @@ gameStateSchema.methods.guessRight = function(context) {
             
             //Increase difficulty and check win
             this.round.questionIndex++
-            if (this.round.questionIndex > 5) {
-                this.round.questionIndex = 1
-                result.win = true;
+
+            if (this.round.questionIndex === 6) {
+                activeTeam.score += pointValue(this.round.questionIndex)
+                this.round.round++
+                this.round.questionIndex = 1;
+                if (this.round.activeTeam === 'team1') {
+                    this.round.activeTeam = 'team2'
+                    this.round.playerIndex = this.teams.team2.playerIndex
+                } else {
+                    this.round.activeTeam = 'team1'
+                    this.round.playerIndex = this.teams.team1.playerIndex
+                }
+                result.bonus = true;
             }
+
         } else {
         /* Successful Steal */
             //Update Score
             console.log()
             activeTeam.score += pointValue(this.round.questionIndex)
             result.coins = activeTeam.score
-            result.win = true
             result.steal = true;
 
             //Next Turn Start
@@ -202,7 +213,7 @@ gameStateSchema.methods.guessRight = function(context) {
 
 gameStateSchema.methods.guessWrong = function(context) {
     return new Promise(function(resolve, reject) {
-        var result = {win:false, guess:false, coins: 0, steal: false};
+        var result = {win:false, guess:false, coins: 0, steal: false, bonus: false};
 
         if (context !== 'steal') {
         /* Question Wrong */
