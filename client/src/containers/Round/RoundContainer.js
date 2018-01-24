@@ -7,7 +7,8 @@ import {RoundStart,
         RoundCorrect,
         RoundResult,
         Steal,
-        StealResult} from '../../components'
+        StealResult,
+        Finish} from '../../components'
 
 import {Info} from '../../requests'
 
@@ -109,6 +110,12 @@ class RoundContainer extends Component {
         )
     }
 
+    finish() {
+        return (
+            <Finish {...this.props}/>
+        )
+    }
+
     currentPage(){
         switch(this.props.context){
             case "roundStart": return this.roundStart();
@@ -119,6 +126,7 @@ class RoundContainer extends Component {
             case "incorrectSteal": return this.stealResult('saved');
             case "correctAnswer": return this.roundCorrect();
             case "steal": return this.steal()
+            case "finish": return this.finish()
             default: return this.roundStart(); 
         }
     }
@@ -145,6 +153,7 @@ function mapStateToProps({dashboard,game}) {
         question: game.question,
         picklist: game.picklist,
         mediaURL: game.mediaURL,
+        winner: game.winner
     }
 }
 

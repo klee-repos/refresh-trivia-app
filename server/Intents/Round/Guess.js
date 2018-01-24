@@ -28,10 +28,23 @@ var secondDelayedContext = function(user, context) {
 }
 
 var updateGameOnBrowser = function(user, round, context) {
+    console.log(round)
     user.setContext(context, ContextMap[context].previous);
     SessionManager.sendData(user.sessionCode, 'setRound', round);
     SessionManager.sendData(user.sessionCode, 'setStatus', context);
-    
+}
+
+var finishAssistant = function(assistant, winner) {
+    if (winner === 'Team 1') {
+        assistant
+            .say('Game over. Team 1 you win!')
+    } else {
+        assistant
+            .say('Game over. Team 2 you win!')
+    }
+    assistant
+        .play(Sounds.forward)
+        .finish()
 }
 
 var updateAssistant = function(result, assistant, steal) {
@@ -59,6 +72,33 @@ var execute = function(args, assistant){
         var round = game.gameState.round
         let currentTeam = game.gameState.teams[game.gameState.round.activeTeam].players
         game.guess(guess, user.context).then(function(result) {
+            if (round.round === 6) {
+                if (result.guess === true) {
+                    SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:round.activeTeam, score: result.coins});
+                } else {
+                    if (round.activeTeam === 'team1') {
+                        team = 'team2'
+                    } else {
+                        team = 'team1'
+                    }
+                    SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:team, score: result.coins});
+                }
+                let teamOneScore = game.gameState.teams.team1.score
+                let teamTwoScore = game.gameState.teams.team2.score
+                let winner;
+                if (teamOneScore > teamTwoScore) {
+                    winner = 'Team 1'
+                } else {
+                    winner = 'Team 2'
+                }
+                SessionManager.sendData(user.sessionCode, 'setWinner', winner);
+                updateGameOnBrowser(user, round, 'finish')
+                finishAssistant(assistant, winner)
+                game.save()
+                user.save()
+                return;
+            }
+            
             let score = game.gameState.teams[round.activeTeam].score
             updateAssistant(result.guess, assistant, result.steal)
 
@@ -72,6 +112,7 @@ var execute = function(args, assistant){
             }
 
             if (result.guess === true && result.steal === true) {
+                
                 updateGameOnBrowser(user, round, 'correctSteal')
                 SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:round.activeTeam, score: result.coins});
                 firstDelayedContext(user, 'roundStart');

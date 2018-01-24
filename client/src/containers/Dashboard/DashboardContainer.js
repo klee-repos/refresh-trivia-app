@@ -61,6 +61,7 @@ class DashboardContainer extends React.Component {
             case "incorrectSteal": return this.round('incorrectSteal');
             case "correctAnswer": return this.round('correctAnswer');
             case "steal": return this.round('steal');
+            case "finish": return this.round('finish')
             default: return this.mainMenu(); 
         }
     }

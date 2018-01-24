@@ -116,6 +116,17 @@ var ContextMap = {
             'guess'
         ],
         previous:'readyToStart'
+    },
+
+    finish: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'newGame',
+            'joinGame',
+            'goBack',
+        ],
+        previous:'mainMenu'
     }
     
 }

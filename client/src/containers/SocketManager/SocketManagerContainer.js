@@ -74,6 +74,11 @@ class SocketManagerContainer extends Component {
             this.props.setScore(score)
         }.bind(this))
 
+        // Set winner
+        socket.on('setWinner', function(winner) {
+            this.props.setWinner(winner)
+        }.bind(this))
+
     }
 
     render() {

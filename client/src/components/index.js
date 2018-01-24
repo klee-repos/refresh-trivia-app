@@ -18,8 +18,11 @@ export {default as RoundQuestion} from './Round/RoundQuestion';
 export {default as RoundAnswers} from './Round/RoundAnswers';
 export {default as RoundCorrect} from './Round/RoundCorrect';
 export {default as RoundResult} from './Round/RoundResult';
+
 export {default as Steal} from './Steal/Steal';
 export {default as StealResult} from './Steal/StealResult';
+
+export {default as Finish} from './Finish/Finish';
 
 
 export {default as PrivacyPolicy} from './PrivacyPolicy/PrivacyPolicy';
