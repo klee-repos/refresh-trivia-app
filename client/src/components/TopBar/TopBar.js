@@ -21,6 +21,9 @@ class TopBar extends Component {
                         <div className='home'>
                             <NavLink to='/'><span>Home</span></NavLink>
                         </div>
+                        <div className='home'>
+                            <NavLink to='/help'><span>Help</span></NavLink>
+                        </div>
                         <div className='about'>
                             <NavLink to='/about'><span>About</span></NavLink>
                         </div>

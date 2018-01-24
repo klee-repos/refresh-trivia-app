@@ -22,3 +22,5 @@ export {default as RoundContainer} from './Round/RoundContainer';
 export {default as PrivacyPolicyContainer} from './PrivacyPolicy/PrivacyPolicyContainer';
 
 export {default as AboutContainer} from './About/AboutContainer';
+
+export {default as HelpContainer} from './Help/HelpContainer';

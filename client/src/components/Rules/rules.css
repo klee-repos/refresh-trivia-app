@@ -14,24 +14,26 @@
     justify-content: center;
 }
 
-.theRules {
+/* HowToPlay
+* * * * * * * * */
+
+.howToPlay {
     display: flex;
     flex-direction: column;
 }
 
-
-.theRulesTitle {
+.howToPlayTitle {
     display: flex;
     margin-bottom: 1%; 
 }
 
-.theRulesTitle h1 {
+.howToPlayTitle h1 {
     font-size:200%;
     color: #6B5AFF;
     text-decoration: underline;
 }
 
-.rulesDescription {
+.howToPlayDescription {
     display: flex;
     flex-direction: column;
     font-family: 'QuickSand', sans-serif;
@@ -39,21 +41,13 @@
     font-weight: bolder;
 }
 
-.rulesDescription p {
-    margin-bottom: 5%;
-}
-
-.passPlayDescription {
-    display:flex;
-    flex-direction: column;
-    font-family: 'QuickSand', sans-serif;
-    font-size: 125%;
-
+.howToPlayDescription p {
+    margin-bottom: 3%;
 }
 
 .descriptionTitle {
-    font-weight: bolder;
     color: #007FFF;
+    font-family: 'Coiny', sans-serif;
 }
 
 .spokenDescription {

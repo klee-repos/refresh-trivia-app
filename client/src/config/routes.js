@@ -5,6 +5,7 @@ import {MainContainer,
         DashboardContainer, 
         SocketManagerContainer, 
         PrivacyPolicyContainer,
+        HelpContainer,
         AboutContainer} from '../containers';
 
 
@@ -15,6 +16,7 @@ const routes = (
                 <MainContainer> 
                     <Route exact path='/' component={DashboardContainer} />
                     <Route  path='/privacyPolicy' component={PrivacyPolicyContainer} />
+                    <Route  path='/help' component={HelpContainer} />
                     <Route  path='/about' component={AboutContainer} />
                 </MainContainer>
             </SocketManagerContainer>           

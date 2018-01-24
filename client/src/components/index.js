@@ -6,6 +6,7 @@ export {default as Spoken} from './Spoken/Spoken';
 export {default as InformationFooter} from './InformationFooter/InformationFooter';
 export {default as Instruction} from './Instruction/Instruction';
 export {default as Rules} from './Rules/Rules';
+export {default as HowToPlay} from './Rules/HowToPlay';
 
 export {default as CoinBar} from './CoinBar/CoinBar';
 export {default as TeamBar} from './TeamBar/TeamBar';
@@ -30,3 +31,5 @@ export {default as Bonus} from './Bonus/Bonus';
 export {default as PrivacyPolicy} from './PrivacyPolicy/PrivacyPolicy';
 
 export {default as About} from './About/About';
+
+export {default as Help} from './Help/Help';
