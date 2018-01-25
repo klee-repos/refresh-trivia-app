@@ -4,7 +4,8 @@ import {TopBarContainer,
         MainMenuContainer, 
         RosterSetupContainer,
         TeamBarContainer,
-        RoundContainer} from '../../containers/'
+        RoundContainer,
+        InformationFooterContainer} from '../../containers/'
 import {connect} from 'react-redux'
 
 import './dashboard.css'
@@ -13,7 +14,10 @@ class DashboardContainer extends React.Component {
 
     landingPage(){
         return (
-            <WelcomeContainer />
+            <div className='main'>
+                <WelcomeContainer />
+                <InformationFooterContainer />
+            </div>
         )
     }
 
@@ -43,8 +47,6 @@ class DashboardContainer extends React.Component {
         )
     }
 
-
-
     currentPage(status){
         switch(this.props.loadingStatus){
             case "INIT" : return this.landingPage();
@@ -55,8 +57,12 @@ class DashboardContainer extends React.Component {
             case "question": return this.round('question');
             case "correct": return this.round('correct');
             case "incorrect": return this.round('incorrect');
+            case "correctSteal": return this.round('correctSteal');
+            case "incorrectSteal": return this.round('incorrectSteal');
             case "correctAnswer": return this.round('correctAnswer');
             case "steal": return this.round('steal');
+            case "finish": return this.round('finish')
+            case "bonus": return this.round('bonus')
             default: return this.mainMenu(); 
         }
     }

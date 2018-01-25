@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 import {RoundTitleBar, RoundAnswers} from '../../components'
 import {CoinBarContainer} from '../../containers'
 
-class RoundSteal extends Component {
+class Steal extends Component {
     
     render() {
         return (
@@ -14,12 +14,12 @@ class RoundSteal extends Component {
                     : null
                 }
                 <div className='roundMessageBox'>
-                        <div className='roundPlayer'>
-                            {this.props.activeTeam
-                                ? <span>{this.props.activeTeam}, for the steal! <span role='img' aria-label='steal'>&#x1f47b;</span></span>
-                                : null
-                            }
-                        </div>
+                    <div className='roundPlayer'>
+                        {this.props.activeTeam
+                            ? <span>{this.props.activeTeam}, for the steal! <span role='img' aria-label='steal'>&#x1f47b;</span></span>
+                            : null
+                        }
+                    </div>
                     <div className='roundQuestion'>
                         <span>{this.props.question}</span>
                     </div>
@@ -31,4 +31,4 @@ class RoundSteal extends Component {
     }
 }
 
-export default RoundSteal
+export default Steal

@@ -4,6 +4,7 @@ const SET_ROUND = 'SET_ROUND';
 const SET_QUESTION = 'SET_QUESTION';
 const SET_TEAM_ONE_SCORE = 'SET_TEAM_ONE_SCORE'
 const SET_TEAM_TWO_SCORE = 'SET_TEAM_TWO_SCORE'
+const SET_WINNER = 'SET_WINNER'
 
 export function setTeams(roster) {
     return {
@@ -52,6 +53,13 @@ export function setScore(score) {
     }
 }
 
+export function setWinner(winner) {
+    return {
+        type: SET_WINNER,
+        winner: winner
+    }
+}
+
 const initialState = {
     teamOnePlayers: null,
     teamTwoScore: 0,
@@ -64,6 +72,7 @@ const initialState = {
     question: null,
     picklist: null,
     mediaURL: null,
+    winner: null,
 }
 
 export default function apps (state = initialState, action) {
@@ -93,6 +102,10 @@ export default function apps (state = initialState, action) {
                 question: action.question,
                 picklist: action.picklist,
                 mediaURL: action.mediaURL,
+            })
+        case SET_WINNER:
+            return Object.assign({}, state, {
+                winner: action.winner
             })
         default:
             return state

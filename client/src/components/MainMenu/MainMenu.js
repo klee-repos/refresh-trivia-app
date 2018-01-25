@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react'
 
-import {TipContainer} from '../../containers'
+import {SpokenContainer, RulesContainer} from '../../containers'
 
 import './mainMenu.css'
 
@@ -16,16 +16,23 @@ class MainMenu extends Component {
                             <span>Would you like to...</span>
                         </div>
                         <div className='newGame'>
-                            <h1>Start a new game</h1>
+                            <SpokenContainer text='Start a new game' />
                         </div>
                         <div className='joinGame'>
-                            <h1>Join a game</h1>
+                            <div className ='joinSpoken'>
+                            <SpokenContainer text='Join a game' />
+                            </div>
+                            <div className='underConstruction'>
+                                <span className='contructionEmoji' role='img' aria-label='construction'>&#x1f6a7;</span>
+                                <span className='comingSoon'> (Coming soon)</span>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
                 <div className='mainRight'>
-                    <div className='tipBox'>
-                        <TipContainer currentPage='MainMenu' />
+                    <div className='rulesContainer'>
+                        <RulesContainer />
                     </div>
                 </div>
             </div>

@@ -1,0 +1,16 @@
+.finishBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+}
+
+.winner {
+    padding-bottom: 5%;
+}
+
+.winner h1 {
+    font-size: 350%;
+    color: #007FFF;
+}

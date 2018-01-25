@@ -1,0 +1,53 @@
+.informationFooter {
+    display: flex;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    justify-content: center;
+    
+}
+
+.informationFooterContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+    width:90%;
+    
+}
+
+.footerBox {
+    display:flex;
+    width: 50%;
+    justify-content: flex-end;
+}
+
+.privacyPolicy {
+    display:flex; 
+    margin-right: 10%;
+    align-items: flex-end;
+}
+
+.privacyPolicy span {
+    font-size: 100%;
+    color: #4A4A4A;
+}
+
+
+
+.copyRight {
+    display:flex;
+    align-items:center;
+}
+
+.copyRight span {
+    padding-top: 3px;
+    padding-left: 2px;
+}
+
+.copyrightIcon {
+    width:15px;
+    height:15px;
+}

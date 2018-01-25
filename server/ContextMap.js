@@ -5,9 +5,10 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'newGame',
-            'joinGame'
+            'joinGame',
+            'goTo'
         ],
-        previous: null
+        previous: 'mainMenu'
     },
 
     rosterSetup: {
@@ -15,6 +16,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'addPlayersToTeam',
             'removePlayersFromTeam'
         ],
@@ -27,6 +29,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'addPlayersToTeam',
             'removePlayersFromTeam',
             'confirmRoster'
@@ -48,6 +51,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'guess'
         ],
         previous:'readyToStart'
@@ -58,6 +62,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'play',
             'bank'
         ],
@@ -69,6 +74,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'play',
             'bank'
         ],
@@ -80,6 +86,31 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
+            'play',
+            'bank'
+        ],
+        previous:'readyToStart'
+    },
+
+    correctSteal: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'goTo',
+            'play',
+            'bank'
+        ],
+        previous:'readyToStart'
+    },
+
+    incorrectSteal: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'goTo',
             'play',
             'bank'
         ],
@@ -91,6 +122,29 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
+            'guess'
+        ],
+        previous:'readyToStart'
+    },
+
+    finish: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'newGame',
+            'joinGame',
+            'goBack',
+        ],
+        previous:'mainMenu'
+    },
+
+    bonus: {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goBack',
+            'goTo',
             'guess'
         ],
         previous:'readyToStart'

@@ -6,6 +6,7 @@ Intents["INPUT.WELCOME"] = require('./Welcome');
 Intents.CONNECT = require('./Connect');
 Intents.NEWGAME = require('./NewGame');
 Intents.GOBACK = require('./GoBack')
+Intents.GOTO = require('./GoTo')
 
 // Correct guess
 Intents.GUESS = require('./Round/Guess')

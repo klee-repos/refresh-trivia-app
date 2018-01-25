@@ -4,9 +4,12 @@ import {connect} from 'react-redux'
 
 import {RoundStart, 
         RoundQuestion, 
-        RoundCorrectAnswer,
+        RoundCorrect,
         RoundResult,
-        RoundSteal} from '../../components'
+        Steal,
+        StealResult,
+        Finish,
+        Bonus} from '../../components'
 
 import {Info} from '../../requests'
 
@@ -21,6 +24,11 @@ class RoundContainer extends Component {
 
         this.setResults = this.setResults.bind(this)
 
+        this.setCoinsSteal = this.setCoinsSteal.bind(this)
+
+        this.setWinner = this.setWinner.bind(this)
+
+        this.setBonusWinner = this.setBonusWinner.bind(this)
     }
 
     componentDidMount() {
@@ -33,10 +41,32 @@ class RoundContainer extends Component {
     setCoins(questionIndex) {
         switch(parseInt(questionIndex, 10)) {
             case 1: return 100;
-            case 2: return 200;
-            case 3: return 400;
-            case 4: return 800;
-            case 5: return 1600;
+            case 2: return 300;
+            case 3: return 700;
+            case 4: return 1500;
+            case 5: return 3100;
+            default: return 100;
+        }
+    }
+
+    setWinner(winner) {
+        if (winner === 'Everyone') {
+            return 'Tie game!'
+        }
+        if (winner === 'Team 1') {
+            return 'Team 1 you win!'
+        } else {
+            return 'Team 2 you win!'
+        }
+    }
+
+    setCoinsSteal(questionIndex) {
+        switch(parseInt(questionIndex, 10)) {
+            case 1: return 100;
+            case 2: return 300;
+            case 3: return 700;
+            case 4: return 1500;
+            case 5: return 3100;
             default: return 100;
         }
     }
@@ -44,8 +74,26 @@ class RoundContainer extends Component {
     setResults(result) {
         if (result === 'correct') {
             return 'Correct!'
+        } 
+        
+        if (result === 'incorrect') {
+            return 'Incorrect'
+        }
+
+        if (result === 'stolen') {
+            return 'Coins stolen!'
+        }
+
+        if (result === 'saved') {
+            return 'Steal Unsuccessful'
+        }
+    }
+
+    setBonusWinner(activeTeam) {
+        if (activeTeam === 'team1') {
+            return 'Team 2'
         } else {
-            return 'Incorrect!'
+            return 'Team 1'
         }
     }
 
@@ -59,7 +107,6 @@ class RoundContainer extends Component {
     question() {
         return (
             <RoundQuestion {...this.props} coinTotal={this.setCoins(this.props.questionIndex)}/>
-
         )
     }
 
@@ -69,15 +116,33 @@ class RoundContainer extends Component {
         )
     }
 
-    correctAnswer() {
+    roundCorrect() {
         return (
-            <RoundCorrectAnswer {...this.props}/>
+            <RoundCorrect {...this.props}/>
         )
     }
 
     steal() {
         return (
-            <RoundSteal {...this.props}/>
+            <Steal {...this.props}/>
+        )
+    }
+
+    stealResult(result) {
+        return (
+            <StealResult {...this.props} result={this.setResults(result)} coinTotal={this.setCoins(this.props.questionIndex)}/>
+        )
+    }
+
+    finish() {
+        return (
+            <Finish {...this.props} winner={this.setWinner(this.props.winner)}/>
+        )
+    }
+
+    bonus() {
+        return (
+            <Bonus {...this.props} bonusWinner={this.setBonusWinner(this.props.activeTeam)}/>
         )
     }
 
@@ -87,9 +152,13 @@ class RoundContainer extends Component {
             case "question": return this.question();
             case "correct" : return this.result('correct');
             case "incorrect": return this.result('incorrect');
-            case "correctAnswer": return this.correctAnswer();
+            case "correctSteal" : return this.stealResult('stolen');
+            case "incorrectSteal": return this.stealResult('saved');
+            case "correctAnswer": return this.roundCorrect();
             case "steal": return this.steal()
-            default: return this.roundStart(); 
+            case "finish": return this.finish()
+            case "bonus": return this.bonus()
+            default: return this.roundStart() 
         }
     }
 
@@ -115,6 +184,7 @@ function mapStateToProps({dashboard,game}) {
         question: game.question,
         picklist: game.picklist,
         mediaURL: game.mediaURL,
+        winner: game.winner
     }
 }
 

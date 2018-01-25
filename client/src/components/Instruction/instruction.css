@@ -1,0 +1,11 @@
+
+.instructionContainer {
+    display:flex;
+    height:100%;
+    align-items: center;
+}
+
+.instructionBox {
+    display:flex;
+    background-color: pink;
+}

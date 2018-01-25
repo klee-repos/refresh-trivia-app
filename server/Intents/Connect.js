@@ -8,6 +8,7 @@ const ContextMap = require('../ContextMap')
 var newContext = 'mainMenu'
 
 var execute = function(args, assistant){
+    args.connectCode = args.color + " " + args.animal + " " + args.appliance;
     var user = assistant.deviceProfile.user;
     if(!user){
         user = new User();        
@@ -29,8 +30,8 @@ var execute = function(args, assistant){
 var validateInput = function(args, assistant){
     if(!assistant.deviceProfile)
         return "I don't know this device, are you sure that you've connected?"
-    if(!args.connectCode)
-        return "Missing connectCode"
+    if(!args.color || !args.animal || !args.appliance)
+        return "Missing connect code component"
     return null;
 }
 

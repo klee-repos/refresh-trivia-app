@@ -1,0 +1,50 @@
+.mainHelp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+}
+
+.helpContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 5em 0 0 0;
+    width:80%;
+    height: 100vh;
+    align-items: center;
+}
+
+.helpBox {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.interactionHelpBox {
+    display:flex;
+    flex-direction: column;
+}
+
+.interactionHelpBox h1 {
+    font-size: 200%;
+    color: #6B5AFF;
+    text-decoration: underline;
+}
+
+.interactionDescription {
+    display: flex;
+    flex-direction: column;
+    font-family: 'QuickSand', sans-serif;
+    font-size: 135%;
+    font-weight: bolder;
+}
+
+.interactionCommands {
+
+}
+
+.firstHelpBox {
+    display: flex;
+}

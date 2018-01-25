@@ -1,0 +1,23 @@
+.bonusBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:100%;
+}
+
+.bonusBox h1 {
+    color: #007FFF;
+    font-size: 300%;
+}
+
+.bonusBox h2 {
+    color: #6B5AFF;
+    font-size: 500%;
+}
+
+.bonusMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

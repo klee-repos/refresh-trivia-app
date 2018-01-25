@@ -21,23 +21,34 @@
 
 .newGame {
     display: flex;
-    padding-left: 10%;
+    padding-left: 5%;
     padding-top: 5%;
-}
-
-.newGame h1 {
-     font-size: 400%;
-     color: #FF4C6A;
+    font-size: 200%;
 }
 
 .joinGame {
     display: flex;
-    padding-left: 10%;
-    padding-top: 3%;
+    padding-left: 5%;
+    margin-top: 3%;
+    font-size: 200%;
+    align-items: center;
 }
 
-.joinGame h1 {
-    font-size: 400%;
-    color: #FF4C6A;
+.joinSpoken {
+    display: flex;
+}
+
+.underConstruction {
+    display: flex;
+    padding-left: 5px;
+    align-items: center;
+}
+
+.contructionEmoji {
+    font-size: 150%;
+}
+
+.comingSoon {
+    font-size: 70%;
 }
 

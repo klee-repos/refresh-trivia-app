@@ -1,0 +1,55 @@
+
+.rulesContainer {
+    display:flex;
+    height:100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.rulesBox {
+    display:flex;
+    flex-direction: column;
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+}
+
+/* HowToPlay
+* * * * * * * * */
+
+.howToPlay {
+    display: flex;
+    flex-direction: column;
+}
+
+.howToPlayTitle {
+    display: flex;
+    margin-bottom: 1%; 
+}
+
+.howToPlayTitle h1 {
+    font-size:200%;
+    color: #6B5AFF;
+    text-decoration: underline;
+}
+
+.howToPlayDescription {
+    display: flex;
+    flex-direction: column;
+    font-family: 'QuickSand', sans-serif;
+    font-size: 135%;
+    font-weight: bolder;
+}
+
+.howToPlayDescription p {
+    margin-bottom: 3%;
+}
+
+.descriptionTitle {
+    color: #007FFF;
+    font-family: 'Coiny', sans-serif;
+}
+
+.spokenDescription {
+    color: #FF4C6A;
+}

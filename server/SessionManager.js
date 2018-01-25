@@ -1,5 +1,6 @@
 var User = require('./models/User');
 var guid = require('uuid/v4');
+var PurpleMonkeyDishwasher = require('purple-monkey-dishwasher');
 
 var SessionManager = (function(){
     var io;
@@ -33,9 +34,7 @@ var SessionManager = (function(){
     }
 
     var getConnectCode = function(){
-        return new Promise(function(resolve,reject){
-            resolve(Math.floor(Math.random() * (10000 - 1000)) + 1000); //The maximum is exclusive and the minimum is inclusive
-          })
+        return PurpleMonkeyDishwasher();
     }
 
     var getSession = function(connectCode){
@@ -48,12 +47,11 @@ var SessionManager = (function(){
 
     var findFreeConnectCode = function(){
         return new Promise(function(resolve,reject){
-            var connectCode = getConnectCode().then(function(connectCode){
+            var connectCode = getConnectCode()
                 if(!connectingSessions[connectCode])
                     resolve(connectCode);				
                 else
                     findFreeConnectCode();
-            });
         });
     }
 

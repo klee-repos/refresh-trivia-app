@@ -1,0 +1,57 @@
+.mainAbout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    
+}
+
+.aboutContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin: 5em 0 0 0;
+    width:80%;
+    height:80%;
+    justify-content: center;
+}
+
+.aboutTitle {
+    display: flex;
+}
+
+.aboutTitle h1 {
+    font-size: 250%;
+    color: #007FFF;
+}
+
+.brief {
+    display: flex;
+    flex-direction: column;
+    font-size: 150%;
+    margin-bottom: 5%;
+}
+
+.brief p {
+    font-family: 'Quicksand', sans-serif;
+    font-size:100%;
+    font-weight: bold;
+}
+
+.aboutContact {
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutContact h1 {
+    font-size: 250%;
+    color: #6B5AFF;
+}
+
+.aboutContact p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 150%;
+    font-weight: bold;
+}

@@ -39,7 +39,7 @@ class TipContainer extends Component {
                 this.setState({
                     firstMessage:"Use the following commands to interact with team rosters",
                     tipReg: "You can ",
-                    wakePhrase: "Ask Trivia Flip to...",
+                    wakePhrase: "Ask Refresh Trivia to...",
                     examplePhrases:phrases
                 })
             }.bind(this))
@@ -49,7 +49,7 @@ class TipContainer extends Component {
                 this.setState({
                     firstMessage:"Use your Google device to interact with this game",
                     tipReg: "You can ",
-                    wakePhrase: "Ask Trivia Flip...",
+                    wakePhrase: "Ask Refresh Trivia...",
                     examplePhrases:phrases
                 })
             }.bind(this))
