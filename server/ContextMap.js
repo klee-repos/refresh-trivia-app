@@ -5,7 +5,8 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'newGame',
-            'joinGame'
+            'joinGame',
+            'goTo'
         ],
         previous: 'mainMenu'
     },
@@ -15,6 +16,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'addPlayersToTeam',
             'removePlayersFromTeam'
         ],
@@ -27,6 +29,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'addPlayersToTeam',
             'removePlayersFromTeam',
             'confirmRoster'
@@ -48,6 +51,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'guess'
         ],
         previous:'readyToStart'
@@ -58,6 +62,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'play',
             'bank'
         ],
@@ -69,6 +74,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'play',
             'bank'
         ],
@@ -80,6 +86,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'play',
             'bank'
         ],
@@ -91,6 +98,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'play',
             'bank'
         ],
@@ -102,6 +110,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'play',
             'bank'
         ],
@@ -113,6 +122,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'guess'
         ],
         previous:'readyToStart'
@@ -134,6 +144,7 @@ var ContextMap = {
             'input.welcome',
             'connect',
             'goBack',
+            'goTo',
             'guess'
         ],
         previous:'readyToStart'
