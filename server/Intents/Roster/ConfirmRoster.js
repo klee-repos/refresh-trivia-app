@@ -36,7 +36,7 @@ var execute = function(args, assistant){
                 .play(Sounds.forward)
                 .say("Starting trivia! Good luck!")
                 .setContext('guess', 1)
-                .reprompt('<speak>Only a few seconds remaining to answer...</speak>')
+                .reprompt.say('Only a few seconds remaining to answer...')
                 .finish()
         })
     })

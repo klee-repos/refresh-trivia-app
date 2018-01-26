@@ -309,6 +309,17 @@ gameSchema.methods.formatRoster = function(){
     return roster;
 }
 
+gameSchema.methods.getNextUpPlayer = function(){
+    var roster = this.gameState.teams;
+    var activeTeam = this.gameState.round.activeTeam
+    var playerIndex = this.gameState.round.playerIndex;
+    return roster[activeTeam].players[playerIndex]
+}
+
+gameSchema.methods.getActiveTeam = function(){
+    return this.gameState.round.activeTeam
+}
+
 gameSchema.methods.setRound = function(round, activeTeam, playerIndex, questionIndex) {
     return this.gameState.setRound(round, activeTeam, playerIndex, questionIndex)
 }

@@ -22,7 +22,9 @@ var GoogleAssistant = function(_res, _deviceProfile){
     var res = _res;
     this.deviceProfile = _deviceProfile;
 
+    var repeatForRepromptFlag = false;
     this.speechBuilder = new SSMLBuilder();
+    this.repromptBuilder = new SSMLBuilder();
 
     var responseData = {
         speech: "",
@@ -38,15 +40,19 @@ var GoogleAssistant = function(_res, _deviceProfile){
     /* /////////////////////////////////
     // Speech Builder Functions
     */ ///////////////////////////////
-    this.say = this.speechBuilder.say;
-    this.play = this.speechBuilder.play;
-    this.pause = this.speechBuilder.pause;
+    this.say = this.speechBuilder.say.bind(this);
+    this.play = this.speechBuilder.play.bind(this);
+    this.pause = this.speechBuilder.pause.bind(this);
 
-    this.reprompt = function(speech) {
-        responseData.data.google.no_input_prompts.push({
-            ssml: speech
-        })
-        return this;
+    this.reprompt = {
+        say: this.repromptBuilder.say.bind(this),
+        play: this.repromptBuilder.play.bind(this),
+        pause: this.repromptBuilder.pause.bind(this)
+    }
+
+    this.repeatForReprompt = function(){
+        repeatForRepromptFlag = true;
+        this.reprompt = null;
     }
 
     this.setContext = function(contextName, lifespan) {
@@ -70,6 +76,10 @@ var GoogleAssistant = function(_res, _deviceProfile){
 
     this.finish = function(){
         responseData.speech = this.speechBuilder.getSSML();
+        var reprompt = repeatForRepromptFlag ? responseData.speech : this.repromptBuilder.getSSML();
+        responseData.data.google.no_input_prompts.push({
+            ssml: reprompt
+        })
         res.status(resStatus).send(responseData);
     }
 

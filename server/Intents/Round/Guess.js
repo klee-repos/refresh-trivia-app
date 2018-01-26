@@ -47,19 +47,31 @@ var finishAssistant = function(assistant, winner) {
         .finish()
 }
 
-var updateAssistant = function(result, assistant, steal) {
-    if (result === true) {
+var updateAssistant = function(result, assistant, game) {
+    if (result.guess === true) {
         assistant
             .play(Sounds.forward)
             .say('Correct!')
-        if (steal) {
+
+            if(!result.bonus && !result.steal){
+                console.log(result)
+                assistant.pause('1s').say('Play?').pause('200ms').say('or bank.')
+                .reprompt.say('Play?').reprompt.pause('300ms').reprompt.say('or bank?')
+            } else {
+                var nextPlayerUp = game.getNextUpPlayer();
+                assistant.pause('2s').say(nextPlayerUp + "!").pause('400ms').say('Back to you!')
+            }
+
+           
+        if (result.steal) {
             assistant
                 .setContext('guess', 1)
         }
     } else {
         assistant
-            .play(Sounds.backward)
-            .say('Incorrect!')
+            .say('Sorry, that\'s incorrect').pause('1s')
+            .say(game.getActiveTeam() + 'A chance to steal.')
+            .reprompt.say("I need an answer")
             .setContext('guess', 1)
     }
     assistant.finish()
@@ -68,13 +80,12 @@ var updateAssistant = function(result, assistant, steal) {
 var execute = function(args, assistant){
     let guess = args.guess
     let user = assistant.deviceProfile.user;
-    Game.findById(assistant.deviceProfile.user.game).populate('gameState.nextQuestion').then(function(game) {
+    Game.findById(user.game).populate('gameState.nextQuestion').then(function(game) {
         var round = game.gameState.round
         game.guess(guess, user.context).then(function(result) {
             if (result.bonus === true) {
-                console.log('bonus hit')
                 SessionManager.sendData(user.sessionCode, 'setQuestion', result.question);
-                updateAssistant(result.guess, assistant, true)
+                updateAssistant(result, assistant, game) // I don't think this is right? This true parameter is supposed to be steal, not bonus
                 updateGameOnBrowser(user, round, 'bonus')
                 firstDelayedContext(user, 'roundStart')
                 secondDelayedContext(user, 'question');
@@ -84,11 +95,12 @@ var execute = function(args, assistant){
                 return;
             }
 
+            //TODO: Refactor
             if (round.round === 6) {
                 if (result.guess === true) {
                     SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:round.activeTeam, score: result.coins});
                 } else {
-                    if (round.activeTeam === 'team1') {
+                    if (round.activeTeam === 'team1') {  
                         team = 'team2'
                     } else {
                         team = 'team1'
@@ -116,7 +128,7 @@ var execute = function(args, assistant){
             
             let currentTeam = game.gameState.teams[game.gameState.round.activeTeam].players
             let score = game.gameState.teams[round.activeTeam].score
-            updateAssistant(result.guess, assistant, result.steal)
+            updateAssistant(result, assistant, game)
 
             if (result.guess === true && result.steal === false) {
                 updateGameOnBrowser(user, round, correctFlashContext)
