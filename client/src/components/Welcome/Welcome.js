@@ -1,8 +1,6 @@
 
 import React, {Component} from 'react'
 
-import {SpokenContainer} from '../../containers'
-
 import './welcome.css'
 
 class Welcome extends Component {

@@ -9,6 +9,10 @@ import * as gameActionCreators from '../../redux/modules/game'
 import socket from '../../config/socket';
 import axios from 'axios'
 
+import { Redirect } from 'react-router-dom'
+
+
+
 class SocketManagerContainer extends Component {
 
     constructor(props) {
@@ -78,6 +82,11 @@ class SocketManagerContainer extends Component {
         socket.on('setWinner', function(winner) {
             this.props.setWinner(winner)
         }.bind(this))
+
+        // Set GoTo
+        socket.on('setGoTo', function(page) { 
+            window.location.pathname = '/' + page;
+        })
 
     }
 
