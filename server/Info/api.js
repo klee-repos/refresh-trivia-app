@@ -47,14 +47,19 @@ routes.post('/getQuestion', function(req, res) {
     })
 })
 
+updateScoreOnBrowser = function(user, game){
+    var score = {
+        team1: game.gameState.teams.team1.score,
+        team2: game.gameState.teams.team2.score
+    }
+    SessionManager.sendData(user.sessionCode, 'setScore', score);
+}
+
 routes.post('/getScore', function(req, res) {
     let sessionCode = req.body.sessionCode;
     User.findOne({sessionCode:sessionCode}).populate('game').then(function(user) {
-        let teamOneScore = user.game.gameState.teams.team1.score
-        let teamTwoScore = user.game.gameState.teams.team2.score
-        SessionManager.sendData(sessionCode, 'setScore', {activeTeam:'team1', score: teamOneScore});
-        SessionManager.sendData(sessionCode, 'setScore', {activeTeam:'team2', score: teamTwoScore});
-        res.send({teamOneScore, teamTwoScore})
+        updateScoreOnBrowser(user, user.game);
+        res.send()
     })
     .catch(function(err) {
         console.log(err)

@@ -16,8 +16,12 @@ var delayedContext = function(user) {
     }, 3000)
 }
 
-var updateGameOnBrowser = function(user, round, context) {
-    
+updateScoreOnBrowser = function(user, game){
+    var score = {
+        team1: game.gameState.teams.team1.score,
+        team2: game.gameState.teams.team2.score
+    }
+    SessionManager.sendData(user.sessionCode, 'setScore', score);
 }
 
 var finishAssistant = function(assistant, winner) {
@@ -50,7 +54,9 @@ var execute = function(args, assistant){
         }
         let newScore = game.gameState.teams[round.activeTeam].score + applyScore
         game.gameState.teams[round.activeTeam].score += applyScore
-        SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:round.activeTeam, score: newScore});
+
+        updateScoreOnBrowser(user, game)
+
         if (round.activeTeam === 'team1') {
             nextTeam = 'Team 2'
             round = game.setRound(round.round, 'team2', 0, 1)

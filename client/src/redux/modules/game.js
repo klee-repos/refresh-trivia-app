@@ -2,9 +2,8 @@
 const SET_TEAMS = 'SET_TEAMS';
 const SET_ROUND = 'SET_ROUND';
 const SET_QUESTION = 'SET_QUESTION';
-const SET_TEAM_ONE_SCORE = 'SET_TEAM_ONE_SCORE'
-const SET_TEAM_TWO_SCORE = 'SET_TEAM_TWO_SCORE'
 const SET_WINNER = 'SET_WINNER'
+const SET_SCORE = 'SET_SCORE'
 
 export function setTeams(roster) {
     return {
@@ -40,16 +39,10 @@ export function setQuestion(question) {
 }
 
 export function setScore(score) {
-    if (score.activeTeam === 'team1') {
-        return {
-            type: SET_TEAM_ONE_SCORE,
-            score: score.score
-        }
-    } else {
-        return {
-            type:SET_TEAM_TWO_SCORE,
-            score: score.score
-        }
+    return {
+        type: SET_SCORE,
+        team1: score.team1,
+        team2: score.team2
     }
 }
 
@@ -89,13 +82,10 @@ export default function apps (state = initialState, action) {
                 playerIndex: action.playerIndex,
                 questionIndex: action.questionIndex
             })
-        case SET_TEAM_ONE_SCORE:
+        case SET_SCORE:
             return Object.assign({},state , {
-                teamOneScore: action.score
-            })
-        case SET_TEAM_TWO_SCORE:
-            return Object.assign({},state , {
-                teamTwoScore: action.score
+                teamOneScore: action.team1,
+                teamTwoScore: action.team2
             })
         case SET_QUESTION:
             return Object.assign({},state , {
