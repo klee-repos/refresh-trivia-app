@@ -345,6 +345,19 @@ gameSchema.methods.guess = function(guess, context) {
     }
 }
 
+gameSchema.methods.getWinningTeam = function(){
+    let teamOneScore = game.gameState.teams.team1.score
+    let teamTwoScore = game.gameState.teams.team2.score
+    if (teamOneScore > teamTwoScore) {
+        return 'Team 1'
+    } else {
+        return 'Team 2'
+    }
+    if (teamOneScore === teamTwoScore) {
+        return 'Everyone'
+    }
+}
+
 
 
 var Game = mongoose.model('Game', gameSchema);
