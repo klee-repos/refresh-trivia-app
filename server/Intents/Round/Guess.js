@@ -151,9 +151,8 @@ var bonus = function(game, result, assistant, user){
 // }
 
 var gameOver = function(game, result, assistant){
-
     updateScoreOnBrowser(game)
-        let teamOneScore = game.gameState.teams.team1.score
+    let teamOneScore = game.gameState.teams.team1.score
     let teamTwoScore = game.gameState.teams.team2.score
     let winner;
     if (teamOneScore > teamTwoScore) {
@@ -168,7 +167,7 @@ var gameOver = function(game, result, assistant){
 
     var round = game.gameState.round;
 
-    Script.gameOver(assistant, game.getWinningTeam())
+    Script.gameOver(assistant, winner)
 
     updateGameOnBrowser(user, round, 'finish')
     saveAndFinish(game,assistant,user)
