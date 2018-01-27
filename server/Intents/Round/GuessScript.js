@@ -23,7 +23,7 @@ var Script = function(_assistant){
         }.bind(this),
         
         incorrect:function(game){
-            this.assistant.say('Sorry, that\'s incorrect').pause('1.5s')
+            this.assistant.say('Sorry, that\'s incorrect.').pause('1s')
         }.bind(this), 
         
         gameOver:function(game){
@@ -38,8 +38,14 @@ var Script = function(_assistant){
         }.bind(this),
         
         chanceToSteal: function(game){
+            let team;
+            if (game.getActiveTeam() === 'team1') {
+                team = 'Team 1'
+            } else {
+                team = 'Team 2'
+            }
             this.assistant
-            .say(game.getActiveTeam() + 'A chance to steal.')
+            .say(team + ', your chance to steal.')
             .reprompt.say("I need an answer")
             .setContext('guess', 1)
         }.bind(this)
