@@ -36,6 +36,12 @@ var updateGameOnBrowser = function(user, round, context) {
     updateState(user,context)
 }
 
+var updateGameAfterSteal = function(user, round, context, stealQuestion) {
+    SessionManager.sendData(user.sessionCode, "stealQuestion", stealQuestion)
+    SessionManager.sendData(user.sessionCode, 'setRound', round);
+    updateState(user,context)
+}
+
 var execute = function(args, assistant){
     Script = new ScriptGenerator(assistant)
     let guess = args.guess
@@ -93,14 +99,15 @@ var steal = function(game,result, assistant, user){
     if(result.guess){
         Script.correct(game);
         Script.changeTurns(game);
-        updateGameOnBrowser(user, round, 'correctSteal')
+        updateGameAfterSteal(user, round, 'correctSteal', result.stealQuestion)
     } 
     //UNSUCCESSFUL STEAL
     else {
         Script.incorrect(game);
         Script.changeTurns(game);
-        updateGameOnBrowser(user, round, 'incorrectSteal')
+        updateGameAfterSteal(user, round, 'incorrectSteal', result.stealQuestion)
     }
+
     updateScoreOnBrowser(user, game)
     SessionManager.sendData(user.sessionCode, 'setQuestion', result.question);
     updateState(user, 'roundStart', 3000);

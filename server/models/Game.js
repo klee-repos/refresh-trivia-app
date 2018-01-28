@@ -194,6 +194,7 @@ gameStateSchema.methods.guessRight = function(context) {
 
             //Next Turn Start
             this.round.playerIndex = activeTeam.playerIndex
+            result.stealQuestion = this.round.questionIndex;
             this.round.questionIndex = 1;
 
             //Update round if end of 2nd turn
@@ -234,6 +235,7 @@ gameStateSchema.methods.guessWrong = function(context) {
                 this.teams['team2'].score += pointValue(this.round.questionIndex)
                 result.coins = this.teams['team2'].score
             }
+            result.stealQuestion = this.round.questionIndex;
             this.round.questionIndex = 1;
         }
         this.getNextQuestion().then(function(question){
@@ -336,7 +338,9 @@ gameSchema.methods.resetScores = function() {
 }
 
 gameSchema.methods.guess = function(guess, context) {
+    console.log("Guess input: " + guess)
     let answer = this.gameState.nextQuestion.answer
+    console.log("Correct Answer:" + answer)
     if (guess.toLowerCase() === answer.toLowerCase()) {
         return this.gameState.guessRight(context)
     } else {

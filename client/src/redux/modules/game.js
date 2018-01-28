@@ -4,6 +4,7 @@ const SET_ROUND = 'SET_ROUND';
 const SET_QUESTION = 'SET_QUESTION';
 const SET_WINNER = 'SET_WINNER'
 const SET_SCORE = 'SET_SCORE'
+const SET_STEAL_QUESTION = 'SET_STEAL_QUESTION'
 
 export function setTeams(roster) {
     return {
@@ -53,6 +54,13 @@ export function setWinner(winner) {
     }
 }
 
+export function setStealQuestion(stealQuestion){
+    return {
+        type: SET_STEAL_QUESTION,
+        stealQuestion: stealQuestion
+    }
+}
+
 const initialState = {
     teamOnePlayers: null,
     teamTwoScore: 0,
@@ -66,6 +74,7 @@ const initialState = {
     picklist: null,
     mediaURL: null,
     winner: null,
+    stealQuestion: null
 }
 
 export default function apps (state = initialState, action) {
@@ -97,6 +106,10 @@ export default function apps (state = initialState, action) {
             return Object.assign({}, state, {
                 winner: action.winner
             })
+        case SET_STEAL_QUESTION:
+        return Object.assign({}, state, {
+            stealQuestion: action.stealQuestion
+        })
         default:
             return state
     }

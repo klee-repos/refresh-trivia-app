@@ -88,6 +88,10 @@ class SocketManagerContainer extends Component {
             window.location.pathname = '/' + page;
         })
 
+        socket.on('stealQuestion', function(stealQuestion) { 
+            this.props.setStealQuestion(stealQuestion)
+        }.bind(this))
+
     }
 
     render() {
