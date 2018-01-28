@@ -90,7 +90,6 @@ var execute = function(args, assistant){
         
         Question.getRandomQuestion({
         }).then(function(newQuestion){
-            console.log(newQuestion)
             game.setQuestions(newQuestion)
             user.setContext(newContext, ContextMap[newContext].previous);
             SessionManager.sendData(user.sessionCode, 'setQuestion', newQuestion);

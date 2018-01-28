@@ -102,6 +102,7 @@ var steal = function(game,result, assistant, user){
         updateGameOnBrowser(user, round, 'incorrectSteal')
     }
     updateScoreOnBrowser(user, game)
+    SessionManager.sendData(user.sessionCode, 'setQuestion', result.question);
     updateState(user, 'roundStart', 3000);
     updateState(user, 'question', 6000)
     saveAndFinish(game,assistant,user)

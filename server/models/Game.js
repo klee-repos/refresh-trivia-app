@@ -188,7 +188,6 @@ gameStateSchema.methods.guessRight = function(context) {
         } else {
         /* Successful Steal */
             //Update Score
-            console.log()
             activeTeam.score += pointValue(this.round.questionIndex)
             result.coins = activeTeam.score
             result.steal = true;
