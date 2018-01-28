@@ -119,55 +119,14 @@ var bonus = function(game, result, assistant, user){
     saveAndFinish(game,assistant,user)
 }
 
-/* OLD GAME OVER */
-// if (round.round === 6) {
-//     if (result.guess === true) {
-//         SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:round.activeTeam, score: result.coins});
-//     } else {
-//         if (round.activeTeam === 'team1') {  
-//             team = 'team2'
-//         } else {
-//             team = 'team1'
-//         }
-//         SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:team, score: result.coins});
-//     }
-//     let teamOneScore = game.gameState.teams.team1.score
-//     let teamTwoScore = game.gameState.teams.team2.score
-//     let winner;
-//     if (teamOneScore > teamTwoScore) {
-//         winner = 'Team 1'
-//     } else {
-//         winner = 'Team 2'
-//     }
-//     if (teamOneScore === teamTwoScore) {
-//         winner = 'Everyone'
-//     }
-//     SessionManager.sendData(user.sessionCode, 'setWinner', winner);
-//     updateGameOnBrowser(user, round, 'finish')
-//     finishAssistant(assistant, winner)
-//     game.save()
-//     user.save()
-//     return;
-// }
-
-var gameOver = function(game, result, assistant){
-    updateScoreOnBrowser(game)
-    let teamOneScore = game.gameState.teams.team1.score
-    let teamTwoScore = game.gameState.teams.team2.score
-    let winner;
-    if (teamOneScore > teamTwoScore) {
-        winner = 'Team 1'
-    } else {
-        winner = 'Team 2'
-    }
-    if (teamOneScore === teamTwoScore) {
-        winner = 'Everyone'
-    }
-    SessionManager.sendData(user.sessionCode, 'setWinner', winner);
-
+var gameOver = function(game, result, assistant, user){
+    let winner = game.getWinningTeam()
     var round = game.gameState.round;
 
-    Script.gameOver(assistant, winner)
+    updateScoreOnBrowser(user,game)
+    SessionManager.sendData(user.sessionCode, 'setWinner', winner);
+    
+    Script.gameOver(game)
 
     updateGameOnBrowser(user, round, 'finish')
     saveAndFinish(game,assistant,user)

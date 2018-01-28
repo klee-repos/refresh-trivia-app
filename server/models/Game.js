@@ -346,8 +346,8 @@ gameSchema.methods.guess = function(guess, context) {
 }
 
 gameSchema.methods.getWinningTeam = function(){
-    let teamOneScore = game.gameState.teams.team1.score
-    let teamTwoScore = game.gameState.teams.team2.score
+    let teamOneScore = this.gameState.teams.team1.score
+    let teamTwoScore = this.gameState.teams.team2.score
     if (teamOneScore > teamTwoScore) {
         return 'Team 1'
     } else {

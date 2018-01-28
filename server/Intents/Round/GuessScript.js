@@ -5,7 +5,7 @@ var Script = function(_assistant){
     return {
         bonus: function(game){
             var nextPlayerUp = game.getNextUpPlayer();
-            this.assistant.pause('2s').say(nextPlayerUp + "!").pause('400ms').say('Back to you!')
+            this.assistant.setContext('guess', 1).pause('2s').say(nextPlayerUp + "!").pause('400ms').say('Back to you!')
             .reprompt.say('I need an answer')
         }.bind(this),
         
