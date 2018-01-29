@@ -15,7 +15,7 @@ var execute = function(args, assistant){
             SessionManager.sendData(user.sessionCode, 'setGoTo', 'help');
             break;
         case 'about':
-            SessionManager.sendData(user.sessionCode, 'setGoTo', 'help');
+            SessionManager.sendData(user.sessionCode, 'setGoTo', 'about');
             break
         default:
             SessionManager.sendData(user.sessionCode, 'setGoTo', '');
