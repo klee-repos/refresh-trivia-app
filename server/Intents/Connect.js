@@ -24,6 +24,7 @@ var execute = function(args, assistant){
     assistant
         .play(Sounds.forward)
         .say("Connected")
+        .reprompt.say('Connected')
         .finish()
 }
 

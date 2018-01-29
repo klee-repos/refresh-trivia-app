@@ -7,7 +7,7 @@ const Question = require('../models/Question')
 const SessionManager = require('../SessionManager');
 
 const csv=require('csvtojson')
-const file = path.join(__dirname,'../TriviaQuestions.csv')
+const file = path.join(__dirname,'../TriviaQuestions.tsv')
 
 routes.post('/setContext', function(req, res) {
     let context = req.body.context;

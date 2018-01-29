@@ -6,6 +6,14 @@ const Sounds = require('../Sounds')
 var newContext = 'rosterSetup'
 const ContextMap = require('../ContextMap')
 
+var updateScoreOnBrowser = function(user, score){
+    var score = {
+        team1: score.team1,
+        team2: score.team2
+    }
+    SessionManager.sendData(user.sessionCode, 'setScore', score);
+}
+
 var execute = function(args, assistant){
     let game = new Game();
     let user = assistant.deviceProfile.user;
@@ -23,15 +31,14 @@ var execute = function(args, assistant){
     game.save();
     SessionManager.sendData(user.sessionCode, 'teamRoster', game.formatRoster());
     SessionManager.sendData(user.sessionCode, 'setRound', round);
-    SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:'team1', score: 0});
-    SessionManager.sendData(user.sessionCode, 'setScore', {activeTeam:'team2', score: 0});
+    updateScoreOnBrowser(user, {team1:0,team2:0})
     SessionManager.sendData(user.sessionCode, 'setStatus', newContext);
 
     assistant
         .play(Sounds.forward)
         .say("Game created. Please tell me who to add to each team.")
         .setContext(newContext)
-        .reprompt('<speak>Who would you like to add to team 1?</speak>')
+        .reprompt.say('Who would you like to add to team 1?')
         .finish();
 }
 

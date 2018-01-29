@@ -34,11 +34,11 @@ var SessionManager = (function(){
     }
 
     var getConnectCode = function(){
-        return PurpleMonkeyDishwasher();
+        return PurpleMonkeyDishwasher().toLowerCase();
     }
 
     var getSession = function(connectCode){
-        return connectingSessions[connectCode];
+        return connectingSessions[connectCode.toLowerCase()];
     }
 
     var endSession = function(connectCode){

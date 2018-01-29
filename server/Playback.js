@@ -32,7 +32,7 @@ var SpeechBuilder = function(){
     }
 
     this.pause = function(duration){
-        ssmlOutput.push('<break time="'+ duration +'"/>')
+        ssmlOutput.push("<break time=\""+ duration +"\"/>")
         return this;
     }
 

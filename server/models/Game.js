@@ -188,13 +188,13 @@ gameStateSchema.methods.guessRight = function(context) {
         } else {
         /* Successful Steal */
             //Update Score
-            console.log()
             activeTeam.score += pointValue(this.round.questionIndex)
             result.coins = activeTeam.score
             result.steal = true;
 
             //Next Turn Start
             this.round.playerIndex = activeTeam.playerIndex
+            result.stealQuestion = this.round.questionIndex;
             this.round.questionIndex = 1;
 
             //Update round if end of 2nd turn
@@ -235,6 +235,7 @@ gameStateSchema.methods.guessWrong = function(context) {
                 this.teams['team2'].score += pointValue(this.round.questionIndex)
                 result.coins = this.teams['team2'].score
             }
+            result.stealQuestion = this.round.questionIndex;
             this.round.questionIndex = 1;
         }
         this.getNextQuestion().then(function(question){
@@ -309,6 +310,17 @@ gameSchema.methods.formatRoster = function(){
     return roster;
 }
 
+gameSchema.methods.getNextUpPlayer = function(){
+    var roster = this.gameState.teams;
+    var activeTeam = this.gameState.round.activeTeam
+    var playerIndex = this.gameState.round.playerIndex;
+    return roster[activeTeam].players[playerIndex]
+}
+
+gameSchema.methods.getActiveTeam = function(){
+    return this.gameState.round.activeTeam
+}
+
 gameSchema.methods.setRound = function(round, activeTeam, playerIndex, questionIndex) {
     return this.gameState.setRound(round, activeTeam, playerIndex, questionIndex)
 }
@@ -330,7 +342,22 @@ gameSchema.methods.guess = function(guess, context) {
     if (guess.toLowerCase() === answer.toLowerCase()) {
         return this.gameState.guessRight(context)
     } else {
+        console.log("Guess input: " + guess)        
+        console.log("Correct Answer:" + answer)
         return this.gameState.guessWrong(context)
+    }
+}
+
+gameSchema.methods.getWinningTeam = function(){
+    let teamOneScore = this.gameState.teams.team1.score
+    let teamTwoScore = this.gameState.teams.team2.score
+    if (teamOneScore > teamTwoScore) {
+        return 'Team 1'
+    } else {
+        return 'Team 2'
+    }
+    if (teamOneScore === teamTwoScore) {
+        return 'Everyone'
     }
 }
 

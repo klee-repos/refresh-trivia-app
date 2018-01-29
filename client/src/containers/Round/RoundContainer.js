@@ -24,11 +24,10 @@ class RoundContainer extends Component {
 
         this.setResults = this.setResults.bind(this)
 
-        this.setCoinsSteal = this.setCoinsSteal.bind(this)
-
         this.setWinner = this.setWinner.bind(this)
 
         this.setBonusWinner = this.setBonusWinner.bind(this)
+        this.questionValue = this.questionValue.bind(this)
     }
 
     componentDidMount() {
@@ -41,10 +40,21 @@ class RoundContainer extends Component {
     setCoins(questionIndex) {
         switch(parseInt(questionIndex, 10)) {
             case 1: return 100;
-            case 2: return 300;
-            case 3: return 700;
-            case 4: return 1500;
-            case 5: return 3100;
+            case 2: return 100;
+            case 3: return 300;
+            case 4: return 700;
+            case 5: return 1500;
+            default: return 100;
+        }
+    }
+
+    questionValue(questionIndex) {
+        switch(parseInt(questionIndex, 10)) {
+            case 1: return 100;
+            case 2: return 200;
+            case 3: return 400;
+            case 4: return 800;
+            case 5: return 1600;
             default: return 100;
         }
     }
@@ -57,17 +67,6 @@ class RoundContainer extends Component {
             return 'Team 1 you win!'
         } else {
             return 'Team 2 you win!'
-        }
-    }
-
-    setCoinsSteal(questionIndex) {
-        switch(parseInt(questionIndex, 10)) {
-            case 1: return 100;
-            case 2: return 300;
-            case 3: return 700;
-            case 4: return 1500;
-            case 5: return 3100;
-            default: return 100;
         }
     }
 
@@ -106,7 +105,7 @@ class RoundContainer extends Component {
 
     question() {
         return (
-            <RoundQuestion {...this.props} coinTotal={this.setCoins(this.props.questionIndex)}/>
+            <RoundQuestion {...this.props} coinTotal={this.questionValue(this.props.questionIndex)}/>
         )
     }
 
@@ -130,7 +129,7 @@ class RoundContainer extends Component {
 
     stealResult(result) {
         return (
-            <StealResult {...this.props} result={this.setResults(result)} coinTotal={this.setCoins(this.props.questionIndex)}/>
+            <StealResult {...this.props} stealValue={this.setCoins(this.props.stealQuestion)} result={this.setResults(result)}/>
         )
     }
 
@@ -184,7 +183,8 @@ function mapStateToProps({dashboard,game}) {
         question: game.question,
         picklist: game.picklist,
         mediaURL: game.mediaURL,
-        winner: game.winner
+        winner: game.winner,
+        stealQuestion: game.stealQuestion
     }
 }
 

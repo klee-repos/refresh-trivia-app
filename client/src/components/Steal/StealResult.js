@@ -33,7 +33,7 @@ class StealResult extends Component {
                                 <h1>{this.props.result} <span role='img' aria-label='party'>&#x1f389;</span></h1>
                             </div>
                             <div className='stealMessage'>
-                                <h1>{this.props.coinTotal} coins to {this.setWinningTeam(this.props.activeTeam, this.props.result)}</h1>
+                                <h1>{this.props.stealValue} coins to {this.setWinningTeam(this.props.activeTeam, this.props.result)}</h1>
                             </div>
                         </div>
                         : <div className='stealMessageBox'>
@@ -41,7 +41,7 @@ class StealResult extends Component {
                                 <h1>{this.props.result} <span role='img' aria-label='incorrect'>&#x1f4A9;</span></h1>
                             </div>
                             <div className='stealMessage'>
-                            <h1>{this.props.coinTotal} coins to {this.setWinningTeam(this.props.activeTeam, this.props.result)}</h1>
+                            <h1>{this.props.stealValue} coins to {this.setWinningTeam(this.props.activeTeam, this.props.result)}</h1>
                             </div>
                         </div>
                     }

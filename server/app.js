@@ -36,6 +36,10 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.get('/privacyPolicy', function(req, res) {
+    res.sendFile(path.join(__dirname + '/html/privacyPolicy.html'))
+})
+
 
 app.post('/gAssistant', function(req, res) {
 	ExecuteRequest.FromGoogle(req.body, res);

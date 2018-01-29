@@ -2,9 +2,9 @@
 const SET_TEAMS = 'SET_TEAMS';
 const SET_ROUND = 'SET_ROUND';
 const SET_QUESTION = 'SET_QUESTION';
-const SET_TEAM_ONE_SCORE = 'SET_TEAM_ONE_SCORE'
-const SET_TEAM_TWO_SCORE = 'SET_TEAM_TWO_SCORE'
 const SET_WINNER = 'SET_WINNER'
+const SET_SCORE = 'SET_SCORE'
+const SET_STEAL_QUESTION = 'SET_STEAL_QUESTION'
 
 export function setTeams(roster) {
     return {
@@ -40,16 +40,10 @@ export function setQuestion(question) {
 }
 
 export function setScore(score) {
-    if (score.activeTeam === 'team1') {
-        return {
-            type: SET_TEAM_ONE_SCORE,
-            score: score.score
-        }
-    } else {
-        return {
-            type:SET_TEAM_TWO_SCORE,
-            score: score.score
-        }
+    return {
+        type: SET_SCORE,
+        team1: score.team1,
+        team2: score.team2
     }
 }
 
@@ -57,6 +51,13 @@ export function setWinner(winner) {
     return {
         type: SET_WINNER,
         winner: winner
+    }
+}
+
+export function setStealQuestion(stealQuestion){
+    return {
+        type: SET_STEAL_QUESTION,
+        stealQuestion: stealQuestion
     }
 }
 
@@ -73,6 +74,7 @@ const initialState = {
     picklist: null,
     mediaURL: null,
     winner: null,
+    stealQuestion: null
 }
 
 export default function apps (state = initialState, action) {
@@ -89,13 +91,10 @@ export default function apps (state = initialState, action) {
                 playerIndex: action.playerIndex,
                 questionIndex: action.questionIndex
             })
-        case SET_TEAM_ONE_SCORE:
+        case SET_SCORE:
             return Object.assign({},state , {
-                teamOneScore: action.score
-            })
-        case SET_TEAM_TWO_SCORE:
-            return Object.assign({},state , {
-                teamTwoScore: action.score
+                teamOneScore: action.team1,
+                teamTwoScore: action.team2
             })
         case SET_QUESTION:
             return Object.assign({},state , {
@@ -107,6 +106,10 @@ export default function apps (state = initialState, action) {
             return Object.assign({}, state, {
                 winner: action.winner
             })
+        case SET_STEAL_QUESTION:
+        return Object.assign({}, state, {
+            stealQuestion: action.stealQuestion
+        })
         default:
             return state
     }
