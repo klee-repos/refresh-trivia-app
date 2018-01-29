@@ -24,7 +24,7 @@ class TipContainer extends Component {
         return new Promise(function(resolve, reject) {
             let phrases;
             if (currentPage === 'RosterSetup') {
-                phrases = ['Add Kevin and Gavin to team 1', 'Remove Gavin to team 2', 'Go back']
+                phrases = ['Add Kevin and Gavin to team 1', 'Remove Gavin from team 2', 'Go back']
             }
             if (currentPage === 'MainMenu') {
                 phrases = ['what are my stats?', 'what is this game?']
