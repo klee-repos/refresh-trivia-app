@@ -11,7 +11,7 @@ var IntentExecutor = function(args, assistantContext){
                 logInput(intent, args, assistantContext)
                 intent.execute(args, assistantContext)
             } else {
-                assistantContext.say("This command is not active").error(500).finish();
+                assistantContext.say("This command is not active").finish();
             }
         })    
     })
@@ -51,7 +51,7 @@ var validateInput = function(intent, args, assistantContext){
         if (intent.validateInput && typeof(intent.validateInput) === "function"){
             var validationError = intent.validateInput(args, assistantContext);
             if (validationError){
-                assistantContext.say("Theres an error").error(500).data(validationError).finish();
+                assistantContext.say("Theres an error").finish();
                 reject(validationError)                
             } else {
                 resolve();
