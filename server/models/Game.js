@@ -338,12 +338,12 @@ gameSchema.methods.resetScores = function() {
 }
 
 gameSchema.methods.guess = function(guess, context) {
-    console.log("Guess input: " + guess)
     let answer = this.gameState.nextQuestion.answer
-    console.log("Correct Answer:" + answer)
     if (guess.toLowerCase() === answer.toLowerCase()) {
         return this.gameState.guessRight(context)
     } else {
+        console.log("Guess input: " + guess)        
+        console.log("Correct Answer:" + answer)
         return this.gameState.guessWrong(context)
     }
 }
