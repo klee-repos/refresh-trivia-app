@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node server/app",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "test": "mocha \"server/test/**/*.js\""
   },
   "author": "Gavin Berkowitz and Kevin Lee",
   "license": "ISC",
@@ -25,5 +26,8 @@
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4",
     "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.0"
   }
 }
