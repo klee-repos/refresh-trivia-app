@@ -1,6 +1,6 @@
 const Game = require('../../models/Game');
 const SessionManager = require('../../SessionManager')
-
+const Errors = require('../../ErrorMessages')
 const Sounds = require('../../Sounds')
 
 var newContext = 'rosterSetup'
@@ -33,10 +33,14 @@ var execute = function(args, assistant){
 }
 
 var validateInput = function(args, assistant){
-    if(!args.names || args.names.length == 0)
-        return "Didn't get a list of players";
+    if(!assistant.deviceProfile)
+        return Errors.NeedToConnect
+    if(!assistant.deviceProfile.user)
+        return Errors.NeedToConnect
+        if(!args.names || args.names.length == 0)
+        return Errors.NeedPlayers
     if(!args.teamName || args.teamName.length == 0)
-        return "Didn't get a teamName"
+        return Errors.NeedATeam
 
     return null;
 }

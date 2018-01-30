@@ -41,9 +41,9 @@ var validateInput = function(args, assistant){
     if(!assistant.deviceProfile.user)
         return Errors.NeedToConnect
     if(!args.names || args.names.length == 0)
-        return "Didn't get a list of players";
+        return Errors.NeedPlayers
     if(!args.teamName || args.teamName.length == 0)
-        return "Didn't get a teamName"
+        return Errors.NeedATeam
 
     return null;
 }
