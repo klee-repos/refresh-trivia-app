@@ -1,5 +1,14 @@
 var ContextMap = {
 
+    'input.welcome': {
+        activeIntents: [
+            'input.welcome',
+            'connect',
+            'goTo'
+        ],
+        previous: 'input.welcome'
+    },
+
     mainMenu: {
         activeIntents: [
             'input.welcome',

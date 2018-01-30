@@ -11,7 +11,7 @@ var IntentExecutor = function(args, assistantContext){
                 logInput(intent, args, assistantContext)
                 intent.execute(args, assistantContext)
             } else {
-                assistantContext.say("This command is not active").finish();
+                assistantContext.say("This command is not active. Please use a command indicated on the screen or say exit to leave trivia.").finish();
             }
         })    
     })

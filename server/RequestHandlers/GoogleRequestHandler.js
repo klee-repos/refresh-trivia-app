@@ -6,7 +6,9 @@ var SSMLBuilder = require('../Playback')
 var GoogleRequestParser = function(googleArgs, _res){
     //attach or create Device related to request
     var args = googleArgs.result.parameters  || {};
+    
     args.intentName = googleArgs.result.action
+    console.log(args)
     var deviceData = {id: googleArgs.originalRequest.data.user.userId, platform: 'google'}
     DeviceProfile.findOne(deviceData).populate('user') //We can probably make this cleaner; load device in GoogleAssistant constructor?
         .then(function(deviceProfile){
