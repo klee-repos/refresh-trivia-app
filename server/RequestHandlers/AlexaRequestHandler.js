@@ -43,6 +43,13 @@ var Alexa = function(_res, _deviceProfile){
     this.pause = this.speechBuilder.pause;
     this.play = function(){return this};
 
+    this.repromptBuilder = new SSMLBuilder();    
+    this.reprompt = {
+        say: this.repromptBuilder.say.bind(this),
+        pause: this.repromptBuilder.pause.bind(this),
+        play: function(){return this}
+    }
+
     var responseData = {
         response: {
             outputSpeech: {
@@ -61,11 +68,6 @@ var Alexa = function(_res, _deviceProfile){
 
     var resStatus = 200;
 
-    this.reprompt = function(speech) {
-        responseData.response.reprompt.outputSpeech.ssml += speech
-        return this;
-    }
-
     this.setContext = function(context){
         return this;
     }
@@ -80,7 +82,8 @@ var Alexa = function(_res, _deviceProfile){
     }
 
     this.finish = function(){
-        responseData.response.outputSpeech.ssml = this.speechBuilder.getSSML()
+        responseData.response.reprompt.outputSpeech.ssml = this.repromptBuilder.getSSML();
+        responseData.response.outputSpeech.ssml = this.speechBuilder.getSSML();
         res.status(resStatus).send(responseData);
     }
 
