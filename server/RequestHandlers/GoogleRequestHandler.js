@@ -29,7 +29,7 @@ var GoogleAssistant = function(_res, _deviceProfile){
     var responseData = {
         speech: "",
         displayText: "",
-        data: {"google":{"is_ssml":true,"no_input_prompts":[]}},
+        data: {"google":{"is_ssml":true,"no_input_prompts":[], "expect_user_response": true}},
         contextOut: [],
         source: "",
         followupEvent: {}
@@ -74,7 +74,11 @@ var GoogleAssistant = function(_res, _deviceProfile){
         return this;
     }
 
-    this.finish = function(){
+    this.finish = function(opts){
+        if(opts){
+            if (opts.exit)
+                responseData.data.google.expect_user_response = false; // close the microphone
+        }
         responseData.speech = this.speechBuilder.getSSML();
         var reprompt = repeatForRepromptFlag ? responseData.speech : this.repromptBuilder.getSSML();
         responseData.data.google.no_input_prompts.push({

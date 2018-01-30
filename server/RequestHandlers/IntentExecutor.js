@@ -51,7 +51,7 @@ var validateInput = function(intent, args, assistantContext){
         if (intent.validateInput && typeof(intent.validateInput) === "function"){
             var validationError = intent.validateInput(args, assistantContext);
             if (validationError){
-                assistantContext.say(validationError).finish();
+                assistantContext.say(validationError).finish({exit:true});
                 reject(validationError)                
             } else {
                 resolve();
