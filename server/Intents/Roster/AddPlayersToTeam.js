@@ -36,6 +36,10 @@ var execute = function(args, assistant){
 }
 
 var validateInput = function(args, assistant){
+    if(!assistant.deviceProfile)
+        return Errors.NeedToConnect
+    if(!assistant.deviceProfile.user)
+        return Errors.NeedToConnect
     if(!args.names || args.names.length == 0)
         return "Didn't get a list of players";
     if(!args.teamName || args.teamName.length == 0)

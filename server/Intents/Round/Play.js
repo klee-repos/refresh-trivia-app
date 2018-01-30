@@ -26,6 +26,10 @@ var execute = function(args, assistant){
 }
 
 var validateInput = function(args,assistant){
+    if(!assistant.deviceProfile)
+        return Errors.NeedToConnect
+    if(!assistant.deviceProfile.user)
+        return Errors.NeedToConnect
     return null;
 }
 

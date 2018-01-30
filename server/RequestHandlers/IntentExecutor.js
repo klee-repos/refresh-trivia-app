@@ -16,7 +16,7 @@ var IntentExecutor = function(args, assistantContext){
         })    
     })
     .catch(function(err){
-        console.log(err)
+        console.log("Validation Error: " + err)
     })
 }
 
@@ -51,7 +51,7 @@ var validateInput = function(intent, args, assistantContext){
         if (intent.validateInput && typeof(intent.validateInput) === "function"){
             var validationError = intent.validateInput(args, assistantContext);
             if (validationError){
-                assistantContext.say("Theres an error").finish();
+                assistantContext.say(validationError).finish();
                 reject(validationError)                
             } else {
                 resolve();
