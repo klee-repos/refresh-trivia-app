@@ -1,11 +1,12 @@
 
 var execute = function(args, assistant){
-    let speech = '<speak>Good bye</speak>'
+    console.log('hit')
+    let speech = 'Good bye'
     assistant.say(speech).finish();
 }
 
-var WelcomeIntent = {
+var ExitIntent = {
     execute: execute
 }
 
-module.exports = WelcomeIntent;    
+module.exports = ExitIntent;    

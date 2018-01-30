@@ -14,6 +14,7 @@ var AlexaRequestParser = function(alexaArgs, _res){
             }
         }
         args.intentName = alexaArgs.request.intent.name
+        
     }
     if (alexaArgs.request.type === 'LaunchRequest') {
         args.intentName = 'input.welcome';
