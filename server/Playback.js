@@ -42,7 +42,6 @@ var SpeechBuilder = function(){
 
     this.rate = function(){
         //Audio vs speech
-
         return this;
     }
 

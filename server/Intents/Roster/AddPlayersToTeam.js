@@ -10,6 +10,12 @@ var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game)
         .then(function(game){
+            if (args.teamName === '1') {
+                args.teamName = 'one'
+            }
+            if (args.teamName === '2') {
+                args.teamName = 'two'
+            }
             game.addPlayersToTeam(args.names, args.teamName).then(function(){
                 game.save();
                 SessionManager.sendData(user.sessionCode, 'teamRoster', game.formatRoster());

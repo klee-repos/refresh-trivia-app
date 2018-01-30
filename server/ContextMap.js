@@ -52,7 +52,8 @@ var ContextMap = {
             'connect',
             'goBack',
             'goTo',
-            'guess'
+            'guess',
+            'guessIntent'
         ],
         previous:'readyToStart'
     },
@@ -123,7 +124,8 @@ var ContextMap = {
             'connect',
             'goBack',
             'goTo',
-            'guess'
+            'guess',
+            'guessIntent'
         ],
         previous:'readyToStart'
     },
@@ -145,7 +147,8 @@ var ContextMap = {
             'connect',
             'goBack',
             'goTo',
-            'guess'
+            'guess',
+            'guessIntent'
         ],
         previous:'readyToStart'
     }

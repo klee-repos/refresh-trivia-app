@@ -4,6 +4,7 @@ var ContextMap = require('../ContextMap')
 const User = require('../models/User');
 
 var IntentExecutor = function(args, assistantContext){
+    console.log(args)
     var intent = Intents[args.intentName.toUpperCase()];
     validateInput(intent, args, assistantContext).then(function(){
         requireContext(args, assistantContext).then(function(found) {
