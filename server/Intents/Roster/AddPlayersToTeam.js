@@ -1,6 +1,6 @@
 const Game = require('../../models/Game');
 const SessionManager = require('../../SessionManager')
-
+const Errors = require('../../ErrorMessages')
 const Sounds = require('../../Sounds')
 
 var newContext = 'rosterSetup'

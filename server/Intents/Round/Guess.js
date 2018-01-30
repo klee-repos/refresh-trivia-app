@@ -4,6 +4,7 @@ const Question = require('../../models/Question');
 var ScriptGenerator = require('./GuessScript');
 var Script;
 
+const Errors = require('../../ErrorMessages')
 var correctContext = 'correctAnswer'
 var correctFlashContext = 'correct'
 var incorrectContext = 'steal'
