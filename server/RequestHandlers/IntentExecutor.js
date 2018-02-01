@@ -49,7 +49,7 @@ var requireContext = function(args, assistant) {
 
 var validateInput = function(intent, args, assistantContext){
     return new Promise(function(resolve, reject){
-        if(!intent) reject("No intent by that name");
+        if(!intent) return reject("No intent by that name");
         if (intent.validateInput && typeof(intent.validateInput) === "function"){
             var validationError = intent.validateInput(args, assistantContext);
             if (validationError){
