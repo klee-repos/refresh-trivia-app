@@ -23,7 +23,6 @@ var execute = function(args, assistant){
             category: game.currentCategory,  //ToDo: get random category            
             difficulty: 1 
         }).then(function(newQuestion){
-            console.log(newQuestion)
             game.setQuestions(newQuestion)
             game.setRound(1, 'team1', 0, 1)
             user.setContext(flashContext, ContextMap[newContext].previous);
