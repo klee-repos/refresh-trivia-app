@@ -18,14 +18,22 @@ var execute = function(args, assistant){
         user.save();
     }
     var room = SessionManager.getSession(args.connectCode);
-    console.log(user)
-    SessionManager.sendData(room, 're-connect', user.sessionCode);
-    SessionManager.sendData(room, 'setStatus', newContext);
-    assistant
+    if(room){
+        SessionManager.sendData(room, 're-connect', user.sessionCode);
+        SessionManager.sendData(room, 'setStatus', newContext);
+        assistant
+            .play(Sounds.forward)
+            .say("Connected, use the onscreen prompts to navigate Refresh Trivia")
+            .reprompt.say('Use the onscreen prompts to navigate Refresh Trivia')
+            .finish()
+    } else {
+        assistant
         .play(Sounds.forward)
-        .say("Connected")
-        .reprompt.say('Connected')
+        .say(Errors.NoSessionFoundForConnectCode)
+        .reprompt.say(Errors.NoSessionFoundForConnectCode)
         .finish()
+    }
+
 }
 
 var validateInput = function(args, assistant){
