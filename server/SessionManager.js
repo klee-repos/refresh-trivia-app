@@ -19,6 +19,14 @@ var SessionManager = (function(){
                             for (var key in user.preferences) {
                                 socket.emit(key, user.preferences[key]);
                             }
+                        } else {
+                            socket.emit('disconnectSession', requestedCode);
+                            findFreeConnectCode().then(function(connectCode){
+                                var socketName = guid();
+                                connectingSessions[connectCode] = socketName;
+                                socket.join(socketName);
+                                socket.emit('connectCode', connectCode);
+                            });
                         }
                     })
                 } else {
