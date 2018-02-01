@@ -17,6 +17,7 @@ var IntentExecutor = function(args, assistantContext){
     })
     .catch(function(err){
         console.log("Validation Error: " + err)
+        assistantContext.say(err).finish({"exit":true})
     })
 }
 
@@ -48,6 +49,7 @@ var requireContext = function(args, assistant) {
 
 var validateInput = function(intent, args, assistantContext){
     return new Promise(function(resolve, reject){
+        if(!intent) reject("No intent by that name");
         if (intent.validateInput && typeof(intent.validateInput) === "function"){
             var validationError = intent.validateInput(args, assistantContext);
             if (validationError){
