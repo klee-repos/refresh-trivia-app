@@ -17,7 +17,7 @@ var IntentExecutor = function(args, assistantContext){
     })
     .catch(function(err){
         console.log("Validation Error: " + err)
-        assistantContext.say(err).finish({"exit":true})
+        // assistantContext.say(err).finish({"exit":true})
     })
 }
 
