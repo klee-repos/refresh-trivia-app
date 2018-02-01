@@ -9,6 +9,7 @@ var newContext = 'mainMenu'
 
 var execute = function(args, assistant){
     args.connectCode = args.color + " " + args.animal + " " + args.appliance;
+    console.log("Trying to connect with code: " + args.connectCode)
     var user = assistant.deviceProfile.user;
     if(!user){
         user = new User();        
@@ -27,6 +28,7 @@ var execute = function(args, assistant){
             .reprompt.say('Use the onscreen prompts to navigate Refresh Trivia')
             .finish()
     } else {
+        console.log("Couldn't find a room")
         assistant
         .play(Sounds.forward)
         .say(Errors.NoSessionFoundForConnectCode)
