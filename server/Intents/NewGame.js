@@ -1,6 +1,6 @@
 const SessionManager = require('../SessionManager');
 const Game = require('../models/Game');
-
+const Errors = require('../ErrorMessages');
 const Sounds = require('../Sounds')
 
 var newContext = 'rosterSetup'
@@ -44,9 +44,9 @@ var execute = function(args, assistant){
 
 var validateInput = function(args,assistant){
     if(!assistant.deviceProfile)
-        return "I don't know this device, are you sure that you've connected?"
+        return Errors.NeedToConnect
     if(!assistant.deviceProfile.user)
-        return "Looks like you don't have a user, are you sure that you've connected?"
+        return Errors.NeedToConnect
     return null;
 }
 

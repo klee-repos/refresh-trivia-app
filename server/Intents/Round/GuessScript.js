@@ -53,7 +53,4 @@ var Script = function(_assistant){
    
 }
 
-
-
-
 module.exports = Script

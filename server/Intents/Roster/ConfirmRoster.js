@@ -1,7 +1,7 @@
 const Game = require('../../models/Game');
 const Question = require('../../models/Question');
 const SessionManager = require('../../SessionManager')
-
+const Errors = require('../../ErrorMessages')
 const Sounds = require('../../Sounds')
 const ContextMap = require('../../ContextMap')
 
@@ -43,6 +43,10 @@ var execute = function(args, assistant){
 }
 
 var validateInput = function(args, assistant){
+    if(!assistant.deviceProfile)
+        return Errors.NeedToConnect
+    if(!assistant.deviceProfile.user)
+        return Errors.NeedToConnect
     return null;
 }
 

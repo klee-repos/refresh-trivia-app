@@ -4,6 +4,7 @@ const Question = require('../../models/Question');
 var ScriptGenerator = require('./GuessScript');
 var Script;
 
+const Errors = require('../../ErrorMessages')
 var correctContext = 'correctAnswer'
 var correctFlashContext = 'correct'
 var incorrectContext = 'steal'
@@ -141,6 +142,10 @@ var gameOver = function(game, result, assistant, user){
 }
 
 var validateInput = function(args,assistant){
+    if(!assistant.deviceProfile)
+        return Errors.NeedToConnect
+    if(!assistant.deviceProfile.user)
+        return Errors.NeedToConnect
     return null;
 }
 

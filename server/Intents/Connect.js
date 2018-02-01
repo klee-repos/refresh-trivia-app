@@ -1,7 +1,7 @@
 const SessionManager = require('../SessionManager');
 const User = require('../models/User');
 const Device = require('../models/DeviceProfile');
-
+const Errors = require('../ErrorMessages')
 const Sounds = require('../Sounds')
 
 const ContextMap = require('../ContextMap')
@@ -30,9 +30,9 @@ var execute = function(args, assistant){
 
 var validateInput = function(args, assistant){
     if(!assistant.deviceProfile)
-        return "I don't know this device, are you sure that you've connected?"
+        return Errors.NeedToConnect
     if(!args.color || !args.animal || !args.appliance)
-        return "Missing connect code component"
+        return "I didn't quite get that. Try again or refresh for a new code"
     return null;
 }
 

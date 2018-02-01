@@ -3,6 +3,8 @@ const Sounds = require('../../Sounds')
 var newContext = 'question'
 const ContextMap = require('../../ContextMap')
 var Game = require('../../models/Game')
+const Errors = require('../../ErrorMessages')
+
 var execute = function(args, assistant){
     let user = assistant.deviceProfile.user;
     user.setContext(newContext, ContextMap[newContext].previous);
@@ -26,6 +28,10 @@ var execute = function(args, assistant){
 }
 
 var validateInput = function(args,assistant){
+    if(!assistant.deviceProfile)
+        return Errors.NeedToConnect
+    if(!assistant.deviceProfile.user)
+        return Errors.NeedToConnect
     return null;
 }
 
