@@ -5,6 +5,7 @@ const User = require('../models/User');
 
 var IntentExecutor = function(args, assistantContext){
     var intent = Intents[args.intentName.toUpperCase()];
+    console.log("Starting to execute intent: " + args.intentName)
     validateInput(intent, args, assistantContext).then(function(){
         requireContext(args, assistantContext).then(function(found) {
             if (found) {
