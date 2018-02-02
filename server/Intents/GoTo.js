@@ -9,6 +9,8 @@ var execute = function(args, assistant){
 
     switch(args.page) {
         case 'main menu':
+            user.setContext("mainMenu");
+            user.save();
             SessionManager.sendData(user.sessionCode, 'setGoTo', '');
             break;
         case 'help':
