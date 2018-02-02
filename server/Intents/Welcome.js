@@ -1,8 +1,9 @@
 
 var User = require('../models/User')
-
+var ContextMap = require('../ContextMap')
 var execute = function(args, assistant){
     User.findOne({gAssistantId:args.platformUserId}, function(err, user) {
+
         let speech, repromptSpeech;
         
         if (!user) {
@@ -11,6 +12,11 @@ var execute = function(args, assistant){
         } else {
             speech = "Welcome back"
             repromptSpeech = "Welcome back"
+            console.log(user.context)
+            console.log(ContextMap[user.context].activeIntents)
+            if(ContextMap[user.context].activeIntents.includes("guess")){
+                assistant.setContext('guess', 1)
+            }
         }
         assistant.say(speech).reprompt.say(repromptSpeech).finish();
     })
