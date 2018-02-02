@@ -24,7 +24,7 @@ var execute = function(args, assistant){
         SessionManager.sendData(room, 'setStatus', newContext);
         assistant
             .play(Sounds.forward)
-            .say("Connected, use the onscreen prompts to navigate Refresh Trivia")
+            .say("Connected.").pause("1s").say("use the onscreen prompts to navigate Refresh Trivia")
             .reprompt.say('Use the onscreen prompts to navigate Refresh Trivia')
             .finish()
     } else {
