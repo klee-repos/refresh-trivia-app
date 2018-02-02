@@ -71,7 +71,7 @@ class DashboardContainer extends React.Component {
         var page = this.currentPage();
         return (
             <div className="dashboard">
-                <TopBarContainer />
+                <TopBarContainer loadingStatus={this.props.loadingStatus}/>
                 {page}
             </div>
         )  

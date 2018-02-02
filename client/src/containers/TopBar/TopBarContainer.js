@@ -6,7 +6,7 @@ import {TopBar} from '../../components'
 class TopBarContainer extends Component {
     render() {
         return (
-            <TopBar />
+            <TopBar {...this.props} />
         )
     }
 }
