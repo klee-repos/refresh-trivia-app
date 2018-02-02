@@ -3,14 +3,14 @@ const SessionManager = require('../../SessionManager')
 const Errors = require('../../ErrorMessages')
 const Sounds = require('../../Sounds')
 
-var newContext = 'rosterSetup'
 const ContextMap = require('../../ContextMap')
 
 var execute = function(args, assistant){
+    var newContext = 'rosterSetup'
+    
     let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game)
         .then(function(game){
-            console.log("Adding " + args.names)
             game.addPlayersToTeam(args.names, args.teamName).then(function(){
                 game.save();
                 SessionManager.sendData(user.sessionCode, 'teamRoster', game.formatRoster());
