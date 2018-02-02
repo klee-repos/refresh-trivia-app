@@ -12,8 +12,6 @@ var execute = function(args, assistant){
         } else {
             speech = "Welcome back"
             repromptSpeech = "Welcome back"
-            console.log(user.context)
-            console.log(ContextMap[user.context].activeIntents)
             if(ContextMap[user.context].activeIntents.includes("guess")){
                 assistant.setContext('guess', 1)
             }
