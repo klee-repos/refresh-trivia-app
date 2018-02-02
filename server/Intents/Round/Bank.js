@@ -79,7 +79,7 @@ var execute = function(args, assistant){
             if (teamOneScore === teamTwoScore) {
                 winner = 'Everyone'
             }
-            user.setContext('finish', ContextMap['finish'].previous);
+            user.setContext('finish');
             SessionManager.sendData(user.sessionCode, 'setWinner', winner);
             SessionManager.sendData(user.sessionCode, 'setStatus', 'finish');
             finishAssistant(assistant, winner)
