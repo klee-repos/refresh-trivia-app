@@ -2,6 +2,8 @@
 import React, {Component} from 'react'
 import { NavLink } from 'react-router-dom'
 
+import {SpokenContainer} from '../../containers'
+
 import './topBar.css'
 
 import rfLabsLogo from '../../img/rflabs-logo-website.png'
@@ -18,8 +20,19 @@ class TopBar extends Component {
                         </div>
                     </div>
                     <div className='rightContainer'>
+                        {this.props.loadingStatus !== 'INIT'
+                            ? <div className='goToMain'>
+                                <div className='spokenBoxTop'>
+                                    <img className='speechBubbleTop' src={require(`../../img/speech-bubble-small-inverse.png`)} alt='speechbubble'/>
+                                </div>
+                                <div className='spokenTextTop'>
+                                    <span>Go to main menu</span>
+                                </div>
+                            </div>
+                            : null
+                        }
                         <div className='home'>
-                            <NavLink to='/'><span>Home</span></NavLink>
+                            <NavLink to='/'><span>Trivia</span></NavLink>
                         </div>
                         <div className='home'>
                             <NavLink to='/help'><span>Help</span></NavLink>
