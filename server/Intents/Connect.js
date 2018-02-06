@@ -24,8 +24,8 @@ var execute = function(args, assistant){
         SessionManager.sendData(room, 'setStatus', newContext);
         assistant
             .play(Sounds.forward)
-            .say("Connected.").pause("1s").say("use the onscreen prompts to navigate Refresh Trivia")
-            .reprompt.say('Use the onscreen prompts to navigate Refresh Trivia')
+            .say("Connected.").pause("1s").say("Please use an onscreen command to proceed")
+            .reprompt.say('Use the onscreen prompts to navigate Refresh Trivia or say exit to close')
             .finish()
     } else {
         console.log("Couldn't find a room")

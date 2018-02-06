@@ -25,7 +25,8 @@ var execute = function(args, assistant){
 
     assistant
         .play(Sounds.forward)
-        .say(args.page)
+        .say(args.page).pause("1s").say("Tell me a command to continue.")
+        .reprompt.say('Tell me a command to continue, or say exit to close')
         .finish()
 }
 
