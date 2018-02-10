@@ -11,8 +11,8 @@ class About extends Component {
                     <h1>Refresh Labs</h1>
                 </div>
                 <div className='brief'>
-                    <p>Founded in 2017, Refresh Labs specializes in building platform agnostic conversational applications. </p>
-                    <p>Our in-house tool kit lets us build voice and visual UIs into new and existing applications, that can be invoked from any AI chat provider (i.e Google, Alexa, etc.)</p>
+                    <p>A project team formed in 2017, we are a group of developers and designers creating new and exciting multi-modal experiences for all voice assistants.</p>
+                    <p>This mult-modal trivia demo was created using our open-source cross-platform framework, Ayva.</p>
                 </div>
                 <div className="aboutContact">
                     <h1>Contact Us</h1>
