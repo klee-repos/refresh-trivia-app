@@ -15,9 +15,11 @@ var execute = function(args, assistant){
             break;
         case 'help':
             SessionManager.sendData(user.sessionCode, 'setGoTo', 'help');
+            args.page = 'Help page.';
             break;
         case 'about':
             SessionManager.sendData(user.sessionCode, 'setGoTo', 'about');
+            args.page = 'About page.'
             break
         default:
             SessionManager.sendData(user.sessionCode, 'setGoTo', '');
@@ -25,7 +27,8 @@ var execute = function(args, assistant){
 
     assistant
         .play(Sounds.forward)
-        .say(args.page)
+        .say(args.page).pause("1s").say("Tell me a command to continue.")
+        .reprompt.say('Tell me a command to continue, or say exit to close')
         .finish()
 }
 

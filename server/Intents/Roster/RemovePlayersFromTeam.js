@@ -3,10 +3,10 @@ const SessionManager = require('../../SessionManager')
 const Errors = require('../../ErrorMessages')
 const Sounds = require('../../Sounds')
 
-var newContext = 'rosterSetup'
 const ContextMap = require('../../ContextMap')
 
 var execute = function(args, assistant){
+    var newContext = 'rosterSetup'
     let user = assistant.deviceProfile.user;
     Game.findById(assistant.deviceProfile.user.game).then(function(game){
         game.removePlayersFromTeam(args.names, args.teamName).then(function(){
@@ -15,11 +15,15 @@ var execute = function(args, assistant){
             if(game.getStatus() == "Roster Set") {
                 newContext = 'readyToStart'
                 assistant
-                .say('<speak><audio src="' + Sounds.backward + '"></audio>Removed<desc>. Confirm roster to start the game!</desc></speak>')
+                .play(Sounds.backward)
+                .say("Removed.").pause("1s")
+                .say("Confirm roster to start the game")
                 .finish()
             } else {
                 assistant
-                .say('<speak><audio src="' + Sounds.backward + '"></audio>Removed<desc>. One additional player required on the opposing team to start.</desc></speak>')
+                .play(Sounds.backward)
+                .say("Removed.").pause("1s")
+                .say("One additional player required on the opposing team to start.")
                 .finish()
             }
             user.setContext(newContext, ContextMap[newContext].previous);
