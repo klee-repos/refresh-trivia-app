@@ -2,8 +2,6 @@
 import React, {Component} from 'react'
 import { NavLink } from 'react-router-dom'
 
-import {SpokenContainer} from '../../containers'
-
 import './topBar.css'
 
 import rfLabsLogo from '../../img/rflabs-logo-website.png'

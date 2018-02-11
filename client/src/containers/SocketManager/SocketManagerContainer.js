@@ -9,10 +9,6 @@ import * as gameActionCreators from '../../redux/modules/game'
 import socket from '../../config/socket';
 import axios from 'axios'
 
-import { Redirect } from 'react-router-dom'
-
-
-
 class SocketManagerContainer extends Component {
 
     constructor(props) {
