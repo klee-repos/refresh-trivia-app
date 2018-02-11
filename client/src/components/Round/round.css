@@ -3,16 +3,7 @@
 ---------------------
 */
 
-.roundBox {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-}
 
-.roundBox h1 {
-    font-size: 250%;
-}
 
 /* RoundStart 
 ---------------------
@@ -61,6 +52,17 @@
 ---------------------
 ---------------------
 */
+
+.roundBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.roundBox h1 {
+    margin-top: 10px;
+}
 
 .roundTitleBar_TeamOne{
     display: flex;
