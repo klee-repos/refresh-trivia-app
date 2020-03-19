@@ -1,0 +1,8 @@
+node_modules
+importedFiles
+logs
+yarn-error.log
+.vscode
+.git
+
+.env
